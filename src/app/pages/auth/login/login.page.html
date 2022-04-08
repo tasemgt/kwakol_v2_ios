@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true" class="page-content">
+  <div class="auth-banner">
+    <img src="assets/icon/kwakol-logo.svg">
+  </div>
+
+  <h3>Welcome Back</h3>
+  <p class="title">Right on time. There's money to be made</p>
+
+
+  <form class="auth-form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+    <ion-row class="row-auth">
+      <ion-col size="12" class="kwakol-input">
+        <ion-item>
+          <ion-input placeholder="Email Address" type="email" name="email" ngModel #email="ngModel" required></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="kwakol-input">
+        <ion-item class="password-input">
+          <ion-input placeholder="Password" [type]="passwordType" name="password" ngModel #password="ngModel" required></ion-input>
+          <!-- <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon> -->
+        </ion-item>
+        <p class="forgot-password"><a [routerLink]="'/forgot-password'">Forgot Password?</a></p>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center btn-col">
+        <ion-button class="kwakol-btn ion-text-uppercase" type="submit">Login</ion-button>
+      </ion-col>
+      <ion-col size="12" class="cta-text">
+        <p>Don't have an account? <a [routerLink]="'/register'">Sign Up</a></p>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

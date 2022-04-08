@@ -1,0 +1,19 @@
+ion-tab-bar{
+    --background: var(--ion-color-tertiary);
+    --border: 1px solid var(--ion-color-tertiary);
+    height: 4rem;
+  }
+  
+  ion-tab-button{
+    ion-icon{
+      font-size: 3.8rem;
+      opacity: .5;
+
+      &.active{
+        opacity: 1;
+      }
+    }
+
+
+
+}  

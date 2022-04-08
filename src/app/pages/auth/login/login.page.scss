@@ -1,0 +1,31 @@
+.auth-banner{
+    padding: 9rem 1.35rem;
+    margin: 0 -1.8rem;
+    background: linear-gradient(103.58deg, #211F42 21.06%, #51AF4E 102.24%);
+    text-align: center;
+
+    img{
+        width: 11.5rem;
+    }
+}
+
+h3,p { margin: 0; }
+
+h3{
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    font-family: BwModelicaBold;
+    color: var(--ion-color-primary);
+}
+
+p.title{
+    color: var(--ion-color-secondary);
+}
+
+.auth-form{
+    margin-top: 1rem;
+}
+
+.btn-col{
+    margin-top: 7rem;
+}

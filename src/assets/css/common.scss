@@ -1,0 +1,342 @@
+// Common global styles for whole app
+
+ion-content{
+    --background: var(--ion-color-tertiary);
+  }
+  
+  ion-content.page-content{
+      --padding-start: 1.8rem;
+      --padding-end: 1.8rem;
+      --color: var(--ion-color-secondary);
+  }
+  
+  ion-toast{
+    --color: #FFF;
+    // margin-top: 1.5rem;
+    --width: 100%;
+    --start: 0;
+  }
+  
+  /** Typography Sylings **/
+  h1{
+    font-size: 1.7rem;
+  }
+  
+  h2{
+    font-size: 1.5rem;
+  }
+  
+  h3{
+    font-size: 1.15rem;
+  }
+  
+  h4{
+    font-size: 1.1rem;
+  }
+  
+  h5{
+    font-size: .9rem;
+  }
+  
+  p{
+    font-size: .9rem;
+    font-family: BwModelicaLight;
+    // font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  
+  .validator-text{
+    // font-family: PoppinsBold;
+    float: right;
+    font-size: .8rem;
+    background: var(--ion-color-danger);
+    padding: .1rem .3rem;
+    color: #FFF;
+    border-radius: 100px;
+  }
+  
+  /*
+      Back button for subpages
+  */
+  .back-button{
+      ion-icon{
+          font-size: 1.3rem;
+          position: absolute;
+          top: 5rem;
+          left: 1.2rem;
+          z-index: 100;
+          display: inline-block;
+          &.wrapper{
+            background-color: #FFF;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+      }
+  }
+  
+  /* Headings for subpages */
+    h2.subpage-heading{
+      margin: 5rem 0 2rem 0;
+      text-align: right;
+      // padding-right: 1.3rem;
+      font-family: BwModelicaExtraBold;
+    }
+  
+
+//Grid style
+ion-grid{
+    --ion-grid-padding: 1.7rem;
+    ion-col{ margin: 0px; }
+
+    //For Auth pages
+    &.auth-body{
+        .row-logo{
+            margin-top: 1.5rem;
+            margin-bottom: 12rem;
+            transition: margin-bottom ease-out .3s;
+
+            ion-col.logo-area{
+                margin-left: -1.8rem; //Accounts for the overall grid padding of 1.8rem
+                img{
+                  max-width: 70%;
+                  transition: max-width ease-out .3s;
+
+                  &.shrink{
+                      max-width: 50%;
+                  }
+                }
+            }
+
+            &.slide-up{
+                margin-bottom: 0px;
+            }
+          }
+          
+          h1{
+            font-size: 2.5rem;
+          }
+
+          .bartum-input{
+            margin-bottom: .8rem;
+          }
+    }
+
+}
+
+
+
+/** 
+    Kwakol Inputs
+**/
+
+ion-col{
+    margin: 0.1rem auto;
+
+}.kwakol-input{
+
+    ion-icon{
+        color: var(--ion-color-secondary);
+        
+        &.symbol{
+            color: rgb(130, 130, 130);
+            font-size: .8rem;
+        }
+    }
+    
+    ion-item{
+        --background: #FFF;
+        --border-width: .05rem;
+        --border-radius: 7px;
+        --border-color: rgba(var(--ion-color-primary-rgb), .5);
+        --highlight-height: 0px;
+        --highlight-color-focused: transparent;
+        --highlight-color-invalid: transparent;
+        --highlight-color-valid: transparent;
+        --inner-border-width: 0px;
+        --inner-padding-bottom: .5rem;
+        --inner-padding-top: .5rem;
+        margin-bottom: .6rem;
+
+
+        &::part(native){
+          border-bottom-color: rgba(var(--ion-color-primary-rgb), .5);
+        }
+
+        ion-label{
+            opacity: 0.8;
+        }
+
+        &.select-box{
+            --background: #fff;
+        }
+    
+    }
+
+    ion-input {
+        --color: var(--ion-color-secondary);
+        // font-size: initial;
+        --ion-font-family: BwModelicaRegular;
+        --placeholder-color: var(--ion-color-secondary);
+        --placeholder-opacity: .9;
+        --highlight-color-focused: transparent;
+        --highlight-color-invalid: transparent;
+        --highlight-color-valid: transparent;
+
+        .has-focus.sc-ion-input-md{
+          // pointer-events: 
+        }
+
+        .native-input.sc-ion-input-md,
+        .native-input.sc-ion-input-ios{
+            font-size: .9rem;
+            caret-color: var(--ion-color-secondary);
+        }
+    }
+}
+
+//Kwakol Buttons
+ion-button.kwakol-btn{
+    --ion-font-family: BwModelicaMedium;
+    --color: var(--ion-color-tertiary);
+    --border-radius: 5px;
+    margin: 0px;
+    width: 100%;
+    height: 3.3rem;
+    --box-shadow: 5px 5px 15px 0px rgba(30, 51, 0, .1);
+
+    &.kwakol-btn-inverse{
+        // font-weight: bolder;
+        --background: var(--ion-color-tertiary);
+        --color: var(--ion-color-primary);
+        --background-activated: var(--ion-color-tertiary);
+        --background-focused: var(--ion-color-tertiary);
+        --background-hover: var(--ion-color-tertiary);
+        --border-color: var(--ion-color-tertiary);
+        --border-style: solid;
+        --border-width: 1px;
+    }
+
+    &.kwakol-btn-outline{
+        --background: transparent;
+        color: var(--ion-color-primary);
+        --background-activated: transparent;
+        --background-focused: transparent;
+        --background-hover: transparent;
+        --border-color: var(--ion-color-secondary);
+        --border-style: solid;
+        --border-width: 1px;
+
+        &.white{
+            color: #FFF;
+            --border-color: #FFF !important;
+        }
+    }
+}
+
+/** 
+    Authentication Pages
+**/
+.auth-form{
+    .row-auth{
+
+      ion-col{
+        padding: 0;
+      }
+
+      .kwakol-input{
+        .forgot-password{
+          margin-top: 1rem;
+          letter-spacing: .02em;
+          a{
+            color: var(--ion-color-secondary) !important;
+            text-decoration: none;
+            font-size: .75rem;
+          }
+        }
+      }
+
+      .cta-text{
+        p{
+          margin-top: .6rem;
+          text-decoration: underline;
+          color: var(--ion-text-gray-color);
+          letter-spacing: .02em;
+          font-family: BwModelicaLight;
+          font-size: .75rem;
+          text-align: center;
+          a{
+            color: var(--ion-color-primary);
+          }
+        }
+      }
+        
+      .password-input{
+        position: relative;
+      }
+      
+      .passwordIcon{
+        position: absolute;
+        right: 1rem;
+        font-size: 1.3rem;
+        z-index: 1000;
+      }
+    }
+}
+
+
+/** 
+    Tabs Area Styles
+**/
+
+.tab-page-header{
+    padding: 2.5rem 0 .6rem 0;
+    background-color: var(--ion-color-primary);
+    position: relative;
+    // border-radius: 0 0 16px 16px;
+    
+    h1{
+      color: #FFF;
+      font-size: 2rem;
+      font-family: BwModelicaBold;
+      margin-bottom: .3rem;
+    }
+    hr{
+      height: .55rem;
+      width: 25%;
+      background-color: var(--ion-color-secondary);
+      margin: 0px auto;
+      border-radius: 10px;
+    }
+}
+
+
+
+/** 
+    Modals Styles
+**/
+
+
+
+  /* smaller devices */
+@media only screen and (max-width: 375px) {
+    .name-heading{
+        margin: 0;
+        p{ margin: .1rem auto .5rem auto; }
+    }
+}
+
+
+//Alert Styles
+.yes-button{
+    color: var(--ion-color-secondary) !important;
+}
+
+//For normalizing the disabled input on Home page
+.native-input[disabled].sc-ion-input-md,
+.native-input[disabled].sc-ion-input-ios{
+    opacity: 1;
+}
+
+ion-refresher.refresher-native.refresher-refreshing ion-refresher-content .refresher-refreshing{
+    margin-top: 2rem;
+}

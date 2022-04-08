@@ -1,0 +1,198 @@
+h2,h3,h4,p{
+    margin: 0;
+}
+
+p{
+    letter-spacing: .04em;
+}
+
+.header{
+    position: relative;
+    h3{
+        margin: 5.5rem 0 .3rem 0;
+        font-size: 1.25rem;
+        font-family: BwModelicaBold;
+        color: var(--ion-color-primary);
+    }
+    p{
+        font-size: 0.7rem;
+        font-family: BwModelicaLight;
+    }
+    ion-icon{
+        position: absolute;
+        right: 0rem;
+        top: 0.3rem;
+        font-size: 1.6rem;
+    }
+}
+
+.summary{
+    margin: 1rem 0;
+    padding: 1.1rem;
+    background: linear-gradient(103.58deg, #211F42 21.06%, #51AF4E 102.24%);
+    box-shadow: 0px 3px 4px rgba(33, 31, 66, 0.1);
+    color: var(--ion-color-tertiary);
+    text-align: center;
+    border-radius: 5px;
+    font-family: BwModelicaLight;
+
+    p{ font-size: .7rem; }
+
+    h2{ 
+        font-size: 1.9rem;
+        margin-bottom: 1rem;
+    }
+
+    ion-icon{
+        font-size: 3.8rem;
+        display: inline-block;
+        &:nth-of-type(1){
+            margin-right: .4rem;
+        }
+        &:nth-of-type(2){
+            margin-left: .4rem;
+        }
+    }
+}
+
+p.my-portfolio{
+    margin-top: 1.9rem;
+    font-family: BwModelicaBold;
+    font-size: .7rem;
+    position: relative;
+    letter-spacing: .05em;
+
+    span{
+        float: right;
+        font-family: BwModelicaLight;
+
+        ion-icon{
+            position: absolute;
+            right: 9.5rem;
+            font-size: 1rem;
+        }
+    }
+}
+
+ion-row.investments-wrapper{
+    overflow-y: scroll;
+    flex-wrap: nowrap;
+    margin: 1rem -1.35rem;
+
+    &::-webkit-scrollbar {
+      display: none; //Disables browser's default scroll bar
+    }
+
+    ion-col{
+      padding: 0;
+      margin-right: -1rem;
+    }
+
+    ion-col:first-child{
+      padding-left: 1.3rem;
+      margin-right: 1rem;
+      // padding-top: 3rem;
+      .add-investment{
+        padding: 0.5rem 0.3rem 0.3rem 0.3rem;
+        margin: 2.5rem 0;
+        text-align: center;
+        font-size: .75rem;
+        background-color: var(--ion-color-tertiary);
+        height: 36%;
+        border-radius: 6px;
+        border: 1px solid var(--ion-light-green-color);
+        width: 100%;
+      }
+    }
+}
+
+.investment-item{
+    background-color: #FFF;
+    border: 1px solid var(--ion-light-green-color);
+    border-radius: 7px;
+    padding: .7rem;
+    width: 83%;
+
+    p{
+      font-size: .73rem;
+      font-family: BwModelicaRegular;
+    }
+
+    h4{
+        font-family: BwModelicaBold;
+        color: var(--ion-color-primary);
+    }
+
+    .type-area{
+        padding: .5rem;
+        border-radius: 4px;
+        margin-top: 1rem;
+        &.levadura{
+            background-color: var(--ion-light-green-color);
+        }
+        &.marigold{
+            background-color: var(--ion-light-blue-color);
+        }
+        ion-icon{
+            font-size: 1.3rem;
+        }
+        h4{
+            color: var(--ion-color-secondary);
+        }
+    }
+}
+
+.account-history{
+    font-family: BwModelicaMedium;
+    font-size: .7rem;
+    span{
+        float: right;
+        color: var(--ion-color-primary);
+        font-family: BwModelicaLight;
+    }
+}
+
+.history-list{
+    margin-top: .5rem;
+    .history{
+        span{ float: right;}
+        position: relative;
+        padding: .6rem 0 .6rem 3rem;
+        border-bottom: 1px solid rgba(var(--ion-light-green-color-rgb), .6);
+
+        ion-icon{
+            position: absolute;
+            left: 0;
+            top: .5rem;
+            font-size: 2.5rem;
+        }
+
+        h4{
+            margin-bottom: .2rem;
+            span{
+                color: var(--ion-color-primary);
+                font-family: BwModelicaMedium;
+                font-size: 1rem;
+
+                &.with, &.dep{
+                    position: absolute;
+                    right: 0;
+                    top: 1.2rem;
+                }
+
+                &.with{
+                    color: rgba(var(--ion-text-gray-color-rgb), .9);
+                }
+
+                &.dep{
+                    color: var(--ion-color-primary);
+                }
+            }
+        }
+        p{
+            font-size: .8rem;
+            color: var(--ion-text-gray-color);//rgba(var(--ion-text-gray-color-rgb), .8);
+            font-family: BwModelicaHairline;
+        }
+    }
+}

@@ -1,0 +1,86 @@
+@font-face {
+  font-family: BwModelicaHairline;
+  src: url('../fonts/BwModelica-Hairline.woff2');
+}
+
+@font-face {
+  font-family: BwModelicaLight;
+  src: url('../fonts/BwModelica-Light.woff2');
+}
+
+@font-face {
+  font-family: BwModelicaRegular;
+  src: url('../fonts/BwModelica-Regular.woff2');
+}
+
+@font-face {
+  font-family: BwModelicaMedium;
+  src: url('../fonts/BwModelica-Medium.woff2');
+}
+
+@font-face {
+  font-family: BwModelicaBold;
+  src: url('../fonts/BwModelica-Bold.woff2');
+}
+
+@font-face {
+  font-family: BwModelicaExtraBold;
+  src: url('../fonts/BwModelica-ExtraBold.woff2');
+}
+
+@font-face {
+  font-family: BwModelicaBlack;
+  src: url('../fonts/BwModelica-Black.woff2');
+}
+
+
+*{
+  --ion-font-family: BwModelicaRegular;
+}
+
+html{
+  font-size: 100%; //16px
+  // font-size: 107%; //17.12px
+}
+
+// @media (max-height: 896px) {
+//   //For iphone 11 size...
+//   html{
+//     font-size: 104%;
+//   }
+// }
+
+// @media only screen and (max-height: 875px) { //a3 xiaomi
+//   html{
+//     font-size: 106%;
+//   }
+// }
+
+// /* smaller devices */
+@media only screen and (min-width: 375px) and (max-width: 376px) and (max-height: 812px) {
+  //For iphone X
+  html{
+    font-size: 96%;
+  }
+}
+
+@media only screen and (max-width: 360px) and (max-height: 740px) {
+  //Smaller galaxy S9
+  html{
+    font-size: 92%;
+  }
+}
+
+// @media screen and (max-width: 360px), (max-height: 736px) {
+//   //For iphone 6/7/8 plus size...
+//   html{
+//     font-size: 88%;
+//   }
+// }
+
+// @media only screen and (max-width: 375px), (max-height: 667px) {
+//   //For iphone 6/7/8 size...
+//   html{
+//     font-size: 85%;
+//   }
+// }

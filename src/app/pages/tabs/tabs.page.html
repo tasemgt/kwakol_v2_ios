@@ -1,0 +1,28 @@
+<ion-tabs (ionTabsWillChange)="onTabChange()" #tabs>
+
+  <ion-tab-bar slot="bottom">
+
+    <ion-tab-button tab="home">
+      <ion-icon [ngClass]="{'active' : tabList.home}"  src="assets/icon/tabs/home-active.svg"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="portfolio">
+      <ion-icon [ngClass]="{'active' : tabList.portfolio}" src="assets/icon/tabs/portfolio-active.svg"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="history">
+      <ion-icon [ngClass]="{'active' : tabList.history}" src="assets/icon/tabs/history-active.svg"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="feed">
+      <ion-icon [ngClass]="{'active' : tabList.feed}" src="assets/icon/tabs/feed-active.svg"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile">
+      <ion-icon [ngClass]="{'active' : tabList.profile}" src="assets/icon/tabs/profile-active.svg"></ion-icon>
+    </ion-tab-button>
+
+
+  </ion-tab-bar>
+
+</ion-tabs>
