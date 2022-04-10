@@ -12,7 +12,7 @@
   </div>
 
   <div class="wrapper investment" *ngIf="type === 'investment'">
-    <h3>choose Investment Account</h3>
+    <h3>Choose Investment Account</h3>
     <p>Which account would you like to deposit to?</p>
     <h5 *ngFor="let investment of investments" (click)="onTapInvestment(investment)">
       <span class="bullet" [ngClass]="{'selected': investment.selected}"></span>
@@ -23,4 +23,14 @@
       </span>
     </h5>
   </div>
+
+  <div class="wrapper currencie" *ngIf="type === 'currency'">
+    <h3>Select Currency</h3>
+    <p>Choose the currency you would like to make your deposit in</p>
+    <h5 *ngFor="let currency of currencies" (click)="onTapCurrency(currency)">
+      <span class="bullet" [ngClass]="{'selected': currency.selected}"></span>
+      {{ currency.name }}
+    </h5>
+  </div>
+
 </ion-content>

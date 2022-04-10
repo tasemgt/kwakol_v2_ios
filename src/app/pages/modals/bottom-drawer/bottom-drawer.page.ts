@@ -12,6 +12,7 @@ export class BottomDrawerPage implements OnInit {
 
   public selectedBank;
   public selectedInvestment;
+  public selectedCurrency;
 
   @Input() type;
 
@@ -28,6 +29,14 @@ export class BottomDrawerPage implements OnInit {
     { name: 'Jūnzi', balance: '15,655.01', selected: false }
   ];
 
+  public currencies = [
+    { name: '$ USD ', selected: false },
+    { name: 'N NGN', selected: false },
+    { name: 'Euro', selected: false },
+    { name: '£ GBP', selected: false }
+  ];
+
+
   constructor(
     private modalCtrl: ModalController,
     private dataService: DataService) { }
@@ -35,6 +44,7 @@ export class BottomDrawerPage implements OnInit {
   ngOnInit() {
     this.selectedBank = this.dataService.getBank();
     this.selectedInvestment = this.dataService.getInvestment();
+    this.selectedCurrency = this.dataService.getCurrency();
     console.log(this.selectedBank);
     this.initializeList();
   }
@@ -51,6 +61,12 @@ export class BottomDrawerPage implements OnInit {
     this.closeModal({type: 'investment', data:investment});
   }
 
+  public onTapCurrency(currency){
+    currency.selected = true;
+    this.dataService.setCurrency(currency);
+    this.closeModal({type: 'currency', data:currency});
+  }
+
 
   private closeModal(data: any){
     this.modalCtrl.dismiss({data});
@@ -65,6 +81,10 @@ export class BottomDrawerPage implements OnInit {
     if(this.selectedInvestment){
       const inv = this.investments.find(inv => inv.name === this.selectedInvestment.name);
       inv.selected = true;
+     }
+     if(this.selectedCurrency){
+      const cur = this.currencies.find(c => c.name === this.selectedCurrency.name);
+      cur.selected = true;
      }
   }
 

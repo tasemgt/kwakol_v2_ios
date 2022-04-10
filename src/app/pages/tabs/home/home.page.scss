@@ -9,7 +9,7 @@ p{
 .header{
     position: relative;
     h3{
-        margin: 5.5rem 0 .3rem 0;
+        margin: 5rem 0 .3rem 0;
         font-size: 1.25rem;
         font-family: BwModelicaBold;
         color: var(--ion-color-primary);
@@ -149,50 +149,5 @@ ion-row.investments-wrapper{
         float: right;
         color: var(--ion-color-primary);
         font-family: BwModelicaLight;
-    }
-}
-
-.history-list{
-    margin-top: .5rem;
-    .history{
-        span{ float: right;}
-        position: relative;
-        padding: .6rem 0 .6rem 3rem;
-        border-bottom: 1px solid rgba(var(--ion-light-green-color-rgb), .6);
-
-        ion-icon{
-            position: absolute;
-            left: 0;
-            top: .5rem;
-            font-size: 2.5rem;
-        }
-
-        h4{
-            margin-bottom: .2rem;
-            span{
-                color: var(--ion-color-primary);
-                font-family: BwModelicaMedium;
-                font-size: 1rem;
-
-                &.with, &.dep{
-                    position: absolute;
-                    right: 0;
-                    top: 1.2rem;
-                }
-
-                &.with{
-                    color: rgba(var(--ion-text-gray-color-rgb), .9);
-                }
-
-                &.dep{
-                    color: var(--ion-color-primary);
-                }
-            }
-        }
-        p{
-            font-size: .8rem;
-            color: var(--ion-text-gray2-color);//rgba(var(--ion-text-gray-color-rgb), .8);
-            font-family: BwModelicaHairline;
-        }
     }
 }

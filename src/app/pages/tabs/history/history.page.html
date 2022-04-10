@@ -1,16 +1,36 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="page-content tab-page-white">
+  <div class="auth-banner">
+    <h3>History</h3>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">History</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-row class="types-wrapper">
+    <ion-col size="6">
+      <div class="type profit">
+        <ion-icon src="assets/icon/history/profit.svg"></ion-icon>
+        Profits
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="investment-item">
+        <p>Balance</p>
+        <h4>$7,534.59</h4>
+        <div class="type-area marigold">
+          <ion-icon src="assets/icon/inv-type/marigold.svg"></ion-icon>
+          <h4>Marigold</h4>
+        </div>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="investment-item">
+        <p>Balance</p>
+        <h4>$1,255.49</h4>
+        <div class="type-area levadura">
+          <ion-icon src="assets/icon/inv-type/levadura.svg"></ion-icon>
+          <h4>Levadura</h4>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  
 
 </ion-content>

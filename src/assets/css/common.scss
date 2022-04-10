@@ -88,7 +88,7 @@ ion-content{
 
     h1.subheader{
       font-family: BwModelicaRegular;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       width: 90%;
     }
   
@@ -350,6 +350,122 @@ ion-button.kwakol-btn{
   }
 }
 
+
+/* Shared styles Pages */
+/* Deposit, Account, Withdrawal */
+.currency{
+  background-color: var(--ion-light-green-color);
+  position: relative;
+  margin-bottom: 1rem;
+  width: 27%;
+  text-align: center;
+  padding: .8rem 1rem .8rem 0;
+  font-family: BwModelicaMedium;
+  font-size: .9rem;
+  border-radius: 5px;
+
+  ion-icon{
+      position: absolute;
+      top: 0.85rem;
+
+      &.dollar{
+          top: .9rem;
+          font-size: .85rem;
+          left: .8rem;
+      }
+      &.arrow-down{
+          right: 0.5rem;
+          font-size: 1rem;
+      }
+  }
+}
+
+.selected-bank{
+  border: 1px solid var(--ion-light-green-color);
+  box-shadow: 0px 3px 4px rgba(33, 31, 66, 0.1);
+  padding: .625rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+
+  p{
+      color: var(--ion-text-gray-color);
+      letter-spacing: .02em;
+      font-family: BwModelicaLight;
+      margin: .3rem 0;
+      span{ float: right; color: var(--ion-color-primary);}
+
+      &:last-child{
+          span{ color: var(--ion-color-secondary);}
+      }
+  }
+}
+
+.upload{
+  border: 2px dashed var(--ion-light-green2-color);
+  padding: .7rem .6rem .7rem 5rem;
+  position: relative;
+  margin-bottom: 7rem;
+
+  ion-icon{
+      position: absolute;
+      left: 1.2rem;
+      font-size: 2.5rem;
+  }
+  
+  p:nth-of-type(1){
+      color: var(--ion-color-primary);
+      margin-bottom: .3rem;
+  }
+  p:nth-of-type(2){
+      font-size: .65rem;
+  }
+}
+
+
+.history-list{
+  margin-top: .5rem;
+  .history{
+      span{ float: right;}
+      position: relative;
+      padding: .6rem 0 .6rem 3rem;
+      border-bottom: 1px solid rgba(var(--ion-light-green-color-rgb), .6);
+
+      ion-icon{
+          position: absolute;
+          left: 0;
+          top: .5rem;
+          font-size: 2.5rem;
+      }
+
+      h4{
+          margin-bottom: .2rem;
+          span{
+              color: var(--ion-color-primary);
+              font-family: BwModelicaMedium;
+              font-size: 1rem;
+
+              &.with, &.dep{
+                  position: absolute;
+                  right: 0;
+                  top: 1.2rem;
+              }
+
+              &.with{
+                  color: rgba(var(--ion-text-gray-color-rgb), .9);
+              }
+
+              &.dep{
+                  color: var(--ion-color-primary);
+              }
+          }
+      }
+      p{
+          font-size: .8rem;
+          color: var(--ion-text-gray2-color);//rgba(var(--ion-text-gray-color-rgb), .8);
+          font-family: BwModelicaHairline;
+      }
+  }
+}
 
 
   /* smaller devices */

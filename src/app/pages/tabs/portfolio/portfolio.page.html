@@ -5,7 +5,7 @@
 
   <div class="investments">
 
-    <div class="investment">
+    <div class="investment" (click)="goToInvestmentDetails()">
       <ion-icon src="assets/icon/inv-type/levadura-big.svg"></ion-icon>
         Levadura
         <span>$1,255.49</span>
@@ -23,7 +23,7 @@
         <span>$15,655.01</span>
     </div>
 
-    <ion-button class="kwakol-btn round ion-text-uppercase" type="button">
+    <ion-button class="kwakol-btn round ion-text-uppercase" type="button" (click)="goToNewAccount()">
       <ion-icon slot="start" src="assets/icon/plus-white.svg"></ion-icon>
       New Account
     </ion-button>

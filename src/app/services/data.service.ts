@@ -9,6 +9,7 @@ export class DataService {
   private authToken = '';
   private bank;
   private investment;
+  private currency;
 
   constructor() {
   }
@@ -41,11 +42,31 @@ export class DataService {
     return this.bank;
   }
 
+  clearBank(){
+    this.bank = null;
+  }
+
   setInvestment(investment){
     this.investment = investment;
   }
 
   getInvestment(){
     return this.investment;
+  }
+
+  clearInvestment(){
+    this.investment = null;
+  }
+
+  setCurrency(currency){
+    this.currency = currency;
+  }
+
+  getCurrency(){
+    return this.currency;
+  }
+
+  clearCurrency(){
+    this.currency = null;
   }
 }

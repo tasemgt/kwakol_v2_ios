@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-portfolio',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
 })
 export class PortfolioPage {
 
-  constructor() {}
+  constructor(private router: Router) {}
 
+  public goToInvestmentDetails(){
+    this.router.navigateByUrl('/investment-details', {state: {url:this.router.url}});
+  }
+
+  public goToNewAccount(){
+    this.router.navigateByUrl('/new-account', {state: {url:this.router.url}});
+  }
 }

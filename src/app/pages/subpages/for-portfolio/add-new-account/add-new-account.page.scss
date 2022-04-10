@@ -1,0 +1,53 @@
+p{
+    letter-spacing: .02em;
+    margin: 0;
+    font-family: BwModelicaRegular;
+}
+
+h1.subheader{
+    margin-bottom: 1.3rem;
+}
+
+ion-col.kwakol-input{
+
+    ion-item.select-input{
+        font-size: .9rem;
+    }
+
+    ion-input{
+        --padding-top: 0;
+        --padding-bottom: 0;
+    }
+    ion-icon{
+        position: absolute;
+        top: 0.9rem;
+        right: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+p.proof{
+    margin: .5rem 0;
+}
+
+.upload{
+    margin-bottom: 1.3rem;
+}
+
+.about{
+    margin-bottom: 1rem;
+    padding: .5rem;
+    border: 1px solid var(--ion-light-green-color);
+    border-radius: 5px;
+    .item{
+        font-size: .875rem;
+        position: relative;
+        padding: .5rem 0rem .5rem 2rem;
+
+        ion-icon{
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+        }
+    }
+}

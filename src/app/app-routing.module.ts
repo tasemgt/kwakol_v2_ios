@@ -43,6 +43,14 @@ const routes: Routes = [
   {
     path: 'new-account',
     loadChildren: () => import('./pages/subpages/for-portfolio/new-account/new-account.module').then( m => m.NewAccountPageModule)
+  },
+  {
+    path: 'investment-details',
+    loadChildren: () => import('./pages/subpages/for-portfolio/investment-details/investment-details.module').then( m => m.InvestmentDetailsPageModule)
+  },
+  {
+    path: 'add-new-account',
+    loadChildren: () => import('./pages/subpages/for-portfolio/add-new-account/add-new-account.module').then( m => m.AddNewAccountPageModule)
   }
 ];
 @NgModule({

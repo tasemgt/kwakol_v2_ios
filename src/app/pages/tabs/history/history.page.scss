@@ -1,0 +1,30 @@
+h3,p{
+    margin: 0;
+}
+
+.auth-banner{
+    padding: 6rem 1.35rem 2rem 1.35rem;
+    margin: 0 -1.8rem;
+    background: linear-gradient(103.58deg, #211F42 21.06%, #51AF4E 102.24%);
+
+    h3{
+        color: var(--ion-color-tertiary);
+        font-family: BwModelicaBold;
+        font-size: 1.25rem;
+    }
+}
+
+ion-row.types-wrapper{
+    overflow-y: scroll;
+    flex-wrap: nowrap;
+    margin: 1rem -1.35rem;
+
+    &::-webkit-scrollbar {
+      display: none; //Disables browser's default scroll bar
+    }
+
+    ion-col{
+      padding: 0;
+      margin-right: -1rem;
+    }
+}

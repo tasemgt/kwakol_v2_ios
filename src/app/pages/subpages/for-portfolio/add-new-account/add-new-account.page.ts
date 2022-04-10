@@ -1,31 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
-import { DataService } from 'src/app/services/data.service';
-import { UtilService } from 'src/app/services/util.service';
 
 @Component({
-  selector: 'app-deposit',
-  templateUrl: './deposit.page.html',
-  styleUrls: ['./deposit.page.scss'],
+  selector: 'app-add-new-account',
+  templateUrl: './add-new-account.page.html',
+  styleUrls: ['./add-new-account.page.scss'],
 })
-export class DepositPage implements OnInit, OnDestroy{
+export class AddNewAccountPage implements OnInit {
 
   private modal: HTMLIonModalElement;
 
+  public selectedBank: any;
+  public selectedCurrency: any;
   public fromPage: string;
   public amount: string;
 
-  public selectedBank: any;
-  public selectedInvestment: any;
-
   constructor(
-    private router: Router,
-    private util: UtilService,
-    private dataService: DataService,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private router: Router) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
     }
@@ -33,11 +27,10 @@ export class DepositPage implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.selectedBank = {name: 'Select Bank'};
-    this.selectedInvestment = {name: 'Select Investment Account'};
+    this.selectedCurrency = {name: '$ USD'};
   }
 
-  public confirm(){
-    this.util.presentAlertModal('depositConfirm');
+  public continue(){
   }
 
   public onTapSelect(type: string){
@@ -63,12 +56,9 @@ export class DepositPage implements OnInit, OnDestroy{
     if(data.data.type === 'bank'){
       this.selectedBank = data.data.data;
     }
-    else if(data.data.type === 'investment'){
-      this.selectedInvestment = data.data.data;
+    else if(data.data.type === 'currency'){
+      this.selectedCurrency = data.data.data;
     }
   }
 
-  ngOnDestroy(): void {
-    // this.dataService.
-  }
 }
