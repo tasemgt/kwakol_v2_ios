@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" class="page-content">
+<ion-content [fullscreen]="true" class="page-content tab-page-white">
   <div class="header">
     <h3>Hi Aliyu,</h3>
     <p>Hope you're having a great afternoon.</p>
@@ -8,8 +8,8 @@
   <div class="summary">
     <img src="assets/icon/text-svgs/total-funds.svg">
     <h2>$65,428.60</h2>
-    <ion-icon src="assets/icon/home-deposit.svg"></ion-icon>
-    <ion-icon src="assets/icon/home-withdraw.svg"></ion-icon>
+    <ion-icon src="assets/icon/home-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
+    <ion-icon src="assets/icon/home-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
   </div>
 
   <p class="my-portfolio">My Portfolio <span><ion-icon src="assets/icon/plus.svg"></ion-icon>Add Investment Account</span></p>

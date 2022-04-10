@@ -7,6 +7,8 @@ export class DataService {
 
   private data = [];
   private authToken = '';
+  private bank;
+  private investment;
 
   constructor() {
   }
@@ -29,5 +31,21 @@ export class DataService {
 
   getAccessToken(){
     return this.authToken;
+  }
+
+  setBank(bank){
+    this.bank = bank;
+  }
+
+  getBank(){
+    return this.bank;
+  }
+
+  setInvestment(investment){
+    this.investment = investment;
+  }
+
+  getInvestment(){
+    return this.investment;
   }
 }

@@ -8,6 +8,10 @@ ion-content{
       --padding-start: 1.8rem;
       --padding-end: 1.8rem;
       --color: var(--ion-color-secondary);
+
+      &.tab-page-white{
+        --background: #FFF;
+      }
   }
   
   ion-toast{
@@ -39,7 +43,7 @@ ion-content{
   }
   
   p{
-    font-size: .9rem;
+    font-size: .875rem;
     font-family: BwModelicaLight;
     // font-weight: 400;
     letter-spacing: -0.01em;
@@ -79,7 +83,13 @@ ion-content{
       margin: 5rem 0 2rem 0;
       text-align: right;
       // padding-right: 1.3rem;
-      font-family: BwModelicaExtraBold;
+      font-family: BwModelicaBold;
+    }
+
+    h1.subheader{
+      font-family: BwModelicaRegular;
+      margin-bottom: 2rem;
+      width: 90%;
     }
   
 
@@ -130,8 +140,8 @@ ion-grid{
 **/
 
 ion-col{
-    margin: 0.1rem auto;
-
+  margin: 0.1rem auto;
+  padding: 0;
 }.kwakol-input{
 
     ion-icon{
@@ -203,6 +213,10 @@ ion-button.kwakol-btn{
     width: 100%;
     height: 3.3rem;
     --box-shadow: 5px 5px 15px 0px rgba(30, 51, 0, .1);
+
+    &.round{
+      --border-radius: 100px
+    }
 
     &.kwakol-btn-inverse{
         // font-weight: bolder;
@@ -314,6 +328,27 @@ ion-button.kwakol-btn{
 /** 
     Modals Styles
 **/
+
+.kwakol-modal-bottom-drawer{
+  --backdrop-opacity: 1;
+  --background: var(--ion-color-tertiary);
+  --border-color: var(--ion-text-gray2-color);
+  --border-width: 1px;
+  --box-shadow: 0px -1px 4px rgba(19, 16, 17, 0.1);
+  // --height: 24rem;
+  // --width: 86%;
+  --border-radius: 17px;
+
+  ion-content{
+    --background: var(--ion-color-tertiary);
+  }
+
+  &::part(handle){
+    background-color: var(--ion-light-green-color);
+    width: 10%;
+    margin-top: 1rem;
+  }
+}
 
 
 

@@ -1,0 +1,26 @@
+<ion-content>
+
+  <div class="wrapper bank" *ngIf="type === 'bank'">
+
+    <h3>Select Bank</h3>
+    <p>Make a Transfer to any of the Kwakol Markets accounts below</p>
+
+    <h5 *ngFor="let bank of banks" (click)="onTapBank(bank)">
+      <span class="bullet" [ngClass]="{'selected': bank.selected}"></span>
+      {{ bank.name }}
+    </h5>
+  </div>
+
+  <div class="wrapper investment" *ngIf="type === 'investment'">
+    <h3>choose Investment Account</h3>
+    <p>Which account would you like to deposit to?</p>
+    <h5 *ngFor="let investment of investments" (click)="onTapInvestment(investment)">
+      <span class="bullet" [ngClass]="{'selected': investment.selected}"></span>
+      {{ investment.name }}
+      <span class="balance">
+        <p>Balance</p>
+        <p>${{ investment.balance }}</p>
+      </span>
+    </h5>
+  </div>
+</ion-content>

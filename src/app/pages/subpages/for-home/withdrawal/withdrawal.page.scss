@@ -1,0 +1,28 @@
+p{
+    letter-spacing: .02em;
+    margin: 0;
+    font-family: BwModelicaRegular;
+}
+
+ion-col.kwakol-input{
+    margin-bottom: .5rem;
+
+    ion-item.select-input{
+        font-size: .9rem;
+    }
+
+    ion-input{
+        --padding-top: 0;
+        --padding-bottom: 0;
+    }
+    ion-icon{
+        position: absolute;
+        top: 0.9rem;
+        right: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+.row-btn{
+    margin-top: 20rem;
+}

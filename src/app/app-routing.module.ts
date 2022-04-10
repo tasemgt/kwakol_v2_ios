@@ -27,6 +27,22 @@ const routes: Routes = [
   {
     path: 'alert-modal',
     loadChildren: () => import('./pages/modals/alert-modal/alert-modal.module').then( m => m.AlertModalPageModule)
+  },
+  {
+    path: 'deposit',
+    loadChildren: () => import('./pages/subpages/for-home/deposit/deposit.module').then( m => m.DepositPageModule)
+  },
+  {
+    path: 'bottom-drawer',
+    loadChildren: () => import('./pages/modals/bottom-drawer/bottom-drawer.module').then( m => m.BottomDrawerPageModule)
+  },
+  {
+    path: 'withdrawal',
+    loadChildren: () => import('./pages/subpages/for-home/withdrawal/withdrawal.module').then( m => m.WithdrawalPageModule)
+  },
+  {
+    path: 'new-account',
+    loadChildren: () => import('./pages/subpages/for-portfolio/new-account/new-account.module').then( m => m.NewAccountPageModule)
   }
 ];
 @NgModule({

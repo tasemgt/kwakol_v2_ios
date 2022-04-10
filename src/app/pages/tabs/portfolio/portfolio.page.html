@@ -1,16 +1,34 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="page-content tab-page-white">
+  <div class="auth-banner">
+    <h3>Portfolio</h3>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Portfolio</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="investments">
+
+    <div class="investment">
+      <ion-icon src="assets/icon/inv-type/levadura-big.svg"></ion-icon>
+        Levadura
+        <span>$1,255.49</span>
+    </div>
+    
+    <div class="investment">
+      <ion-icon src="assets/icon/inv-type/marigold-big.svg"></ion-icon>
+        Marigold
+      <span>$7,534.51</span>
+    </div>
+    
+    <div class="investment">
+      <ion-icon src="assets/icon/inv-type/junzi-big.svg"></ion-icon>
+        Junzi
+        <span>$15,655.01</span>
+    </div>
+
+    <ion-button class="kwakol-btn round ion-text-uppercase" type="button">
+      <ion-icon slot="start" src="assets/icon/plus-white.svg"></ion-icon>
+      New Account
+    </ion-button>
+
+  </div>
+  
 
 </ion-content>

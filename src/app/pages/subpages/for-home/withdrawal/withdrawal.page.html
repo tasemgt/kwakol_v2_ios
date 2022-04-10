@@ -1,0 +1,30 @@
+<ion-content class="page-content">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading">Withdrawal</h2>
+  <h1 class="subheader">How much would you like to withdraw?</h1>
+
+  <ion-row class="input-rows">
+    
+    <ion-col size="12" class="kwakol-input">
+      <ion-item>
+        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" required></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="12" class="kwakol-input">
+      <ion-item class="select-input" (click)="onTapSelect('investment')">
+        {{ selectedInvestment?.name}}
+        <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="row-btn">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="requestWithdrawal()">Request Withdrawal</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
+

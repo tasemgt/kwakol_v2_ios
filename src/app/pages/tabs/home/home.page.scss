@@ -143,7 +143,7 @@ ion-row.investments-wrapper{
 }
 
 .account-history{
-    font-family: BwModelicaMedium;
+    font-family: BwModelicaBold;
     font-size: .7rem;
     span{
         float: right;
@@ -191,7 +191,7 @@ ion-row.investments-wrapper{
         }
         p{
             font-size: .8rem;
-            color: var(--ion-text-gray-color);//rgba(var(--ion-text-gray-color-rgb), .8);
+            color: var(--ion-text-gray2-color);//rgba(var(--ion-text-gray-color-rgb), .8);
             font-family: BwModelicaHairline;
         }
     }
