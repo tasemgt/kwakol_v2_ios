@@ -133,6 +133,18 @@ ion-grid{
 
 }
 
+.auth-banner.small{
+  padding: 6rem 1.35rem 2rem 1.35rem;
+  margin: 0 -1.8rem;
+  background: linear-gradient(103.58deg, #211F42 21.06%, #51AF4E 102.24%);
+
+  h3{
+      color: var(--ion-color-tertiary);
+      font-family: BwModelicaBold;
+      font-size: 1.25rem;
+  }
+}
+
 
 
 /** 

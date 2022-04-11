@@ -1,0 +1,42 @@
+h3,h5,h6,p{
+    margin: 0;
+}
+
+.item{
+    margin-bottom: .7rem;
+    p{
+        font-size: .75rem;
+        font-family: BwModelicaRegular;
+    }
+    h3{
+        font-size: 1.9rem;
+        color: var(--ion-color-primary);
+    }
+}
+
+.report{
+    border: 1px solid var(--ion-light-green-color);
+    background-color: var(--ion-color-tertiary);
+    margin-top: 2rem;
+    padding: .8rem;
+    border-radius: 5px;
+
+    ion-row{
+        margin-bottom: .7rem;
+        letter-spacing: .04;
+    }
+
+    h5{
+        font-family: BwModelicaBold;
+        margin-bottom: .7rem;
+    }
+
+    p{
+        font-size: .65rem;
+    }
+
+    h6{
+        font-size: .95rem;
+        font-family: BwModelicaRegular;
+    }
+}

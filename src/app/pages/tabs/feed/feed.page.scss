@@ -1,0 +1,40 @@
+h3,h5,p{
+    margin: 0;
+}
+
+p{
+    letter-spacing: .05em;
+}
+
+.feeds-wrapper{
+    margin-top: 2rem;
+}
+
+.feed{
+    position: relative;
+    border: 1px solid var(--ion-light-green-color);
+    background-color: var(--ion-color-tertiary);
+    margin-bottom: 1rem;
+    padding: .5rem .5rem 1rem 9rem;
+    border-radius: 5px;
+
+    img{
+        position: absolute;
+        left: .6rem;
+        top: .6rem;
+        width: 35%;
+    }
+    p.date{
+        color: var(--ion-color-primary);
+        font-size: .7rem;
+    }
+    h5{
+        font-size: .85rem;
+        font-family: BwModelicaBold;
+        margin: .2rem 0;
+    }
+
+    p.author{
+        font-size: .63rem;
+    }
+}

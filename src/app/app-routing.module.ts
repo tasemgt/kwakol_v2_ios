@@ -51,6 +51,14 @@ const routes: Routes = [
   {
     path: 'add-new-account',
     loadChildren: () => import('./pages/subpages/for-portfolio/add-new-account/add-new-account.module').then( m => m.AddNewAccountPageModule)
+  },
+  {
+    path: 'history-summary',
+    loadChildren: () => import('./pages/subpages/for-history/history-summary/history-summary.module').then( m => m.HistorySummaryPageModule)
+  },
+  {
+    path: 'feed-details',
+    loadChildren: () => import('./pages/subpages/for-feed/feed-details/feed-details.module').then( m => m.FeedDetailsPageModule)
   }
 ];
 @NgModule({
