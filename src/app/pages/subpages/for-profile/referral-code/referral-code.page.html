@@ -1,0 +1,23 @@
+<ion-content class="page-content tab-page-white">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading">Referral</h2>
+
+  <h1 class="subheader">Enter Referral Code</h1>
+
+  <ion-row class="input-rows">
+    <ion-col size="12" class="kwakol-input">
+      <ion-item>
+        <ion-input placeholder="Referral Code" type="text" name="refCode" [(ngModel)]="refCode" required></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="row-btn">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="confirm()">Confirm</ion-button>
+    </ion-col>
+  </ion-row>
+
+  </ion-content>

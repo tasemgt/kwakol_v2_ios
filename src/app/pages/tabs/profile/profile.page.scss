@@ -1,3 +1,76 @@
 h3,h5,p{
     margin: 0;
 }
+
+div.headings{
+    text-align: center;
+    margin-top: 1.2rem;
+
+    ion-icon{
+        font-size: 3rem;
+    }
+
+    h3{
+        font-family: BwModelicaBold;
+        margin: .1rem 0 .8rem 0;
+        font-size: 1.23rem;
+    }
+
+    ion-button{
+        width: 23%;
+        height: 2rem;
+        font-size: .65rem;
+        font-family: BwModelicaLight;
+        --background: var(--ion-light-green-color);
+        color: var(--ion-color-secondary);
+    }
+}
+
+div.details{
+    .detail{
+        font-size: .85rem;
+        font-family: BwModelicaLight;
+        color: var(--ion-text-gray-color);
+        border-bottom: 1px solid rgba(var(--ion-light-green-color-rgb), .5);
+        padding: .5rem 0;
+
+        span{
+            float: right;
+            color: var(--ion-color-secondary);
+        }
+    }
+}
+
+div.actions{
+    margin-top: 1.5rem;
+
+    &.bottom{
+        margin-top: .2rem;
+    }
+
+    .action{
+        font-size: .85rem;
+        border-bottom: 1px solid rgba(var(--ion-light-green-color-rgb), .5);
+        padding: .85rem 0;
+        position: relative;
+
+        ion-icon{
+            position: absolute;
+            right: 0;
+        }
+    }
+}
+
+.about-head{
+    margin: 1rem 0 .3rem 0;
+    font-family: BwModelicaBold;
+    font-size: 1rem;
+}
+
+ion-button.logout{
+    margin-top: 2rem;
+}
+
+ion-content{
+    --padding-bottom: 2rem;
+}

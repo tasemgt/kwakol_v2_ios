@@ -1,0 +1,38 @@
+<ion-content class="page-content tab-page-white">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading">Account Details</h2>
+
+
+  <div class="details">
+    <div class="detail">
+      Account Number
+      <span>0134672958</span>
+    </div>
+    <div class="detail">
+      Account Name
+      <span>Aliyu Abba</span>
+    </div>
+    <div class="detail">
+      Bank Name
+      <span>Guaranty Trust Bank</span>
+    </div>
+    <div class="detail">
+      Sort Code
+      <span></span>
+    </div>
+    <div class="detail">
+      Bank Address
+      <span>Wuse II</span>
+    </div>
+  </div>
+
+  <ion-row class="row-btn">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="requestUpdate()">Request Update</ion-button>
+    </ion-col>
+  </ion-row>
+
+  </ion-content>
+

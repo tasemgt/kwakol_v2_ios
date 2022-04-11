@@ -2,5 +2,71 @@
   <div class="auth-banner small">
     <h3>Profile</h3>
   </div>
+
+  <div class="headings">
+    <ion-icon src="assets/icon/profile.svg"></ion-icon>
+    <h3>Aliyu Abba</h3>
+    <ion-button class="kwakol-btn round ion-text-capitalize" type="button" (click)="editProfile()">
+      Edit Profile
+    </ion-button>
+  </div>
+
+  <div class="details">
+    <div class="detail">
+      Phone Number
+      <span>+2347012345678</span>
+    </div>
+    <div class="detail">
+      Email
+      <span>aliyuabba@gmail.com</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="action" (click)="goToPage('/account-details')">
+      Account Details
+      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+    </div>
+    <div class="action">
+      Kwakol Gold Card
+      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+    </div>
+    <div class="action" (click)="goToPage('/affiliate-link')">
+      Affiliate Link
+      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+    </div>
+    <div class="action">
+      Password Reset
+      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+    </div>
+    <div class="action">
+      Help
+      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+    </div>
+    
+    <h3 class="about-head">About Kwakol</h3>
+    <div class="actions bottom">
+      <div class="action">
+        Visit our Website
+        <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+      </div>
+      <div class="action">
+        FAQs
+        <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+      </div>
+      <div class="action">
+        Terms and Conditions
+        <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+      </div>
+    </div>
+
+    <ion-button class="kwakol-btn ion-text-uppercase logout" type="button" (click)="logOut()">
+      <ion-icon slot="start" src="assets/icon/calendar-white.svg"></ion-icon>
+      Log Out
+    </ion-button>
+
+  </div>
+
+
   </ion-content>
 

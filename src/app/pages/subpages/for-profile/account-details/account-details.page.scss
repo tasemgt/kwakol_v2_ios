@@ -1,0 +1,18 @@
+div.details{
+    .detail{
+        font-size: .88rem;
+        font-family: BwModelicaLight;
+        color: var(--ion-text-gray-color);
+        border-bottom: 1px solid rgba(var(--ion-light-green-color-rgb), .45);
+        padding: .7rem 0;
+
+        span{
+            float: right;
+            color: var(--ion-color-secondary);
+        }
+    }
+}
+
+ion-button{
+    margin-top: 23rem;
+}

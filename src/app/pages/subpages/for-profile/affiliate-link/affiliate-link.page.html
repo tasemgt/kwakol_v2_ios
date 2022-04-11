@@ -1,0 +1,28 @@
+<ion-content class="page-content tab-page-white">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading">Affiliate Link</h2>
+
+  <h1 class="subheader">Earn rewards with our Affiliate Program</h1>
+
+  <div class="rewards">
+    <p>Total Clients <span>Total Rewards</span></p>
+    <h3>100 <span>$150.21</span></h3>
+  </div>
+
+  <p class="ref">Your referral URL is</p>
+  <div class="referral-url">
+    <p>
+      https://my.kwakolmarkets.com/regis...
+    </p>
+    <ion-icon src="assets/icon/copy.svg"></ion-icon>
+  </div>
+
+  <div class="action" (click)="goToReferralCode()">
+    Referred by someone? Enter their code
+    <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
+  </div>
+
+  </ion-content>
+

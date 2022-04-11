@@ -59,6 +59,18 @@ const routes: Routes = [
   {
     path: 'feed-details',
     loadChildren: () => import('./pages/subpages/for-feed/feed-details/feed-details.module').then( m => m.FeedDetailsPageModule)
+  },
+  {
+    path: 'affiliate-link',
+    loadChildren: () => import('./pages/subpages/for-profile/affiliate-link/affiliate-link.module').then( m => m.AffiliateLinkPageModule)
+  },
+  {
+    path: 'referral-code',
+    loadChildren: () => import('./pages/subpages/for-profile/referral-code/referral-code.module').then( m => m.ReferralCodePageModule)
+  },
+  {
+    path: 'account-details',
+    loadChildren: () => import('./pages/subpages/for-profile/account-details/account-details.module').then( m => m.AccountDetailsPageModule)
   }
 ];
 @NgModule({
