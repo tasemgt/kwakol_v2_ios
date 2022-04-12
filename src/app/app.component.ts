@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NavController, Platform } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Subscription } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent implements AfterViewInit {
     // private appMinimize: AppMinimize,
     // private mobileAccessibility: MobileAccessibility,
     private navController: NavController,
-    // private auth: AuthService,
+    private auth: AuthService,
     // private util: UtilService,
     // private dataService: DataService
   ) {
@@ -47,7 +48,7 @@ export class AppComponent implements AfterViewInit {
         this.statusBar.styleDefault();
       }
 
-      // this.handleAppAuthState();
+      this.handleAppAuthState();
     });
   }
 
@@ -56,19 +57,19 @@ export class AppComponent implements AfterViewInit {
     // this.handleHardwareBackButton();
   }
 
-  // private handleAppAuthState(): void{
-  //   this.auth.getAuthStateSubject().subscribe((state) => {
-  //     console.log('State', state);
-  //     if (state === true) {
-  //       console.log('Logged In 😇 ');
-  //       this.router.navigateByUrl('/tabs');
-  //     } else if(state === false){
-  //       console.log('Logged Out 😢');
-  //       // this.router.navigateByUrl('/service-type');
-  //       this.router.navigateByUrl('/onboarding');
-  //     }
-  //   });
-  // }
+  private handleAppAuthState(): void{
+    this.auth.getAuthStateSubject().subscribe((state) => {
+      console.log('State', state);
+      if (state === true) {
+        console.log('Logged In 😇 ');
+        this.router.navigateByUrl('/tabs');
+      } else if(state === false){
+        console.log('Logged Out 😢');
+        // this.router.navigateByUrl('/service-type');
+        this.router.navigateByUrl('/login');
+      }
+    });
+  }
 
   // Handles Android HW Back button
   // private handleHardwareBackButton(): void{

@@ -1,5 +1,5 @@
 export const constants = {
-    baseUrl:  '',
+    baseUrl:  'http://kwml.work/api/v1',
     currentUser: 'CURRENT_KWAKOL_USER',
     currentProfile: 'CURRENT_KWAKOL_PROFILE',
     userProfile: 'KWAKOL_USER_PROFILE'
@@ -12,6 +12,15 @@ export const alertPageParams = {
         desc: 'We have sent the password recovery instructions to your email address.',
         btn: {
             text: 'Back to Login',
+            url: '/login'
+        }
+    },
+    passwordChanged: {
+        image: 'padlock.svg',
+        title: 'Password Changed',
+        desc: 'Great going. Your password has been changed and you are now good to go.',
+        btn: {
+            text: 'Finish',
             url: '/login'
         }
     },

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +11,11 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private util: UtilService,
+    private loading: LoadingController) { }
 
   ngOnInit() {
   }
@@ -22,6 +29,12 @@ export class ProfilePage implements OnInit {
   }
 
   public logOut(){
-    
+    this.util.presentAlertConfirm('Logout', 'Checking out of Kwakol Funds?', () =>{
+      this.util.presentLoading();
+      setTimeout(() =>{
+        this.loading.dismiss();
+        this.auth.logout();
+      }, 1500);
+    }, 'Not yet', 'Yes!')
   }
 }

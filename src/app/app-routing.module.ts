@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthenGuard } from './guards/authen.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tabs',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
     path: 'tabs',
-    // canActivate: [AuthenGuard],
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
   {
     path: 'account-details',
     loadChildren: () => import('./pages/subpages/for-profile/account-details/account-details.module').then( m => m.AccountDetailsPageModule)
+  },
+  {
+    path: 'change-password',
+    loadChildren: () => import('./pages/auth/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   }
 ];
 @NgModule({

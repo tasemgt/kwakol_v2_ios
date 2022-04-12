@@ -1,13 +1,13 @@
 <ion-content [fullscreen]="true" class="page-content tab-page-white">
   <div class="header">
-    <h3>Hi Aliyu,</h3>
+    <h3>Hi {{ user.fullname }},</h3>
     <p>Hope you're having a great afternoon.</p>
     <ion-icon src="assets/icon/chat.svg"></ion-icon>
   </div>
 
   <div class="summary">
     <img src="assets/icon/text-svgs/total-funds.svg">
-    <h2>$65,428.60</h2>
+    <h2>${{ home?.total_fund }}</h2>
     <ion-icon src="assets/icon/home-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
     <ion-icon src="assets/icon/home-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
   </div>

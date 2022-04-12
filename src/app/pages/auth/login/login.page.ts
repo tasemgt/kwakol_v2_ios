@@ -25,28 +25,28 @@ export class LoginPage implements OnInit {
 
   public async login(form: NgForm): Promise<void>{
     if(!form.valid){
-      this.util.showToast('Email or password cannot be empty', 3000, 'danger');
+      this.util.showToast('Email or password cannot be empty', 2000, 'danger');
       return;
     }
-    // try{
-    //   await this.util.presentLoading('Hi Mikie...');
-    //   const resp  = await this.auth.login('phone', {phone: form.value.phone, password: form.value.password});
-    //   form.reset();
-    //   this.loading.dismiss();
-    //   if(!resp.token){
-    //     this.util.showToast(resp.message, 3000, 'danger');
-    //     return;
-    //   }
-    // }
-    // catch(err){
-    //   this.loading.dismiss();
-    //   if(err.status === 401){
-    //     this.util.showToast('Invalid phone number of password', 3000, 'danger');
-    //   }
-    //   if(err.status === 0 || err.status === -3){
-    //     this.util.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
-    //   } 
-    // }
+    try{
+      await this.util.presentLoading();
+      const resp  = await this.auth.login({email: form.value.email, password: form.value.password});
+      // form.reset();
+      this.loading.dismiss();
+      if(!resp.token){
+        this.util.showToast(resp.message, 3000, 'danger');
+        return;
+      }
+    }
+    catch(err){
+      this.loading.dismiss();
+      if(err.status === 401){
+        this.util.showToast('Invalid email or password', 3000, 'danger');
+      }
+      if(err.status === 0 || err.status === -3){
+        this.util.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
+      } 
+    }
     
   }
 }

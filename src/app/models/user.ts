@@ -7,12 +7,13 @@ export interface LoginCred{
 export interface User {
   fullname: string;
   email: string;
-  phone: string;
+  phone?: string;
   token: string;
   token_type: string;
   expiry: string;
   roles: string;
-  message: string;
+  new_user: string;
+  message?: string;
 }
 
 export interface UserProfile{

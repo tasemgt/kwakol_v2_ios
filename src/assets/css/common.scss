@@ -169,7 +169,7 @@ ion-col{
         --background: #FFF;
         --border-width: .05rem;
         --border-radius: 7px;
-        --border-color: rgba(var(--ion-color-primary-rgb), .5);
+        --border-color: rgba(var(--ion-color-primary-rgb), .45);
         --highlight-height: 0px;
         --highlight-color-focused: transparent;
         --highlight-color-invalid: transparent;
@@ -199,7 +199,7 @@ ion-col{
         // font-size: initial;
         --ion-font-family: BwModelicaRegular;
         --placeholder-color: var(--ion-color-secondary);
-        --placeholder-opacity: .9;
+        --placeholder-opacity: 1;
         --highlight-color-focused: transparent;
         --highlight-color-invalid: transparent;
         --highlight-color-valid: transparent;
@@ -276,7 +276,7 @@ ion-button.kwakol-btn{
           a{
             color: var(--ion-color-secondary) !important;
             text-decoration: none;
-            font-size: .75rem;
+            font-size: .8rem;
           }
         }
       }
@@ -288,7 +288,7 @@ ion-button.kwakol-btn{
           color: var(--ion-text-gray-color);
           letter-spacing: .02em;
           font-family: BwModelicaLight;
-          font-size: .75rem;
+          font-size: .8rem;
           text-align: center;
           a{
             color: var(--ion-color-primary);
@@ -492,6 +492,28 @@ ion-button.kwakol-btn{
 //Alert Styles
 .yes-button{
     color: var(--ion-color-secondary) !important;
+}
+
+//Toast Styles
+ion-toast{
+  --color: #FBFBFB;
+  font-family: BwModelicaLight;
+  font-size: .8rem;
+  width: 90%;
+  --border-radius: 100px;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 20%;
+
+  &::part(container){
+      .toast-content{
+        padding: .3rem !important;
+      }
+  }
+
+  &::part(message){
+    padding-left: 1rem;
+}
 }
 
 //For normalizing the disabled input on Home page

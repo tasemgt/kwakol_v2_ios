@@ -25,10 +25,11 @@ export class UtilService {
   public async showToast(message: string, duration: number, color: string) {
     const toast = await this.toastCtrl.create({
       message,
-      position: 'top',
+      position: 'middle',
       color,
       duration,
-      mode: 'ios'
+      mode: 'ios',
+      icon: 'assets/icon/logo.svg'
     });
     toast.present();
   }
@@ -99,7 +100,8 @@ export class UtilService {
         componentProps: {params, datas}
       });
       await modal.present();
-      // this.router.navigateByUrl(params.returnPageUrl);
+      const {data} = await modal.onWillDismiss();
+      this.router.navigateByUrl(params.btn.url);
       // await modal.onDidDismiss();
     }
     catch (error) {

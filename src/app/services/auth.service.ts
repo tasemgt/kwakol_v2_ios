@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Platform, LoadingController } from '@ionic/angular';
 
 import { BehaviorSubject } from 'rxjs';
@@ -25,6 +26,8 @@ export class AuthService {
 
   constructor(
     private platform: Platform,
+    private router: Router,
+    private util: UtilService,
     private dataService: DataService,
     private storage: StorageService,
     private http: HttpService) {
@@ -67,12 +70,22 @@ export class AuthService {
   }
 
   // Login user
-  public async login(payload: LoginCred){
+  public async login(data){
+    const payload : LoginCred = data;
+    payload.notification_id = '123456';
     try{
       const resp: User = await this.http.post(`${this.baseUrl}/login`, payload, this.headers);
+
+      if(resp.new_user === 'YES'){
+        this.dataService.setAccessToken(resp.token);
+        this.util.showToast('Successful! Kindly reset your password to continue...', 3000, 'success');
+        this.router.navigateByUrl('/change-password', {state: {url: this.router.url, user: resp}});
+        return;
+      }
+
       await this.storage.set(this.currentUser, resp);
       this.dataService.setData(2, resp); //Set user object into data service
-      this.dataService.setAccessToken(resp.token); 
+      this.dataService.setAccessToken(resp.token);
       setTimeout(() =>{
         this.isAuthenticated(true); //User now authenticated and can proceed to home;
       }, 500);
@@ -101,6 +114,11 @@ export class AuthService {
   //Returns or updates auth state value
   public isAuthenticated(param?: boolean) : boolean | void{
     return param ? this.authState.next(param) : this.authState.value;
+  }
+
+  //Reset user password
+  public async newResetPassword(data){
+    return await this.http.post(`${this.baseUrl}/new-user-password-reset`, data, this.headers);
   }
 
   //Clear token form storage
