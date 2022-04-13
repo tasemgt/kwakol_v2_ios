@@ -6,8 +6,8 @@
 
   <h1 class="subheader">How much would you like to deposit?</h1>
 
-  <div class="currency">
-    $ USD
+  <div class="currency" (click)="onTapSelect('currency')">
+    {{ selectedCurrency?.sym }} {{ selectedCurrency?.name }}
     <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
   </div>
 
@@ -28,7 +28,7 @@
 
     <ion-col size="12" class="kwakol-input">
       <ion-item class="select-input" (click)="onTapSelect('bank')">
-        {{ selectedBank?.name }}
+        {{ selectedBank?.bankName }}
         <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
       </ion-item>
     </ion-col>
@@ -37,11 +37,11 @@
   <div class="selected-bank" *ngIf="selectedBank.selected">
     <p>
       Account Number
-      <span>7810599277 <ion-icon src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{ selectedBank?.accountNum  }} <ion-icon src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p>
       Account name
-      <span>Kwakol Markets Limited</span>
+      <span>{{ selectedBank?.accountName }}</span>
     </p>
   </div>
 
@@ -49,7 +49,8 @@
   <div class="upload">
     <ion-icon src="assets/icon/upload.svg"></ion-icon>
     <p>Upload Receipt</p>
-    <p>Supported file types: JPEG, PNG, PDF <br/>Max file size: 3mb</p>
+    <p>Supported file types: JPEG, PNG, PDF <br/>Max file size: 1mb</p>
+    <input type="file" (change)="onFileChange($event)" />
   </div>
 
   <ion-row>

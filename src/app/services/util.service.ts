@@ -61,11 +61,13 @@ export class UtilService {
     const alert = await this.alertCtrl.create({
         header,
         message,
+        mode: 'md',
+        cssClass: 'kwakol-alert',
         buttons: [
           {
             text: noBut || 'No',
             role: 'cancel',
-            cssClass: 'primary',
+            cssClass: 'no-button',
             handler: (blah) => {
               console.log('Confirm Cancel: blah');
             }

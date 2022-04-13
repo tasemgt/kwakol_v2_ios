@@ -8,6 +8,7 @@ export class DataService {
   private data = [];
   private authToken = '';
   private bank;
+  private banks = [];
   private investment;
   private currency;
 
@@ -44,6 +45,18 @@ export class DataService {
 
   clearBank(){
     this.bank = null;
+  }
+
+  setBanks(banks){
+    this.banks = banks;
+  }
+
+  getBanks(){
+    return this.banks;
+  }
+
+  clearBanks(){
+    this.banks = [];
   }
 
   setInvestment(investment){

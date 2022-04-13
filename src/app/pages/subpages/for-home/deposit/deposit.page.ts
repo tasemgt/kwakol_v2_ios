@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
 import { DataService } from 'src/app/services/data.service';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -15,36 +16,93 @@ export class DepositPage implements OnInit, OnDestroy{
 
   private modal: HTMLIonModalElement;
 
+  public subscriber;
+
   public fromPage: string;
   public amount: string;
+  public depositData;
 
   public selectedBank: any;
   public selectedInvestment: any;
+  public selectedCurrency: any;
+
+  private receipt: File;
 
   constructor(
     private router: Router,
     private util: UtilService,
     private dataService: DataService,
+    private subService: SubscriptionService,
     private modalCtrl: ModalController) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      this.subscriber = this.router.getCurrentNavigation().extras.state.subscriber;
     }
   }
 
   ngOnInit() {
-    this.selectedBank = {name: 'Select Bank'};
-    this.selectedInvestment = {name: 'Select Investment Account'};
+    console.log(this.subscriber);
+    this.getDepoitPageData();
+    this.selectedBank = this.dataService.getBank() || {bankName: 'Select Bank'};
+    this.selectedInvestment = this.dataService.getInvestment() || {name: 'Select Investment Account'};
+    this.selectedCurrency = this.dataService.getCurrency() || {name: 'CUR'};
   }
 
-  public confirm(){
-    this.util.presentAlertModal('depositConfirm');
+  public async confirm(){
+    if(!this.selectedCurrency.selected) return this.util.showToast('Please select a currency', 2000, 'danger');
+    if(!this.amount) return this.util.showToast('Please input deposit amount', 2000, 'danger');
+    if(!this.selectedInvestment.selected) return this.util.showToast('Please select investment account', 2000, 'danger');
+    if(!this.selectedBank.selected) return this.util.showToast('Please select a bank', 2000, 'danger');
+    if(!this.receipt) return this.util.showToast('Please attach a proof receipt', 2000, 'danger');
+
+    const formData = new FormData();
+
+    formData.append('currency_id', this.selectedCurrency.id); formData.append('bank_id', this.selectedBank.id);
+    formData.append('subscription_id', this.selectedInvestment.id); formData.append('amount', this.amount);
+    formData.append('proof_of_payment', this.receipt);
+    formData.forEach((d) => console.log(d));
+
+    const payload = {
+      currency_id : this.selectedCurrency.id,
+      bank_id : this.selectedBank.id,
+      subscription_id : this.selectedInvestment.id,
+      amount: this.amount,
+      proof_of_payment: this.receipt
+    }
+    console.log(payload);
+    try {
+      const resp = await this.subService.doDeposit(payload);
+      console.log(resp);
+    } catch (error) {
+      console.log(error);
+    }
+
   }
+
+  // public confirm(){
+  //   const payload = this.createFormData();
+  //   if(!payload) return;
+  //   this.util.presentAlertModal('depositConfirm');
+  // }
 
   public onTapSelect(type: string){
+    if(type === 'bank' && !this.selectedCurrency.selected){
+      this.util.showToast('Please select a currency first.', 2000, 'danger');
+      return;
+    }
     this.presentModal(type);
   }
 
-  async presentModal(type: string) {
+  public onFileChange(fileChangeEvent){
+    this.receipt = fileChangeEvent.target.files[0];
+    console.log(this.receipt);
+  }
+
+  private async presentModal(type: string) {
+    const formSelects = {
+      investments: this.subscriber.subscription,
+      currencies: this.depositData.deposit
+    }
     this.modal = await this.modalCtrl.create({
       component: BottomDrawerPage,
       breakpoints: [0, 0.2, 0.4],
@@ -55,7 +113,7 @@ export class DepositPage implements OnInit, OnDestroy{
       swipeToClose: true,
       keyboardClose: true,
       cssClass: 'kwakol-modal-bottom-drawer',
-      componentProps: { type }
+      componentProps: { type, formSelects }
     });
     await this.modal.present();
     const { data } = await this.modal.onWillDismiss();
@@ -65,6 +123,18 @@ export class DepositPage implements OnInit, OnDestroy{
     }
     else if(data.data.type === 'investment'){
       this.selectedInvestment = data.data.data;
+    }
+    else if(data.data.type === 'currency'){
+      this.selectedCurrency = data.data.data;
+    }
+  }
+
+  private async getDepoitPageData(){
+    try {
+      const resp = await this.subService.getDepositData();
+      resp.code === '100' ? this.depositData = resp.data : console.log(resp);
+    } catch (err) {
+      console.log(err);
     }
   }
 

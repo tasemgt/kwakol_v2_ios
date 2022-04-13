@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-investment-details',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 export class InvestmentDetailsPage implements OnInit {
 
   public fromPage: string;
+  public sub;
 
   public selectedTab;
   public prevTab;
@@ -19,9 +21,12 @@ export class InvestmentDetailsPage implements OnInit {
     {name: 'About', active: false}
   ]
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    public util: UtilService) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      this.sub = this.router.getCurrentNavigation().extras.state.sub;
     }
   }
 

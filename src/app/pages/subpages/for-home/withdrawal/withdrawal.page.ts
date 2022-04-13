@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
+import { DataService } from 'src/app/services/data.service';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -13,6 +15,8 @@ export class WithdrawalPage implements OnInit {
 
   private modal: HTMLIonModalElement;
 
+  public subscriber;
+
   public fromPage:string;
   public amount: string;
 
@@ -21,18 +25,44 @@ export class WithdrawalPage implements OnInit {
   constructor(
     private router: Router,
     private modalCtrl: ModalController,
-    private util: UtilService) {
+    private subService: SubscriptionService,
+    private dataService: DataService,
+    private util: UtilService,
+    private loading: LoadingController) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      this.subscriber = this.router.getCurrentNavigation().extras.state.subscriber;
     }
   }
 
   ngOnInit() {
-    this.selectedInvestment = {name: 'Select Investment Account'};
+    this.selectedInvestment = this.dataService.getInvestment() || {name: 'Select Investment Account'};
   }
 
-  public requestWithdrawal(){
-    this.util.presentAlertModal('withdrawConfirm');
+  public async requestWithdrawal(){
+    if(!this.amount) return this.util.showToast('Please input withdrawal amount', 2000, 'danger');
+    if(!this.selectedInvestment.selected) return this.util.showToast('Please select investment account', 2000, 'danger');
+
+    const payload = {
+      subscription_id : this.selectedInvestment.id,
+      amount: this.amount,
+    }
+    console.log(payload);
+    this.util.presentAlertConfirm('Confirm withdrawal', `Are you sure you want to withdraw ${this.amount} from ${this.selectedInvestment.name}?`, async() =>{
+      this.util.presentLoading();
+      try {
+        const resp = await this.subService.doWithdraw(payload);
+        this.loading.dismiss();
+        if(resp.code === '100'){
+          this.subService.getBalanceSubject().next(true);
+          this.util.presentAlertModal('withdrawConfirm');
+        }
+      } catch (error) {
+        console.log(error);
+        this.loading.dismiss();
+        this.util.showToast(error.error.errors.amount[0], 3000, 'danger');
+      }
+    }, 'Cancel', 'I\'m Sure');
   }
 
   public onTapSelect(type: string){
@@ -40,6 +70,9 @@ export class WithdrawalPage implements OnInit {
   }
 
   async presentModal(type: string) {
+    const formSelects = {
+      investments: this.subscriber.subscription
+    }
     this.modal = await this.modalCtrl.create({
       component: BottomDrawerPage,
       breakpoints: [0, 0.2, 0.4],
@@ -50,7 +83,7 @@ export class WithdrawalPage implements OnInit {
       swipeToClose: true,
       keyboardClose: true,
       cssClass: 'kwakol-modal-bottom-drawer',
-      componentProps: { type }
+      componentProps: { type, formSelects}
     });
     await this.modal.present();
     const { data } = await this.modal.onWillDismiss();

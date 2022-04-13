@@ -5,13 +5,13 @@
 
   <div class="investments">
 
-    <div class="investment" (click)="goToInvestmentDetails()">
+    <div class="investment" (click)="goToInvestmentDetails(sub)" *ngFor="let sub of portfolio?.subscriber.subscription">
       <ion-icon src="assets/icon/inv-type/levadura-big.svg"></ion-icon>
-        Levadura
-        <span>$1,255.49</span>
+        {{ sub.subscription.name }}
+        <span>${{ util.numberWithCommas(sub.balance) }}</span>
     </div>
     
-    <div class="investment">
+    <!-- <div class="investment">
       <ion-icon src="assets/icon/inv-type/marigold-big.svg"></ion-icon>
         Marigold
       <span>$7,534.51</span>
@@ -21,13 +21,43 @@
       <ion-icon src="assets/icon/inv-type/junzi-big.svg"></ion-icon>
         Junzi
         <span>$15,655.01</span>
-    </div>
+    </div> -->
 
     <ion-button class="kwakol-btn round ion-text-uppercase" type="button" (click)="goToNewAccount()">
       <ion-icon slot="start" src="assets/icon/plus-white.svg"></ion-icon>
       New Account
     </ion-button>
 
+  </div>
+
+  <div class="tt-skeletons" *ngIf="!portfolio">
+    <ion-item>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text class="left" animated style="width: 10%"></ion-skeleton-text>
+          <ion-skeleton-text class="left mid" animated style="width: 15%"></ion-skeleton-text>
+          <ion-skeleton-text class="right" animated style="width: 20%"></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text class="left" animated style="width: 10%"></ion-skeleton-text>
+          <ion-skeleton-text class="left mid" animated style="width: 15%"></ion-skeleton-text>
+          <ion-skeleton-text class="right" animated style="width: 20%"></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text class="left" animated style="width: 10%"></ion-skeleton-text>
+          <ion-skeleton-text class="left mid" animated style="width: 15%"></ion-skeleton-text>
+          <ion-skeleton-text class="right" animated style="width: 20%"></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
   </div>
   
 

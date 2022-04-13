@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { bottomDrawer } from 'src/app/models/constants';
 import { DataService } from 'src/app/services/data.service';
@@ -15,33 +16,25 @@ export class BottomDrawerPage implements OnInit {
   public selectedCurrency;
 
   @Input() type;
+  @Input() formSelects;
 
-  public banks = [
-    { name: 'Wema Bank', selected: false },
-    { name: 'United Bank for Africa', selected: false },
-    { name: 'Keystone Bank', selected: false },
-    { name: 'Taj Bank', selected: false }
-  ];
+  public investments = [];
+  public currencies = [];
+  public banks = [];
 
-  public investments = [
-    { name: 'Levadura', balance: '1,255.49', selected: false },
-    { name: 'Marigold', balance: '7,534.51', selected: false },
-    { name: 'Jūnzi', balance: '15,655.01', selected: false }
-  ];
-
-  public currencies = [
-    { name: '$ USD ', selected: false },
-    { name: 'N NGN', selected: false },
-    { name: 'Euro', selected: false },
-    { name: '£ GBP', selected: false }
-  ];
-
+  public currentURL;
 
   constructor(
+    private router: Router,
     private modalCtrl: ModalController,
     private dataService: DataService) { }
 
   ngOnInit() {
+
+    this.currentURL = this.router.url;
+    this.banks = this.dataService.getBanks();
+
+    this.populateSelectButtons();
     this.selectedBank = this.dataService.getBank();
     this.selectedInvestment = this.dataService.getInvestment();
     this.selectedCurrency = this.dataService.getCurrency();
@@ -64,6 +57,8 @@ export class BottomDrawerPage implements OnInit {
   public onTapCurrency(currency){
     currency.selected = true;
     this.dataService.setCurrency(currency);
+    console.log(currency);
+    this.populateBankAccountsButtons(currency);
     this.closeModal({type: 'currency', data:currency});
   }
 
@@ -86,6 +81,37 @@ export class BottomDrawerPage implements OnInit {
       const cur = this.currencies.find(c => c.name === this.selectedCurrency.name);
       cur.selected = true;
      }
+  }
+
+  private populateSelectButtons(){
+    if(this.formSelects.investments){
+      this.formSelects.investments.forEach(inv =>{
+        const investment = {id: inv.id, name: inv.subscription.name, balance: inv.balance, selected: false};
+        this.investments.push(investment);
+      });
+    }
+
+    if(this.formSelects.currencies){
+      this.formSelects.currencies.forEach(cur =>{
+        const currency =  { id: cur.id, name: cur.short_name, sym: cur.symbol, selected: false, accounts: cur.accounts }
+        this.currencies.push(currency);
+      });
+    }
+  }
+
+  private populateBankAccountsButtons(currency){
+    currency.accounts.forEach(b =>{ 
+      const bank =  { 
+        id: b.id, 
+        accountName: b.bank_name,
+        accountNum: b.account_number,
+        bankName: b.bank_account_name, 
+        selected: false
+      }
+      this.banks.push(bank);
+    });
+    this.dataService.setBanks(this.banks);
+    console.log(this.banks);
   }
 
 }

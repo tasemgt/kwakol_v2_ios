@@ -433,6 +433,10 @@ ion-button.kwakol-btn{
   }
 }
 
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
 
 .history-list{
   margin-top: .5rem;
@@ -490,8 +494,47 @@ ion-button.kwakol-btn{
 
 
 //Alert Styles
+.kwakol-alert .alert-wrapper{
+  background-color: var(--ion-light-green-color);
+  padding-bottom: .6rem;
+  border-radius: 5px;
+
+  .alert-head h2{
+    font-family: BwModelicaBold;
+    color: var(--ion-color-secondary);
+    text-align: center;
+    font-size: 1.15rem;
+  }
+
+  .alert-message{
+    font-family: BwModelicaLight;
+    color: var(--ion-color-secondary);
+    text-align: center;
+    font-size: .84rem;
+    font-weight: bold;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .alert-button-group{
+    .alert-button{
+      border-radius: 100px;
+      font-family: BwModelicaMedium;
+      padding: 0.7rem 1.3rem;
+    }
+  }
+}
+
 .yes-button{
     color: var(--ion-color-secondary) !important;
+    background-color: #FFF !important;
+    margin-right: 1rem !important;
+}
+
+.no-button{
+  color: #FFF !important;
+  background-color: var(--ion-color-primary) !important;
+  margin-right: 1.8rem !important;
 }
 
 //Toast Styles
@@ -503,7 +546,7 @@ ion-toast{
   --border-radius: 100px;
   transform: translateX(-50%);
   left: 50%;
-  top: 20%;
+  top: -40%;
 
   &::part(container){
       .toast-content{

@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
 import { HomeService } from 'src/app/services/home.service';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +20,19 @@ export class HomePage implements OnInit{
     private router: Router,
     private dataService: DataService,
     private auth: AuthService,
+    private subService: SubscriptionService,
     private homeService: HomeService) {}
 
   ngOnInit(): void {
     this.auth.getAuthStateSubject().subscribe((state) =>{
       if(state){
         this.getUser();
+        this.getHome();
+      }
+    });
+
+    this.subService.getBalanceSubject().subscribe((state) =>{
+      if(state){
         this.getHome();
       }
     });
@@ -39,6 +47,7 @@ export class HomePage implements OnInit{
       const resp = await this.homeService.getHome();
       if(resp.code === '100'){
         this.home = resp.data.home;
+        console.log(this.home);
       }
     } catch (error) {
       console.log(error);
@@ -46,7 +55,8 @@ export class HomePage implements OnInit{
   }
 
   public goToPage(page: string){
-    this.router.navigateByUrl(page, {state: {url: this.router.url }});
+    const subscriber = this.home.user_details.subscriber;
+    this.router.navigateByUrl(page, {state: {url: this.router.url, subscriber}});
   }
 
 }

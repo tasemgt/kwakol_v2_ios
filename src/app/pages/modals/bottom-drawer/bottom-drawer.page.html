@@ -4,16 +4,18 @@
 
     <h3>Select Bank</h3>
     <p>Make a Transfer to any of the Kwakol Markets accounts below</p>
+    <!-- <p>To choose a bank account, you must select a currency</p> -->
 
     <h5 *ngFor="let bank of banks" (click)="onTapBank(bank)">
       <span class="bullet" [ngClass]="{'selected': bank.selected}"></span>
-      {{ bank.name }}
+      {{ bank.bankName }}
     </h5>
   </div>
 
   <div class="wrapper investment" *ngIf="type === 'investment'">
     <h3>Choose Investment Account</h3>
-    <p>Which account would you like to deposit to?</p>
+    <p *ngIf="currentURL.includes('/deposit')">Which account would you like to deposit to?</p>
+    <p *ngIf="currentURL.includes('/withdrawal')">Which account would you like to withdraw from?</p>
     <h5 *ngFor="let investment of investments" (click)="onTapInvestment(investment)">
       <span class="bullet" [ngClass]="{'selected': investment.selected}"></span>
       {{ investment.name }}
@@ -29,7 +31,7 @@
     <p>Choose the currency you would like to make your deposit in</p>
     <h5 *ngFor="let currency of currencies" (click)="onTapCurrency(currency)">
       <span class="bullet" [ngClass]="{'selected': currency.selected}"></span>
-      {{ currency.name }}
+    {{ currency.sym }} {{ currency.name }}
     </h5>
   </div>
 

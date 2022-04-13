@@ -2,11 +2,11 @@
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading">Levadura</h2>
+  <h2 class="subpage-heading">{{ sub.subscription.name }}</h2>
   
   <div class="summary">
     <img src="assets/icon/text-svgs/total-investments.svg">
-    <h2>$65,428.60</h2>
+    <h2>${{ util.numberWithCommas(sub.balance) }}</h2>
     <ion-icon src="assets/icon/inv-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
     <ion-icon src="assets/icon/inv-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
   </div>
@@ -59,9 +59,10 @@
   <div class="about" *ngIf="selectedTab?.name === 'About'">
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-      Levadura is a short-term investment package with a 3-month tenure.
+       {{ sub.subscription.description }}
+      <!-- Levadura is a short-term investment package with a 3-month tenure. -->
     </div>
-    <div class="item">
+    <!-- <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
       Minimum investment: $1,000
     </div>
@@ -73,7 +74,7 @@
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
       This package trades stock indices (60%), <br/> currencies (20%), and commodities (20
       %).
-    </div>
+    </div> -->
   </div>
 
   
