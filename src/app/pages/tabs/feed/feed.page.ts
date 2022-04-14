@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FeedsService } from 'src/app/services/feeds.service';
 
 @Component({
   selector: 'app-feed',
@@ -8,13 +9,29 @@ import { Router } from '@angular/router';
 })
 export class FeedPage implements OnInit {
 
-  constructor(private router: Router) { }
+  public feeds;
+
+  constructor(
+    private router: Router,
+    private feedService: FeedsService) { }
 
   ngOnInit() {
+    this.getFeeds();
   }
 
-  public goToFeedDetails(){
-    this.router.navigateByUrl('/feed-details', {state: {url:this.router.url}});
+  public goToFeedDetails(feed){
+    this.router.navigateByUrl('/feed-details', {state: {url:this.router.url, feed}});
   }
 
+  private async getFeeds(){
+    try {
+      const resp = await this.feedService.getFeeds();
+      if(resp.code === '100'){
+        this.feeds = resp.data.feeds.data;
+        console.log(this.feeds);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

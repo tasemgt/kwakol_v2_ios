@@ -13,19 +13,22 @@
 <ion-content class="page-content" [ngClass]="{'dark': moonVal && !sunVal}">
 
   <div class="feed-heading">
-    <p class="date">February 21, 2022</p>
+    <p class="date">{{ feed.published | date}}</p>
     <h5>
-      10 Common Investment Terms Everyone Needs to Know
+      {{ feed.title }}
     </h5>
-    <p class="author">by Ruth Umoru</p>
+    <p class="author">by {{ feed.author }}</p>
   </div>
 
   <div class="feed-area">
-    <p class="section">
+    <!-- <p class="section">
       For most of us, technical investment terms can be confusing. Whether or not you’re new to the investment game, here is a list of ten important investment terms you should know.
-    </p>
+    </p> -->
 
-    <h6>Asset</h6>
+    <div [innerHTML]="feed.body">
+    </div>
+
+    <!-- <h6>Asset</h6>
     <p>An asset is anything that has the potential to earn money for you in the short or long run. Assets are a store of value that can easily be converted to cash. It is reasonable to expect an ASSET to produce some value for you. Assets include cash, bond, stock, real estate, investments</p>
 
     <h6>Asset Allocation</h6>
@@ -47,7 +50,7 @@
     <p>These are low risk, highly liquid, and short term funds that typically invest in government securities like treasury bills, commercial paper, certificates of deposits and other short term assets. MONEY MARKET FUNDS are one of the most invested funds in the Nigerian market. A mutual fund is a typical example of a money market fund.</p>
 
     <h6>Mutual Funds</h6>
-    <p>When a group of investors pool money together to buy stocks, bonds and other instruments, they have invested in a mutual fund. professional fund managers manage MUTUAL FUNDS and make the sell or buy decisions of the stocks in the fund. Mutual funds also allow small investors to easily invest in professionally managed and diverse asset portfolios.</p>
+    <p>When a group of investors pool money together to buy stocks, bonds and other instruments, they have invested in a mutual fund. professional fund managers manage MUTUAL FUNDS and make the sell or buy decisions of the stocks in the fund. Mutual funds also allow small investors to easily invest in professionally managed and diverse asset portfolios.</p> -->
   </div>
 
   </ion-content>

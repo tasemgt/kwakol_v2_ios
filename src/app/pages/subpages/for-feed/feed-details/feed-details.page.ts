@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class FeedDetailsPage implements OnInit {
 
   public fromPage: string;
+  public feed;
 
   public sunVal = true;
   public moonVal = false;
@@ -16,6 +17,7 @@ export class FeedDetailsPage implements OnInit {
   constructor(private router: Router) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      this.feed = this.router.getCurrentNavigation().extras.state.feed;
     }
   }
 

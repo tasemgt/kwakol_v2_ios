@@ -1,3 +1,12 @@
+ion-header{
+    padding-left: 1.8rem;
+    padding-right: 1.8rem;
+}
+
+.header-md::after{
+    background-image: none;
+}
+
 h3,h5,p{
     margin: 0;
 }
@@ -37,4 +46,39 @@ p{
     p.author{
         font-size: .63rem;
     }
+}
+
+.tt-skeletons{
+    ion-label{
+        ion-skeleton-text.left{
+            // float: left;
+        }
+    }
+    ion-thumbnail{
+        border-radius: 5px;
+        width: 7.5rem;
+        height: 4.5rem;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    ion-item{
+        margin-bottom: .6rem;
+        border-radius: 5px;
+        --inner-border-width: 0px;
+        --border-width: 1px;
+        --border-color: var(--ion-light-green-color);
+        --padding-top: .6rem;
+        --padding-bottom: .6rem;
+    }
+}
+
+.no-feeds{
+    position: absolute;
+    color: var(--ion-color-secondary);
+    font-size: 0.9rem;
+    top: 50%;
+    width: 70%;
+    text-align: center;
+    transform: translateX(-50%);
+    left: 50%;
 }
