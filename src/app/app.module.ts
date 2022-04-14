@@ -7,7 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { pageAnimation } from 'src/animations/nav-animations';
-
+import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
@@ -27,7 +27,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
-    StatusBar
+    StatusBar,
+    Clipboard
   ],
   bootstrap: [AppComponent],
 })

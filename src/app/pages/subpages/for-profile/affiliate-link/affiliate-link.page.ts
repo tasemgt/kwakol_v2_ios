@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-affiliate-link',
@@ -9,14 +11,26 @@ import { Router } from '@angular/router';
 export class AffiliateLinkPage implements OnInit {
 
   public fromPage: string;
+  public accountDeets;
 
-  constructor(private router: Router) {
+  constructor(
+    private clipboard: Clipboard,
+    private router: Router,
+    private util: UtilService) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      this.accountDeets = this.router.getCurrentNavigation().extras.state.accountDeets;
     }
   }
 
   ngOnInit() {
+  }
+
+  public async copyLink(){
+    const copied = await this.clipboard.copy(this.accountDeets.referral_url);
+    if(copied){
+      this.util.showToast('Referral link copied...', 2000, 'success');
+    }
   }
 
   public goToReferralCode(){

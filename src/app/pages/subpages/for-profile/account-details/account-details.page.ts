@@ -9,10 +9,12 @@ import { Router } from '@angular/router';
 export class AccountDetailsPage implements OnInit {
 
   public fromPage: string;
+  public accountDeets;
 
   constructor(private router: Router) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      this.accountDeets = this.router.getCurrentNavigation().extras.state.accountDeets;
     }
   }
 

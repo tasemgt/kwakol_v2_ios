@@ -8,21 +8,21 @@
 
   <div class="rewards">
     <p>Total Clients <span>Total Rewards</span></p>
-    <h3>100 <span>$150.21</span></h3>
+    <h3>{{ accountDeets.referral_clients }} <span>${{ accountDeets.referral_rewards }} </span></h3>
   </div>
 
   <p class="ref">Your referral URL is</p>
   <div class="referral-url">
     <p>
-      https://my.kwakolmarkets.com/regis...
+      {{ accountDeets.referral_url.substring(0, 33) + '...' }} 
     </p>
-    <ion-icon src="assets/icon/copy.svg"></ion-icon>
+    <ion-icon (click)="copyLink()" src="assets/icon/copy.svg"></ion-icon>
   </div>
 
-  <div class="action" (click)="goToReferralCode()">
+  <!-- <div class="action" (click)="goToReferralCode()">
     Referred by someone? Enter their code
     <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-  </div>
+  </div> -->
 
   </ion-content>
 

@@ -5,8 +5,8 @@
 
   <div class="headings">
     <ion-icon src="assets/icon/profile.svg"></ion-icon>
-    <h3>Aliyu Abba</h3>
-    <ion-button class="kwakol-btn round ion-text-capitalize" type="button" (click)="editProfile()">
+    <h3>{{ user.fullname }}</h3>
+    <ion-button class="kwakol-btn round ion-text-capitalize" type="button" (click)="editProfile()" [disabled]="true">
       Edit Profile
     </ion-button>
   </div>
@@ -14,11 +14,11 @@
   <div class="details">
     <div class="detail">
       Phone Number
-      <span>+2347012345678</span>
+      <span>{{ user.phone || 'N/A'}}</span>
     </div>
     <div class="detail">
       Email
-      <span>aliyuabba@gmail.com</span>
+      <span>{{ user.email }}</span>
     </div>
   </div>
 
@@ -27,22 +27,22 @@
       Account Details
       <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action">
+    <!-- <div class="action">
       Kwakol Gold Card
       <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-    </div>
+    </div> -->
     <div class="action" (click)="goToPage('/affiliate-link')">
       Affiliate Link
       <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action">
+    <div class="action" (click)="requestPasswordReset()">
       Password Reset
       <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action">
+    <!-- <div class="action">
       Help
       <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-    </div>
+    </div> -->
     
     <h3 class="about-head">About Kwakol</h3>
     <div class="actions bottom">
@@ -50,14 +50,14 @@
         Visit our Website
         <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
       </div>
-      <div class="action">
+      <!-- <div class="action">
         FAQs
         <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-      </div>
-      <div class="action">
+      </div> -->
+      <!-- <div class="action">
         Terms and Conditions
         <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-      </div>
+      </div> -->
     </div>
 
     <ion-button class="kwakol-btn ion-text-uppercase logout" type="button" (click)="logOut()">
