@@ -55,25 +55,10 @@
   <p class="account-history">Account History <span>View All</span></p>
 
   <div class="history-list">
-    <div class="history">
-      <ion-icon src="assets/icon/history/profit.svg"></ion-icon>
-      <h4>Profit <span>$23.12</span></h4>
-      <p>February 2020 <span>8.25%</span></p>
-    </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/withdrawal.svg"></ion-icon>
-      <h4>Withdrawal <span class="with">$1,500.00</span></h4>
-      <p>February 2020</p>
-    </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/deposit.svg"></ion-icon>
-      <h4>Deposit <span class="dep">$5,000.50</span></h4>
-      <p>February 2020</p>
-    </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/bonus.svg"></ion-icon>
-      <h4>Bonus <span>$23.12</span></h4>
-      <p>February 2020 <span>8.25%</span></p>
+    <div class="history" *ngFor="let hist of home?.user_details.transactions | slice:0:4">
+      <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
+      <h4>{{ hist.type | capitalize }} <span>${{ hist.amount }}</span></h4>
+      <p>{{ hist.date }}<span>{{ hist.percentage || 0}}%</span></p>
     </div>
   </div>
 

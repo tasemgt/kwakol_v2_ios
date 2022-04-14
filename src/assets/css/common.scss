@@ -341,6 +341,31 @@ ion-button.kwakol-btn{
     Modals Styles
 **/
 
+.date-picker-modal{
+  // --width: 24rem;
+  // --height: 37rem;
+  // --border-radius: 8px;
+
+  --background: rgba(44, 39, 45, 0.2);
+
+  &::part(content){
+    backdrop-filter: blur(6px);
+  }
+
+  ion-content{
+    --background: transparent;
+    --padding-top: 25vh;
+    --padding-start: 2rem;
+    --padding-end: 2rem;
+
+    ion-datetime{
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: .8rem !important;
+    }
+  }
+}
+
 .kwakol-modal-bottom-drawer{
   --backdrop-opacity: 1;
   --background: var(--ion-color-tertiary);

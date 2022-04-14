@@ -15,6 +15,9 @@ export class BottomDrawerPage implements OnInit {
   public selectedInvestment;
   public selectedCurrency;
 
+  public from = '';
+  public to = '';
+
   @Input() type;
   @Input() formSelects;
 
@@ -62,6 +65,9 @@ export class BottomDrawerPage implements OnInit {
     this.closeModal({type: 'currency', data:currency});
   }
 
+  public sortByDate(){
+    this.closeModal({data: { from: this.from.split('T')[0], to: this.to.split('T')[0] }});
+  }
 
   private closeModal(data: any){
     this.modalCtrl.dismiss({data});

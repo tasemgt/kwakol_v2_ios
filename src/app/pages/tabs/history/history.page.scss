@@ -93,3 +93,33 @@ ion-button{
         font-size: .9rem !important;
     }
 }
+
+.tt-skeletons{
+    ion-avatar{
+        width: 2rem;
+        height: 2rem;
+    }
+    ion-label{
+        ion-skeleton-text.left{
+            float: left;
+        }
+        ion-skeleton-text.right{
+            float: right;
+        }
+    }
+    ion-item{
+        margin-bottom: .3rem;
+        --inner-border-width: 0px;
+    }
+}
+
+.no-histories{
+    position: absolute;
+    color: var(--ion-color-secondary);
+    font-size: 0.9rem;
+    top: 50%;
+    width: 70%;
+    text-align: center;
+    transform: translateX(-50%);
+    left: 50%;
+}

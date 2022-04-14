@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HistoryPage } from './history.page';
 import { HistoryPageRoutingModule } from './history-routing.module';
+import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { HistoryPageRoutingModule } from './history-routing.module';
     RouterModule.forChild([{ path: '', component: HistoryPage }]),
     HistoryPageRoutingModule
   ],
-  declarations: [HistoryPage]
+  declarations: [HistoryPage, CapitalizePipe]
 })
 export class HistoryPageModule {}

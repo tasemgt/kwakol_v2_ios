@@ -44,6 +44,13 @@ export const alertPageParams = {
     }
 };
 
+export const historyIcons = {
+    bonus: 'bonus',
+    deposit: 'deposit',
+    profit: 'profit',
+    withdrawal: 'withdrawal'
+}
+
 export const bottomDrawer = {
     banks: [
         { name: 'Wema Bank', selected: false },

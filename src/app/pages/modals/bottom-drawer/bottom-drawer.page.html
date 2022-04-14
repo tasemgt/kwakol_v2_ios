@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="drawer-content">
 
   <div class="wrapper bank" *ngIf="type === 'bank'">
 
@@ -33,6 +33,50 @@
       <span class="bullet" [ngClass]="{'selected': currency.selected}"></span>
     {{ currency.sym }} {{ currency.name }}
     </h5>
+  </div>
+
+  <div class="wrapper sort" *ngIf="type === 'sort'">
+    <h3>Sort by Custom Range</h3>
+    <p>Choose a date to sort your account history</p>
+    <div class="buttons">
+      <div class="date-btn" id="open-modal-1">
+        {{ from.split('T')[0] || 'From' }}
+        <ion-icon slot="end" src="assets/icon/calendar.svg"></ion-icon>
+      </div>
+      <div class="date-btn" id="open-modal-2">
+        {{ to.split('T')[0] || 'To' }}
+        <ion-icon slot="end" src="assets/icon/calendar.svg"></ion-icon>
+      </div>
+    </div>
+    <ion-modal trigger="open-modal-1" cssClass="date-picker-modal" [animated]="false">
+      <ng-template>
+        <ion-content>
+          <ion-datetime 
+            [size]="'fixed'" 
+            [(ngModel)]="from" 
+            presentation="date"
+            showDefaultButtons="true"
+            mode="md"
+            >
+          </ion-datetime>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    <ion-modal trigger="open-modal-2" cssClass="date-picker-modal" [animated]="false">
+      <ng-template>
+        <ion-content>
+          <ion-datetime 
+            [size]="'fixed'" 
+            [(ngModel)]="to" 
+            presentation="date"
+            showDefaultButtons="true"
+            mode="md"
+            >
+          </ion-datetime>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="sortByDate()">Sort</ion-button>
   </div>
 
 </ion-content>

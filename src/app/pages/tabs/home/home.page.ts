@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { historyIcons } from 'src/app/models/constants';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
@@ -40,6 +41,10 @@ export class HomePage implements OnInit{
 
   public async getUser() {
     this.user = this.dataService.getData(2);
+  }
+
+  public getIconForType(type: string){
+    return historyIcons[type];
   }
 
   public async getHome(){
