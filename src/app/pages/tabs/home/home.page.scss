@@ -127,10 +127,10 @@ ion-row.investments-wrapper{
         padding: .5rem;
         border-radius: 4px;
         margin-top: 1rem;
-        &.levadura{
+        &.levadura-big{
             background-color: var(--ion-light-green-color);
         }
-        &.marigold{
+        &.marigold-big{
             background-color: var(--ion-light-blue-color);
         }
         ion-icon{
@@ -149,5 +149,33 @@ ion-row.investments-wrapper{
         float: right;
         color: var(--ion-color-primary);
         font-family: BwModelicaLight;
+    }
+}
+
+.inv-skeleton{
+    padding: 0;
+    margin-right: -1rem;
+    ion-thumbnail{
+        width: 10rem;
+        height: 7rem;
+    }
+}
+
+.tt-skeletons{
+    ion-avatar{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    ion-label{
+        ion-skeleton-text.left{
+            float: left;
+        }
+        ion-skeleton-text.right{
+            float: right;
+        }
+    }
+    ion-item{
+        margin-bottom: .3rem;
+        --inner-border-width: 0px;
     }
 }

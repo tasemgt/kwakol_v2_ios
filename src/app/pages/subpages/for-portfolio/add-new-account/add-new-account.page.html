@@ -2,7 +2,7 @@
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading">Antipasto</h2>
+  <h2 class="subpage-heading">{{ account.name }}</h2>
 
   <h1 class="subheader">How much would you like to start with?</h1>
 
@@ -37,19 +37,19 @@
   <div class="about">
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       Antipasto is designed to usher your kids onto the path of financial freedom. It is a fixed investment package with a minimum 5-year tenure.
+       {{ account.description }}
     </div>
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       Minimum investment: $1,000.
+       Minimum investment: $ {{ account.desc_minimum_investment}}.
     </div>
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       Commission: 50% of Profit.
+       {{ account.desc_commission}}
     </div>
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       Expected Returns*: 35% profit margin per annum.
+       {{ account.desc_comment}}
     </div>
   </div>
 

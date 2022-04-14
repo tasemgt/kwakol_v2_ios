@@ -20,21 +20,39 @@
         Add Account
       </div>
     </ion-col>
-    <ion-col size="6">
+    <ion-col size="6" *ngFor="let inv of home?.user_details.subscriber.subscription">
       <div class="investment-item">
         <p>Balance</p>
-        <h4>$1,255.49</h4>
-        <div class="type-area levadura">
+        <h4>${{ inv.balance }}</h4>
+        <div class="type-area levadura-big">
           <ion-icon src="assets/icon/inv-type/levadura.svg"></ion-icon>
-          <h4>Levadura</h4>
+          <h4>{{ inv.subscription.name }}</h4>
         </div>
       </div>
     </ion-col>
+
+    <ion-col size="6" *ngIf="!home" class="inv-skeleton">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="6" *ngIf="!home" class="inv-skeleton">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-col>
+
+
     <ion-col size="6">
       <div class="investment-item">
         <p>Balance</p>
         <h4>$7,534.59</h4>
-        <div class="type-area marigold">
+        <div class="type-area marigold-big">
           <ion-icon src="assets/icon/inv-type/marigold.svg"></ion-icon>
           <h4>Marigold</h4>
         </div>
@@ -44,7 +62,7 @@
       <div class="investment-item">
         <p>Balance</p>
         <h4>$1,255.49</h4>
-        <div class="type-area levadura">
+        <div class="type-area levadura-big">
           <ion-icon src="assets/icon/inv-type/levadura.svg"></ion-icon>
           <h4>Levadura</h4>
         </div>
@@ -60,6 +78,20 @@
       <h4>{{ hist.type | capitalize }} <span>${{ hist.amount }}</span></h4>
       <p>{{ hist.date }}<span>{{ hist.percentage || 0}}%</span></p>
     </div>
+  </div>
+
+  <div class="tt-skeletons" *ngIf="!home">
+    <ion-item *ngFor="let f of [1,2,3,4]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text class="left" animated style="width: 25%"></ion-skeleton-text>
+          <ion-skeleton-text class="right" animated style="width: 15%"></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
   </div>
 
 </ion-content>

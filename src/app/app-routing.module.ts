@@ -5,7 +5,7 @@ import { AuthenGuard } from './guards/authen.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'tabs',
     pathMatch: 'full',
   },
   {

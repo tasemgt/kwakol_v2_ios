@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { historyIcons } from 'src/app/models/constants';
+import { HistoryService } from 'src/app/services/history.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -15,6 +17,8 @@ export class InvestmentDetailsPage implements OnInit {
   public selectedTab;
   public prevTab;
 
+  public histories;
+
   public tabs = [
     {name: 'History', active: true},
     {name: 'Statistics', active: false},
@@ -23,7 +27,8 @@ export class InvestmentDetailsPage implements OnInit {
 
   constructor(
     private router: Router,
-    public util: UtilService) {
+    public util: UtilService,
+    public historyService: HistoryService) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
       this.sub = this.router.getCurrentNavigation().extras.state.sub;
@@ -33,6 +38,8 @@ export class InvestmentDetailsPage implements OnInit {
   ngOnInit() {
     this.selectedTab = this.tabs[0];
     this.prevTab = this.tabs[0];
+
+    this.getSubHistories(this.sub.id);
   }
 
   public switchTab(tab: any){
@@ -43,8 +50,23 @@ export class InvestmentDetailsPage implements OnInit {
     this.prevTab = tab;
   }
 
-  public goToPage(page:string){
+  public async getSubHistories(subId){
+    try {
+      const resp = await this.historyService.getSubscriptionHistories(subId);
+      if(resp.code === '100'){
+        this.histories = resp.data.history.data;
+        console.log(this.histories);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  public goToPage(page:string){
+  }
+
+  public getIconForType(type: string){
+    return historyIcons[type];
   }
 
 }

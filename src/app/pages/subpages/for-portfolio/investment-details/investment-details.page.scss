@@ -105,3 +105,32 @@ h4,p{
         }
     }
 }
+
+.account-history{
+    font-family: BwModelicaBold;
+    font-size: .75rem;
+    span{
+        float: right;
+        color: var(--ion-color-primary);
+        font-family: BwModelicaLight;
+    }
+}
+
+.tt-skeletons{
+    ion-avatar{
+        width: 2rem;
+        height: 2rem;
+    }
+    ion-label{
+        ion-skeleton-text.left{
+            float: left;
+        }
+        ion-skeleton-text.right{
+            float: right;
+        }
+    }
+    ion-item{
+        margin-bottom: .3rem;
+        --inner-border-width: 0px;
+    }
+}

@@ -2,6 +2,16 @@ h3,h4,p{
     margin: 0;
 }
 
+ion-header{
+    padding-left: 1.8rem;
+    padding-right: 1.8rem;
+    background-color: #fff;
+}
+
+.header-md::after{
+    background-image: none;
+}
+
 ion-row.types-wrapper{
     overflow-y: scroll;
     flex-wrap: nowrap;
@@ -21,6 +31,7 @@ ion-row.types-wrapper{
     font-size: .83rem;
     position: relative;
     border: 1px solid var(--ion-light-green-color);
+    color: var(--ion-color-secondary);
     padding: .9rem .8rem .9rem 2.7rem;
     border-radius: 6px;
     margin-right: .7rem;

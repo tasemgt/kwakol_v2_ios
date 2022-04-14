@@ -28,6 +28,14 @@ export class SubscriptionService {
     return this.http.post(`${this.baseUrl}/withdraw`, payload, this.headers);
   }
 
+  public getInvestmentAccounts(): Promise<any>{
+    return this.http.get(`${this.baseUrl}/new-subscription`, {}, this.headers);
+  }
+
+  public doNewSubscription(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/new-subscription`, payload, this.headers);
+  }
+
   public getBalanceSubject(){
     return this.balanceSubject;
   }

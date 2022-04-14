@@ -16,43 +16,35 @@
   </ion-row>
 
 
-  <div class="history-list" *ngIf="selectedTab?.name === 'History'">
-    <div class="history">
-      <ion-icon src="assets/icon/history/profit.svg"></ion-icon>
-      <h4>Profit <span>$23.12</span></h4>
-      <p>February 2020 <span>8.25%</span></p>
+  <div *ngIf="selectedTab?.name === 'History'">
+    <p class="account-history">Account History <span>View All</span></p>
+    <div class="history-list">
+      <div class="history" *ngFor="let hist of histories | slice:0:6">
+        <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
+        <h4>{{ hist.type | capitalize }} <span>${{ hist.amount }}</span></h4>
+        <p>{{ hist.date }}<span>{{ hist.percentage || 0}}%</span></p>
+      </div>
     </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/withdrawal.svg"></ion-icon>
-      <h4>Withdrawal <span class="with">$1,500.00</span></h4>
-      <p>February 2020</p>
-    </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/deposit.svg"></ion-icon>
-      <h4>Deposit <span class="dep">$5,000.50</span></h4>
-      <p>February 2020</p>
-    </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/bonus.svg"></ion-icon>
-      <h4>Bonus <span>$23.12</span></h4>
-      <p>February 2020 <span>8.25%</span></p>
-    </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/profit.svg"></ion-icon>
-      <h4>Profit <span>$53.12</span></h4>
-      <p>January 2020 <span>8.25%</span></p>
-    </div>
-    <div class="history">
-      <ion-icon src="assets/icon/history/profit.svg"></ion-icon>
-      <h4>Profit <span>$53.12</span></h4>
-      <p>January 2020 <span>8.25%</span></p>
+
+    <div class="tt-skeletons" *ngIf="!histories">
+      <ion-item *ngFor="let f of [1,2,3,4,5,6]">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text class="left" animated style="width: 25%"></ion-skeleton-text>
+            <ion-skeleton-text class="right" animated style="width: 15%"></ion-skeleton-text>
+          </h3>
+        </ion-label>
+      </ion-item>
     </div>
   </div>
 
   <div class="statistics" *ngIf="selectedTab?.name === 'Statistics'">
     <div class="totals">
       <p>Total Deposits <span>Total Profits</span></p>
-      <h5>$15,753.11 <span>$150.21</span></h5>
+      <h5>${{ sub.balance }} <span>${{ sub.profit_balance }}</span></h5>
     </div>
   </div>
 
@@ -60,21 +52,19 @@
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
        {{ sub.subscription.description }}
-      <!-- Levadura is a short-term investment package with a 3-month tenure. -->
-    </div>
-    <!-- <div class="item">
-       <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-      Minimum investment: $1,000
     </div>
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-      Commission: 50% of Profit
+      Minimum investment: ${{ sub.subscription.desc_minimum_investment }}
     </div>
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-      This package trades stock indices (60%), <br/> currencies (20%), and commodities (20
-      %).
-    </div> -->
+       {{ sub.subscription.desc_commission }}
+    </div>
+    <div class="item">
+       <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
+       {{ sub.subscription.desc_comment }}
+    </div>
   </div>
 
   

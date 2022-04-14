@@ -55,7 +55,10 @@ export class HistoryPage  implements OnInit{
 
   public openHistorySummary(hist){
     console.log(hist);
-    this.router.navigateByUrl('/history-summary', {state:{url: this.router.url, hist}});
+    if(hist.type === 'profit'){
+      this.router.navigateByUrl('/history-summary', {state:{url: this.router.url, hist}});
+      return;
+    }
   }
 
   public sort(){

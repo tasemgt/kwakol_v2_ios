@@ -22,4 +22,8 @@ export class HistoryService {
   public getHistoriesByDate(payload){
     return this.http.post(`${this.baseUrl}/history`, payload, this.headers);
   }
+
+  public getSubscriptionHistories(subId){
+    return this.http.get(`${this.baseUrl}/subscription-history/${subId}`, {}, this.headers);
+  }
 }

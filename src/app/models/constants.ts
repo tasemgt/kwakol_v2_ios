@@ -51,6 +51,15 @@ export const historyIcons = {
     withdrawal: 'withdrawal'
 }
 
+export const investmentIcons = {
+    levadura: 'levadura-big',
+    marigold: 'marigold-big',
+    junzi: 'junzi-big',
+    antipasto: 'antipasto-big',
+    veterano: 'veterano-big',
+    'fixed deposit': 'fixed-deposit-big'
+}
+
 export const bottomDrawer = {
     banks: [
         { name: 'Wema Bank', selected: false },

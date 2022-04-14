@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InvestmentDetailsPageRoutingModule } from './investment-details-routing.module';
 
 import { InvestmentDetailsPage } from './investment-details.page';
+import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { InvestmentDetailsPage } from './investment-details.page';
     IonicModule,
     InvestmentDetailsPageRoutingModule
   ],
-  declarations: [InvestmentDetailsPage]
+  declarations: [InvestmentDetailsPage, CapitalizePipe]
 })
 export class InvestmentDetailsPageModule {}

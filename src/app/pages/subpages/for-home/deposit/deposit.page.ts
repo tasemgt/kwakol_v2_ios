@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
 import { DataService } from 'src/app/services/data.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
@@ -15,6 +15,8 @@ import { UtilService } from 'src/app/services/util.service';
 export class DepositPage implements OnInit, OnDestroy{
 
   private modal: HTMLIonModalElement;
+
+  public toastShown = false;
 
   public subscriber;
 
@@ -31,6 +33,7 @@ export class DepositPage implements OnInit, OnDestroy{
   constructor(
     private router: Router,
     private util: UtilService,
+    private loading: LoadingController,
     private dataService: DataService,
     private subService: SubscriptionService,
     private modalCtrl: ModalController) {
@@ -61,21 +64,21 @@ export class DepositPage implements OnInit, OnDestroy{
     formData.append('subscription_id', this.selectedInvestment.id); formData.append('amount', this.amount);
     formData.append('proof_of_payment', this.receipt);
     formData.forEach((d) => console.log(d));
-
-    const payload = {
-      currency_id : this.selectedCurrency.id,
-      bank_id : this.selectedBank.id,
-      subscription_id : this.selectedInvestment.id,
-      amount: this.amount,
-      proof_of_payment: this.receipt
-    }
-    console.log(payload);
-    try {
-      const resp = await this.subService.doDeposit(payload);
-      console.log(resp);
-    } catch (error) {
-      console.log(error);
-    }
+    
+    // const payload = {
+    //   currency_id : this.selectedCurrency.id,
+    //   bank_id : this.selectedBank.id,
+    //   subscription_id : this.selectedInvestment.id,
+    //   amount: this.amount,
+    //   proof_of_payment: this.receipt
+    // }
+    // console.log(payload);
+    // try {
+    //   const resp = await this.subService.doDeposit(payload);
+    //   console.log(resp);
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
   }
 
@@ -130,11 +133,18 @@ export class DepositPage implements OnInit, OnDestroy{
   }
 
   private async getDepoitPageData(){
+    this.util.presentLoading2('Preparing...');
     try {
       const resp = await this.subService.getDepositData();
+      this.loading.dismiss();
       resp.code === '100' ? this.depositData = resp.data : console.log(resp);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
+      if(error.status === 0){
+       !this.toastShown ? this.util.showToast('Please check your network connection', 4000, 'danger') : '';
+        this.toastShown = true;
+        setTimeout(() => this.getDepoitPageData(), 5000);
+      }
     }
   }
 

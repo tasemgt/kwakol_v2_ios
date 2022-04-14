@@ -12,6 +12,8 @@ export class AddNewAccountPage implements OnInit {
 
   private modal: HTMLIonModalElement;
 
+  public account;
+
   public selectedBank: any;
   public selectedCurrency: any;
   public fromPage: string;
@@ -22,6 +24,7 @@ export class AddNewAccountPage implements OnInit {
     private router: Router) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      this.account = this.router.getCurrentNavigation().extras.state.account;
     }
   }
 
