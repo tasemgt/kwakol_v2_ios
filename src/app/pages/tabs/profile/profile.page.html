@@ -6,9 +6,9 @@
   <div class="headings">
     <ion-icon src="assets/icon/profile.svg"></ion-icon>
     <h3>{{ user.fullname }}</h3>
-    <ion-button class="kwakol-btn round ion-text-capitalize" type="button" (click)="editProfile()" [disabled]="true">
+    <!-- <ion-button class="kwakol-btn round ion-text-capitalize" type="button" (click)="editProfile()" [disabled]="true">
       Edit Profile
-    </ion-button>
+    </ion-button> -->
   </div>
 
   <div class="details">
@@ -60,8 +60,7 @@
       </div> -->
     </div>
 
-    <ion-button class="kwakol-btn ion-text-uppercase logout" type="button" (click)="logOut()">
-      <ion-icon slot="start" src="assets/icon/calendar-white.svg"></ion-icon>
+    <ion-button class="kwakol-btn ion-text-uppercase btn-bottom" type="button" (click)="logOut()">
       Log Out
     </ion-button>
 

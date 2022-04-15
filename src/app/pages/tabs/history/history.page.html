@@ -17,8 +17,13 @@
   <div class="history-list">
     <div class="history" (click)="openHistorySummary(hist)" *ngFor="let hist of histories">
       <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
-      <h4>{{ hist.type | capitalize }} <span>${{ hist.amount }}</span></h4>
-      <p>{{ hist.date }}<span>{{ hist.percentage || 0}}%</span></p>
+      <h4>
+        {{ hist.type | capitalize }} 
+        <span class="{{ hist.type }}">
+          ${{ util.numberWithCommas(hist.amount) }}
+        </span>
+      </h4>
+      <p>{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
     </div>
   </div>
 

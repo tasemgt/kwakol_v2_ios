@@ -259,6 +259,15 @@ ion-button.kwakol-btn{
     }
 }
 
+/* Button positioning */
+.btn-bottom{
+  position: absolute;
+  bottom: 6rem;
+  left: 50%;
+  width: 86% !important;
+  transform: translateX(-50%);
+}
+
 /** 
     Authentication Pages
 **/
@@ -420,7 +429,7 @@ ion-button.kwakol-btn{
 .selected-bank{
   border: 1px solid var(--ion-light-green-color);
   box-shadow: 0px 3px 4px rgba(33, 31, 66, 0.1);
-  padding: .625rem;
+  padding: .8rem;
   border-radius: 10px;
   margin-bottom: 1rem;
 
@@ -485,17 +494,17 @@ ion-button.kwakol-btn{
               font-family: BwModelicaMedium;
               font-size: 1rem;
 
-              &.with, &.dep{
+              &.withdrawal, &.deposit, &.bonus{
                   position: absolute;
                   right: 0;
-                  top: 1.2rem;
+                  top: 1.3rem;
               }
 
-              &.with{
+              &.withdrawal{
                   color: rgba(var(--ion-text-gray-color-rgb), .9);
               }
 
-              &.dep{
+              &.deposit, &.bonus{
                   color: var(--ion-color-primary);
               }
           }

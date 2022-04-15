@@ -82,4 +82,11 @@ export class DataService {
   clearCurrency(){
     this.currency = null;
   }
+
+  clearCBI(){
+    this.clearBank();
+    this.clearBanks();
+    this.clearCurrency();
+    this.clearInvestment();
+  }
 }

@@ -60,10 +60,10 @@ export class ProfilePage implements OnInit {
   }
 
   public goToPage(page:string){
-    if(this.accountDeets){
-      this.router.navigateByUrl(page, {state: {url: this.router.url, accountDeets : this.accountDeets}});
-      return;
-    }
+    // if(this.accountDeets){
+    //   this.router.navigateByUrl(page, {state: {url: this.router.url, accountDeets : this.accountDeets}});
+    //   return;
+    // }
     this.getAccountDetails(page);
   }
 
@@ -74,7 +74,7 @@ export class ProfilePage implements OnInit {
         this.loading.dismiss();
         this.auth.logout();
       }, 1500);
-    }, 'Nah!', 'Yup!')
+    }, 'Cancel', 'Yes')
   }
 
   public async getAccountDetails(page){

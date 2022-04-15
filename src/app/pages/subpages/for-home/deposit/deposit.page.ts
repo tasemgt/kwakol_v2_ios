@@ -152,7 +152,7 @@ export class DepositPage implements OnInit, OnDestroy{
       if(error.status === 0){
        !this.toastShown ? this.util.showToast('Please check your network connection', 4000, 'danger') : '';
         this.toastShown = true;
-        setTimeout(() => this.getDepoitPageData(), 5000);
+        setTimeout(() => this.getDepoitPageData(), 8000);
       }
     }
   }

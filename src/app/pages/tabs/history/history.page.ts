@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { historyIcons } from 'src/app/models/constants';
+import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { HistoryService } from 'src/app/services/history.service';
+import { SubscriptionService } from 'src/app/services/subscription.service';
+import { UtilService } from 'src/app/services/util.service';
 import { BottomDrawerPage } from '../../modals/bottom-drawer/bottom-drawer.page';
 
 @Component({
@@ -29,15 +33,29 @@ export class HistoryPage  implements OnInit{
   ];
 
   constructor(
+    public util: UtilService,
     private modalCtrl: ModalController,
     private router: Router,
-    private historyService: HistoryService) {}
+    private auth: AuthService,
+    private subService: SubscriptionService,
+    private historyService: HistoryService,
+    private dataService: DataService) {}
 
   ngOnInit() {
+    this.dataService.clearCBI(); //Clears all stored currency, bank, and investment info
     this.selectedFilter = this.filters[0];
     this.prevFilter = this.selectedFilter;
 
-    this.getHistories('');
+    this.auth.getAuthStateSubject().subscribe((state) =>{
+      if(state){
+        this.getHistories('');
+      }
+    });
+    this.subService.getBalanceSubject().subscribe((state) =>{
+      if(state){
+        this.getHistories('');
+      }
+    });
   }
 
 

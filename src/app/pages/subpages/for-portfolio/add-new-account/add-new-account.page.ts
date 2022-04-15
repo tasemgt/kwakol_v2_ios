@@ -50,6 +50,11 @@ export class AddNewAccountPage implements OnInit {
   }
 
   public continue(){
+    if(!this.selectedCurrency.selected) return this.util.showToast('Please select a currency', 2000, 'danger');
+    if(!this.amount) return this.util.showToast('Please input deposit amount', 2000, 'danger');
+    if(!this.selectedInvestment.selected) return this.util.showToast('Please select investment account', 2000, 'danger');
+    if(!this.selectedBank.selected) return this.util.showToast('Please select a bank', 2000, 'danger');
+    if(!this.receipt) return this.util.showToast('Please attach a proof receipt', 2000, 'danger');
   }
 
   public onTapSelect(type: string){
@@ -99,7 +104,7 @@ export class AddNewAccountPage implements OnInit {
       if(error.status === 0){
        !this.toastShown ? this.util.showToast('Please check your network connection', 4000, 'danger') : '';
         this.toastShown = true;
-        setTimeout(() => this.getDepoitPageData(), 5000);
+        setTimeout(() => this.getDepoitPageData(), 8000);
       }
     }
   }

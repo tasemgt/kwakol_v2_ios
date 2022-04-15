@@ -75,10 +75,17 @@
   <div class="history-list">
     <div class="history" *ngFor="let hist of home?.user_details.transactions | slice:0:4">
       <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
-      <h4>{{ hist.type | capitalize }} <span>${{ hist.amount }}</span></h4>
-      <p>{{ hist.date }}<span>{{ hist.percentage || 0}}%</span></p>
+      <h4>
+        {{ hist.type | capitalize }} 
+        <span class="{{ hist.type }}">
+          ${{ hist.amount }}
+        </span>
+      </h4>
+      <p>{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
     </div>
   </div>
+
+  
 
   <div class="tt-skeletons" *ngIf="!home">
     <ion-item *ngFor="let f of [1,2,3,4]">

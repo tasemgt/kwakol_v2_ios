@@ -8,14 +8,20 @@
 
   <div class="feeds-wrapper">
     <div class="feed" (click)="goToFeedDetails(feed)" *ngFor="let feed of feeds">
-      <img src="assets/imgs/feed.svg" alt="">
-      <div class="content">
-        <p class="date">{{ feed.published | date}}</p>
-        <h5>
-          {{ feed.title }}
-        </h5>
-        <p class="author">by {{ feed.author }}</p>
-      </div>
+      <ion-row>
+        <ion-col size="4">
+          <img src="assets/imgs/feed.svg" alt="">
+        </ion-col>
+        <ion-col size="7">
+          <div class="content">
+            <p class="date">{{ feed.published | date}}</p>
+            <h5>
+              {{ feed.title }}
+            </h5>
+            <p class="author">by {{ feed.author }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
     </div>
   </div>
 

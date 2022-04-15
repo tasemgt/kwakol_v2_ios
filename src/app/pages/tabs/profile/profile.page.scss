@@ -27,6 +27,7 @@ div.headings{
 }
 
 div.details{
+    margin-top: 2rem;
     .detail{
         font-size: .85rem;
         font-family: BwModelicaLight;
@@ -65,10 +66,6 @@ div.actions{
     margin: 1rem 0 .3rem 0;
     font-family: BwModelicaBold;
     font-size: 1rem;
-}
-
-ion-button.logout{
-    margin-top: 5rem;
 }
 
 ion-content{

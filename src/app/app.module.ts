@@ -8,6 +8,9 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { pageAnimation } from 'src/animations/nav-animations';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
+import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
@@ -28,7 +31,10 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
     StatusBar,
-    Clipboard
+    Clipboard,
+    MobileAccessibility,
+    AppMinimize,
+    ScreenOrientation
   ],
   bootstrap: [AppComponent],
 })

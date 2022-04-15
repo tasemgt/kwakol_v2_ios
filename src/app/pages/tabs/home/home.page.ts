@@ -77,7 +77,7 @@ export class HomePage implements OnInit{
       if(error.status === 0){
        !this.toastShown ? this.util.showToast('Please check your network connection', 4000, 'danger') : '';
         this.toastShown = true;
-        setTimeout(() => this.getHome(), 5000);
+        setTimeout(() => this.getHome(), 10000);
       }
     }
   }

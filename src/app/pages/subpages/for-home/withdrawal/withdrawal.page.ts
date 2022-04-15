@@ -36,6 +36,7 @@ export class WithdrawalPage implements OnInit {
   }
 
   ngOnInit() {
+    this.dataService.clearCBI(); //Clears all stored currency, bank, and investment info
     this.selectedInvestment = this.dataService.getInvestment() || {name: 'Select Investment Account'};
   }
 

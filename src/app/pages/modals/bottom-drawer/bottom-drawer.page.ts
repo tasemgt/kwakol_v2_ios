@@ -80,15 +80,15 @@ export class BottomDrawerPage implements OnInit {
   private initializeList(){
     if(this.selectedBank){
      const bank = this.banks.find(b => b.name === this.selectedBank.name);
-     bank.selected = true;
+     bank? bank.selected = true : '';
     }
     if(this.selectedInvestment){
       const inv = this.investments.find(inv => inv.name === this.selectedInvestment.name);
-      inv.selected = true;
+      inv ? inv.selected = true : '';
      }
      if(this.selectedCurrency){
       const cur = this.currencies.find(c => c.name === this.selectedCurrency.name);
-      cur.selected = true;
+      cur ? cur.selected = true: '';
      }
   }
 

@@ -1,5 +1,5 @@
 export const constants = {
-    baseUrl:  'http://kwml.work/api/v1',
+    baseUrl:  'https://kwml.work/api/v1',
     currentUser: 'CURRENT_KWAKOL_USER',
     currentProfile: 'CURRENT_KWAKOL_PROFILE',
     userProfile: 'KWAKOL_USER_PROFILE'
