@@ -1,8 +1,8 @@
 <ion-content [fullscreen]="true" class="page-content tab-page-white">
   <div class="header">
     <h3>Hi {{ user.fullname }},</h3>
-    <p>Hope you're having a great afternoon.</p>
-    <ion-icon src="assets/icon/chat.svg"></ion-icon>
+    <p>Hope you're having a great {{ util.greetMessage()}}.</p>
+    <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
   </div>
 
   <div class="summary">
@@ -12,18 +12,18 @@
     <ion-icon src="assets/icon/home-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
   </div>
 
-  <p class="my-portfolio">My Portfolio <span><ion-icon src="assets/icon/plus.svg"></ion-icon>Add Investment Account</span></p>
+  <p class="my-portfolio">My Portfolio <span (click)="goToNewAccount()"><ion-icon src="assets/icon/plus.svg"></ion-icon>Add Investment Account</span></p>
 
   <ion-row class="investments-wrapper">
     <ion-col size="3">
-      <div class="add-investment">
+      <div class="add-investment" (click)="goToNewAccount()">
         Add Account
       </div>
     </ion-col>
     <ion-col size="6" *ngFor="let inv of home?.user_details.subscriber.subscription">
       <div class="investment-item">
         <p>Balance</p>
-        <h4>${{ inv.balance }}</h4>
+        <h4>${{ util.numberWithCommas(addInvBalances(inv)) }}</h4>
         <div class="type-area {{ getIconForInvName(inv.subscription.name) }}">
           <ion-icon [src]="'assets/icon/inv-type/'+ getIconForInvName(inv.subscription.name) +'.svg'"></ion-icon>
           <h4>{{ inv.subscription.name }}</h4>
@@ -70,7 +70,7 @@
     </ion-col>
   </ion-row>
 
-  <p class="account-history">Account History <span>View All</span></p>
+  <p class="account-history">Account History <span [routerLink]="'/tabs/history'">View All</span></p>
 
   <div class="history-list">
     <div class="history" *ngFor="let hist of home?.user_details.transactions | slice:0:4">
@@ -78,14 +78,12 @@
       <h4>
         {{ hist.type | capitalize }} 
         <span class="{{ hist.type }}">
-          ${{ hist.amount }}
+          ${{ util.numberWithCommas(hist.amount) }}
         </span>
       </h4>
       <p>{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
     </div>
   </div>
-
-  
 
   <div class="tt-skeletons" *ngIf="!home">
     <ion-item *ngFor="let f of [1,2,3,4]">

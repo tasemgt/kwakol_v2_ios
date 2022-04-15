@@ -27,7 +27,7 @@ export class HomePage implements OnInit{
     private router: Router,
     private dataService: DataService,
     private auth: AuthService,
-    private util: UtilService,
+    public util: UtilService,
     private loading: LoadingController,
     private subService: SubscriptionService,
     private homeService: HomeService) {}
@@ -92,4 +92,26 @@ export class HomePage implements OnInit{
     this.router.navigateByUrl(page, {state: {url: this.router.url, subscriber}});
   }
 
+  public goToNewAccount(){
+    this.getInvestmentAccounts();
+  }
+
+  public addInvBalances(inv){
+    return Number(inv.balance) + Number(inv.profit_balance);
+  }
+
+  private async getInvestmentAccounts(){
+    this.util.presentLoading2('Please wait...');
+    try {
+      const resp = await this.subService.getInvestmentAccounts();
+      this.loading.dismiss();
+      if(resp.code === '100'){
+        const invAccounts = resp.data.subscriptions;
+        this.router.navigateByUrl('/new-account', {state: {url:this.router.url, accounts: invAccounts}});
+      }
+    } catch (error) {
+      this.loading.dismiss();
+      console.log(error);
+    }
+  }
 }

@@ -22,7 +22,6 @@ export class AddNewAccountPage implements OnInit {
   public depositData;
 
   public selectedBank: any;
-  public selectedInvestment: any;
   public selectedCurrency: any;
 
   public fileName = 'No file chosen';
@@ -33,7 +32,7 @@ export class AddNewAccountPage implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private router: Router,
-    private util: UtilService,
+    public util: UtilService,
     private loading: LoadingController,
     private subService: SubscriptionService,
     private dataService: DataService) {
@@ -49,12 +48,43 @@ export class AddNewAccountPage implements OnInit {
     this.selectedCurrency = this.dataService.getCurrency() || {name: 'CUR'};
   }
 
-  public continue(){
+  public async continue(){
     if(!this.selectedCurrency.selected) return this.util.showToast('Please select a currency', 2000, 'danger');
     if(!this.amount) return this.util.showToast('Please input deposit amount', 2000, 'danger');
-    if(!this.selectedInvestment.selected) return this.util.showToast('Please select investment account', 2000, 'danger');
     if(!this.selectedBank.selected) return this.util.showToast('Please select a bank', 2000, 'danger');
     if(!this.receipt) return this.util.showToast('Please attach a proof receipt', 2000, 'danger');
+
+    const formData = new FormData();
+
+    const amount = this.amount.replace(/,/g, "");
+
+    formData.append('currency_id', this.selectedCurrency.id); formData.append('bank_id', this.selectedBank.id);
+    formData.append('amount', amount); formData.append('proof_of_payment', this.receipt);
+    formData.append('subscription_id', this.account.id);
+    console.log(Array.from(formData.entries()));
+
+    try {
+      this.util.presentLoading();
+      const resp = await this.subService.doNewSubscription(formData);
+      console.log(resp);
+      if(resp.code === '100'){
+        this.loading.dismiss();
+        this.subService.getBalanceSubject().next(true);
+        this.util.showToast('Account created successfully', 3000, 'success');
+        // this.util.presentAlertModal('depositConfirm');
+      }
+    } catch (error) {
+      this.loading.dismiss();
+      console.log(error);
+      error.status === 0 ? this.util.showToast('Please check your network connection...', 3000, 'danger') : '';
+    }
+
+  }
+
+
+  public onFileChange(fileChangeEvent){
+    this.receipt = fileChangeEvent.target.files[0];
+    this.fileName = this.receipt.name.slice(0,35);
   }
 
   public onTapSelect(type: string){
@@ -106,6 +136,12 @@ export class AddNewAccountPage implements OnInit {
         this.toastShown = true;
         setTimeout(() => this.getDepoitPageData(), 8000);
       }
+    }
+  }
+
+  public refreshModel(): void{
+    if(this.amount){
+      this.amount = this.util.numberWithCommas(this.amount);
     }
   }
 

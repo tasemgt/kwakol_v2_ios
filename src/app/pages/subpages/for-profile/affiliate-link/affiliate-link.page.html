@@ -8,13 +8,13 @@
 
   <div class="rewards">
     <p>Total Clients <span>Total Rewards</span></p>
-    <h3>{{ accountDeets.referral_clients }} <span>${{ accountDeets.referral_rewards }} </span></h3>
+    <h3>{{ accountDeets.referral_clients || '0' }} <span>${{ accountDeets.referral_rewards || '0'}} </span></h3>
   </div>
 
   <p class="ref">Your referral URL is</p>
   <div class="referral-url">
     <p>
-      {{ accountDeets.referral_url.substring(0, 33) + '...' }} 
+      {{ accountDeets.referral_url?.substring(0, 33) + '...' }} 
     </p>
     <ion-icon (click)="copyLink()" src="assets/icon/copy.svg"></ion-icon>
   </div>

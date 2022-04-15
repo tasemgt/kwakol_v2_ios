@@ -46,7 +46,7 @@ export class WithdrawalPage implements OnInit {
 
     const payload = {
       subscription_id : this.selectedInvestment.id,
-      amount: this.amount,
+      amount: this.amount.replace(/,/g, ""),
     }
     console.log(payload);
     this.util.presentAlertConfirm('Confirm withdrawal', `Are you sure you want to withdraw ${this.amount} from ${this.selectedInvestment.name}?`, async() =>{
@@ -92,6 +92,12 @@ export class WithdrawalPage implements OnInit {
     if(!data) return;
     else if(data.data.type === 'investment'){
       this.selectedInvestment = data.data.data;
+    }
+  }
+
+  public refreshModel(): void{
+    if(this.amount){
+      this.amount = this.util.numberWithCommas(this.amount);
     }
   }
 

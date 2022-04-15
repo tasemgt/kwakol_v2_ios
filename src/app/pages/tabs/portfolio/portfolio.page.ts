@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -18,12 +19,17 @@ export class PortfolioPage implements OnInit{
   constructor(
     private router: Router,
     private portfolioService: PortfolioService,
+    private auth: AuthService,
     private subService: SubscriptionService,
     public util: UtilService,
     public loading: LoadingController) {}
 
   ngOnInit(): void {
-    this.getPortfolio();
+    this.auth.getAuthStateSubject().subscribe((state) =>{
+      if(state){
+        this.getPortfolio();
+      }
+    });
   }
   
 

@@ -14,9 +14,10 @@
   <ion-row class="input-rows">
     
     <ion-col size="12" class="kwakol-input">
-      <ion-item>
-        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" required></ion-input>
+      <ion-item class="amount-input">
+        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" (ionChange)="refreshModel()" required></ion-input>
       </ion-item>
+      <p>Minimum investment: $ {{ util.numberWithCommas(account.desc_minimum_investment)}}</p>
     </ion-col>
 
     <ion-col size="12" class="kwakol-input">
@@ -29,9 +30,11 @@
 
   <p class="proof">Proof of Transfer</p>
   <div class="upload">
+    <input type="file" class="form__upload" (change)="onFileChange($event)" />
     <ion-icon src="assets/icon/upload.svg"></ion-icon>
     <p>Upload Receipt</p>
-    <p>Supported file types: JPEG, PNG, PDF <br/>Max file size: 3mb</p>
+    <p>Supported file types: JPEG, PNG, PDF <br/>Max file size: 1mb</p>
+    <p class="file-name">{{ fileName }}</p>
   </div>
 
   <div class="about">
@@ -41,7 +44,7 @@
     </div>
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       Minimum investment: $ {{ account.desc_minimum_investment}}.
+       Minimum investment: $ {{ util.numberWithCommas(account.desc_minimum_investment) }}.
     </div>
     <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>

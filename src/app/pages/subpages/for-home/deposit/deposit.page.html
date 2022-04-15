@@ -15,7 +15,7 @@
     
     <ion-col size="12" class="kwakol-input">
       <ion-item>
-        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" required></ion-input>
+        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" (ionChange)="refreshModel()" required></ion-input>
       </ion-item>
     </ion-col>
 
@@ -37,7 +37,7 @@
   <div class="selected-bank" *ngIf="selectedBank.selected">
     <p>
       Account Number
-      <span>{{ selectedBank?.accountNum  }} <ion-icon src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{ selectedBank?.accountNum  }} <ion-icon (click)="copyLink()" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p>
       Account name

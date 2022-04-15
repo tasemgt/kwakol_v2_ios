@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
 import { DataService } from 'src/app/services/data.service';
@@ -41,6 +41,7 @@ export class DepositPage implements OnInit, OnDestroy{
 
   constructor(
     private router: Router,
+    private clipboard: Clipboard,
     private util: UtilService,
     private loading: LoadingController,
     private dataService: DataService,
@@ -69,8 +70,10 @@ export class DepositPage implements OnInit, OnDestroy{
 
     const formData = new FormData();
 
+    const amount = this.amount.replace(/,/g, "");
+
     formData.append('currency_id', this.selectedCurrency.id); formData.append('bank_id', this.selectedBank.id);
-    formData.append('subscription_id', this.selectedInvestment.id); formData.append('amount', this.amount);
+    formData.append('subscription_id', this.selectedInvestment.id); formData.append('amount', amount);
     formData.append('proof_of_payment', this.receipt);
     console.log(Array.from(formData.entries()));
     try {
@@ -106,7 +109,6 @@ export class DepositPage implements OnInit, OnDestroy{
   public onFileChange(fileChangeEvent){
     this.receipt = fileChangeEvent.target.files[0];
     this.fileName = this.receipt.name.slice(0,35);
-    console.log(this.receipt);
   }
 
   private async presentModal(type: string) {
@@ -154,6 +156,19 @@ export class DepositPage implements OnInit, OnDestroy{
         this.toastShown = true;
         setTimeout(() => this.getDepoitPageData(), 8000);
       }
+    }
+  }
+
+  public refreshModel(): void{
+    if(this.amount){
+      this.amount = this.util.numberWithCommas(this.amount);
+    }
+  }
+
+  public async copyLink(){
+    const copied = await this.clipboard.copy(this.selectedBank.accountNum);
+    if(copied){
+      this.util.showToast('Referral link copied...', 2000, 'success');
     }
   }
 

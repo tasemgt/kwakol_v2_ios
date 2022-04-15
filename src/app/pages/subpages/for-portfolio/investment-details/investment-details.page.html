@@ -5,10 +5,10 @@
   <h2 class="subpage-heading">{{ sub.subscription.name }}</h2>
   
   <div class="summary">
-    <img src="assets/icon/text-svgs/total-investments.svg">
+    <p>Balance</p>
     <h2>${{ util.numberWithCommas(sub.balance) }}</h2>
-    <ion-icon src="assets/icon/inv-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
     <ion-icon src="assets/icon/inv-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
+    <ion-icon src="assets/icon/inv-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
   </div>
 
   <ion-row class="invest-tabs ion-text-center">
@@ -21,8 +21,13 @@
     <div class="history-list">
       <div class="history" *ngFor="let hist of histories | slice:0:6">
         <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
-        <h4>{{ hist.type | capitalize }} <span>${{ hist.amount }}</span></h4>
-        <p>{{ hist.date }}<span>{{ hist.percentage || 0}}%</span></p>
+        <h4>
+          {{ hist.type | capitalize }} 
+          <span class="{{ hist.type }}">
+            ${{ util.numberWithCommas(hist.amount) }}
+          </span>
+        </h4>
+        <p>{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
       </div>
     </div>
 
@@ -43,7 +48,7 @@
 
   <div class="statistics" *ngIf="selectedTab?.name === 'Statistics'">
     <div class="totals">
-      <p>Total Deposits <span>Total Profits</span></p>
+      <p>Investment <span>Profit</span></p>
       <h5>${{ sub.balance }} <span>${{ sub.profit_balance }}</span></h5>
     </div>
   </div>

@@ -9,7 +9,7 @@
     
     <ion-col size="12" class="kwakol-input">
       <ion-item>
-        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" required></ion-input>
+        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" [(ngModel)]="amount" (ionChange)="refreshModel()" required></ion-input>
       </ion-item>
     </ion-col>
 
