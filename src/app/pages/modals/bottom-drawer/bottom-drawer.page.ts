@@ -61,6 +61,9 @@ export class BottomDrawerPage implements OnInit {
     currency.selected = true;
     this.dataService.setCurrency(currency);
     console.log(currency);
+    this.banks = [];
+    this.dataService.clearBanks();
+    this.dataService.clearBank();
     this.populateBankAccountsButtons(currency);
     this.closeModal({type: 'currency', data:currency});
   }

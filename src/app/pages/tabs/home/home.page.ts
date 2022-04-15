@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { historyIcons } from 'src/app/models/constants';
+import { historyIcons, investmentIcons } from 'src/app/models/constants';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
@@ -53,6 +53,11 @@ export class HomePage implements OnInit{
 
   public getIconForType(type: string){
     return historyIcons[type];
+  }
+
+
+  public getIconForInvName(inv: string){
+    return investmentIcons[inv.toLowerCase()];
   }
 
   public async getHome(){

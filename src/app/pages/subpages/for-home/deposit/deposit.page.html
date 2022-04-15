@@ -47,10 +47,11 @@
 
   <p class="proof">Proof of Transfer</p>
   <div class="upload">
+    <input type="file" class="form__upload" (change)="onFileChange($event)" />
     <ion-icon src="assets/icon/upload.svg"></ion-icon>
     <p>Upload Receipt</p>
     <p>Supported file types: JPEG, PNG, PDF <br/>Max file size: 1mb</p>
-    <input type="file" (change)="onFileChange($event)" />
+    <p class="file-name">{{ fileName }}</p>
   </div>
 
   <ion-row>

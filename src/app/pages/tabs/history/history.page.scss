@@ -15,7 +15,7 @@ ion-header{
 ion-row.types-wrapper{
     overflow-y: scroll;
     flex-wrap: nowrap;
-    margin: 1rem -1.35rem;
+    margin: 1rem -1.35rem 0 -1.35rem;
 
     &::-webkit-scrollbar {
       display: none; //Disables browser's default scroll bar

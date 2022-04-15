@@ -25,3 +25,27 @@ ion-col.kwakol-input{
 p.proof{
     margin: .5rem 0;
 }
+
+.form__upload {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1000000;
+  }
+
+  .form__upload + .upload {
+    text-decoration: none;
+    padding: 3px;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .file-name{
+    margin-top: 0.2rem;
+    text-align: right;
+    font-size: .7rem;
+    color: var(ion-text-gray2-color);
+  }

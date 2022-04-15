@@ -7,6 +7,13 @@ import { DataService } from 'src/app/services/data.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
 
+
+// declare global {
+//   interface FormData {
+//     entries(): Iterator<[USVString, USVString | Blob]>;
+//   }
+// }
+
 @Component({
   selector: 'app-deposit',
   templateUrl: './deposit.page.html',
@@ -28,7 +35,9 @@ export class DepositPage implements OnInit, OnDestroy{
   public selectedInvestment: any;
   public selectedCurrency: any;
 
+  public fileName = 'No file chosen';
   private receipt: File;
+  
 
   constructor(
     private router: Router,
@@ -63,23 +72,21 @@ export class DepositPage implements OnInit, OnDestroy{
     formData.append('currency_id', this.selectedCurrency.id); formData.append('bank_id', this.selectedBank.id);
     formData.append('subscription_id', this.selectedInvestment.id); formData.append('amount', this.amount);
     formData.append('proof_of_payment', this.receipt);
-    formData.forEach((d) => console.log(d));
-    
-    // const payload = {
-    //   currency_id : this.selectedCurrency.id,
-    //   bank_id : this.selectedBank.id,
-    //   subscription_id : this.selectedInvestment.id,
-    //   amount: this.amount,
-    //   proof_of_payment: this.receipt
-    // }
-    // console.log(payload);
-    // try {
-    //   const resp = await this.subService.doDeposit(payload);
-    //   console.log(resp);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
+    console.log(Array.from(formData.entries()));
+    try {
+      this.util.presentLoading();
+      const resp = await this.subService.doDeposit(formData);
+      console.log(resp);
+      if(resp.code === '100'){
+        this.loading.dismiss();
+        this.subService.getBalanceSubject().next(true);
+        this.util.presentAlertModal('depositConfirm');
+      }
+    } catch (error) {
+      this.loading.dismiss();
+      console.log(error);
+      error.status === 0 ? this.util.showToast('Please check your network connection...', 3000, 'danger') : '';
+    }
   }
 
   // public confirm(){
@@ -98,6 +105,7 @@ export class DepositPage implements OnInit, OnDestroy{
 
   public onFileChange(fileChangeEvent){
     this.receipt = fileChangeEvent.target.files[0];
+    this.fileName = this.receipt.name.slice(0,35);
     console.log(this.receipt);
   }
 
@@ -128,12 +136,13 @@ export class DepositPage implements OnInit, OnDestroy{
       this.selectedInvestment = data.data.data;
     }
     else if(data.data.type === 'currency'){
+      this.selectedBank = {bankName: 'Select Bank'};
       this.selectedCurrency = data.data.data;
     }
   }
 
   private async getDepoitPageData(){
-    this.util.presentLoading2('Preparing...');
+    !this.toastShown ? this.util.presentLoading2('Preparing...'): '';
     try {
       const resp = await this.subService.getDepositData();
       this.loading.dismiss();

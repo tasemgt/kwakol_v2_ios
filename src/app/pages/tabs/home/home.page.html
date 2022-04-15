@@ -24,8 +24,8 @@
       <div class="investment-item">
         <p>Balance</p>
         <h4>${{ inv.balance }}</h4>
-        <div class="type-area levadura-big">
-          <ion-icon src="assets/icon/inv-type/levadura.svg"></ion-icon>
+        <div class="type-area {{ getIconForInvName(inv.subscription.name) }}">
+          <ion-icon [src]="'assets/icon/inv-type/'+ getIconForInvName(inv.subscription.name) +'.svg'"></ion-icon>
           <h4>{{ inv.subscription.name }}</h4>
         </div>
       </div>

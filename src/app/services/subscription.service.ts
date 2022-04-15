@@ -21,7 +21,8 @@ export class SubscriptionService {
   }
 
   public doDeposit(payload): Promise<any>{
-    return this.http.post(`${this.baseUrl}/deposit`, payload, this.headers);
+    const headers = {'Content-Type' : false, processData : false}; //Needed to upload file as file and not converted to string
+    return this.http.post(`${this.baseUrl}/deposit`, payload, headers);
   }
 
   public doWithdraw(payload): Promise<any>{
