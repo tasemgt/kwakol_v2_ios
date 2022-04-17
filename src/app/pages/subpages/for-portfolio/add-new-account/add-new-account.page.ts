@@ -124,7 +124,7 @@ export class AddNewAccountPage implements OnInit {
   }
 
   private async getDepoitPageData(){
-    !this.toastShown ? this.util.presentLoading2('Preparing...'): '';
+    !this.toastShown ? this.util.presentLoading('Preparing...'): '';
     try {
       const resp = await this.subService.getDepositData();
       this.loading.dismiss();

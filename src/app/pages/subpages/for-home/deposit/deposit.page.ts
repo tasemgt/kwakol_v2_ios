@@ -144,7 +144,7 @@ export class DepositPage implements OnInit, OnDestroy{
   }
 
   private async getDepoitPageData(){
-    !this.toastShown ? this.util.presentLoading2('Preparing...'): '';
+    !this.toastShown ? this.util.presentLoading('Preparing...'): '';
     try {
       const resp = await this.subService.getDepositData();
       this.loading.dismiss();
@@ -168,7 +168,7 @@ export class DepositPage implements OnInit, OnDestroy{
   public async copyLink(){
     const copied = await this.clipboard.copy(this.selectedBank.accountNum);
     if(copied){
-      this.util.showToast('Referral link copied...', 2000, 'success');
+      this.util.showToast('Account Number copied...', 2000, 'success');
     }
   }
 

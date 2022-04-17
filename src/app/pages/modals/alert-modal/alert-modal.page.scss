@@ -2,9 +2,13 @@ ion-content{
     --background: var(--ion-color-primary);
 
     .img-wrapper{
-        margin-top: 11rem;
+        margin-top: 12rem;
         margin-bottom: 2rem;
         text-align: center;
+
+        .deposit-confirm{
+            width: 18rem;
+        }
     }
 
     .message{

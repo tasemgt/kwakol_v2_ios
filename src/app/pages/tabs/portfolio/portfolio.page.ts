@@ -31,8 +31,11 @@ export class PortfolioPage implements OnInit{
       }
     });
   }
-  
 
+  ionViewWillEnter(){
+    this.getInvestementAccountsQuiet();
+  }
+  
   private async getPortfolio(){
     try {
       const resp = await this.portfolioService.getPortfolio();
@@ -45,7 +48,7 @@ export class PortfolioPage implements OnInit{
   }
 
   private async getInvestmentAccounts(){
-    this.util.presentLoading2('Please wait...');
+    this.util.presentLoading('Please wait...');
     try {
       const resp = await this.subService.getInvestmentAccounts();
       this.loading.dismiss();
@@ -63,7 +66,26 @@ export class PortfolioPage implements OnInit{
     this.router.navigateByUrl('/investment-details', {state: {url:this.router.url, sub}});
   }
 
+  public async getInvestementAccountsQuiet(){
+    const resp = await this.subService.getInvestmentAccounts();
+    if(resp.code === '100'){
+      this.invAccounts = resp.data.subscriptions;
+    }
+  }
+
   public goToNewAccount(){
     this.getInvestmentAccounts();
+  }
+
+  public addInvBalances(inv){
+    return Number(inv.balance) + Number(inv.profit_balance);
+  }
+
+  public doRefresh(event): void{
+    this.getInvestementAccountsQuiet();
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
   }
 }

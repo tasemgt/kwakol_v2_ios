@@ -6,22 +6,22 @@
 
   <div class="item">
     <p>Closed Trade</p>
-    <h3>${{ hist.close_trade || '0' }}</h3>
+    <h3>${{ util.numberWithCommas(hist.close_trade || '0') }}</h3>
   </div>
 
   <div class="item">
     <p>Commission</p>
-    <h3>${{ hist.commission || '0' }}</h3>
+    <h3>${{ util.numberWithCommas(hist.commission || '0') }}</h3>
   </div>
 
   <div class="item">
     <p>Percentage P/L</p>
-    <h3>${{ hist.percentage || '0' }}%</h3>
+    <h3>${{ util.numberWithCommas(hist.percentage || '0') }}%</h3>
   </div>
 
   <div class="item">
     <p>Opening Balance</p>
-    <h3>${{ hist.opening_balance || '0' }}</h3>
+    <h3>${{ util.numberWithCommas(hist.opening_balance || '0') }}</h3>
   </div>
 <!-- 
   <div class="item">

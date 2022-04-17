@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-history-summary',
@@ -11,7 +12,9 @@ export class HistorySummaryPage implements OnInit {
   public fromPage: string;
   public hist;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    public util: UtilService) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
       this.hist = this.router.getCurrentNavigation().extras.state.hist;

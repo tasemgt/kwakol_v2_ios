@@ -7,6 +7,16 @@
     img{
         width: 11.5rem;
     }
+
+    &.slide-up{
+        padding: 4rem 1.35rem;
+        transition: padding ease-out .3s;
+    }
+
+    &.slide-down{
+        padding: 9rem 1.35rem;
+        transition: padding ease-out .3s;
+    }
 }
 
 h3,p { margin: 0; }

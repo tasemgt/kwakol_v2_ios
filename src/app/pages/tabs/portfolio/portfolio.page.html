@@ -2,13 +2,15 @@
   <div class="auth-banner small">
     <h3>Portfolio</h3>
   </div>
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="investments">
 
     <div class="investment" (click)="goToInvestmentDetails(sub)" *ngFor="let sub of portfolio?.subscriber.subscription">
       <ion-icon src="assets/icon/inv-type/levadura-big.svg"></ion-icon>
         {{ sub.subscription.name }}
-        <span>${{ util.numberWithCommas(sub.balance) }}</span>
+        <span>${{ util.numberWithCommas(addInvBalances(sub)) }}</span>
     </div>
     
     <!-- <div class="investment">

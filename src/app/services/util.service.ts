@@ -38,12 +38,16 @@ export class UtilService {
   public async presentLoading(message?: string){
     const loading = await this.loadingCtrl.create({
       message: `
-      <div class="item">
-        <i class="loader --3"></i>
+      <div class="container">
+        <div class="switchbox">
+          <div class="switch"></div>
+          <div class="switch"></div>
+          <div class="switch"></div>
+        </div>
       </div>
       `,
       translucent: true,
-      cssClass: 'artizan-main-loader'
+      cssClass: 'kwakol-main-loader'
     });
     return loading.present();
   }

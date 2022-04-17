@@ -1,7 +1,12 @@
 <ion-content [fullscreen]="true" class="page-content tab-page-white">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="header">
     <h3>Hi {{ user.fullname }},</h3>
-    <p>Hope you're having a great {{ util.greetMessage()}}.</p>
+    <p>Hope you're having a great {{ getTimeOfDay()}}.</p>
     <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
   </div>
 
@@ -20,8 +25,8 @@
         Add Account
       </div>
     </ion-col>
-    <ion-col size="6" *ngFor="let inv of home?.user_details.subscriber.subscription">
-      <div class="investment-item">
+    <ion-col size="6" *ngFor="let inv of home?.user_details.subscriber.subscription" [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}">
+      <div class="investment-item" (click)="goToInvestmentDeets(inv)">
         <p>Balance</p>
         <h4>${{ util.numberWithCommas(addInvBalances(inv)) }}</h4>
         <div class="type-area {{ getIconForInvName(inv.subscription.name) }}">
@@ -48,7 +53,7 @@
     </ion-col>
 
 
-    <ion-col size="6">
+    <!-- <ion-col size="6">
       <div class="investment-item">
         <p>Balance</p>
         <h4>$7,534.59</h4>
@@ -67,7 +72,7 @@
           <h4>Levadura</h4>
         </div>
       </div>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
 
   <p class="account-history">Account History <span [routerLink]="'/tabs/history'">View All</span></p>

@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="page-content">
-  <div class="auth-banner">
+  <div class="auth-banner" [ngClass]="{'slide-up': inputFocused , 'slide-down': !inputFocused}">
     <img src="assets/icon/kwakol-logo.svg">
   </div>
 
@@ -11,13 +11,13 @@
     <ion-row class="row-auth">
       <ion-col size="12" class="kwakol-input">
         <ion-item>
-          <ion-input placeholder="Email Address" type="email" name="email" ngModel #email="ngModel" required></ion-input>
+          <ion-input placeholder="Email Address" (ionFocus)="onInputsFocus()" (ionBlur)="onInputsBlur()" type="email" name="email" ngModel #email="ngModel" required></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12" class="kwakol-input">
         <ion-item class="password-input">
-          <ion-input placeholder="Password" [type]="passwordType" name="password" ngModel #password="ngModel" required></ion-input>
-          <!-- <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon> -->
+          <ion-input placeholder="Password" (ionFocus)="onInputsFocus()" (ionBlur)="onInputsBlur()" [type]="passwordType" name="password" ngModel #password="ngModel" required></ion-input>
+          <ion-icon slot="end" [src]="'assets/icon/'+passwordIcon+'.svg'" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
         <p class="forgot-password"><a [routerLink]="'/forgot-password'">Forgot Password?</a></p>
       </ion-col>

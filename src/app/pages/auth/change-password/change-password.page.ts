@@ -13,6 +13,9 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class ChangePasswordPage implements OnInit {
 
+  public passwordType = 'password';
+  public passwordIcon = 'eye-close';
+
   public fromPage: string;
   public user: User;
 
@@ -57,6 +60,15 @@ export class ChangePasswordPage implements OnInit {
         this.util.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
       } 
     }
+  }
+
+  public hideShowPassword() {
+    const deets = this.util.hideShowPassword(
+      this.passwordType,
+      this.passwordIcon
+    );
+    this.passwordType = deets.passwordType;
+    this.passwordIcon = deets.passwordIcon;
   }
 
 }

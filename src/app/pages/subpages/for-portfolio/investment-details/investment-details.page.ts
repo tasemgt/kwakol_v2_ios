@@ -46,7 +46,7 @@ export class InvestmentDetailsPage implements OnInit {
     this.prevTab.active = false;
     tab.active = true;
     this.selectedTab = tab;
-    console.log(tab);
+    // console.log(tab);
     this.prevTab = tab;
   }
 
@@ -55,7 +55,7 @@ export class InvestmentDetailsPage implements OnInit {
       const resp = await this.historyService.getSubscriptionHistories(subId);
       if(resp.code === '100'){
         this.histories = resp.data.history.data;
-        console.log(this.histories);
+        // console.log(this.histories);
       }
     } catch (error) {
       console.log(error);
@@ -69,4 +69,7 @@ export class InvestmentDetailsPage implements OnInit {
     return historyIcons[type];
   }
 
+  public addInvBalances(inv){
+    return Number(inv.balance) + Number(inv.profit_balance);
+  }
 }

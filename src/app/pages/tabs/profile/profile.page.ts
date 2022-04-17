@@ -44,7 +44,7 @@ export class ProfilePage implements OnInit {
 
   public requestPasswordReset(){
     this.util.presentAlertConfirm('Reset Password', 'You will be required to login and create a new password. Proceed?', async() =>{
-      this.util.presentLoading2('Logging you out');
+      this.util.presentLoading('Logging you out');
       try {
         const resp = await this.profileService.requestPasswordReset(this.user.email);
         if(resp.code === '100'){
@@ -79,7 +79,7 @@ export class ProfilePage implements OnInit {
 
   public async getAccountDetails(page){
     try {
-      this.util.presentLoading2('Please wait...');
+      this.util.presentLoading('Please wait...');
       const resp = await this.profileService.getAccountInfo();
       this.loading.dismiss();
       if(resp.code === '100'){

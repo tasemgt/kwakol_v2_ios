@@ -39,12 +39,16 @@ export class HomePage implements OnInit{
         this.getHome();
       }
     });
-
     this.subService.getBalanceSubject().subscribe((state) =>{
       if(state){
         this.getHome();
       }
     });
+  }
+
+  ionViewWillEnter(){
+    this.getHomeQuietly();
+    this.getTimeOfDay();
   }
 
   public async getUser() {
@@ -85,7 +89,7 @@ export class HomePage implements OnInit{
   public goToPage(page: string){
     this.childPage = page;
     if(!this.home){
-      this.util.presentLoading2('Please wait...');
+      this.util.presentLoading('Please wait...');
       return;
     }
     const subscriber = this.home.user_details.subscriber;
@@ -100,8 +104,27 @@ export class HomePage implements OnInit{
     return Number(inv.balance) + Number(inv.profit_balance);
   }
 
+  public doRefresh(event): void{
+    this.getHomeQuietly();
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
+  public goToInvestmentDeets(sub){
+    this.router.navigateByUrl('/investment-details', {state : {url: this.router.url, sub}});
+  }
+
+  private async getHomeQuietly(){
+    const resp = await this.homeService.getHome();
+      if(resp.code === '100'){
+        this.home = resp.data.home;
+      }
+  }
+
   private async getInvestmentAccounts(){
-    this.util.presentLoading2('Please wait...');
+    this.util.presentLoading('Please wait...');
     try {
       const resp = await this.subService.getInvestmentAccounts();
       this.loading.dismiss();
@@ -113,5 +136,9 @@ export class HomePage implements OnInit{
       this.loading.dismiss();
       console.log(error);
     }
+  }
+
+  public getTimeOfDay(){
+    return this.util.greetMessage();
   }
 }

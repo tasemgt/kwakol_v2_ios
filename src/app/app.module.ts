@@ -9,6 +9,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { pageAnimation } from 'src/animations/nav-animations';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
+// import { OneSignal } from '@awesome-cordova-plugins/onesignal/ngx';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +35,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     Clipboard,
     MobileAccessibility,
     AppMinimize,
-    ScreenOrientation
+    ScreenOrientation,
+    // OneSignal
   ],
   bootstrap: [AppComponent],
 })

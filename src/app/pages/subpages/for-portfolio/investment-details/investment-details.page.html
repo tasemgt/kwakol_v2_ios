@@ -6,7 +6,7 @@
   
   <div class="summary">
     <p>Balance</p>
-    <h2>${{ util.numberWithCommas(sub.balance) }}</h2>
+    <h2>${{ util.numberWithCommas(addInvBalances(sub)) }}</h2>
     <ion-icon src="assets/icon/inv-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
     <ion-icon src="assets/icon/inv-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
   </div>
@@ -44,6 +44,8 @@
         </ion-label>
       </ion-item>
     </div>
+
+    <p class="no-histories" *ngIf="histories && histories?.length <= 0">No history available...</p>
   </div>
 
   <div class="statistics" *ngIf="selectedTab?.name === 'Statistics'">

@@ -86,6 +86,10 @@ ion-row.investments-wrapper{
     ion-col{
       padding: 0;
       margin-right: -1rem;
+
+      &.alter-margin{
+          margin-right: 4rem;
+      }
     }
 
     ion-col:first-child{

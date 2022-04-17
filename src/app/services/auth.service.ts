@@ -72,7 +72,7 @@ export class AuthService {
   // Login user
   public async login(data){
     const payload : LoginCred = data;
-    payload.notification_id = '123456';
+    // payload.notification_id = '123456';
     try{
       const resp: User = await this.http.post(`${this.baseUrl}/login`, payload, this.headers);
 

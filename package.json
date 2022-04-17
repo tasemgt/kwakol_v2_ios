@@ -37,6 +37,7 @@
     "cordova-android": "10.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
+    "uuidjs": "^4.2.11",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -78,6 +79,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "onesignal-cordova-plugin": "^3.0.2",
     "phonegap-plugin-mobile-accessibility": "^1.0.5",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
@@ -94,7 +96,8 @@
       "cordova-clipboard": {},
       "phonegap-plugin-mobile-accessibility": {},
       "cordova-plugin-appminimize": {},
-      "cordova-plugin-screen-orientation": {}
+      "cordova-plugin-screen-orientation": {},
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "android"

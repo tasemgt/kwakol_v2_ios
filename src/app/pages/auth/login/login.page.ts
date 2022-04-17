@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
+import { OneSignalService } from 'src/app/services/one-signal.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -14,12 +15,18 @@ export class LoginPage implements OnInit {
   public passwordType = 'password';
   public passwordIcon = 'eye-close';
 
+  public inputFocused: boolean;
+
+  private notification_id: string;
+
   constructor(
     private auth: AuthService,
     private util: UtilService,
+    private oneSS: OneSignalService,
     private loading: LoadingController) { }
 
   ngOnInit() {
+    this.getOneSignalPlayerID();
   }
 
 
@@ -30,9 +37,9 @@ export class LoginPage implements OnInit {
     }
     try{
       await this.util.presentLoading();
-      const resp  = await this.auth.login({email: form.value.email, password: form.value.password});
-      // form.reset();
+      const resp  = await this.auth.login({email: form.value.email, password: form.value.password, notification_id: this.notification_id});
       this.loading.dismiss();
+      setTimeout(() => form.reset(), 100);
       if(!resp.token){
         this.util.showToast(resp.message, 3000, 'danger');
         return;
@@ -49,4 +56,27 @@ export class LoginPage implements OnInit {
     }
     
   }
+
+  public hideShowPassword() {
+    const deets = this.util.hideShowPassword(
+      this.passwordType,
+      this.passwordIcon
+    );
+    this.passwordType = deets.passwordType;
+    this.passwordIcon = deets.passwordIcon;
+  }
+
+  public onInputsFocus(): void{
+    this.inputFocused = true;
+  }
+
+  public onInputsBlur(): void{
+    this.inputFocused = false;
+  }
+
+  private async getOneSignalPlayerID(){
+    this.notification_id = await this.oneSS.getPlayerID();
+    console.log(this.notification_id);
+  }
+
 }

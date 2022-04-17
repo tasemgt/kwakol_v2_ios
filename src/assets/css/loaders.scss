@@ -1,5 +1,6 @@
 //Custom Loading Controller Style
-.oneclick-loader{
+/* Hiding off default spinner*/
+.kwakol-main-loader{
   .loading-spinner{
     display: none;
   }
@@ -20,58 +21,49 @@
       -webkit-box-shadow: none;
       box-shadow: none;
     .loading-content {
-      margin-left: 0px;
+      // margin-right: 6rem;
     }
   }
 }
 
 
-// .loading-spinner.sc-ion-loading-ios + .loading-content.sc-ion-loading-ios{
-//   color: var(--ion-color-primary);
-// }
-
-
-.spinner {
-  width: 4.4rem;
-  height: 4.4rem;
+/* Adding new spinner*/
+.switchbox {
   position: relative;
-  margin: 100px auto;
+  height: 80px;
+  animation: spin 2s infinite linear; 
+  
+  .switch {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    width: 13px;
+    height: 13px;
+    background: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 20px;
+    animation: cross 2s infinite linear;
+
+    &:nth-of-type(2) {
+      background: var(--ion-color-primary);
+      animation-delay: -1s;
+    }
+
+    &:nth-of-type(3) {
+      background: var(--ion-color-secondary);
+      animation-delay: -2s;
+    }
+  }
 }
 
-.double-bounce1, .double-bounce2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  opacity: 0.6;
-  position: absolute;
-  border: .25rem solid #FFF;
-  top: 0;
-  left: 0;
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
-}
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg); 
+  } 
+} 
 
-.double-bounce1{
-  background-color: var(--ion-color-primary);
-}
-
-.double-bounce2 {
-  background-color: var(--ion-color-secondary);
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
-
-@-webkit-keyframes sk-bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bounce {
-  0%, 100% { 
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 50% { 
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
+@keyframes cross {
+  50% {
+    margin-left: 60px;
   }
 }

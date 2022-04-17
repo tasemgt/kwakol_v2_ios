@@ -312,7 +312,7 @@ ion-button.kwakol-btn{
       .passwordIcon{
         position: absolute;
         right: 1rem;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         z-index: 1000;
       }
     }
@@ -495,6 +495,7 @@ ion-button.kwakol-btn{
 
       h4{
           margin-bottom: .2rem;
+          font-size: 1rem;
           span{
               color: var(--ion-color-primary);
               font-family: BwModelicaMedium;
