@@ -69,11 +69,11 @@ export class HomePage implements OnInit{
       const resp = await this.homeService.getHome();
       if(resp.code === '100'){
         this.home = resp.data.home;
-        const top = await this.loading.getTop();
-        if(top){ 
-          this.loading.dismiss();
-          this.goToPage(this.childPage);
-        }
+        // const top = await this.loading.getTop();
+        // if(top){ 
+        //   this.loading.dismiss();
+        //   this.goToPage(this.childPage);
+        // }
         console.log(this.home);
       }
     } catch (error) {
@@ -89,7 +89,7 @@ export class HomePage implements OnInit{
   public goToPage(page: string){
     this.childPage = page;
     if(!this.home){
-      this.util.presentLoading('Please wait...');
+      // this.util.presentLoading('Please wait...');
       return;
     }
     const subscriber = this.home.user_details.subscriber;
