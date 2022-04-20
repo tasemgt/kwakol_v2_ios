@@ -58,7 +58,7 @@ export class DepositPage implements OnInit, OnDestroy{
     this.getDepoitPageData();
     this.selectedBank = this.dataService.getBank() || {bankName: 'Select Bank'};
     this.selectedInvestment = this.dataService.getInvestment() || {name: 'Select Investment Account'};
-    this.selectedCurrency = this.dataService.getCurrency() || {name: 'CUR'};
+    this.selectedCurrency = this.dataService.getCurrency() || {name: 'USD', sym: '$'};
   }
 
   public async confirm(){
@@ -149,6 +149,13 @@ export class DepositPage implements OnInit, OnDestroy{
       const resp = await this.subService.getDepositData();
       this.loading.dismiss();
       resp.code === '100' ? this.depositData = resp.data : console.log(resp);
+      console.log(this.depositData.deposit);
+      const currencies: any[] = this.depositData.deposit;
+      let s  = currencies.find(c => c.name === 'Dollar');
+      s = { id: s.id, name: s.short_name, sym: s.symbol, selected: true, accounts: s.accounts } //My formatted currency object
+      this.selectedCurrency = s; //Making default selected currency to be dollar;
+      this.dataService.setCurrency(s); //To help populate bottom drawer on openning it
+      this.putBanksInDataService(s);
     } catch (error) {
       console.log(error);
       if(error.status === 0){
@@ -157,6 +164,21 @@ export class DepositPage implements OnInit, OnDestroy{
         setTimeout(() => this.getDepoitPageData(), 8000);
       }
     }
+  }
+
+  private putBanksInDataService(currency){
+    const banks = [];
+    currency.accounts.forEach(b =>{ 
+      const bank =  { 
+        id: b.id, 
+        accountName: b.bank_name,
+        accountNum: b.account_number,
+        bankName: b.bank_account_name, 
+        selected: false
+      }
+      banks.push(bank);
+    });
+    this.dataService.setBanks(banks);
   }
 
   public refreshModel(): void{

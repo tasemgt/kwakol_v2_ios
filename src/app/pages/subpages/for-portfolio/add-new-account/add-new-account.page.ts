@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
 import { DataService } from 'src/app/services/data.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
@@ -31,6 +31,7 @@ export class AddNewAccountPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
+    private navCtrl: NavController,
     private router: Router,
     public util: UtilService,
     private loading: LoadingController,
@@ -45,7 +46,7 @@ export class AddNewAccountPage implements OnInit {
   ngOnInit() {
     this.getDepoitPageData();
     this.selectedBank = this.dataService.getBank() || {bankName: 'Select Bank'};
-    this.selectedCurrency = this.dataService.getCurrency() || {name: 'CUR'};
+    this.selectedCurrency = this.dataService.getCurrency() || {name: 'USD', sym: '$'};
   }
 
   public async continue(){
@@ -71,6 +72,8 @@ export class AddNewAccountPage implements OnInit {
         this.loading.dismiss();
         this.subService.getBalanceSubject().next(true);
         this.util.showToast('Account created successfully', 3000, 'success');
+        this.navCtrl.setDirection('back');
+        this.router.navigateByUrl(this.fromPage);
         // this.util.presentAlertModal('depositConfirm');
       }
     } catch (error) {
@@ -129,6 +132,13 @@ export class AddNewAccountPage implements OnInit {
       const resp = await this.subService.getDepositData();
       this.loading.dismiss();
       resp.code === '100' ? this.depositData = resp.data : console.log(resp);
+      console.log(this.depositData.deposit);
+      const currencies: any[] = this.depositData.deposit;
+      let s  = currencies.find(c => c.name === 'Dollar');
+      s = { id: s.id, name: s.short_name, sym: s.symbol, selected: true, accounts: s.accounts } //My formatted currency object
+      this.selectedCurrency = s; //Making default selected currency to be dollar;
+      this.dataService.setCurrency(s); //To help populate bottom drawer on openning it
+      this.putBanksInDataService(s);
     } catch (error) {
       console.log(error);
       if(error.status === 0){
@@ -137,6 +147,21 @@ export class AddNewAccountPage implements OnInit {
         setTimeout(() => this.getDepoitPageData(), 8000);
       }
     }
+  }
+
+  private putBanksInDataService(currency){
+    const banks = [];
+    currency.accounts.forEach(b =>{ 
+      const bank =  { 
+        id: b.id, 
+        accountName: b.bank_name,
+        accountNum: b.account_number,
+        bankName: b.bank_account_name, 
+        selected: false
+      }
+      banks.push(bank);
+    });
+    this.dataService.setBanks(banks);
   }
 
   public refreshModel(): void{

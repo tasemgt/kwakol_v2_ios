@@ -24,12 +24,12 @@ export class HistoryPage  implements OnInit{
   public histories;
 
   public filters = [
-    { name: 'Show All', icon: 'all', selected: true },
-    { name: 'Profit', icon: 'profit2', class: 'profit', selected: false },
-    { name: 'Pending', icon: 'pending', class: 'pending', selected: false },
-    { name: 'Bonus', icon: 'bonus2', class: 'bonus', selected: false },
-    { name: 'Withdrawal', icon: 'withdrawal2', class: 'withdrawal', selected: false },
-    { name: 'Deposit', icon: 'deposit2', class: 'deposit', selected: false }
+    { name: 'Show All', icon: 'all', size: '4', selected: true },
+    { name: 'Profit', icon: 'profit2', class: 'profit', size: '3', selected: false },
+    { name: 'Pending', icon: 'pending', class: 'pending', size: '4', selected: false },
+    { name: 'Bonus', icon: 'bonus2', class: 'bonus', size: '3', selected: false },
+    { name: 'Withdrawal', icon: 'withdrawal2', class: 'withdrawal', size: '4', selected: false },
+    { name: 'Deposit', icon: 'deposit2', class: 'deposit', size: '4', selected: false }
   ];
 
   constructor(
@@ -59,7 +59,14 @@ export class HistoryPage  implements OnInit{
   }
 
 
+  ionViewWillEnter(){
+    this.getHistoriesQuiet();
+  }
+
   public onTapFilter(filter){
+    if(filter.name === this.selectedFilter.name){
+      return;
+    }
     this.histories = null;
     this.prevFilter = this.selectedFilter;
     filter.selected = true;
@@ -92,6 +99,14 @@ export class HistoryPage  implements OnInit{
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  public async getHistoriesQuiet(){
+    const resp = await this.historyService.getHistories('');
+    if(resp.code === '100'){
+      this.histories = resp.data.history.data;
+      console.log(this.histories);
     }
   }
 

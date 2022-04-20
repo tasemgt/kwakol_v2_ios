@@ -97,7 +97,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       const backToLoginRoutes = ['/change-password', '/forgot-password'];
       const backToProfileRoutes = ['/account-details', '/affiliate-link'];
       const backToFeedRoutes = ['/feed-details'];
-      const backToHistoryRoutes = ['/history-summary'];
       const url = this.router.url.toString();
       if(closeAppRoutes.includes(url)){
         this.appMinimize.minimize();
@@ -113,14 +112,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         else if(backToFeedRoutes.includes(url)){
           this.router.navigateByUrl('/tabs/feed');
         }
-        else if(backToHistoryRoutes.includes(url)){
-          this.router.navigateByUrl('/tabs/history');
-        }
-        else if(backToHistoryRoutes.includes(url)){
-          this.router.navigateByUrl('/tabs/history');
-        }
         else if(url === '/new-account' || url === '/investment-details' || url === '/deposit' || url === '/withdrawal'){
           this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/portfolio');
+        }
+        else if(url === '/history-summary'){
+          this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/history');
         }
       }
     });

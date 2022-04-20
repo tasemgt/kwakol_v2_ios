@@ -36,6 +36,7 @@ export class LoginPage implements OnInit {
       return;
     }
     try{
+      this.notification_id = '12345'
       await this.util.presentLoading();
       const resp  = await this.auth.login({email: form.value.email, password: form.value.password, notification_id: this.notification_id});
       this.loading.dismiss();

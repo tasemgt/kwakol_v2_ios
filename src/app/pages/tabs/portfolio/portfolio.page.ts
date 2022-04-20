@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { investmentIcons } from 'src/app/models/constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
@@ -79,6 +80,10 @@ export class PortfolioPage implements OnInit{
 
   public addInvBalances(inv){
     return Number(inv.balance) + Number(inv.profit_balance);
+  }
+
+  public getIconForInvName(inv: string){
+    return investmentIcons[inv.toLowerCase()];
   }
 
   public doRefresh(event): void{

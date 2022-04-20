@@ -3,7 +3,7 @@
     <h3>History</h3>
   </div>
   <ion-row class="types-wrapper">
-    <ion-col size="5" *ngFor="let filter of filters">
+    <ion-col size="{{ filter.size }}" *ngFor="let filter of filters">
       <div class="type" [class]="filter.class" [ngClass]="{'selected': filter.selected}" (click)="onTapFilter(filter)">
         <ion-icon [src]="'assets/icon/history/'+filter.icon+'.svg'"></ion-icon>
         {{ filter.name }}

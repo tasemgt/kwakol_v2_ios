@@ -130,6 +130,14 @@ export class UtilService {
     return re.test(String(email).toLowerCase());
   }
 
+  public validateStrongPassword(password: string){
+    const regX =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,15}$/;
+    if(password.match(regX)){
+      return true;
+    }
+    return false;
+  }
+
   public numberWithCommas(x): string{
     x = x.toString().replace(/,/g, '');
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

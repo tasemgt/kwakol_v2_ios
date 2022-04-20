@@ -39,7 +39,7 @@ export class InvestmentDetailsPage implements OnInit {
     this.selectedTab = this.tabs[0];
     this.prevTab = this.tabs[0];
 
-    this.getSubHistories(this.sub.id);
+    this.getSubHistories(this.sub.subscription_id);
   }
 
   public switchTab(tab: any){

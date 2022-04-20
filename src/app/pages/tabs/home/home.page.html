@@ -5,14 +5,14 @@
   </ion-refresher>
 
   <div class="header">
-    <h3>Hi {{ user.fullname }},</h3>
+    <h3>Hi {{ user?.fullname.split(' ')[0] }},</h3>
     <p>Hope you're having a great {{ getTimeOfDay()}}.</p>
     <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
   </div>
 
   <div class="summary">
     <img src="assets/icon/text-svgs/total-funds.svg">
-    <h2>${{ home?.total_fund }}</h2>
+    <h2>${{ homeBalance }}</h2>
     <ion-icon src="assets/icon/home-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
     <ion-icon src="assets/icon/home-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
   </div>
@@ -86,9 +86,11 @@
           ${{ util.numberWithCommas(hist.amount) }}
         </span>
       </h4>
-      <p>{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
+      <p (click)="goToHistorySummary(hist)">{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
     </div>
   </div>
+
+  <p class="no-histories" *ngIf="home && home?.user_details.transactions <= 0">No history available...</p>
 
   <div class="tt-skeletons" *ngIf="!home">
     <ion-item *ngFor="let f of [1,2,3,4]">

@@ -8,7 +8,7 @@
   <div class="investments">
 
     <div class="investment" (click)="goToInvestmentDetails(sub)" *ngFor="let sub of portfolio?.subscriber.subscription">
-      <ion-icon src="assets/icon/inv-type/levadura-big.svg"></ion-icon>
+      <ion-icon [src]="'assets/icon/inv-type/'+ getIconForInvName(sub.subscription.name) +'.svg'"></ion-icon>
         {{ sub.subscription.name }}
         <span>${{ util.numberWithCommas(addInvBalances(sub)) }}</span>
     </div>

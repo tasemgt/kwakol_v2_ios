@@ -18,6 +18,7 @@ export class HomePage implements OnInit{
 
   public user: User;
   public home: any;
+  public homeBalance: string;
 
   public toastShown = false;
 
@@ -69,6 +70,7 @@ export class HomePage implements OnInit{
       const resp = await this.homeService.getHome();
       if(resp.code === '100'){
         this.home = resp.data.home;
+        this.homeBalance = this.util.numberWithCommas(resp.data.home.total_fund);
         // const top = await this.loading.getTop();
         // if(top){ 
         //   this.loading.dismiss();
@@ -104,6 +106,18 @@ export class HomePage implements OnInit{
     return Number(inv.balance) + Number(inv.profit_balance);
   }
 
+  public goToHistorySummary(hist){
+    console.log(hist);
+    if(hist.type === 'profit'){
+      this.router.navigateByUrl('/history-summary', {state:{url: this.router.url, hist}});
+      return;
+    }
+  }
+
+  public goToInvestmentDeets(sub){
+    this.router.navigateByUrl('/investment-details', {state : {url: this.router.url, sub}});
+  }
+
   public doRefresh(event): void{
     this.getHomeQuietly();
 
@@ -112,14 +126,11 @@ export class HomePage implements OnInit{
     }, 1000);
   }
 
-  public goToInvestmentDeets(sub){
-    this.router.navigateByUrl('/investment-details', {state : {url: this.router.url, sub}});
-  }
-
   private async getHomeQuietly(){
     const resp = await this.homeService.getHome();
       if(resp.code === '100'){
         this.home = resp.data.home;
+        this.homeBalance = this.util.numberWithCommas(this.home.total_fund);
       }
   }
 

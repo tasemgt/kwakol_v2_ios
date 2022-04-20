@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { bottomDrawer } from 'src/app/models/constants';
 import { DataService } from 'src/app/services/data.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-bottom-drawer',
@@ -30,7 +31,8 @@ export class BottomDrawerPage implements OnInit {
   constructor(
     private router: Router,
     private modalCtrl: ModalController,
-    private dataService: DataService) { }
+    private dataService: DataService,
+    public util: UtilService) { }
 
   ngOnInit() {
 

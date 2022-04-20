@@ -34,13 +34,24 @@ export class ChangePasswordPage implements OnInit {
   }
 
   public async changePassword(form: NgForm){
+
+    const {password, password_confirmation} = form.value;
+
     if(!form.valid){
       this.util.showToast('Please, kindly fill in both fields', 2000, 'danger');
       return;
     }
+    if(password !== password_confirmation){
+      this.util.showToast('Passwords do not match', 2000, 'danger');
+      return;
+    }
+    if(!this.util.validateStrongPassword(password)){
+      this.util.showToast('Your password must be at least 6 characters long and must contain at least ONE uppercase, ONE lowercase, ONE number and ONE special character.', 4000, 'danger');
+      return;
+    }
     try{
       await this.util.presentLoading();
-      const resp  = await this.auth.newResetPassword({password: form.value.password, password_confirmation: form.value.password_confirmation});
+      const resp  = await this.auth.newResetPassword({password,  password_confirmation});
       // form.reset();
       this.loading.dismiss();
       if(resp.code === '100'){

@@ -21,7 +21,7 @@
       {{ investment.name }}
       <span class="balance">
         <p>Balance</p>
-        <p>${{ investment.balance }}</p>
+        <p>${{ util.numberWithCommas(investment.balance )}}</p>
       </span>
     </h5>
   </div>
@@ -57,6 +57,7 @@
             presentation="date"
             showDefaultButtons="true"
             mode="md"
+            [doneText]="'Select'"
             >
           </ion-datetime>
         </ion-content>
@@ -71,6 +72,7 @@
             presentation="date"
             showDefaultButtons="true"
             mode="md"
+            [doneText]="'Select'"
             >
           </ion-datetime>
         </ion-content>

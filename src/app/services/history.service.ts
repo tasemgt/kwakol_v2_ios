@@ -24,6 +24,7 @@ export class HistoryService {
   }
 
   public getSubscriptionHistories(subId){
+    console.log('Buggy!! ', subId);
     return this.http.get(`${this.baseUrl}/subscription-history/${subId}`, {}, this.headers);
   }
 }
