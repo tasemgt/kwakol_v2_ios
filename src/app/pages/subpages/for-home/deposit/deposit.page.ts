@@ -118,7 +118,7 @@ export class DepositPage implements OnInit, OnDestroy{
     }
     this.modal = await this.modalCtrl.create({
       component: BottomDrawerPage,
-      breakpoints: [0, 0.2, 0.4],
+      breakpoints: [0, 0.2, 0.4, 0.7, 0.9],
       mode: 'ios',
       initialBreakpoint: 0.4,
       backdropBreakpoint: 0.2,

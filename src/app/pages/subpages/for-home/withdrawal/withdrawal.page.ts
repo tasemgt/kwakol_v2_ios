@@ -49,7 +49,7 @@ export class WithdrawalPage implements OnInit {
       amount: this.amount.replace(/,/g, ""),
     }
     console.log(payload);
-    this.util.presentAlertConfirm('Confirm withdrawal', `Are you sure you want to withdraw ${this.amount} from ${this.selectedInvestment.name}?`, async() =>{
+    this.util.presentAlertConfirm('Confirm withdrawal', `Are you sure you want to withdraw $${this.amount} from ${this.selectedInvestment.name}?`, async() =>{
       this.util.presentLoading();
       try {
         const resp = await this.subService.doWithdraw(payload);
@@ -76,7 +76,7 @@ export class WithdrawalPage implements OnInit {
     }
     this.modal = await this.modalCtrl.create({
       component: BottomDrawerPage,
-      breakpoints: [0, 0.2, 0.4],
+      breakpoints: [0, 0.2, 0.4, 0.7, 0.9],
       mode: 'ios',
       initialBreakpoint: 0.4,
       backdropBreakpoint: 0.2,

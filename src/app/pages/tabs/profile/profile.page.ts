@@ -90,4 +90,8 @@ export class ProfilePage implements OnInit {
       console.log(err);
     }
   }
+
+  public goToLinks(link: string): void{
+    window.open(link, '_system', 'location=yes');
+  }
 }

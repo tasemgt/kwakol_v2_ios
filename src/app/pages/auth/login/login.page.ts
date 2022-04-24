@@ -36,7 +36,11 @@ export class LoginPage implements OnInit {
       return;
     }
     try{
-      this.notification_id = '12345'
+      // this.notification_id = '12345'
+      console.log('Notification ID before send ', this.notification_id);
+      if(!this.notification_id){
+        await this.getOneSignalPlayerID();
+      }
       await this.util.presentLoading();
       const resp  = await this.auth.login({email: form.value.email, password: form.value.password, notification_id: this.notification_id});
       this.loading.dismiss();
@@ -67,6 +71,10 @@ export class LoginPage implements OnInit {
     this.passwordIcon = deets.passwordIcon;
   }
 
+  public goToSignup(): void{
+    window.open('https://my.kwakolmarkets.com/register?referral=9524f6c135f338667e5ddc3e1275d1fa', '_system', 'location=yes');
+  }
+
   public onInputsFocus(): void{
     this.inputFocused = true;
   }
@@ -79,5 +87,6 @@ export class LoginPage implements OnInit {
     this.notification_id = await this.oneSS.getPlayerID();
     console.log(this.notification_id);
   }
+
 
 }

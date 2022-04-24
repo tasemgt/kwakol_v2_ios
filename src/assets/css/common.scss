@@ -542,6 +542,11 @@ ion-button.kwakol-btn{
   padding-left: 0.5rem;
   padding-right: 0.3rem;
 
+  &.sc-ion-alert-md,
+  &.sc-ion-alert-ios{
+    box-shadow: 0px 3px 4px 0px rgba(33, 31, 66, 0.1);
+  }
+
   .alert-head h2{
     font-family: BwModelicaBold;
     color: var(--ion-color-secondary);

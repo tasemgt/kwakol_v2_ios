@@ -46,18 +46,18 @@
     
     <h3 class="about-head">About Kwakol</h3>
     <div class="actions bottom">
-      <div class="action">
+      <div class="action" (click)="goToLinks('https://www.kwakol.com')">
         Visit our Website
         <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
       </div>
-      <!-- <div class="action">
+      <div class="action" (click)="goToLinks('https://www.kwakolmarkets.com/faqs')">
         FAQs
         <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-      </div> -->
-      <!-- <div class="action">
+      </div>
+      <div class="action" (click)="goToLinks('https://www.kwakolmarkets.com/terms-and-conditions')">
         Terms and Conditions
         <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-      </div> -->
+      </div>
     </div>
 
     <ion-button class="kwakol-btn ion-text-uppercase btn-bottom" type="button" (click)="logOut()">

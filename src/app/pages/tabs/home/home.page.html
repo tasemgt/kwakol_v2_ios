@@ -29,9 +29,9 @@
       <div class="investment-item" (click)="goToInvestmentDeets(inv)">
         <p>Balance</p>
         <h4>${{ util.numberWithCommas(addInvBalances(inv)) }}</h4>
-        <div class="type-area {{ getIconForInvName(inv.subscription.name) }}">
-          <ion-icon [src]="'assets/icon/inv-type/'+ getIconForInvName(inv.subscription.name) +'.svg'"></ion-icon>
-          <h4>{{ inv.subscription.name }}</h4>
+        <div class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}">
+          <ion-icon [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'levadura-big') +'.svg'"></ion-icon>
+          <h4>{{ inv.subscription.name.substring(0,8) }}{{inv.subscription.name.length > 8 ? '...': ''}}</h4>
         </div>
       </div>
     </ion-col>
