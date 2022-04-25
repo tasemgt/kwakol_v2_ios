@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
       return;
     }
     try{
-      // this.notification_id = '12345'
+      this.notification_id = '12345'
       console.log('Notification ID before send ', this.notification_id);
       if(!this.notification_id){
         await this.getOneSignalPlayerID();
@@ -51,13 +51,17 @@ export class LoginPage implements OnInit {
       }
     }
     catch(err){
-      this.loading.dismiss();
+      console.log('Error>> ', err);
       if(err.status === 401){
         this.util.showToast('Invalid email or password', 3000, 'danger');
       }
-      if(err.status === 0 || err.status === -3){
+      if(err.status === 0 || err.status === -3 || err.status === 500){
         this.util.showToast('Ooops! something went wrong, please check your connection and try again.', 3000, 'danger');
-      } 
+      }
+      if(err.status === 500){
+        console.log('Error from server,: ', err.status);
+      }
+      this.loading.dismiss();
     }
     
   }

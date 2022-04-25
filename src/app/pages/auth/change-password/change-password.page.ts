@@ -46,7 +46,8 @@ export class ChangePasswordPage implements OnInit {
       return;
     }
     if(!this.util.validateStrongPassword(password)){
-      this.util.showToast('Your password must be at least 6 characters long and must contain at least ONE uppercase, ONE lowercase, ONE number and ONE special character.', 4000, 'danger');
+      this.util.showToast('Password is too simple. Please include a range of characters to make it stronger', 4000, 'danger');
+      // this.util.showToast('Your password must be at least 6 characters long and must contain at least ONE uppercase, ONE lowercase, ONE number and ONE special character.', 4000, 'danger');
       return;
     }
     try{

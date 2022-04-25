@@ -64,7 +64,7 @@ export class PortfolioPage implements OnInit{
   }
 
   public goToInvestmentDetails(sub){
-    this.router.navigateByUrl('/investment-details', {state: {url:this.router.url, sub}});
+    this.router.navigateByUrl('/investment-details', {state: {url:this.router.url, sub, subscriber: this.portfolio.subscriber}});
   }
 
   public async getInvestementAccountsQuiet(){

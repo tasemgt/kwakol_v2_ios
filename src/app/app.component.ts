@@ -115,6 +115,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         else if(url === '/new-account' || url === '/investment-details' || url === '/deposit' || url === '/withdrawal'){
           this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/portfolio');
         }
+        else if(url === '/deposit' || url === '/withdrawal'){
+          this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/investment-details');
+        }
         else if(url === '/history-summary'){
           this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/history');
         }

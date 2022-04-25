@@ -13,6 +13,7 @@ export class InvestmentDetailsPage implements OnInit {
 
   public fromPage: string;
   public sub;
+  public subscriber;
 
   public selectedTab;
   public prevTab;
@@ -32,10 +33,12 @@ export class InvestmentDetailsPage implements OnInit {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
       this.sub = this.router.getCurrentNavigation().extras.state.sub;
+      this.subscriber = this.router.getCurrentNavigation().extras.state.subscriber;
     }
   }
 
   ngOnInit() {
+    console.log('>>>>> ', this.subscriber);
     this.selectedTab = this.tabs[0];
     this.prevTab = this.tabs[0];
 
@@ -63,6 +66,8 @@ export class InvestmentDetailsPage implements OnInit {
   }
 
   public goToPage(page:string){
+    const subscriber = this.subscriber;
+    this.router.navigateByUrl(page, {state: {url: this.router.url, subscriber}});
   }
 
   public getIconForType(type: string){
