@@ -78,7 +78,7 @@
   <p class="account-history">Account History <span [routerLink]="'/tabs/history'">View All</span></p>
 
   <div class="history-list">
-    <div class="history" *ngFor="let hist of home?.user_details.transactions | slice:0:4">
+    <div class="history" *ngFor="let hist of homeHistories | slice:0:4">
       <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
       <h4>
         {{ hist.type | capitalize }} 

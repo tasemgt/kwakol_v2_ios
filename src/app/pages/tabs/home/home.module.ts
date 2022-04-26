@@ -4,15 +4,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
-import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
+import { SharedModuleModule } from 'src/app/shared-module.module';
+
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    SharedModuleModule
   ],
-  declarations: [HomePage, CapitalizePipe]
+  declarations: [HomePage]
 })
 export class HomePageModule {}

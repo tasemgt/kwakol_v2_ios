@@ -18,7 +18,7 @@ export class InvestmentDetailsPage implements OnInit {
   public selectedTab;
   public prevTab;
 
-  public histories;
+  public histories: any[];
 
   public tabs = [
     {name: 'History', active: true},

@@ -5,17 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { InvestmentDetailsPageRoutingModule } from './investment-details-routing.module';
-
 import { InvestmentDetailsPage } from './investment-details.page';
-import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
+import { SharedModuleModule } from 'src/app/shared-module.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InvestmentDetailsPageRoutingModule
+    InvestmentDetailsPageRoutingModule,
+    SharedModuleModule
   ],
-  declarations: [InvestmentDetailsPage, CapitalizePipe]
+  declarations: [InvestmentDetailsPage]
 })
 export class InvestmentDetailsPageModule {}

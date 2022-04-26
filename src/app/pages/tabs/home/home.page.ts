@@ -18,6 +18,7 @@ export class HomePage implements OnInit{
 
   public user: User;
   public home: any;
+  public homeHistories: any[];
   public homeBalance: string;
 
   public toastShown = false;
@@ -70,6 +71,7 @@ export class HomePage implements OnInit{
       const resp = await this.homeService.getHome();
       if(resp.code === '100'){
         this.home = resp.data.home;
+        this.homeHistories = this.home.user_details.transactions;
         this.homeBalance = this.util.numberWithCommas(resp.data.home.total_fund);
         // const top = await this.loading.getTop();
         // if(top){ 
@@ -130,6 +132,7 @@ export class HomePage implements OnInit{
     const resp = await this.homeService.getHome();
       if(resp.code === '100'){
         this.home = resp.data.home;
+        this.homeHistories = this.home.user_details.transactions;
         this.homeBalance = this.util.numberWithCommas(this.home.total_fund);
       }
   }
