@@ -38,4 +38,8 @@ export class ForgotPasswordPage implements OnInit {
         console.log(err);
       }
   }
+
+  public goToSignup(): void{
+    window.open('https://my.kwakolmarkets.com/register?referral=9524f6c135f338667e5ddc3e1275d1fa', '_system', 'location=yes');
+  }
 }
