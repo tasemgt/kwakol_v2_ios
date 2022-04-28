@@ -112,7 +112,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         else if(backToFeedRoutes.includes(url)){
           this.router.navigateByUrl('/tabs/feed');
         }
-        else if(url === '/new-account' || url === '/investment-details' || url === '/deposit' || url === '/withdrawal'){
+        else if(url === '/new-account' || url === '/investment-details'){
           this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/portfolio');
         }
         else if(url === '/deposit' || url === '/withdrawal'){
