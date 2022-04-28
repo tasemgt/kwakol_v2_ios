@@ -75,6 +75,9 @@ export class InvestmentDetailsPage implements OnInit {
   }
 
   public addInvBalances(inv){
-    return Number(inv.balance) + Number(inv.profit_balance);
+    let sum: Number, rounded: string;
+    sum = Number(inv.balance) + Number(inv.profit_balance);
+    rounded = sum.toFixed(2);
+    return rounded;
   }
 }
