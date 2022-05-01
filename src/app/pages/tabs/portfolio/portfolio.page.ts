@@ -34,7 +34,7 @@ export class PortfolioPage implements OnInit{
   }
 
   ionViewWillEnter(){
-    this.getInvestementAccountsQuiet();
+    this.getPortfolioQuiet();
   }
   
   private async getPortfolio(){
@@ -67,10 +67,17 @@ export class PortfolioPage implements OnInit{
     this.router.navigateByUrl('/investment-details', {state: {url:this.router.url, sub, subscriber: this.portfolio.subscriber}});
   }
 
-  public async getInvestementAccountsQuiet(){
-    const resp = await this.subService.getInvestmentAccounts();
+  // public async getInvestementAccountsQuiet(){
+  //   const resp = await this.subService.getInvestmentAccounts();
+  //   if(resp.code === '100'){
+  //     this.invAccounts = resp.data.subscriptions;
+  //   }
+  // }
+
+  private async getPortfolioQuiet(){
+    const resp = await this.portfolioService.getPortfolio();
     if(resp.code === '100'){
-      this.invAccounts = resp.data.subscriptions;
+      this.portfolio = resp.data.portfolio;
     }
   }
 
@@ -90,7 +97,7 @@ export class PortfolioPage implements OnInit{
   }
 
   public doRefresh(event): void{
-    this.getInvestementAccountsQuiet();
+    this.getPortfolioQuiet();
 
     setTimeout(() => {
       event.target.complete();
