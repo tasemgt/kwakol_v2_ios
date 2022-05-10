@@ -37,11 +37,23 @@
   <div class="selected-bank" *ngIf="selectedBank.selected">
     <p>
       Account Number
-      <span>{{ selectedBank?.accountNum  }} <ion-icon (click)="copyLink()" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{ selectedBank?.accountNum  }} <ion-icon (click)="copyLink('accountNum')" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p>
       Account name
       <span>{{ selectedBank?.accountName }}</span>
+    </p>
+    <p>
+      Sort Code
+      <span>{{ selectedBank?.sortCode || 'N/A'  }} <ion-icon (click)="copyLink('sortCode')" src="assets/icon/copy.svg"></ion-icon></span>
+    </p>
+    <p>
+      Swift Code
+      <span>{{ selectedBank?.swiftCode || 'N/A'  }}</span>
+    </p>
+    <p>
+      Address
+      <span>{{ selectedBank?.branchAddress? selectedBank?.branchAddress.substring(0,27) : 'N/A'  }}{{ selectedBank?.branchAddress? (selectedBank?.branchAddress.length > 27 ? '...': ''): ''}}</span>
     </p>
   </div>
 
@@ -54,7 +66,7 @@
     <p class="file-name">{{ fileName }}</p>
   </div>
 
-  <ion-row>
+  <ion-row class="btn-row">
     <ion-col size="12" class="ion-text-center btn-col">
       <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="confirm()">Confirm</ion-button>
     </ion-col>

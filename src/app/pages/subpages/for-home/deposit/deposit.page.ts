@@ -147,7 +147,7 @@ export class DepositPage implements OnInit, OnDestroy{
     !this.toastShown ? this.util.presentLoading('Preparing...'): '';
     try {
       const resp = await this.subService.getDepositData();
-      this.loading.dismiss();
+      await this.loading.getTop() ? this.loading.dismiss() : '';
       resp.code === '100' ? this.depositData = resp.data : console.log(resp);
       console.log(this.depositData.deposit);
       const currencies: any[] = this.depositData.deposit;
@@ -173,7 +173,11 @@ export class DepositPage implements OnInit, OnDestroy{
         id: b.id, 
         accountName: b.bank_name,
         accountNum: b.account_number,
-        bankName: b.bank_account_name, 
+        bankName: b.bank_account_name,
+        sortCode: b.sort_code,
+        swiftCode: b.swift_code,
+        branch: b.branch,
+        branchAddress: b.branch_address,
         selected: false
       }
       banks.push(bank);
@@ -187,10 +191,12 @@ export class DepositPage implements OnInit, OnDestroy{
     }
   }
 
-  public async copyLink(){
-    const copied = await this.clipboard.copy(this.selectedBank.accountNum);
+  public async copyLink(item: string){
+    const toBeCopied = this.selectedBank[item];
+    if(!toBeCopied) return;
+    const copied = await this.clipboard.copy(toBeCopied);
     if(copied){
-      this.util.showToast('Account Number copied...', 2000, 'success');
+      this.util.showToast(`${item === 'accountNum' ? 'Account Number' : 'Sort Code'} copied...`, 2000, 'success');
     }
   }
 

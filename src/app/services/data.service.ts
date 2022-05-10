@@ -59,6 +59,10 @@ export class DataService {
     this.banks = [];
   }
 
+  deselectBanks(){
+    this.banks.forEach(b => b.selected = false);
+  }
+
   setInvestment(investment){
     this.investment = investment;
   }

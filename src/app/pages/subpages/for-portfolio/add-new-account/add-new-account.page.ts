@@ -130,7 +130,7 @@ export class AddNewAccountPage implements OnInit {
     !this.toastShown ? this.util.presentLoading('Preparing...'): '';
     try {
       const resp = await this.subService.getDepositData();
-      this.loading.dismiss();
+      await this.loading.getTop() ? this.loading.dismiss() : '';
       resp.code === '100' ? this.depositData = resp.data : console.log(resp);
       console.log(this.depositData.deposit);
       const currencies: any[] = this.depositData.deposit;

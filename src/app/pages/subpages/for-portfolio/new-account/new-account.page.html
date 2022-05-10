@@ -8,7 +8,7 @@
 
   <div class="accounts">
     <div class="account" *ngFor="let account of accounts" (click)="addNewAccount(account)">
-      <ion-icon [src]="'assets/icon/inv-type/'+ (getInvestmentIconFromName(account.name) || 'levadura-big') +'.svg'"></ion-icon>
+      <ion-icon [src]="'assets/icon/inv-type/'+ (getInvestmentIconFromName(account.name) || 'special-big') +'.svg'"></ion-icon>
       <h3>{{ account.name }}</h3>
       <p>{{ account.description }}</p>
     </div>

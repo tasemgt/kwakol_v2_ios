@@ -437,18 +437,28 @@ ion-button.kwakol-btn{
       color: var(--ion-text-gray-color);
       letter-spacing: .02em;
       font-family: BwModelicaLight;
-      margin: .3rem 0;
+      margin: .2rem 0 .5rem 0!important;
       position: relative;
-      span{ 
+      span{
+        font-size: .85rem;
         position: absolute;
         right: 0;
-        color: var(--ion-color-primary);
+        color: var(--ion-color-secondary);
       }
 
-      &:last-child{
-          font-size: .8rem;
-          span{ color: var(--ion-color-secondary);}
+      &:nth-of-type(1),
+      &:nth-of-type(3){
+          span{ 
+            font-size: .8rem;
+            padding-top: .1rem;
+            color: var(--ion-color-primary);
+          }
       }
+
+      // &:last-child{
+      //     font-size: .8rem;
+      //     span{ color: var(--ion-color-secondary);}
+      // }
   }
 }
 
@@ -456,7 +466,7 @@ ion-button.kwakol-btn{
   border: 2px dashed var(--ion-light-green2-color);
   padding: .7rem .6rem .7rem 5rem;
   position: relative;
-  margin-bottom: 7rem;
+  margin-bottom: 2rem;
 
   ion-icon{
       position: absolute;

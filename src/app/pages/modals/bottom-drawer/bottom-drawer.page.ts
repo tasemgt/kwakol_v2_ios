@@ -13,6 +13,7 @@ import { UtilService } from 'src/app/services/util.service';
 export class BottomDrawerPage implements OnInit {
 
   public selectedBank;
+  // public prevBank;
   public selectedInvestment;
   public selectedCurrency;
 
@@ -44,12 +45,14 @@ export class BottomDrawerPage implements OnInit {
     this.selectedInvestment = this.dataService.getInvestment();
     this.selectedCurrency = this.dataService.getCurrency();
     console.log(this.selectedBank);
+    console.log(this.banks);
     this.initializeList();
   }
 
   public onTapBank(bank){
+    this.dataService.deselectBanks(); //Clear selection
     bank.selected = true;
-    this.dataService.setBank(bank);
+    this.dataService.setBank({...bank});
     this.closeModal({type: 'bank', data:bank});
   }
 
@@ -81,8 +84,9 @@ export class BottomDrawerPage implements OnInit {
   //Initialize selected if there is already
   private initializeList(){
     if(this.selectedBank){
-     const bank = this.banks.find(b => b.name === this.selectedBank.name);
-     bank? bank.selected = true : '';
+     const bank = this.banks.find(b => b.id === this.selectedBank.id);
+     console.log('Thief bank: ', bank);
+     bank? bank.selected = true : bank.selected = false;
     }
     if(this.selectedInvestment){
       const inv = this.investments.find(inv => inv.name === this.selectedInvestment.name);
@@ -117,6 +121,10 @@ export class BottomDrawerPage implements OnInit {
         accountName: b.bank_name,
         accountNum: b.account_number,
         bankName: b.bank_account_name, 
+        sortCode: b.sort_code,
+        swiftCode: b.swift_code,
+        branch: b.branch,
+        branchAddress: b.branch_address,
         selected: false
       }
       this.banks.push(bank);

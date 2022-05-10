@@ -51,7 +51,7 @@
   <div class="statistics" *ngIf="selectedTab?.name === 'Statistics'">
     <div class="totals">
       <p>Investment <span>Profit</span></p>
-      <h5>${{ sub.balance }} <span>${{ sub.profit_balance }}</span></h5>
+      <h5>${{ util.numberWithCommas(sub.balance) }} <span>${{ util.numberWithCommas(sub.profit_balance) }}</span></h5>
     </div>
   </div>
 

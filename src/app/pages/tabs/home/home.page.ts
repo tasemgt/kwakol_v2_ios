@@ -35,10 +35,15 @@ export class HomePage implements OnInit{
     private homeService: HomeService) {}
 
   ngOnInit(): void {
-    this.auth.getAuthStateSubject().subscribe((state) =>{
+    this.auth.getAuthStateSubject().subscribe(async(state) =>{
       if(state){
         this.getUser();
         this.getHome();
+      }
+      const top = await this.loading.getTop();
+      if(top){ 
+        this.loading.dismiss();
+        this.goToPage(this.childPage);
       }
     });
     this.subService.getBalanceSubject().subscribe((state) =>{
