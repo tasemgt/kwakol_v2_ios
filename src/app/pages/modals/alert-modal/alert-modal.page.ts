@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-alert-modal',
@@ -17,7 +18,9 @@ export class AlertModalPage implements OnInit {
   btn: { text: string, url: string};
 
   constructor(
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private platform: Platform,
+    private statusBar: StatusBar) {
   }
 
   ngOnInit() {
@@ -25,6 +28,10 @@ export class AlertModalPage implements OnInit {
     this.title = this.params.title;
     this.desc = this.params.desc;
     this.btn = this.params.btn;
+
+    if (this.platform.is('cordova')) {
+      this.statusBar.styleLightContent();
+    }
   }
 
   public onClickBtn(){

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-feed-details',
@@ -14,7 +16,10 @@ export class FeedDetailsPage implements OnInit {
   public sunVal = true;
   public moonVal = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private platform: Platform,
+    private statusBar: StatusBar) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
       this.feed = this.router.getCurrentNavigation().extras.state.feed;
@@ -27,6 +32,14 @@ export class FeedDetailsPage implements OnInit {
   public switchMode(){
     this.sunVal = !this.sunVal;
     this.moonVal = !this.moonVal;
+  
+    if (this.platform.is('cordova')) {
+      if(this.moonVal){
+        this.statusBar.styleLightContent();
+        return;
+      }
+      this.statusBar.styleDefault();
+    }
   }
 
 }

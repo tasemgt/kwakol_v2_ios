@@ -25,6 +25,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   previousUrl: string = '';
   currentUrl: string = '';
 
+  private lightContentList = [
+    '/login',
+    '/tabs/profile',
+    '/tabs/feed',
+    '/tabs/history',
+    '/tabs/portfolio'
+  ]
+
   constructor(
     private platform: Platform,
     private screenOrientation: ScreenOrientation,
@@ -41,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
         ).subscribe((event: NavigationEnd) => {
@@ -49,6 +58,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
           console.log('Current ', this.currentUrl);
           console.log('Previous ', this.previousUrl);
+
+          // Handles status bar display
+          if (this.platform.is('cordova')) {
+            console.log('Is cordova');
+            this.statusBar.overlaysWebView(true);
+            this.handleStatusBarForPages();
+          }
+
         });
   }
 
@@ -62,11 +79,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.mobileAccessibility.usePreferredTextZoom(false);
 
       // Handles status bar display
-      if (this.platform.is('cordova')) {
-        console.log('Is cordova');
-        this.statusBar.overlaysWebView(true);
-        this.statusBar.styleDefault();
-      }
+      // if (this.platform.is('cordova')) {
+      //   console.log('Is cordova');
+      //   this.statusBar.overlaysWebView(true);
+      //   this.handleStatusBarForPages();
+      // }
 
       this.handleAppAuthState();
     });
@@ -91,7 +108,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   // Handles Android HW Back button
-  private handleHardwareBackButton(): void{
+    handleHardwareBackButton(): void{
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
       const closeAppRoutes = [ '/login', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
       const backToLoginRoutes = ['/change-password', '/forgot-password'];
@@ -113,13 +130,16 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.router.navigateByUrl('/tabs/feed');
         }
         else if(url === '/new-account' || url === '/investment-details'){
-          this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/portfolio');
+          this.previousUrl.includes('/home') || this.previousUrl.includes('add-new-account') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/portfolio');
         }
         else if(url === '/deposit' || url === '/withdrawal'){
           this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/investment-details');
         }
         else if(url === '/history-summary'){
           this.previousUrl.includes('/home') ? this.router.navigateByUrl('/tabs/home') : this.router.navigateByUrl('/tabs/history');
+        }
+        else if(url === '/add-new-account'){
+          this.router.navigateByUrl('/new-account');
         }
       }
     });
@@ -132,5 +152,17 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.oneSignalService.setupPushNotifications();
     }
   }
+
+  private handleStatusBarForPages(){
+    if(this.lightContentList.includes(this.currentUrl)){
+      console.log('here on light')
+      this.statusBar.styleLightContent();
+    }
+    else{
+      console.log('here on dark')
+      this.statusBar.styleDefault();
+    }
+  }
+
 
 }
