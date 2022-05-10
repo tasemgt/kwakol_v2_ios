@@ -31,6 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'deposit',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-home/deposit/deposit.module').then( m => m.DepositPageModule)
   },
   {
@@ -39,38 +40,47 @@ const routes: Routes = [
   },
   {
     path: 'withdrawal',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-home/withdrawal/withdrawal.module').then( m => m.WithdrawalPageModule)
   },
   {
     path: 'new-account',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-portfolio/new-account/new-account.module').then( m => m.NewAccountPageModule)
   },
   {
     path: 'investment-details',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-portfolio/investment-details/investment-details.module').then( m => m.InvestmentDetailsPageModule)
   },
   {
     path: 'add-new-account',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-portfolio/add-new-account/add-new-account.module').then( m => m.AddNewAccountPageModule)
   },
   {
     path: 'history-summary',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-history/history-summary/history-summary.module').then( m => m.HistorySummaryPageModule)
   },
   {
     path: 'feed-details',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-feed/feed-details/feed-details.module').then( m => m.FeedDetailsPageModule)
   },
   {
     path: 'affiliate-link',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-profile/affiliate-link/affiliate-link.module').then( m => m.AffiliateLinkPageModule)
   },
   {
     path: 'referral-code',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-profile/referral-code/referral-code.module').then( m => m.ReferralCodePageModule)
   },
   {
     path: 'account-details',
+    canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-profile/account-details/account-details.module').then( m => m.AccountDetailsPageModule)
   },
   {
