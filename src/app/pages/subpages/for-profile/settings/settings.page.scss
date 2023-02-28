@@ -1,0 +1,16 @@
+div.actions{
+    margin-top: 1rem;
+
+    .action{
+        font-size: .85rem;
+        border-bottom: 1px solid rgba(var(--ion-light-green-color-rgb), .5);
+        padding: .85rem 0;
+        position: relative;
+
+        ion-toggle{
+            position: absolute;
+            right: 0;
+            bottom: .5rem;
+        }
+    }
+}

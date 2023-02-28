@@ -43,6 +43,15 @@ export const alertPageParams = {
             text: 'Back Home',
             url: '/tabs/home'
         }
+    },
+    lockedScreen: {
+        image: 'padlock-lock',
+        title: 'App Locked!',
+        desc: 'Your app has been locked to keep your information private. Kindly unlock app to use.',
+        btn: {
+            text: 'Unlock',
+            url: '/tabs/home'
+        }
     }
 };
 
@@ -51,7 +60,7 @@ export const historyIcons = {
     deposit: 'deposit',
     profit: 'profit',
     withdrawal: 'withdrawal'
-}
+};
 
 export const investmentIcons = {
     levadura: 'levadura-big',
@@ -60,7 +69,7 @@ export const investmentIcons = {
     antipasto: 'antipasto-big',
     veterano: 'veterano-big',
     'fixed deposit': 'fixed-deposit-big'
-}
+};
 
 export const bottomDrawer = {
     banks: [
@@ -74,7 +83,7 @@ export const bottomDrawer = {
         { name: 'Marigold', balance: '7,534.51', selected: false },
         { name: 'Jūnzi', balance: '15,655.01', selected: false }
     ]
-}
+};
 
 //Data Service::
 //Email 'id': 1

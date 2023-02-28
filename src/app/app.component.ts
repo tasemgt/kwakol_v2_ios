@@ -1,15 +1,20 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { ModalController, NavController, Platform } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+// import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { OneSignalService } from './services/one-signal.service';
 
 import { filter } from 'rxjs/operators';
+import { alertPageParams } from './models/constants';
+import { AlertModalPage } from './pages/modals/alert-modal/alert-modal.page';
+import { StorageService } from './services/storage.service';
+import { LockModalPage } from './pages/modals/lock-modal/lock-modal.page';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +22,13 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  previousUrl = '';
+  currentUrl = '';
+  
   private disconnectSubscription: Subscription;
   private connectSubscription: Subscription;
 
   private backButtonSubscription: Subscription;
-
-  previousUrl: string = '';
-  currentUrl: string = '';
 
   private lightContentList = [
     '/login',
@@ -38,11 +43,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     private screenOrientation: ScreenOrientation,
     private statusBar: StatusBar,
     private router: Router,
+    private storageService: StorageService,
     // private network: Network,
     private appMinimize: AppMinimize,
     private mobileAccessibility: MobileAccessibility,
     private oneSignalService: OneSignalService,
+    // private faio: FingerprintAIO,
     private navController: NavController,
+    private modalCtrl: ModalController,
     private auth: AuthService
   ) {
     this.initializeApp();
@@ -86,6 +94,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       // }
 
       this.handleAppAuthState();
+
+      // this.handleBiometricsAuth();
     });
   }
 
@@ -95,6 +105,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private handleAppAuthState(): void{
+    this.checkAutoLockState();
+    // this.checkAppAuthState();
+  }
+
+  private checkAppAuthState(){
     this.auth.getAuthStateSubject().subscribe((state) => {
       console.log('State', state);
       if (state === true) {
@@ -108,11 +123,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   // Handles Android HW Back button
-    handleHardwareBackButton(): void{
+   private handleHardwareBackButton(): void{
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
       const closeAppRoutes = [ '/login', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
       const backToLoginRoutes = ['/change-password', '/forgot-password'];
-      const backToProfileRoutes = ['/account-details', '/affiliate-link'];
+      const backToProfileRoutes = ['/account-details', '/affiliate-link', '/settings'];
       const backToFeedRoutes = ['/feed-details'];
       const url = this.router.url.toString();
       if(closeAppRoutes.includes(url)){
@@ -155,14 +170,40 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private handleStatusBarForPages(){
     if(this.lightContentList.includes(this.currentUrl)){
-      console.log('here on light')
+      console.log('here on light');
       this.statusBar.styleLightContent();
     }
     else{
-      console.log('here on dark')
+      console.log('here on dark');
       this.statusBar.styleDefault();
     }
   }
 
+  private checkAutoLockState(){
+    this.storageService.get('AutoLock').then((lockedOn) =>{
+      if(lockedOn){
+        this.autoLockApp();
+      }
+      else{
+        this.checkAppAuthState();
+      }
+    });
+  }
+
+  private async autoLockApp(){
+      const params = alertPageParams.lockedScreen;
+      try {
+        const modal = await this.modalCtrl.create({
+          component: LockModalPage,
+          animated: true,
+          componentProps: {params}
+        });
+        await modal.present();
+        this.checkAppAuthState();
+      }
+      catch (error) {
+        console.log('Error: ', error);
+      }
+  }
 
 }

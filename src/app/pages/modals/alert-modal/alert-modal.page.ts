@@ -8,20 +8,19 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['./alert-modal.page.scss'],
 })
 export class AlertModalPage implements OnInit {
-
   @Input() params;
   @Input() hi;
 
   image: string;
   title: string;
   desc: string;
-  btn: { text: string, url: string};
+  btn: { text: string; url: string };
 
   constructor(
     private modalCtrl: ModalController,
     private platform: Platform,
-    private statusBar: StatusBar) {
-  }
+    private statusBar: StatusBar,
+  ) {}
 
   ngOnInit() {
     this.image = this.params.image;
@@ -34,12 +33,11 @@ export class AlertModalPage implements OnInit {
     }
   }
 
-  public onClickBtn(){
+  public onClickBtn() {
     this.closeModal();
   }
 
-  closeModal(){
+  closeModal() {
     this.modalCtrl.dismiss();
   }
-
 }

@@ -1,0 +1,18 @@
+<ion-content class="page-content">
+  <div class="img-wrapper">
+    <img class="{{ image }}" [src]="'assets/imgs/'+image + '.svg'" alt="">
+  </div>
+
+  <div class="message">
+    <h2>{{ title }}</h2>
+    <p>{{ desc }}</p>
+  </div>
+
+  <ion-row class="btn-row">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button class="kwakol-btn kwakol-btn-primary ion-text-uppercase" (click)="onClickBtn()" type="button">{{ btn.text }}</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+

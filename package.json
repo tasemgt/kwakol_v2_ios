@@ -29,6 +29,7 @@
     "@capacitor/status-bar": "1.0.8",
     "@ionic-native/app-minimize": "^5.36.0",
     "@ionic-native/core": "^5.36.0",
+    "@ionic-native/fingerprint-aio": "^5.36.0",
     "@ionic-native/mobile-accessibility": "^5.36.0",
     "@ionic-native/status-bar": "^5.36.0",
     "@ionic/angular": "^6.0.0",
@@ -60,6 +61,7 @@
     "cordova-clipboard": "^1.3.0",
     "cordova-plugin-appminimize": "^1.0.1",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-fingerprint-aio": "^5.0.1",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-network-information": "git+https://github.com/apache/cordova-plugin-network-information.git",
@@ -97,7 +99,10 @@
       "phonegap-plugin-mobile-accessibility": {},
       "cordova-plugin-appminimize": {},
       "cordova-plugin-screen-orientation": {},
-      "onesignal-cordova-plugin": {}
+      "onesignal-cordova-plugin": {},
+      "cordova-plugin-fingerprint-aio": {
+        "FACEID_USAGE_DESCRIPTION": "Login now...."
+      }
     },
     "platforms": [
       "android"

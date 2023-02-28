@@ -84,8 +84,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages/subpages/for-profile/account-details/account-details.module').then( m => m.AccountDetailsPageModule)
   },
   {
+    path: 'settings',
+    canActivate: [AuthenGuard],
+    loadChildren: () => import('./pages/subpages/for-profile/settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
     path: 'change-password',
     loadChildren: () => import('./pages/auth/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  },
+  {
+    path: 'lock-modal',
+    loadChildren: () => import('./pages/modals/lock-modal/lock-modal.module').then( m => m.LockModalPageModule)
   }
 ];
 @NgModule({

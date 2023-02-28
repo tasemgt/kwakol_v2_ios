@@ -16,7 +16,8 @@ export class ProfilePage implements OnInit {
 
   public user: User;
   public accountDeets;
-  
+
+  private execptions = ['/settings'];
 
   constructor(
     private router: Router,
@@ -59,11 +60,15 @@ export class ProfilePage implements OnInit {
     }, 'No', 'Yes')
   }
 
-  public goToPage(page:string){
+  public goToPage(page: string){
     // if(this.accountDeets){
     //   this.router.navigateByUrl(page, {state: {url: this.router.url, accountDeets : this.accountDeets}});
     //   return;
     // }
+    if(this.execptions.includes(page)){
+      this.router.navigateByUrl(page, {state: {url: this.router.url}});
+      return;
+    }
     this.getAccountDetails(page);
   }
 

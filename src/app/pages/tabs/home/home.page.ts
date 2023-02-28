@@ -16,6 +16,9 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class HomePage implements OnInit{
 
+  public balanceIcon = 'eye-close';
+  public showBalance = false;
+
   public user: User;
   public home: any;
   public homeHistories: any[];
@@ -134,6 +137,11 @@ export class HomePage implements OnInit{
     setTimeout(() => {
       event.target.complete();
     }, 1000);
+  }
+
+  public hideShowBalance() {
+    this.balanceIcon = this.balanceIcon === 'eye-open' ? 'eye-close' : 'eye-open';
+    this.showBalance = !this.showBalance;
   }
 
   private async getHomeQuietly(){

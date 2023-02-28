@@ -15,15 +15,16 @@ import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     IonicModule.forRoot({
       navAnimation: pageAnimation
-    }), 
+    }),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
@@ -36,6 +37,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     MobileAccessibility,
     AppMinimize,
     ScreenOrientation,
+    FingerprintAIO,
     // OneSignal
   ],
   bootstrap: [AppComponent],
