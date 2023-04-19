@@ -1,0 +1,83 @@
+<ion-content class="page-content">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading">Create Account</h2>
+
+  <div class="progress-step">
+    <div class="track-circle"></div>
+    <div class="track-line"></div>
+    <div class="track-circle"></div>
+    <div class="track-line"></div>
+    <div class="track-circle"></div>
+    <div class="track-line"></div>
+    <div class="track-circle"></div>
+  </div>
+
+  <div class="texts-wrapper">
+    <div class="track-text">Personal Details</div>
+    <div class="track-text">KYC Verification</div>
+  </div>
+
+  <form class="auth-form" (ngSubmit)="getStarted()" #loginForm="ngForm">
+    <ion-row class="row-auth">
+      <ion-col size="12" class="kwakol-input">
+        <div class="did-floating-label-content">
+          <input
+            class="did-floating-input"
+            type="text"
+            placeholder=" "
+            #firstName
+          />
+          <label class="did-floating-label">First Name</label>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="kwakol-input">
+        <div class="did-floating-label-content">
+          <input
+            class="did-floating-input"
+            type="text"
+            placeholder=" "
+            #lastName
+          />
+          <label class="did-floating-label">Last Name</label>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="kwakol-input">
+        <div class="did-floating-label-content">
+          <input
+            class="did-floating-input"
+            type="email"
+            placeholder=" "
+            [value]="'akim.akim@email.com'"
+            [disabled]="true"
+            #email
+          />
+          <!-- <label class="did-floating-label">Email</label> -->
+        </div>
+      </ion-col>
+      <ion-col size="12" class="kwakol-input">
+        <div class="did-floating-label-content">
+          <input
+            class="did-floating-input"
+            type="text"
+            placeholder=" "
+            #username
+          />
+          <label class="did-floating-label">@Username</label>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="kwakol-input">
+        <div class="did-floating-label-content">
+          <input class="did-floating-input" type="tel" placeholder=" " #phone />
+          <label class="did-floating-label">Phone Number</label>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center btn-col">
+        <ion-button class="kwakol-btn ion-text-uppercase" type="submit"
+          >Get Started</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

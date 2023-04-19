@@ -26,6 +26,10 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+//NPM CSS inports
+@import '~animate.css/animate.min.css';
+
+
 //Font styling....
 @import "./assets/css/font";
 
@@ -34,3 +38,8 @@
 
 // //Loading styles....
 @import "./assets/css/loaders";
+
+
+body::-webkit-scrollbar {
+    display: none;
+}

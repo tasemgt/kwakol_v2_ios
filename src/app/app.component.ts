@@ -5,16 +5,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+import { BnNgIdleService } from 'bn-ng-idle';
 // import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { OneSignalService } from './services/one-signal.service';
 
 import { filter } from 'rxjs/operators';
-import { alertPageParams } from './models/constants';
-import { AlertModalPage } from './pages/modals/alert-modal/alert-modal.page';
 import { StorageService } from './services/storage.service';
-import { LockModalPage } from './pages/modals/lock-modal/lock-modal.page';
+import { UtilService } from './services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -49,9 +48,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     private mobileAccessibility: MobileAccessibility,
     private oneSignalService: OneSignalService,
     // private faio: FingerprintAIO,
+    private util: UtilService,
     private navController: NavController,
-    private modalCtrl: ModalController,
-    private auth: AuthService
+    private auth: AuthService,
+    private bnIdle: BnNgIdleService
   ) {
     this.initializeApp();
   }
@@ -75,6 +75,12 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
 
         });
+
+        // this.util.getLockSubject().subscribe((res) =>{
+        //   if(res){
+        //     this.setupInactivityWatch();
+        //   }
+        // });
   }
 
   initializeApp() {
@@ -94,8 +100,23 @@ export class AppComponent implements OnInit, AfterViewInit {
       // }
 
       this.handleAppAuthState();
+      console.log('dfdfgfg, ', this.currentUrl );
+      // this.setupInactivityWatch();
 
-      // this.handleBiometricsAuth();
+      this.platform.pause.subscribe(() => {
+        console.log('App paused');
+        // if(this.currentUrl === '/lock-modal'){
+        //   return;
+        // }
+        // else{
+          this.checkAutoLockState();
+        // }
+      });
+
+      // this.platform.resume.subscribe(() => {
+      //   // App resumed, do something here
+      //   console.log('App resumed');
+      // });
     });
   }
 
@@ -117,7 +138,21 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl('/tabs/home');
       } else if(state === false){
         console.log('Logged Out 😢');
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/kyc');
+      }
+    });
+  }
+
+  private setupInactivityWatch(){
+    this.bnIdle.startWatching(10).subscribe((isTimedOut: boolean) => {
+      if (isTimedOut) {
+        console.log('session expired');
+        this.bnIdle.stopTimer();
+        if(!(this.currentUrl === '/lock-modal')){
+          this.util.presentAlert('App is locked due to inactivity..', () =>{
+            this.autoLockApp();
+          });
+        }
       }
     });
   }
@@ -125,7 +160,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   // Handles Android HW Back button
    private handleHardwareBackButton(): void{
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
-      const closeAppRoutes = [ '/login', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
+      const closeAppRoutes = [ '/lock-modal', '/login', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
       const backToLoginRoutes = ['/change-password', '/forgot-password'];
       const backToProfileRoutes = ['/account-details', '/affiliate-link', '/settings'];
       const backToFeedRoutes = ['/feed-details'];
@@ -191,19 +226,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private async autoLockApp(){
-      const params = alertPageParams.lockedScreen;
-      try {
-        const modal = await this.modalCtrl.create({
-          component: LockModalPage,
-          animated: true,
-          componentProps: {params}
-        });
-        await modal.present();
-        this.checkAppAuthState();
-      }
-      catch (error) {
-        console.log('Error: ', error);
-      }
+    //Nav root lock page
+    console.log('App component>>>>');
+    this.router.navigateByUrl('/lock-modal', {replaceUrl: true});
+    // this.checkAppAuthState();
   }
 
 }

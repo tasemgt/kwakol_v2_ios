@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, ModalController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, AnimationController, LoadingController, ModalController, Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { AlertModalPage } from '../pages/modals/alert-modal/alert-modal.page';
 import { alertPageParams } from '../models/constants';
 import { Router } from '@angular/router';
+import { LoadingPage } from '../pages/modals/loading/loading.page';
+import { LoadModalAnimation } from '../animation/loadModalAnimation';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +14,27 @@ import { Router } from '@angular/router';
 export class UtilService {
 
   public keyboardOpen: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  public lockSubject: BehaviorSubject<boolean> = new BehaviorSubject( false );
   public verifyMeterButtonSubject = new Subject<boolean>();
+
+  private loadModalAnimator: LoadModalAnimation;
 
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
+    private animationCtrl: AnimationController,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private router: Router,
-    private platform: Platform) { }
+    private platform: Platform) {
+      this.loadModalAnimator = new LoadModalAnimation(this.animationCtrl);
+    }
+
+  
+
+  public getLockSubject(){
+    return this.lockSubject;
+  }
 
   public async showToast(message: string, duration: number, color: string) {
     const toast = await this.toastCtrl.create({
@@ -61,7 +75,27 @@ export class UtilService {
     return loading;
   }
 
-  public async presentAlertConfirm(header:string, message: string, okayCallBack: Function, noBut?:string, yesBut?:string) {
+  public async presentLoadingModal(params: {loadingText: string; onClosePageUrl: string}){
+    // ModalLoaderParams {loadingText, onClosePage}
+    try {
+      const modal = await this.modalCtrl.create({
+        component: LoadingPage,
+        animated: true,
+        cssClass: 'transp-modal',
+        enterAnimation: this.loadModalAnimator.enterAnimation,
+        // leaveAnimation: this.loadModalAnimator.leaveAnimation
+        componentProps: {loadingText: params.loadingText}
+      });
+      await modal.present();
+      const {data} = await modal.onWillDismiss();
+      data ? this.router.navigateByUrl(params.onClosePageUrl) : '';
+    }
+    catch (error) {
+      console.log('Error: ', error);
+    }
+  }
+
+  public async presentAlertConfirm(header: string, message: string, okayCallBack: () => void, noBut?:string, yesBut?:string) {
     const alert = await this.alertCtrl.create({
         header,
         message,
@@ -87,7 +121,7 @@ export class UtilService {
     await alert.present();
   }
 
-  public async presentAlert(message: string) {
+  public async presentAlert(message: string, onDismiss?: () => void) {
     const alert = await this.alertCtrl.create({
       // header,
       // subHeader: 'Subtitle',
@@ -95,6 +129,7 @@ export class UtilService {
       buttons: ['Ok']
     });
     await alert.present();
+    alert.onWillDismiss().then(() => onDismiss());
   }
 
   public async presentAlertModal(alertTriggerPage: string, datas?: any){ //datas = any extra info needed to be pased to modal

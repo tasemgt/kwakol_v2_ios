@@ -1,0 +1,53 @@
+<ion-content>
+  <div class="pin-wrapper">
+    <img class="padi-logo" src="assets/imgs/padi-logo.svg" alt="">
+      <p>Enter your PIN</p>
+    <ion-input type="password" name="password" [maxlength]="4" [(ngModel)]="pin" disabled></ion-input>
+  </div>
+  <ion-grid class="grid-keypad">
+    <ion-row>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('1')">1</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('2')">2</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('3')">3</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('4')">4</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('5')">5</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('6')">6</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('7')">7</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('8')">8</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('9')">9</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center" size="4">
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('0')">0</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center" size="4">
+        <ion-button size="small" fill="clear" (click)="getPressedKey('cancel')"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p class="footer-text" [routerLink]="'/login-pass'">Login with Password</p>
+</ion-content>

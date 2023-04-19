@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { ModalController, Platform } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
+import { alertPageParams } from 'src/app/models/constants';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-lock-modal',
@@ -8,8 +12,6 @@ import { ModalController, Platform } from '@ionic/angular';
   styleUrls: ['./lock-modal.page.scss'],
 })
 export class LockModalPage implements OnInit {
-
-  @Input() params;
 
   image: string;
   title: string;
@@ -20,23 +22,22 @@ export class LockModalPage implements OnInit {
 
   constructor(
     private platform: Platform,
-    private modalCtrl: ModalController,
+    private router: Router,
+    private util: UtilService,
     private faio: FingerprintAIO) { }
 
   ngOnInit() {
-    this.image = this.params.image;
-    this.title = this.params.title;
-    this.desc = this.params.desc;
-    this.btn = this.params.btn;
+    const params = alertPageParams.lockedScreen;
+    this.image = params.image;
+    this.title = params.title;
+    this.desc = params.desc;
+    this.btn = params.btn;
   }
 
   public onClickBtn() {
     this.handleBiometricsAuth();
   }
 
-  closeModal() {
-    this.modalCtrl.dismiss();
-  }
 
   private async handleBiometricsAuth() {
     try {
@@ -51,7 +52,9 @@ export class LockModalPage implements OnInit {
           });
           console.log('BIO>> ', bio);
           if(bio === 'biometric_success'){
-            this.closeModal();
+            // Got to dashboard
+            this.util.getLockSubject().next(true); //To re-initialize locking.
+            this.router.navigateByUrl('/tabs/home');
           }
         }
       }

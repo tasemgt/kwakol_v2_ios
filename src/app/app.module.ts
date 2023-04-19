@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,7 @@ import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
     AppMinimize,
     ScreenOrientation,
     FingerprintAIO,
+    BnNgIdleService
     // OneSignal
   ],
   bootstrap: [AppComponent],

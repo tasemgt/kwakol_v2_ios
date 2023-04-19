@@ -95,6 +95,22 @@ const routes: Routes = [
   {
     path: 'lock-modal',
     loadChildren: () => import('./pages/modals/lock-modal/lock-modal.module').then( m => m.LockModalPageModule)
+  },
+  {
+    path: 'onboarding',
+    loadChildren: () => import('./pages/auth/onboarding/onboarding.module').then( m => m.OnboardingPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/auth/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'loading',
+    loadChildren: () => import('./pages/modals/loading/loading.module').then( m => m.LoadingPageModule)
+  },
+  {
+    path: 'kyc',
+    loadChildren: () => import('./pages/auth/kyc/kyc.module').then( m => m.KycPageModule)
   }
 ];
 @NgModule({

@@ -1,0 +1,327 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+ion-content.page-content {
+  --background: var(--ion-color-secondary);
+
+  .logo-wrapper {
+    text-align: center;
+    margin-top: 6rem;
+  }
+
+  .main-img-wrapper {
+    text-align: center;
+    margin-top: 4rem;
+    margin-left: -3rem;
+    margin-right: -3rem;
+
+    img {
+      width: 32rem;
+    }
+  }
+
+  .p1 {
+    color: var(--ion-color-primary);
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.02rem;
+    // font-family: BwModelicaMedium;
+  }
+
+  .p2 {
+    color: var(--ion-color-tertiary);
+    width: 80%;
+    font-size: 0.75rem;
+    font-family: BWModelicaLight;
+    text-align: center;
+    letter-spacing: 0.02rem;
+    margin: 0 auto;
+    margin-top: 2rem;
+    line-height: 1.8;
+    span {
+      color: var(--ion-color-primary);
+    }
+  }
+
+  h3.feature {
+    color: var(--ion-color-tertiary);
+    font-family: BwModelicaBold;
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 1.8rem;
+  }
+
+  .btn-row {
+    margin-top: 2rem;
+  }
+
+  ion-col {
+    text-align: center;
+  }
+
+  ion-button.kwakol-btn {
+    height: 3rem;
+    width: 95%;
+  }
+}
+
+.round-button {
+  display: flex;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: rgba(81, 175, 78, 0.2);
+  border: 1px solid rgba(81, 175, 78, 0.2);
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+
+  ion-icon {
+    font-size: 1.7rem;
+  }
+}
+
+ion-modal.login-pin {
+  .handle-wrapper {
+    width: 3rem;
+    height: 1.3rem;
+    background-color: var(--ion-color-secondary);
+    padding-top: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 15px;
+    z-index: 10000;
+    .handle {
+      background-color: var(--ion-color-primary);
+      width: 60%;
+      height: 0.25rem;
+    }
+  }
+
+  &::part(handle) {
+    background-color: var(--ion-color-primary);
+  }
+  --border-radius: 20px;
+  --border-width: 0;
+  ion-content {
+    --background: var(--ion-color-tertiary);
+    --padding-top: 2rem;
+
+    .round-button {
+      margin: 0 auto;
+    }
+
+    .p1 {
+      font-size: 0.7rem;
+      letter-spacing: 0.01rem;
+      text-align: center;
+      margin: 0.5rem 0rem;
+    }
+
+    h3 {
+      text-align: center;
+      font-family: BwModelicaMedium;
+      font-size: 1.5rem;
+    }
+
+    .pin-wrapper {
+      text-align: center;
+      ion-input {
+        letter-spacing: 0.5rem;
+        position: absolute;
+        --color: rgba(81, 175, 78, 0.2); //#b3b3b3;
+        font-size: 3rem;
+        height: 3.4rem;
+      }
+    }
+
+    ion-grid.grid-keypad {
+      --ion-grid-padding-left: 3rem;
+      --ion-grid-padding-right: 3rem;
+      --ion-grid-padding-bottom: 1rem;
+      margin-top: 2.5rem;
+      position: relative;
+
+      ion-row {
+        margin-bottom: 0.5rem;
+        ion-col {
+          ion-button {
+            --color: var(--ion-color-secondary);
+            --background: rgba(81, 175, 78, 0.2);
+            --border-radius: 100%;
+            width: 4rem;
+            height: 4rem;
+            font-size: 1.5rem;
+            font-family: BwModelicaMedium;
+          }
+        }
+      }
+    }
+
+    ion-row.btn-row {
+      margin-top: 1rem;
+      ion-button {
+        height: 3rem;
+      }
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--ion-color-secondary);
+      letter-spacing: 0.02rem;
+    }
+  }
+}
+
+div.login-password {
+  position: absolute;
+  bottom: 2rem;
+  // margin: 0 auto;
+  left: 5%;
+  --animate-duration: 0.3s;
+  // transform: translateX(-50%);
+  width: 90%;
+  padding: 1rem;
+  background-color: #fff;
+  //   height: 50%;
+  border-radius: 16px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      h3 {
+        margin-top: 0;
+        font-family: "BwModelicaMedium";
+        margin-bottom: 0.3rem;
+        font-size: 1.25rem;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.75rem;
+        letter-spacing: 0.02rem;
+        color: var(--ion-color-primary);
+        font-family: BwModelicaLight;
+        display: flex;
+        align-items: center;
+
+        ion-icon{
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .round-button {
+      width: 3rem;
+      height: 3rem;
+      ion-icon {
+        font-size: 1.75rem;
+      }
+    }
+
+    .switch-login {
+      font-size: 0.68rem;
+      width: 6rem;
+      padding: 0.5rem;
+      background-color: rgba(81, 175, 78, 0.2);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  h3.type {
+    margin: 0.8rem 0 0.3rem 0;
+    font-family: "BwModelicaMedium";
+    font-size: 1.3rem;
+  }
+
+  p.p3 {
+    margin: 0;
+    font-size: 0.8rem;
+    font-family: "BwModelicaRegular";
+    letter-spacing: 0.01rem;
+  }
+
+  .auth-form {
+    margin-top: 1.5rem;
+
+    p.forgot-password {
+      margin-top: 0rem;
+      letter-spacing: 0.01em;
+      font-family: BwModelicaRegular;
+      text-align: right;
+      a {
+        font-size: 0.7rem;
+      }
+    }
+
+    ion-button {
+      width: 100%;
+    }
+  }
+
+  .rules{
+    width: 80%;
+    font-size: 0.75rem;
+    letter-spacing: 0.01rem;
+    color: rgba(var(--ion-text-gray-color-rgb), 0.85);
+    font-family: "BwModelicaLight";
+
+    ul{
+      padding-left: 1.5rem;
+      margin-top: 0.2rem;
+      li{
+        div{
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          ion-icon{
+            font-size: .9rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+ion-modal.login-password {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 90%;
+  margin: 0 auto;
+  --height: 50%;
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  &::part(backdrop) {
+    background: transparent;
+    opacity: 1;
+  }
+
+  ion-content {
+    margin-bottom: -3rem !important;
+  }
+
+  &.register {
+    --height: 60%;
+  }
+}

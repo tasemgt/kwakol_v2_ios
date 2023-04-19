@@ -1,0 +1,18 @@
+<ion-content>
+  <div class="loader-wrapper">
+    <div class="circle-3">
+      <div class="circle-2">
+        <div class="circle-1">
+          <ion-icon *ngIf="isLoading" src="assets/imgs/logo-loader.svg" class="animate__animated animate__heartBeat animate__infinite infinite" alt=""></ion-icon>
+          <div class="logo-loaded animate__animated animate__fadeIn" *ngIf="!isLoading">
+            <div class="circle">
+              <div class="checkmark draw"></div>
+              <!-- <ion-icon class="loaded-check animate__animated animate__fadeInBottomLeft" src="assets/imgs/loaded-check.svg" alt=""></ion-icon> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <P class="loading-text">{{loadingText}}</P>
+  </div>
+</ion-content>

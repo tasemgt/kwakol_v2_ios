@@ -1,0 +1,27 @@
+ion-content{
+  --padding-top: 7.5rem;
+
+  .pin-wrapper{
+    text-align: center;
+
+    p{
+      font-size: 1rem;
+      font-family: MulishMedium;
+      margin: 2rem 0rem;
+    }
+
+    ion-input{
+      letter-spacing: .5rem;
+      --color: #B3B3B3;
+      font-size: 3rem !important;
+    }
+  }
+
+  .footer-text{
+    text-align: center;
+    margin-top: 4.5rem;
+    font-size: 1rem;
+    color: var(--ion-color-medium);
+  }
+}
+
