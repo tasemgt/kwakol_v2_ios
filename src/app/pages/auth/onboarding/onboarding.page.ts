@@ -36,7 +36,18 @@ export class OnboardingPage implements OnInit {
   public passwordType = 'password';
   public passwordIcon = 'eye-close';
 
-  public inputFocused: boolean;
+  public loginInputFocused: boolean;
+  public registrationInputFocused: boolean;
+
+
+  //Models
+  public credentials: {
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
+
+
 
   private modal: HTMLIonModalElement;
 
@@ -52,14 +63,15 @@ export class OnboardingPage implements OnInit {
 
   ngOnInit() {
     this.pin = '';
+    this.credentials = { email: '', password: '', confirmPassword: ''};
   }
 
-  public onInputsFocus(): void {
-    this.inputFocused = true;
+  public onInputsFocus(type: string): void {
+    type === 'login' ? this.loginInputFocused = true : this.registrationInputFocused = true;
   }
 
-  public onInputsBlur(): void {
-    this.inputFocused = false;
+  public onInputsBlur(type: string): void {
+    type === 'login' ? this.loginInputFocused = false : this.registrationInputFocused = false;
   }
 
   public hideShowPassword() {
@@ -162,7 +174,7 @@ export class OnboardingPage implements OnInit {
     this.util.presentLoading();
     setTimeout(() => {
       this.loading.dismiss();
-      this.router.navigateByUrl('/register');
+      this.router.navigateByUrl('/register', { state : {url: this.router.url}});
     }, 1000);
   }
 

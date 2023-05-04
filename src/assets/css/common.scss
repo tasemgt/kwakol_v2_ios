@@ -221,7 +221,7 @@ ion-col {
 
 .did-floating-label-content {
   position: relative;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.7rem;
 }
 .did-floating-label {
   color: var(--ion-color-secondary);
@@ -269,6 +269,21 @@ ion-col {
   font-size: 13px;
 }
 
+.round-button {
+  display: flex;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: rgba(81, 175, 78, 0.2);
+  border: 1px solid rgba(81, 175, 78, 0.2);
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+
+  ion-icon {
+    font-size: 1.7rem;
+  }
+}
+
 //Kwakol Buttons
 ion-button.kwakol-btn {
   --ion-font-family: BwModelicaMedium;
@@ -297,17 +312,19 @@ ion-button.kwakol-btn {
 
   &.kwakol-btn-outline {
     --background: transparent;
-    color: var(--ion-color-tertiary);
+    color: var(--ion-color-secondary);
     --background-activated: transparent;
     --background-focused: transparent;
     --background-hover: transparent;
-    --border-color: var(--ion-color-tertiary);
+    --border-color: var(--ion-color-primary);
     --border-style: solid;
     --border-width: 1px;
+    font-family: BwModelicaBold;
 
     &.white {
-      color: #fff;
-      --border-color: #fff !important;
+      color: var(--ion-color-tertiary);
+      --border-color: var(--ion-color-tertiary) !important;
+      font-family: BwModelicaMedium;
     }
   }
 }

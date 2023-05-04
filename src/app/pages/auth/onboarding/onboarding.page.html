@@ -14,7 +14,7 @@
   <ion-row class="btn-row">
     <ion-col size="6">
       <ion-button
-        class="kwakol-btn kwakol-btn-outline ion-text-uppercase"
+        class="kwakol-btn kwakol-btn-outline white ion-text-uppercase"
         id="open-login-pin"
         >Log in</ion-button
       >
@@ -152,6 +152,7 @@
   </ion-modal>
   <!-- End Modal Login with Pin -->
 
+  <!-- Login With Password Modal Begin -->
   <div
     #loginPasswordDiv
     class="login-password login animate__animated animate__slideInUp"
@@ -175,42 +176,40 @@
     >
       <ion-row class="row-auth">
         <ion-col size="12" class="kwakol-input">
-          <ion-item>
-            <ion-label position="floating" color="secondary"
-              >Enter your email</ion-label
-            >
-            <ion-input
-              (ionFocus)="onInputsFocus()"
-              (ionBlur)="onInputsBlur()"
+          <div class="did-floating-label-content">
+            <input
+              class="did-floating-input"
               type="email"
-              name="email"
-              ngModel
-              #email="ngModel"
+              placeholder=" "
+              name="emailLogin"
+              [(ngModel)]="credentials.email"
               required
-            ></ion-input>
-          </ion-item>
+              autocomplete="off"
+              (ionFocus)="onInputsFocus('login')"
+              (ionBlur)="onInputsBlur('login')"
+            />
+            <label class="did-floating-label">Enter your email</label>
+          </div>
         </ion-col>
         <ion-col size="12" class="kwakol-input">
-          <ion-item class="password-input">
-            <ion-label position="floating" color="secondary"
-              >Enter your password</ion-label
-            >
-            <ion-input
-              (ionFocus)="onInputsFocus()"
-              (ionBlur)="onInputsBlur()"
+          <div class="did-floating-label-content">
+            <input
+              class="did-floating-input"
+              name="passwordLogin"
+              placeholder=" "
               [type]="passwordType"
-              name="password"
-              ngModel
-              #password="ngModel"
+              [(ngModel)]="credentials.password"
               required
-            ></ion-input>
+              autocomplete="off"
+            />
             <ion-icon
               slot="end"
               [src]="'assets/icon/'+passwordIcon+'.svg'"
               class="passwordIcon"
               (click)="hideShowPassword()"
             ></ion-icon>
-          </ion-item>
+            <label class="did-floating-label">Enter your password</label>
+          </div>
           <p class="forgot-password">
             <a [routerLink]="'/forgot-password'">Forgot Password</a>
           </p>
@@ -223,7 +222,9 @@
       </ion-row>
     </form>
   </div>
+  <!-- Login With Password Modal End -->
 
+  <!-- Register Modal -->
   <div
     #registerDiv
     class="login-password register animate__animated animate__slideInUp"
@@ -249,11 +250,27 @@
     >
       <ion-row class="row-auth">
         <ion-col size="12" class="kwakol-input">
-          <ion-item>
-            <ion-label position="floating" color="secondary"
-              >Enter your email</ion-label
-            >
-            <ion-input
+          <div class="did-floating-label-content">
+            <input
+              class="did-floating-input"
+              type="email"
+              placeholder=" "
+              name="emailReg"
+              [(ngModel)]="credentials.email"
+              required
+              autocomplete="off"
+              (ionFocus)="onInputsFocus('register')"
+              (ionBlur)="onInputsBlur('register')"
+            />
+            <label class="did-floating-label">Enter your email</label>
+          </div>
+        </ion-col>
+        <!-- <ion-col size="12" class="kwakol-input">
+        <ion-item>
+          <ion-label position="floating" color="secondary"
+          >Enter your email</ion-label
+          >
+          <ion-input
               (ionFocus)="onInputsFocus()"
               (ionBlur)="onInputsBlur()"
               type="email"
@@ -261,53 +278,51 @@
               ngModel
               #email="ngModel"
               required
-            ></ion-input>
-          </ion-item>
-        </ion-col>
+              ></ion-input>
+            </ion-item>
+          </ion-col> -->
         <ion-col size="12" class="kwakol-input">
-          <ion-item class="password-input">
-            <ion-label position="floating" color="secondary"
-              >Enter your password</ion-label
-            >
-            <ion-input
-              (ionFocus)="onInputsFocus()"
-              (ionBlur)="onInputsBlur()"
+          <div class="did-floating-label-content">
+            <input
+              class="did-floating-input"
+              name="passwordReg"
+              placeholder=" "
               [type]="passwordType"
-              name="password"
-              ngModel
-              #password="ngModel"
+              [(ngModel)]="credentials.password"
               required
-            ></ion-input>
+              autocomplete="off"
+            />
             <ion-icon
               slot="end"
               [src]="'assets/icon/'+passwordIcon+'.svg'"
               class="passwordIcon"
               (click)="hideShowPassword()"
             ></ion-icon>
-          </ion-item>
+            <label class="did-floating-label">Enter your password</label>
+          </div>
         </ion-col>
+
         <ion-col size="12" class="kwakol-input">
-          <ion-item class="password-input">
-            <ion-label position="floating" color="secondary"
-              >Confirm Password</ion-label
-            >
-            <ion-input
-              (ionFocus)="onInputsFocus()"
-              (ionBlur)="onInputsBlur()"
+          <div class="did-floating-label-content">
+            <input
+              class="did-floating-input"
+              name="confirmPassword"
+              placeholder=" "
               [type]="passwordType"
-              name="password"
-              ngModel
-              #password="ngModel"
+              [(ngModel)]="credentials.confirmPassword"
               required
-            ></ion-input>
+              autocomplete="off"
+            />
             <ion-icon
               slot="end"
               [src]="'assets/icon/'+passwordIcon+'.svg'"
               class="passwordIcon"
               (click)="hideShowPassword()"
             ></ion-icon>
-          </ion-item>
+            <label class="did-floating-label">Enter your password</label>
+          </div>
         </ion-col>
+
         <div class="rules">
           Your password must include at least
           <ul>
@@ -338,11 +353,18 @@
           </ul>
         </div>
         <ion-col size="12" class="ion-text-center btn-col">
-          <ion-button (click)="proceedRegistration()" class="kwakol-btn ion-text-uppercase" type="submit">Continue</ion-button>
+          <ion-button
+            (click)="proceedRegistration()"
+            class="kwakol-btn ion-text-uppercase"
+            type="submit"
+            >Continue</ion-button
+          >
         </ion-col>
       </ion-row>
     </form>
   </div>
+
+  <!-- End Register Modal -->
 
   <!-- <ion-modal
     #passwordLoginModal

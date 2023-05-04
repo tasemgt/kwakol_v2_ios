@@ -67,42 +67,27 @@ ion-content.page-content {
   }
 }
 
-.round-button {
-  display: flex;
-  width: 3.5rem;
-  height: 3.5rem;
-  background-color: rgba(81, 175, 78, 0.2);
-  border: 1px solid rgba(81, 175, 78, 0.2);
-  border-radius: 100%;
-  justify-content: center;
-  align-items: center;
-
-  ion-icon {
-    font-size: 1.7rem;
-  }
-}
-
 ion-modal.login-pin {
-  .handle-wrapper {
-    width: 3rem;
-    height: 1.3rem;
-    background-color: var(--ion-color-secondary);
-    padding-top: 0.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: -0.6rem;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 15px;
-    z-index: 10000;
-    .handle {
-      background-color: var(--ion-color-primary);
-      width: 60%;
-      height: 0.25rem;
-    }
-  }
+  // .handle-wrapper {
+  //   width: 3rem;
+  //   height: 1.3rem;
+  //   background-color: var(--ion-color-secondary);
+  //   padding-top: 0.2rem;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   position: absolute;
+  //   top: -0.6rem;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   border-radius: 15px;
+  //   z-index: 10000;
+  //   .handle {
+  //     background-color: var(--ion-color-primary);
+  //     width: 60%;
+  //     height: 0.25rem;
+  //   }
+  // }
 
   &::part(handle) {
     background-color: var(--ion-color-primary);
@@ -217,7 +202,7 @@ div.login-password {
         display: flex;
         align-items: center;
 
-        ion-icon{
+        ion-icon {
           font-size: 1rem;
         }
       }
@@ -274,29 +259,40 @@ div.login-password {
     }
   }
 
-  .rules{
+  .rules {
     width: 80%;
     font-size: 0.75rem;
     letter-spacing: 0.01rem;
     color: rgba(var(--ion-text-gray-color-rgb), 0.85);
     font-family: "BwModelicaLight";
 
-    ul{
+    ul {
       padding-left: 1.5rem;
       margin-top: 0.2rem;
-      li{
-        div{
+      li {
+        div {
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
 
-          ion-icon{
-            font-size: .9rem;
+          ion-icon {
+            font-size: 0.9rem;
           }
         }
       }
     }
+  }
+
+  //Input focus animation
+  &.slide-up {
+    padding: 4rem 1.35rem;
+    transition: padding ease-out 0.3s;
+  }
+
+  &.slide-down {
+    padding: 9rem 1.35rem;
+    transition: padding ease-out 0.3s;
   }
 }
 

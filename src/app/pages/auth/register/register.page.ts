@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonModal, LoadingController } from '@ionic/angular';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -8,9 +9,15 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  @ViewChild('otpModal') otpModal: IonModal;
+
   public fromPage: string;
 
-  constructor(private router: Router, private util: UtilService) {
+  constructor(
+    private router: Router,
+    private util: UtilService,
+    private loading: LoadingController
+  ) {
     if (this.router.getCurrentNavigation().extras.state) {
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
     }
@@ -18,7 +25,22 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
-  public getStarted() {
-    this.util.presentLoadingModal({loadingText: 'Setting up your account...', onClosePageUrl: '/kyc'});
+  public continueReg() {
+    this.util.presentLoading();
+    setTimeout(() => {
+      this.loading.dismiss();
+      this.otpModal.present();
+    }, 1500);
+  }
+
+  public verifyOTP() {
+    this.otpModal.dismiss();
+    setTimeout(() => {
+      this.util.presentLoadingModal({
+        loadingText: 'Setting up your account...',
+        onClosePageUrl: '/kyc',
+        fromPageUrl: this.router.url,
+      });
+    }, 100);
   }
 }

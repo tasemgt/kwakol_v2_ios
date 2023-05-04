@@ -14,6 +14,7 @@ export class KycPage implements OnInit {
   constructor(private router: Router, private util: UtilService) {
     if (this.router.getCurrentNavigation().extras.state) {
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      console.log(this.fromPage);
     }
   }
 
