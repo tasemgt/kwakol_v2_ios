@@ -21,23 +21,18 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class DepositPage implements OnInit, OnDestroy{
 
-  private modal: HTMLIonModalElement;
-
   public toastShown = false;
-
   public subscriber;
-
   public fromPage: string;
   public amount: string;
   public depositData;
-
   public selectedBank: any;
   public selectedInvestment: any;
   public selectedCurrency: any;
-
   public fileName = 'No file chosen';
-  private receipt: File;
   
+  private modal: HTMLIonModalElement;
+  private receipt: File;
 
   constructor(
     private router: Router,

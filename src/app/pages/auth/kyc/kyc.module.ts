@@ -7,14 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { KycPageRoutingModule } from './kyc-routing.module';
 
 import { KycPage } from './kyc.page';
+import { KeypadModule } from 'src/app/components/keypad/keypad.module';
+import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    KycPageRoutingModule
+    KycPageRoutingModule,
+    KeypadModule
   ],
-  declarations: [KycPage]
+  declarations: [
+    KycPage,
+    AutoTabDirective
+  ]
 })
 export class KycPageModule {}

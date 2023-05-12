@@ -4,7 +4,9 @@ export const constants = {
     currentProfile: 'CURRENT_KWAKOL_PROFILE',
     userProfile: 'KWAKOL_USER_PROFILE',
     oneSignalAppID: 'cddc3c9c-6675-4256-b028-e8bf65c4702c',
-    googleProjectNumberSenderID: '1033837099492'
+    googleProjectNumberSenderID: '1033837099492',
+    metaMapClientId: '643977ceba5a52001a493282',
+    metaMapFlowId: '643ff4f4885ac9001c1326c9'
 };
 
 export const alertPageParams = {

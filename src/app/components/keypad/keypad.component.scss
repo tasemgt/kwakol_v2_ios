@@ -1,0 +1,21 @@
+ion-grid.grid-keypad {
+    --ion-grid-padding-left: 3rem;
+    --ion-grid-padding-right: 3rem;
+    --ion-grid-padding-bottom: 1rem;
+    position: relative;
+
+    ion-row {
+      margin-bottom: 0.5rem;
+      ion-col {
+        ion-button {
+          --color: var(--ion-color-secondary);
+          --background: rgba(81, 175, 78, 0.2);
+          --border-radius: 100%;
+          width: 4rem;
+          height: 4rem;
+          font-size: 1.5rem;
+          font-family: BwModelicaMedium;
+        }
+      }
+    }
+  }

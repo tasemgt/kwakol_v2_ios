@@ -23,14 +23,57 @@
     <img src="assets/imgs/kyc-img.svg">
   </div>
 
-
   <ion-row class="action-row">
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn ion-text-uppercase" type="submit">Continue</ion-button>
+      <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="callMetaMap()">Continue</ion-button>
     </ion-col>
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit">I'll do this later</ion-button>
+      <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit" (click)="openSetPinModal()">I'll do this later</ion-button>
     </ion-col>
   </ion-row>
+
+  <!-- Set pin modal -->
+  <ion-modal
+    #setPinModal
+    trigger="open-set-pin"
+    [initialBreakpoint]="0.85"
+    [breakpoints]="[0, 0.25, 0.5, 0.75, 0.85]"
+    class="set-pin"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <!-- <div class="handle-wrapper">
+          <span class="handle"></span>
+        </div> -->
+
+        <div class="header">
+          <ion-icon src="assets/icon/set-pin.svg"></ion-icon>
+          <h3 *ngIf="!showConfirm">{{ 'Create your pin' }}</h3>
+          <h3 *ngIf="showConfirm" class="animate__animated animate__zoomIn animate__faster">{{ 'Confirm your pin' }}</h3>
+        </div>
+
+
+        <div class="pin-wrapper">
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[0]"/>
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[1]"/>
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[2]"/>
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[3]"/>
+        </div>
+        
+        <app-keypad *ngIf="!showConfirm" (keypadEmitter)="onKeypadChanged($event)" #appKeypad></app-keypad>
+        <app-keypad *ngIf="showConfirm" (keypadEmitter)="onKeypadChanged($event)" #appKeypad></app-keypad>
+
+        <ion-row class="btn-row">
+          <ion-col size="10" class="ion-text-center btn-col">
+            <ion-button *ngIf="!showConfirm" class="kwakol-btn ion-text-uppercase" type="submit" (click)="handlePinSubmit('continue')">{{'Continue'}}</ion-button>
+            <ion-button *ngIf="showConfirm" class="kwakol-btn ion-text-uppercase" type="submit" (click)="handlePinSubmit('confirm')"> {{'Confirm'}}</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Modal Login with Pin -->
+
 
 </ion-content>

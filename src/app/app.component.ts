@@ -73,7 +73,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.statusBar.overlaysWebView(true);
             this.handleStatusBarForPages();
           }
-
         });
 
         // this.util.getLockSubject().subscribe((res) =>{
@@ -138,7 +137,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl('/tabs/home');
       } else if(state === false){
         console.log('Logged Out 😢');
-        this.router.navigateByUrl('/kyc');
+        this.router.navigateByUrl('/onboarding');
       }
     });
   }
