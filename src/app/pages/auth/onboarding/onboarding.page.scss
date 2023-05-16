@@ -286,13 +286,13 @@ div.login-password {
 
   //Input focus animation
   &.slide-up {
-    padding: 4rem 1.35rem;
-    transition: padding ease-out 0.3s;
+    bottom: 18.5rem;
+    transition: bottom ease-out 0.3s;
   }
 
   &.slide-down {
-    padding: 9rem 1.35rem;
-    transition: padding ease-out 0.3s;
+    bottom: 2rem;
+    transition: bottom ease-out 0.3s;
   }
 }
 

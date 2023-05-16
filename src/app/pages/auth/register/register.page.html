@@ -2,7 +2,12 @@
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading left">Create Account</h2>
+  <h2
+    class="subpage-heading left"
+    [ngClass]="{'slide-up': inputFocused , 'slide-down': !inputFocused}"
+  >
+    Create Account
+  </h2>
 
   <div class="progress-step">
     <div class="track-circle"></div>
@@ -38,6 +43,17 @@
             class="did-floating-input"
             type="text"
             placeholder=" "
+            #middleName
+          />
+          <label class="did-floating-label">Middle Name</label>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="kwakol-input">
+        <div class="did-floating-label-content">
+          <input
+            class="did-floating-input"
+            type="text"
+            placeholder=" "
             #lastName
           />
           <label class="did-floating-label">Last Name</label>
@@ -46,7 +62,7 @@
       <ion-col size="12" class="kwakol-input">
         <div class="did-floating-label-content">
           <input
-            class="did-floating-input"
+            class="did-floating-input email"
             type="email"
             placeholder=" "
             [value]="'akim.akim@email.com'"
@@ -63,6 +79,8 @@
             type="text"
             placeholder=" "
             #username
+            (focus)="onInputsFocus()"
+            (blur)="onInputsBlur()"
           />
           <label class="did-floating-label">@Username</label>
         </div>
@@ -75,7 +93,14 @@
       </ion-col>
       <ion-col size="12" class="kwakol-input">
         <div class="did-floating-label-content">
-          <input class="did-floating-input" type="tel" placeholder=" " #phone />
+          <input
+            class="did-floating-input"
+            type="tel"
+            placeholder=" "
+            #phone
+            (focus)="onInputsFocus()"
+            (blur)="onInputsBlur()"
+          />
           <label class="did-floating-label">Phone Number</label>
         </div>
       </ion-col>
@@ -180,8 +205,8 @@
   <ion-modal
     #otpModal
     trigger="open-otp-modal"
-    [initialBreakpoint]="0.85"
-    [breakpoints]="[0, 0.25, 0.5, 0.65, 0.75, 0.85]"
+    [initialBreakpoint]="0.65"
+    [breakpoints]="[0, 0.25, 0.5, 0.65]"
     class="otp-modal"
     handle="true"
   >
@@ -208,10 +233,14 @@
 
         <ion-row>
           <ion-col size="12" class="ion-text-center btn-col">
-            <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="verifyOTP()">Verify</ion-button>
+            <ion-button
+              class="kwakol-btn ion-text-uppercase"
+              type="submit"
+              (click)="verifyOTP()"
+              >Verify</ion-button
+            >
           </ion-col>
         </ion-row>
-
       </ion-content>
     </ng-template>
   </ion-modal>

@@ -158,6 +158,7 @@
     #loginPasswordDiv
     class="login-password login animate__animated animate__slideInUp"
     *ngIf="showLoginPasswordForm"
+    [ngClass]="{'slide-up': loginInputFocused , 'slide-down': !loginInputFocused}"
   >
     <div class="header">
       <div class="switch-login" (click)="openLoginPinModal()">
@@ -172,7 +173,7 @@
 
     <form
       class="auth-form"
-      (ngSubmit)="loginWithPassword(loginForm)"
+      (ngSubmit)="doLoginWithPassword(loginForm)"
       #loginForm="ngForm"
     >
       <ion-row class="row-auth">
@@ -186,8 +187,8 @@
               [(ngModel)]="credentials.email"
               required
               autocomplete="off"
-              (ionFocus)="onInputsFocus('login')"
-              (ionBlur)="onInputsBlur('login')"
+              (focus)="onInputsFocus('login')"
+              (blur)="onInputsBlur('login')"
             />
             <label class="did-floating-label">Enter your email</label>
           </div>
@@ -202,6 +203,8 @@
               [(ngModel)]="credentials.password"
               required
               autocomplete="off"
+              (focus)="onInputsFocus('login')"
+              (blur)="onInputsBlur('login')"
             />
             <ion-icon
               slot="end"
@@ -212,7 +215,7 @@
             <label class="did-floating-label">Enter your password</label>
           </div>
           <p class="forgot-password">
-            <a [routerLink]="'/forgot-password'">Forgot Password</a>
+            <a (click)="openResetPasswordModal()">Forgot Password</a>
           </p>
         </ion-col>
         <ion-col size="12" class="ion-text-center btn-col">
@@ -230,6 +233,7 @@
     #registerDiv
     class="login-password register animate__animated animate__slideInUp"
     *ngIf="showRegisterForm"
+    [ngClass]="{'slide-up': registrationInputFocused , 'slide-down': !registrationInputFocused}"
   >
     <div class="header">
       <div class="title">
@@ -246,8 +250,7 @@
 
     <form
       class="auth-form"
-      (ngSubmit)="loginWithPassword(loginForm)"
-      #loginForm="ngForm"
+      (ngSubmit)="proceedRegistration()"
     >
       <ion-row class="row-auth">
         <ion-col size="12" class="kwakol-input">
@@ -257,11 +260,11 @@
               type="email"
               placeholder=" "
               name="emailReg"
-              [(ngModel)]="credentials.email"
+              [(ngModel)]="regCreds.email"
               required
               autocomplete="off"
-              (ionFocus)="onInputsFocus('register')"
-              (ionBlur)="onInputsBlur('register')"
+              (focus)="onInputsFocus('register')"
+              (blur)="onInputsBlur('register')"
             />
             <label class="did-floating-label">Enter your email</label>
           </div>
@@ -289,9 +292,11 @@
               name="passwordReg"
               placeholder=" "
               [type]="passwordType"
-              [(ngModel)]="credentials.password"
+              [(ngModel)]="regCreds.password"
               required
               autocomplete="off"
+              (focus)="onInputsFocus('register')"
+              (blur)="onInputsBlur('register')"
             />
             <ion-icon
               slot="end"
@@ -310,9 +315,11 @@
               name="confirmPassword"
               placeholder=" "
               [type]="passwordType"
-              [(ngModel)]="credentials.confirmPassword"
+              [(ngModel)]="regCreds.confirmPassword"
               required
               autocomplete="off"
+              (focus)="onInputsFocus('register')"
+              (blur)="onInputsBlur('register')"
             />
             <ion-icon
               slot="end"
@@ -366,6 +373,55 @@
   </div>
 
   <!-- End Register Modal -->
+
+  <!-- Reset Password Modal Begin -->
+  <div
+    #resetPasswordDiv
+    class="login-password reset animate__animated animate__slideInUp"
+    *ngIf="showResetPasswordForm"
+    [ngClass]="{'slide-up': resetPasswordInputFocused , 'slide-down': !resetPasswordInputFocused}"
+  >
+    <div class="header">
+      <div class="switch-login" (click)="openLoginPinModal()">
+        Login with Pin
+      </div>
+      <div class="round-button" (click)="closeResetPasswordForm()">
+        <ion-icon src="assets/icon/close.svg"></ion-icon>
+      </div>
+    </div>
+    <h3 class="type">Reset Password</h3>
+    <p class="p3">It's alright, everyone forgets</p>
+
+    <form
+      class="auth-form"
+      (ngSubmit)="doResetPassword()"
+    >
+      <ion-row class="row-auth">
+        <ion-col size="12" class="kwakol-input">
+          <div class="did-floating-label-content">
+            <input
+              class="did-floating-input"
+              type="email"
+              placeholder=" "
+              name="emailReset"
+              [(ngModel)]="emailReset"
+              required
+              autocomplete="off"
+              (focus)="onInputsFocus('reset')"
+              (blur)="onInputsBlur('reset')"
+            />
+            <label class="did-floating-label">Enter your email</label>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center btn-col">
+          <ion-button class="kwakol-btn ion-text-uppercase" type="submit"
+            >Continue</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+  <!-- Reset Password Modal End -->
 
   <!-- <ion-modal
     #passwordLoginModal

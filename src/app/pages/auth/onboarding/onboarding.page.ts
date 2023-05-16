@@ -15,6 +15,8 @@ import { LoginPinPage } from '../login-pin/login-pin.page';
 import { UtilService } from 'src/app/services/util.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { OneSignalService } from 'src/app/services/one-signal.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -27,51 +29,76 @@ export class OnboardingPage implements OnInit {
 
   @ViewChild('loginPasswordDiv') loginPasswordDiv: ElementRef;
   @ViewChild('registerDiv') registerDiv: ElementRef;
+  @ViewChild('resetPasswordDiv') resetPasswordDiv: ElementRef;
 
   public pin: string;
   public inputPinTypePassword = true;
   public showLoginPasswordForm = false;
   public showRegisterForm = false;
+  public showResetPasswordForm = false;
 
   public passwordType = 'password';
   public passwordIcon = 'eye-close';
 
   public loginInputFocused: boolean;
   public registrationInputFocused: boolean;
-
+  public resetPasswordInputFocused: boolean;
 
   //Models
   public credentials: {
     email: string;
     password: string;
+  };
+
+  public regCreds: {
+    email: string;
+    password: string;
     confirmPassword: string;
   };
 
-
+  public emailReset = '';
 
   private modal: HTMLIonModalElement;
+
+  private notification_id: string;
 
   constructor(
     private modalCtrl: ModalController,
     private animationCtrl: AnimationController,
     private router: Router,
+    private auth: AuthService,
     private util: UtilService,
     private loading: LoadingController,
+    private oneSS: OneSignalService,
     private elementRef: ElementRef,
     private renderer: Renderer2
   ) {}
 
   ngOnInit() {
     this.pin = '';
-    this.credentials = { email: '', password: '', confirmPassword: ''};
+    this.credentials = { email: '', password: '' };
+    this.regCreds = { email: '', password: '', confirmPassword: '' };
   }
 
   public onInputsFocus(type: string): void {
-    type === 'login' ? this.loginInputFocused = true : this.registrationInputFocused = true;
+    console.log('hi man');
+    if (type === 'login') {
+      this.loginInputFocused = true;
+    } else if (type === 'register') {
+      this.registrationInputFocused = true;
+    } else {
+      this.resetPasswordInputFocused = true;
+    }
   }
 
   public onInputsBlur(type: string): void {
-    type === 'login' ? this.loginInputFocused = false : this.registrationInputFocused = false;
+    if (type === 'login') {
+      this.loginInputFocused = false;
+    } else if (type === 'register') {
+      this.registrationInputFocused = false;
+    } else {
+      this.resetPasswordInputFocused = false;
+    }
   }
 
   public hideShowPassword() {
@@ -144,18 +171,79 @@ export class OnboardingPage implements OnInit {
 
   public async openLoginPasswordModal() {
     await this.pinLoginModal.dismiss();
-    this.showLoginPasswordForm = true;
+    // this.showLoginPasswordForm = true;
     setTimeout(() => this.showLoginWithPassword(), 100);
-    // ;
   }
 
   public async openLoginPinModal() {
     this.closeLoginPasswordForm();
     setTimeout(() => this.pinLoginModal.present(), 100);
-    // ;
   }
 
-  public async loginWithPassword(form: NgForm) {}
+  public async doLoginWithPassword(form: NgForm) {
+    // if (!form.valid) {
+    //   this.util.showToast('Email or password cannot be empty', 2000, 'danger');
+    //   return;
+    // }
+    try {
+      this.notification_id = '12345';
+      console.log('Notification ID before send ', this.notification_id);
+      if (!this.notification_id) {
+        await this.getOneSignalPlayerID();
+      }
+      await this.util.presentLoading();
+      const resp = await this.auth.login({
+        email: this.credentials.email,
+        password: this.credentials.password,
+        notification_id: this.notification_id,
+      });
+      this.loading.dismiss();
+      setTimeout(() => form.reset(), 100);
+      if (!resp.token) {
+        this.util.showToast(resp.message, 3000, 'danger');
+        return;
+      }
+    } catch (err) {
+      console.log('Error>> ', err);
+      if (err.status === 401) {
+        this.util.showToast('Email or password incorrect. Please enter the correct details.', 3000, 'danger');
+      }
+      if (err.status === 0 || err.status === -3 || err.status === 500) {
+        this.util.showToast(
+          'Ooops! something went wrong, please check your connection and try again.',
+          3000,
+          'danger'
+        );
+      }
+      if (err.status === 500) {
+        console.log('Error from server,: ', err.status);
+      }
+      this.loading.dismiss();
+    }
+  }
+
+  //Forgot / Reset Password
+
+  public showResetPassword() {
+    this.showResetPasswordForm = true;
+  }
+
+  public async openResetPasswordModal() {
+    this.closeLoginPasswordForm();
+    setTimeout(() => this.showResetPassword(), 400);
+  }
+
+  public closeResetPasswordForm() {
+    const resetPasswordDiv = this.resetPasswordDiv.nativeElement;
+    this.renderer.removeClass(resetPasswordDiv, 'animate__slideInUp');
+    this.renderer.addClass(resetPasswordDiv, 'animate__zoomOut');
+    // this.renderer.setStyle(registerDiv, 'display', 'none');
+    setTimeout(() => (this.showResetPasswordForm = false), 300);
+  }
+
+  public doResetPassword(){
+
+  }
 
   //Register
   public showRegister() {
@@ -174,7 +262,9 @@ export class OnboardingPage implements OnInit {
     this.util.presentLoading();
     setTimeout(() => {
       this.loading.dismiss();
-      this.router.navigateByUrl('/register', { state : {url: this.router.url}});
+      this.router.navigateByUrl('/register', {
+        state: { url: this.router.url },
+      });
     }, 1000);
   }
 
@@ -205,6 +295,13 @@ export class OnboardingPage implements OnInit {
   leaveAnimation = (baseEl: HTMLElement) => {
     return this.enterAnimation(baseEl).direction('reverse');
   };
+
+
+
+  private async getOneSignalPlayerID(){
+    this.notification_id = await this.oneSS.getPlayerID();
+    console.log(this.notification_id);
+  }
 
   //Fake call
   private doLogin() {

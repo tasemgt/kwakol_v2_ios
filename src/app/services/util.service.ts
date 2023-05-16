@@ -43,7 +43,7 @@ export class UtilService {
       color,
       duration,
       mode: 'ios',
-      icon: 'assets/icon/logo.svg'
+      // icon: 'assets/icon/logo.svg'
     });
     toast.present();
   }

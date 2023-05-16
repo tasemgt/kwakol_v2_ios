@@ -28,6 +28,8 @@ export class HomePage implements OnInit{
 
   public childPage;
 
+  public activeSegment: string;
+
   constructor(
     private router: Router,
     private dataService: DataService,
@@ -38,6 +40,9 @@ export class HomePage implements OnInit{
     private homeService: HomeService) {}
 
   ngOnInit(): void {
+
+    this.activeSegment = 'wallet';
+
     this.auth.getAuthStateSubject().subscribe(async(state) =>{
       if(state){
         this.getUser();
@@ -75,6 +80,11 @@ export class HomePage implements OnInit{
 
   public getIconForInvName(inv: string){
     return investmentIcons[inv.toLowerCase()];
+  }
+
+  public segmentChanged(event){
+    console.log(event.target.value);
+    this.activeSegment = event.target.value;
   }
 
   public async getHome(){

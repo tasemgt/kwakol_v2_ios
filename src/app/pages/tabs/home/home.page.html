@@ -1,110 +1,241 @@
-<ion-content [fullscreen]="true" class="page-content tab-page-white">
-
+<!-- <ion-content [fullscreen]="true" class="page-content tab-page-white"> -->
+<ion-content [fullscreen]="true" class="page-content">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div class="header">
-    <h3>Hi {{ user?.fullname.split(' ')[0] }},</h3>
-    <p>Hope you're having a great {{ getTimeOfDay()}}.</p>
-    <ion-icon slot="end" [src]="'assets/icon/'+balanceIcon+'.svg'" (click)='hideShowBalance()'></ion-icon>
+  <div class="main-header">
+
+    <div class="header-name">
+      <div class="img-wrapper">
+        <!-- <img src="" alt=""> -->
+        <div class="default-img">
+          MT
+        </div>
+      </div>
+      <div class="name">
+        <h3>Hi {{ user?.fullname.split(' ')[0] }},</h3>
+        <p>Hope you're having a great {{ getTimeOfDay()}}.</p>
+      </div>
+    </div>
+
+    <div class="rate">
+      $1/N763
+    </div>
+    
     <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
   </div>
 
-  <div class="summary">
-    <img src="assets/icon/text-svgs/total-funds.svg">
-    <h2><span *ngIf="showBalance">${{ homeBalance }}</span><span *ngIf="!showBalance" class="hidden">******</span></h2>
-    <ion-icon src="assets/icon/home-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
-    <ion-icon src="assets/icon/home-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
+  <ion-segment value="wallet" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="wallet">
+      <ion-label>Wallet</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="investments">
+      <ion-label>Investments</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Wallet Segment... -->
+  <div *ngIf="activeSegment === 'wallet'" class="segment segment-wallet">
+    <div class="summary">
+      <div class="summary-header">
+        <div class="balance">
+          <p>Wallet Balance</p>
+          <h2 [ngClass]="!showBalance ? 'blur-text' : ''">$0.00</h2>
+        </div>
+        <div class="hidden-wrapper">
+          <ion-icon [src]="'assets/icon/'+balanceIcon+'.svg'" (click)="hideShowBalance()"></ion-icon>
+        </div>
+      </div>
+
+      <ion-row>
+        <ion-col>
+          <div class="cta">
+            <ion-icon src="assets/icon/v2-icons/deposit.svg"></ion-icon>
+            <p>Deposit</p>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="cta">
+            <ion-icon src="assets/icon/v2-icons/withdraw.svg"></ion-icon>
+            <p>Withdraw</p>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="cta">
+            <ion-icon src="assets/icon/v2-icons/transfer.svg"></ion-icon>
+            <p>Transfer</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+
+    <div class="recent-trans">
+      <p>Recent Wallet Transactions</p>
+      <p>View all <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon></p>
+    </div>
+
+    <div class="no-transactions">
+
+      <img src="assets/imgs/cacti.svg">
+      <p>It's a bit empty here because you haven't made any transaction yet.</p>
+      <div class="quick-btn-round">
+        Deposit Now
+      </div>
+
+    </div>
+
+    <div class="finish-kyc">
+      <div class="progress">
+        75%
+      </div>
+      <div class="text">
+        <p>Finish setting up your account</p>
+        <p>Complete your KYC to get full access to Kwakol Funds</p>
+      </div>
+    </div>
+
   </div>
 
-  <p class="my-portfolio">My Portfolio <span (click)="goToNewAccount()"><ion-icon src="assets/icon/plus.svg"></ion-icon>Add Investment Account</span></p>
+  <!-- Investments Segment... -->
+  <div
+    *ngIf="activeSegment === 'investments'"
+    class="segment segment-investments"
+  >
+    <!-- <div class="summary">
+      <img src="assets/icon/text-svgs/total-funds.svg">
+      <h2><span *ngIf="showBalance">${{ homeBalance }}</span><span *ngIf="!showBalance" class="hidden">******</span></h2>
+      <ion-icon src="assets/icon/home-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
+      <ion-icon src="assets/icon/home-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
+    </div> -->
+    <ion-row class="investments-wrapper">
+      <ion-col size="3">
+        <div class="add-investment" (click)="goToNewAccount()">Add Account</div>
+      </ion-col>
 
-  <ion-row class="investments-wrapper">
-    <ion-col size="3">
-      <div class="add-investment" (click)="goToNewAccount()">
-        Add Account
-      </div>
-    </ion-col>
-    <ion-col size="6" *ngFor="let inv of home?.user_details.subscriber.subscription" [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}">
-      <div class="investment-item" (click)="goToInvestmentDeets(inv)">
-        <p>Balance</p>
-        <h4><span *ngIf="showBalance">${{ util.numberWithCommas(addInvBalances(inv)) }}</span><span *ngIf="!showBalance" class="hidden">******</span></h4>
-        <div class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}">
-          <ion-icon [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"></ion-icon>
-          <h4>{{ inv.subscription.name.substring(0,8) }}{{inv.subscription.name.length > 8 ? '...': ''}}</h4>
+      <ion-col
+        size="6"
+        *ngFor="let inv of home?.user_details.subscriber.subscription"
+        [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}"
+      >
+        <div class="investment-item" (click)="goToInvestmentDeets(inv)">
+          <p>Balance</p>
+          <h4>
+            <span *ngIf="showBalance"
+              >${{ util.numberWithCommas(addInvBalances(inv)) }}</span
+            ><span *ngIf="!showBalance" class="hidden">******</span>
+          </h4>
+          <div
+            class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
+          >
+            <ion-icon
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"
+            ></ion-icon>
+            <h4>
+              {{ inv.subscription.name.substring(0,8)
+              }}{{inv.subscription.name.length > 8 ? '...': ''}}
+            </h4>
+          </div>
         </div>
-      </div>
-    </ion-col>
+      </ion-col>
 
-    <ion-col size="6" *ngIf="!home" class="inv-skeleton">
-      <ion-item>
-        <ion-thumbnail slot="start">
+      <ion-col size="6" *ngIf="!home" class="inv-skeleton">
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6" *ngIf="!home" class="inv-skeleton">
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-col>
+
+      <!-- <ion-col size="6">
+        <div class="investment-item">
+          <p>Balance</p>
+          <h4>$7,534.59</h4>
+          <div class="type-area marigold-big">
+            <ion-icon src="assets/icon/inv-type/marigold.svg"></ion-icon>
+            <h4>Marigold</h4>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="investment-item">
+          <p>Balance</p>
+          <h4>$1,255.49</h4>
+          <div class="type-area levadura-big">
+            <ion-icon src="assets/icon/inv-type/levadura.svg"></ion-icon>
+            <h4>Levadura</h4>
+          </div>
+        </div>
+      </ion-col> -->
+    </ion-row>
+
+    <p class="my-portfolio">
+      My Portfolio
+      <span (click)="goToNewAccount()"
+        ><ion-icon src="assets/icon/plus.svg"></ion-icon>Add Investment
+        Account</span
+      >
+    </p>
+
+    <p class="account-history">
+      Account History <span [routerLink]="'/tabs/history'">View All</span>
+    </p>
+
+    <div class="history-list">
+      <div class="history" *ngFor="let hist of homeHistories | slice:0:4">
+        <ion-icon
+          [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"
+        ></ion-icon>
+        <h4>
+          {{ hist.type | capitalize }}
+          <span class="{{ hist.type }}">
+            ${{ util.numberWithCommas(hist.amount) }}
+          </span>
+        </h4>
+        <p (click)="goToHistorySummary(hist)">
+          {{ hist.date }}<span *ngIf="hist.type === 'profit'"
+            >{{ hist.percentage || 0}}%</span
+          >
+        </p>
+      </div>
+    </div>
+
+    <p
+      class="no-histories"
+      *ngIf="home && home?.user_details.transactions <= 0"
+    >
+      No history available...
+    </p>
+
+    <div class="tt-skeletons" *ngIf="!home">
+      <ion-item *ngFor="let f of [1,2,3,4]">
+        <ion-avatar slot="start">
           <ion-skeleton-text animated></ion-skeleton-text>
-        </ion-thumbnail>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text
+              class="left"
+              animated
+              style="width: 25%"
+            ></ion-skeleton-text>
+            <ion-skeleton-text
+              class="right"
+              animated
+              style="width: 15%"
+            ></ion-skeleton-text>
+          </h3>
+        </ion-label>
       </ion-item>
-    </ion-col>
-
-    <ion-col size="6" *ngIf="!home" class="inv-skeleton">
-      <ion-item>
-        <ion-thumbnail slot="start">
-          <ion-skeleton-text animated></ion-skeleton-text>
-        </ion-thumbnail>
-      </ion-item>
-    </ion-col>
-
-
-    <!-- <ion-col size="6">
-      <div class="investment-item">
-        <p>Balance</p>
-        <h4>$7,534.59</h4>
-        <div class="type-area marigold-big">
-          <ion-icon src="assets/icon/inv-type/marigold.svg"></ion-icon>
-          <h4>Marigold</h4>
-        </div>
-      </div>
-    </ion-col>
-    <ion-col size="6">
-      <div class="investment-item">
-        <p>Balance</p>
-        <h4>$1,255.49</h4>
-        <div class="type-area levadura-big">
-          <ion-icon src="assets/icon/inv-type/levadura.svg"></ion-icon>
-          <h4>Levadura</h4>
-        </div>
-      </div>
-    </ion-col> -->
-  </ion-row>
-
-  <p class="account-history">Account History <span [routerLink]="'/tabs/history'">View All</span></p>
-
-  <div class="history-list">
-    <div class="history" *ngFor="let hist of homeHistories | slice:0:4">
-      <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
-      <h4>
-        {{ hist.type | capitalize }} 
-        <span class="{{ hist.type }}">
-          ${{ util.numberWithCommas(hist.amount) }}
-        </span>
-      </h4>
-      <p (click)="goToHistorySummary(hist)">{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
     </div>
   </div>
-
-  <p class="no-histories" *ngIf="home && home?.user_details.transactions <= 0">No history available...</p>
-
-  <div class="tt-skeletons" *ngIf="!home">
-    <ion-item *ngFor="let f of [1,2,3,4]">
-      <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-avatar>
-      <ion-label>
-        <h3>
-          <ion-skeleton-text class="left" animated style="width: 25%"></ion-skeleton-text>
-          <ion-skeleton-text class="right" animated style="width: 15%"></ion-skeleton-text>
-        </h3>
-      </ion-label>
-    </ion-item>
-  </div>
-
 </ion-content>

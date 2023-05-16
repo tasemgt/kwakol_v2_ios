@@ -1,204 +1,380 @@
-h2,h3,h4,p{
-    margin: 0;
+h2,
+h3,
+h4,
+p {
+  margin: 0;
 }
 
-p{
-    letter-spacing: .04em;
+p {
+  //   letter-spacing: 0.04em;
 }
 
-.header{
-    position: relative;
-    h3{
-        margin: 4.3rem 0 .3rem 0;
+.main-header {
+    margin: 4.3rem 0 0.3rem 0;
+  display: flex;
+  justify-content: space-between;
+
+  .header-name {
+    display: flex;
+    gap: 0.5rem;
+
+    .default-img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100px;
+      background-color: var(--ion-color-secondary);
+      color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+      width: 2.7rem;
+      height: 2.7rem;
+      font-family: BwModelicaLight;
+      font-size: 1.2rem;
+    }
+
+    .name {
+      h3 {
+        // margin: 4.3rem 0 0.3rem 0;
         font-size: 1.25rem;
-        font-family: BwModelicaBold;
-        color: var(--ion-color-primary);
+        font-family: BwModelicaMedium;
+        color: var(--ion-color-secondary);
+      }
+      p {
+        font-size: 0.63rem;
+        font-family: BwModelicaRegular;
+        letter-spacing: 0.02rem;
+      }
     }
-    p{
-        font-size: 0.75rem;
-        font-family: BwModelicaLight;
-    }
-    ion-icon{
-        position: absolute;
-        right: 0rem;
-        top: 0.3rem;
-        font-size: 1.4rem;
-        z-index: 20000000;
-    }
+  }
+
+  .rate{
+    background-color: rgba(var(--ion-color-primary-rgb), 0.2);
+    color: var(--ion-color-primary);
+    font-family: BwModelicaBold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .7rem;
+    padding: 0 .5rem;
+    height: 2rem;
+    border-radius: 6px;
+    margin-top: .5rem;
+  }
+
+  ion-icon {
+    position: absolute;
+    right: 0rem;
+    top: 0.3rem;
+    font-size: 1.4rem;
+    z-index: 20000000;
+  }
 }
 
-.summary{
-    margin: 1rem 0;
-    padding: 1.1rem;
-    background: linear-gradient(103.58deg, #211F42 21.06%, #51AF4E 102.24%);
-    box-shadow: 0px 3px 4px rgba(33, 31, 66, 0.1);
-    color: var(--ion-color-tertiary);
-    text-align: center;
+.segment {
+  margin-top: 0.5rem;
+  
+  .finish-kyc{
+    margin-top: 1rem;
+  }
+}
+
+ion-segment-button {
+  text-transform: capitalize;
+  --ripple-color: transparent;
+  font-size: 0.87rem;
+  font-family: "BwModelicaLight";
+  letter-spacing: 0rem;
+  --color-checked: var(--ion-color-secondary);
+  --indicator-color: var(--ion-color-primary);
+  // --padding-top: .5rem;
+  // --padding-bottom: .5rem;
+
+  &::part(indicator) {
+  }
+
+  &::part(native) {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+}
+
+.summary {
+  padding: 1.1rem;
+  background: linear-gradient(103.58deg, #211f42 21.06%, #51af4e 102.24%);
+  box-shadow: 0px 3px 4px rgba(33, 31, 66, 0.1);
+  color: var(--ion-color-tertiary);
+  border-radius: 10px;
+  font-family: BwModelicaLight;
+
+  .summary-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .balance {
+      p {
+        font-family: BwModelicaLight;
+        color: rgba(var(--ion-color-tertiary-rgb), 0.7);
+        letter-spacing: -0.015rem;
+        margin-bottom: 0.2rem;
+        font-size: 0.83rem;
+      }
+      h2 {
+        font-family: BwModelicaBold;
+        font-size: 1.7rem;
+      }
+    }
+
+    .hidden-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      height: 2.2rem;
+      width: 2.2rem;
+
+      ion-icon {
+        font-size: 1.7rem;
+        z-index: 200000;
+      }
+    }
+  }
+
+  ion-row {
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
+    padding: 1rem 0 0.9rem 0;
+
+    ion-col {
+      &:first-child {
+        .cta {
+          border-right: 1px solid rgba(var(--ion-color-tertiary-rgb), 0.2);
+        }
+      }
+
+      &:last-child {
+        .cta {
+          border-left: 1px solid rgba(var(--ion-color-tertiary-rgb), 0.2);
+        }
+      }
+
+      .cta {
+        // margin: 0rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+
+        ion-icon {
+          font-size: 1.5rem;
+        }
+        p {
+          color: rgba(var(--ion-color-tertiary-rgb), 0.6);
+          font-family: BwModelicaLight;
+          font-size: 0.7rem;
+          letter-spacing: 0.05rem;
+        }
+      }
+    }
+  }
+}
+
+.summary2 {
+  margin: 1rem 0;
+  padding: 1.1rem;
+  background: linear-gradient(103.58deg, #211f42 21.06%, #51af4e 102.24%);
+  box-shadow: 0px 3px 4px rgba(33, 31, 66, 0.1);
+  color: var(--ion-color-tertiary);
+  text-align: center;
+  border-radius: 10px;
+  font-family: BwModelicaLight;
+
+  p {
+    font-size: 0.7rem;
+  }
+
+  h2 {
+    font-size: 1.9rem;
+    margin-bottom: 1rem;
+  }
+
+  ion-icon {
+    font-size: 3.8rem;
+    display: inline-block;
+    &:nth-of-type(1) {
+      margin-right: 0.4rem;
+    }
+    &:nth-of-type(2) {
+      margin-left: 0.4rem;
+    }
+  }
+  .hidden {
+    font-size: 1.8rem;
+  }
+}
+
+.recent-trans {
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  p {
+    color: rgba(var(--ion-color-secondary-rgb), 0.5);
+    letter-spacing: -0.01rem;
+    font-size: 0.85rem;
+    font-family: BwModelicaRegular;
+
+    &:last-child {
+      display: flex;
+      align-items: center;
+
+      ion-icon {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+p.my-portfolio {
+  margin-top: 1.9rem;
+  font-family: BwModelicaBold;
+  font-size: 0.7rem;
+  position: relative;
+  letter-spacing: 0.05em;
+
+  span {
+    float: right;
     font-family: BwModelicaLight;
 
-    p{ font-size: .7rem; }
-
-    h2{ 
-        font-size: 1.9rem;
-        margin-bottom: 1rem;
+    ion-icon {
+      position: absolute;
+      right: 9.5rem;
+      font-size: 1rem;
     }
-
-    ion-icon{
-        font-size: 3.8rem;
-        display: inline-block;
-        &:nth-of-type(1){
-            margin-right: .4rem;
-        }
-        &:nth-of-type(2){
-            margin-left: .4rem;
-        }
-    }
-    .hidden{
-        font-size: 1.8rem;
-    }
+  }
 }
 
-p.my-portfolio{
-    margin-top: 1.9rem;
-    font-family: BwModelicaBold;
-    font-size: .7rem;
-    position: relative;
-    letter-spacing: .05em;
+ion-row.investments-wrapper {
+  overflow-y: scroll;
+  flex-wrap: nowrap;
+  margin: 1rem -1.35rem;
 
-    span{
-        float: right;
-        font-family: BwModelicaLight;
+  &::-webkit-scrollbar {
+    display: none; //Disables browser's default scroll bar
+  }
 
-        ion-icon{
-            position: absolute;
-            right: 9.5rem;
-            font-size: 1rem;
-        }
-    }
-}
-
-ion-row.investments-wrapper{
-    overflow-y: scroll;
-    flex-wrap: nowrap;
-    margin: 1rem -1.35rem;
-
-    &::-webkit-scrollbar {
-      display: none; //Disables browser's default scroll bar
-    }
-
-    ion-col{
-      padding: 0;
-      margin-right: -1rem;
-
-      &.alter-margin{
-          margin-right: 4rem;
-      }
-    }
-
-    ion-col:first-child{
-      padding-left: 1.3rem;
-      margin-right: 1rem;
-      // padding-top: 3rem;
-      .add-investment{
-        padding: 0.5rem 0.3rem 0.3rem 0.3rem;
-        margin: 2.5rem 0;
-        text-align: center;
-        font-size: .75rem;
-        background-color: var(--ion-color-tertiary);
-        height: 36%;
-        border-radius: 6px;
-        border: 1px solid var(--ion-light-green-color);
-        width: 100%;
-      }
-    }
-}
-
-.investment-item{
-    background-color: #FFF;
-    border: 1px solid var(--ion-light-green-color);
-    border-radius: 7px;
-    padding: .7rem;
-    width: 83%;
-
-    p{
-      font-size: .73rem;
-      font-family: BwModelicaRegular;
-    }
-
-    h4{
-        font-family: BwModelicaBold;
-        color: var(--ion-color-primary);
-    }
-
-    .type-area{
-        padding: .5rem;
-        border-radius: 4px;
-        margin-top: 1rem;
-        &.levadura-big{
-            background-color: var(--ion-light-green-color);
-        }
-        &.marigold-big{
-            background-color: var(--ion-light-blue-color);
-        }
-        ion-icon{
-            font-size: 1.3rem;
-        }
-        h4{
-            color: var(--ion-color-secondary);
-        }
-    }
-
-    .hidden{
-        font-size: 1rem;
-    }
-}
-
-.account-history{
-    font-family: BwModelicaBold;
-    font-size: .7rem;
-    span{
-        float: right;
-        color: var(--ion-color-primary);
-        font-family: BwModelicaLight;
-    }
-}
-
-.inv-skeleton{
+  ion-col {
     padding: 0;
     margin-right: -1rem;
-    ion-thumbnail{
-        width: 10rem;
-        height: 7rem;
+
+    &.alter-margin {
+      margin-right: 4rem;
     }
+  }
+
+  ion-col:first-child {
+    padding-left: 1.3rem;
+    margin-right: 1rem;
+    // padding-top: 3rem;
+    .add-investment {
+      padding: 0.5rem 0.3rem 0.3rem 0.3rem;
+      margin: 2.5rem 0;
+      text-align: center;
+      font-size: 0.75rem;
+      background-color: var(--ion-color-tertiary);
+      height: 36%;
+      border-radius: 6px;
+      border: 1px solid var(--ion-light-green-color);
+      width: 100%;
+    }
+  }
 }
 
-.tt-skeletons{
-    ion-avatar{
-        width: 2.5rem;
-        height: 2.5rem;
+.investment-item {
+  background-color: #fff;
+  border: 1px solid var(--ion-light-green-color);
+  border-radius: 7px;
+  padding: 0.7rem;
+  width: 83%;
+
+  p {
+    font-size: 0.73rem;
+    font-family: BwModelicaRegular;
+  }
+
+  h4 {
+    font-family: BwModelicaBold;
+    color: var(--ion-color-primary);
+  }
+
+  .type-area {
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    &.levadura-big {
+      background-color: var(--ion-light-green-color);
     }
-    ion-label{
-        ion-skeleton-text.left{
-            float: left;
-        }
-        ion-skeleton-text.right{
-            float: right;
-        }
+    &.marigold-big {
+      background-color: var(--ion-light-blue-color);
     }
-    ion-item{
-        margin-bottom: .3rem;
-        --inner-border-width: 0px;
+    ion-icon {
+      font-size: 1.3rem;
     }
+    h4 {
+      color: var(--ion-color-secondary);
+    }
+  }
+
+  .hidden {
+    font-size: 1rem;
+  }
 }
 
-.no-histories{
-    position: absolute;
-    color: var(--ion-color-secondary);
-    font-size: 0.8rem;
-    bottom: 20%;
-    width: 70%;
-    text-align: center;
-    transform: translateX(-50%);
-    left: 50%;
+.account-history {
+  font-family: BwModelicaBold;
+  font-size: 0.7rem;
+  span {
+    float: right;
+    color: var(--ion-color-primary);
+    font-family: BwModelicaLight;
+  }
+}
+
+.inv-skeleton {
+  padding: 0;
+  margin-right: -1rem;
+  ion-thumbnail {
+    width: 10rem;
+    height: 7rem;
+  }
+}
+
+.tt-skeletons {
+  ion-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  ion-label {
+    ion-skeleton-text.left {
+      float: left;
+    }
+    ion-skeleton-text.right {
+      float: right;
+    }
+  }
+  ion-item {
+    margin-bottom: 0.3rem;
+    --inner-border-width: 0px;
+  }
+}
+
+.no-histories {
+  position: absolute;
+  color: var(--ion-color-secondary);
+  font-size: 0.8rem;
+  bottom: 20%;
+  width: 70%;
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
 }

@@ -1,3 +1,7 @@
+.back-button{
+  z-index: 1000;
+}
+
 .p-input {
   margin: 0;
   margin-bottom: 0.7rem;
@@ -15,6 +19,11 @@
 
 .btn-col {
   margin-top: 2rem;
+}
+
+.did-floating-input.email{
+  border: 1px solid rgba(174, 174, 174, 0.3);
+  color: var(--ion-text-gray-color);
 }
 
 ion-modal.select-country,
@@ -132,5 +141,19 @@ ion-modal.otp-modal {
     font-size: 0.65rem;
     letter-spacing: 0.03rem;
     margin: 2rem auto;
+  }
+}
+
+
+h2.subpage-heading{
+  //Input focus animation
+  &.slide-up {
+    margin-top: -10rem;
+    transition: margin-top ease-out 0.3s;
+  }
+
+  &.slide-down {
+    margin-top: 5rem;
+    transition: margin-top ease-out 0.3s;
   }
 }

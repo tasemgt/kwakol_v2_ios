@@ -13,6 +13,8 @@ export class RegisterPage implements OnInit {
 
   public fromPage: string;
 
+  public inputFocused: boolean;
+
   constructor(
     private router: Router,
     private util: UtilService,
@@ -24,6 +26,14 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {}
+
+  public onInputsFocus(): void {
+    this.inputFocused = true;
+  }
+
+  public onInputsBlur(): void {
+    this.inputFocused = false;
+  }
 
   public continueReg() {
     this.util.presentLoading();
