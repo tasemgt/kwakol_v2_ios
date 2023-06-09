@@ -58,16 +58,26 @@ export const alertPageParams = {
 };
 
 export const historyIcons = {
-    bonus: 'bonus',
-    deposit: 'deposit',
-    profit: 'profit',
-    withdrawal: 'withdrawal'
+    bonus: 'trans-bonus',
+    deposit: 'trans-deposit',
+    profit: 'trans-profit',
+    withdrawal: 'trans-withdraw'
 };
 
 export const investmentIcons = {
     levadura: 'levadura-big',
     marigold: 'marigold-big',
     junzi: 'junzi-big',
+    antipasto: 'antipasto-big',
+    veterano: 'veterano-big',
+    'fixed deposit': 'fixed-deposit-big'
+};
+
+
+export const investmentBGColors = {
+    levadura: '#D8C680',
+    marigold: '#AF9685',
+    junzi: '#295513',
     antipasto: 'antipasto-big',
     veterano: 'veterano-big',
     'fixed deposit': 'fixed-deposit-big'

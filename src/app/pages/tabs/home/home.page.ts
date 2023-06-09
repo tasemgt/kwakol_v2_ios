@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { historyIcons, investmentIcons } from 'src/app/models/constants';
+import { historyIcons, investmentBGColors, investmentIcons } from 'src/app/models/constants';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
 import { HomeService } from 'src/app/services/home.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
+import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -15,6 +16,8 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit{
+
+  @ViewChild('InfoModalDiv') infoModalDiv: ElementRef;
 
   public balanceIcon: string;
   public showBalance: boolean;
@@ -30,26 +33,36 @@ export class HomePage implements OnInit{
 
   public activeSegment: string;
 
+  public percent = 75;
+
+
+  public showInfoModal: boolean;
+  public infoModalData: any;
+
   constructor(
     private router: Router,
     private dataService: DataService,
     private auth: AuthService,
     public util: UtilService,
+    public uiService: UiService,
     private loading: LoadingController,
+    private renderer: Renderer2,
     private subService: SubscriptionService,
     private homeService: HomeService) {}
 
   ngOnInit(): void {
 
     this.activeSegment = 'wallet';
+    this.showInfoModal = false;
+    this.infoModalData = {};
 
-    this.auth.getAuthStateSubject().subscribe(async(state) =>{
+    this.auth.getAuthStateSubject().subscribe(async (state) =>{
       if(state){
         this.getUser();
         this.getHome();
       }
       const top = await this.loading.getTop();
-      if(top){ 
+      if(top){
         this.loading.dismiss();
         this.goToPage(this.childPage);
       }
@@ -65,7 +78,7 @@ export class HomePage implements OnInit{
     this.getHomeQuietly();
     this.getTimeOfDay();
 
-    this.balanceIcon = 'eye-close';
+    this.balanceIcon = 'eye-open';
     this.showBalance = false;
   }
 
@@ -80,6 +93,10 @@ export class HomePage implements OnInit{
 
   public getIconForInvName(inv: string){
     return investmentIcons[inv.toLowerCase()];
+  }
+
+  public getColorForInvName(inv: string){
+    return investmentBGColors[inv.toLowerCase()];
   }
 
   public segmentChanged(event){
@@ -156,6 +173,32 @@ export class HomePage implements OnInit{
     console.log('Clicked........');
     this.balanceIcon = this.balanceIcon === 'eye-open' ? 'eye-close' : 'eye-open';
     this.showBalance = !this.showBalance;
+  }
+
+  public openInfoModal(type, data){
+    switch(type){
+      case 'deposit':
+        this.infoModalData.icon = 'trans-deposit.svg';
+        this.infoModalData.title = 'Deposit';
+        this.infoModalData.content = [
+          { item: 'Account Name', value: 'Akim John'}
+        ];
+        this.infoModalData.amount = '560';
+        this.infoModalData.date = '16 Feb 2023 - 9:03am';
+    }
+
+    setTimeout(() => {
+      this.uiService.getAuthStateSubject().next(true);
+      this.showInfoModal = true;
+    }, 200);
+  }
+
+  public closeInfoModal(){
+    const infoModalDiv = this.infoModalDiv.nativeElement;
+    this.renderer.removeClass(infoModalDiv, 'animate__slideInUp');
+    this.renderer.addClass(infoModalDiv, 'animate__slideOutDown');
+    // this.renderer.setStyle(registerDiv, 'display', 'none');
+    setTimeout(() => (this.showInfoModal = false), 100);
   }
 
   private async getHomeQuietly(){

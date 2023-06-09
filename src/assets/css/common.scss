@@ -2,6 +2,17 @@
 
 ion-content {
   --background: var(--ion-color-tertiary);
+  position: relative;
+
+  // div.backdrop {
+  //   z-index: 1000;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background-color: rgba(var(--ion-color-secondary-rgb), 0.4);
+  // }
 }
 
 ion-content.page-content {
@@ -157,7 +168,7 @@ ion-grid {
 **/
 
 ion-col {
-  margin: 0.1rem auto;
+  margin: 0.1rem 0;
   padding: 0;
 }
 .kwakol-input {
@@ -488,6 +499,92 @@ ion-button.kwakol-btn {
     Modals Styles
 **/
 
+.info-modal {
+  z-index: 10000000000000;
+  position: absolute;
+  bottom: 6rem;
+  left: 5%;
+  width: 90%;
+  --animate-duration: 0.2s;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background-color: var(--ion-color-tertiary);
+  padding: 0.7rem 1rem;
+
+  .header,
+  .footer {
+  }
+
+  .header {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    padding-bottom: 0.5rem;
+
+    ion-icon {
+      font-size: 1.3rem;
+    }
+
+    h4 {
+      font-size: 0.85rem;
+      font-family: BwModelicaBold;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+  }
+
+  .content {
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 0.8rem 0.6rem;
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-bottom: 1.1rem;
+      font-family: BwModelicaRegular;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      span {
+        &:first-child {
+          color: rgba(var(--ion-color-secondary-rgb), 0.4);
+        }
+
+        &:last-child {
+        }
+      }
+    }
+  }
+
+  .footer {
+    .amount-date {
+      .amount {
+        font-size: 1.3rem;
+        font-family: BwModelicaBold;
+      }
+
+      .date {
+        font-size: 0.7rem;
+        color: rgba(var(--ion-color-secondary-rgb), 0.4);
+      }
+    }
+
+    .round-button {
+      height: 2.3rem;
+      width: 2.3rem;
+    }
+  }
+}
+
 .transp-modal {
   --background: rgba(255, 255, 255, 0.7);
 }
@@ -812,9 +909,81 @@ ion-refresher.refresher-native.refresher-refreshing
   margin-top: 2rem;
 }
 
+//Transactions and Transaction Lists
+.transactions-list {
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 0.3rem 0rem;
+  
+  &.no-border{
+    border: none;
+    background-color: transparent;
+
+    .transaction{
+      padding: .8rem 0;
+    }
+  }
+
+  .transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.7rem 0.5rem;
+    border-bottom: 0.005rem solid rgba(var(--ion-color-primary-rgb), 0.09);
+
+    .trans-type-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      ion-icon {
+        font-size: 2rem;
+      }
+
+      .trans-type {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        h3 {
+          font-size: 0.87rem;
+          letter-spacing: -0.02rem;
+          font-family: BwModelicaRegular;
+          // font-weight: bold;
+          color: var(--ion-color-secondary);
+        }
+      }
+    }
+
+    .amount-date {
+      .amount {
+        font-family: BwModelicaBold;
+      }
+    }
+
+    p.trans-type-p,
+    .trans-date {
+      font-size: 0.615rem;
+      font-family: BwModelicaRegular;
+      letter-spacing: 0.04rem;
+      color: rgba(var(--ion-color-secondary-rgb), 0.5);
+    }
+
+    .trans-date {
+      text-align: right;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
 .no-transactions {
   padding: 3rem 0;
   border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  background-color: #fff;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -834,6 +1003,7 @@ ion-refresher.refresher-native.refresher-refreshing
 .finish-kyc {
   padding: 0.5rem;
   border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  background-color: #fff;
   border-radius: 10px;
   display: flex;
   gap: 0.5rem;
@@ -868,7 +1038,31 @@ ion-refresher.refresher-native.refresher-refreshing
 }
 
 .blur-text {
-  text-shadow: 0 0 1rem #FFF;
-  color: transparent;
-  transition: text-shadow ease .3s;
+  text-shadow: 0 0 1rem #fff !important;
+  color: transparent !important;
+  transition: text-shadow ease 0.3s !important;
+  
+  &.green{
+    text-shadow: 0 0 1rem var(--ion-color-primary) !important;
+  }
+}
+
+.show-text {
+  text-shadow: none;
+  transition: text-shadow ease 0.3s;
+  color: var(--ion-color-tertiary);
+
+  &.regular{
+    color: var(--ion-color-primary);
+  }
+}
+
+.hide-text {
+  opacity: 0;
+  transition: opacity ease 0.3s;
+}
+
+.reveal-text {
+  opacity: 1;
+  transition: opacity ease 0.3s;
 }
