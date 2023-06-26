@@ -1,0 +1,213 @@
+<div
+  class="backdrop animate__animated animate__fadeIn"
+  #backdrop
+  *ngIf="backdropActive"
+></div>
+
+<!-- Loading Modal Begin -->
+<div
+  #LoadingModalDiv
+  class="info-modal center-page reset animate__animated animate__slideInUp"
+  *ngIf="showLoadingModal"
+>
+  <div class="content">
+    <div class="loader-wrapper" *ngIf="isSending">
+      <div class="circle-3">
+        <div class="circle-2">
+          <div class="circle-1">
+            <ion-icon
+              src="assets/imgs/logo-loader.svg"
+              class="animate__animated animate__heartBeat animate__infinite infinite"
+              alt=""
+            ></ion-icon>
+          </div>
+        </div>
+      </div>
+      <p class="loading-text">Processing...</p>
+    </div>
+    <div class="load-complete" *ngIf="!isSending">
+      <img
+        src="assets/imgs/v2-imgs/img-cash.svg"
+        class="animate__animated animate__slideInLeft"
+        alt=""
+      />
+      <p>
+        You successfully transferred <br />
+        <span>${{sendAmount}}</span> to
+        <span>
+        {{transferUser?.email}}  <br />
+        {{transferUser?.email}} </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="round-button" (click)="closeLoadingModal(true)">
+      <ion-icon src="assets/icon/close.svg"></ion-icon>
+    </div>
+  </div>
+</div>
+<!-- Loading Modal End -->
+
+<ion-header>
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+
+  <div class="item">
+    <p class="text">
+      {{transferUser?.email}} <br />
+      <span>{{transferUser?.email}}</span>
+    </p>
+    <div class="img-wrapper">
+      <!-- <img src="" alt=""> -->
+      <div class="default-img">AU</div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="page-content" #content [scrollEvents]="true">
+  <div class="chat-container">
+    <div
+      class="chat-bubble-wrapper"
+      *ngFor="let transaction of transferHistory"
+      [ngClass]="transferUser.main_user == transaction.sender? 'right' : 'left'"
+    >
+      <div class="chat-bubble-container">
+        <ion-icon *ngIf="transferUser.main_user == transaction.sender" src="assets/icon/v2-icons/circle-check.svg"></ion-icon>
+        <div class="chat-bubble">
+          <div>${{(transaction.amount)}}</div>
+        </div>
+      </div>
+      <p>{{transaction.created_at | date}}</p>
+    </div>
+  </div>
+
+  <div class="chat-input-container" [ngStyle]="footerStyles()">
+    <div class="wallet-balance">Wallet Balance: <span>$0.00</span></div>
+
+    <div class="input-wrapper">
+      <input
+        type="text"
+        id="input-field"
+        name="input-field"
+        placeholder="$0.00"
+        [(ngModel)]="sendAmount"
+      />
+    </div>
+
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button
+        class="kwakol-btn ion-text-uppercase"
+        (click)="sendUserFunds()"
+        type="submit"
+        >Send</ion-button
+      >
+    </ion-col>
+  </div>
+
+  <!-- MODALS AREA!! -->
+
+  <!-- Enter pin modal -->
+  <ion-modal
+    #pinEnterModal
+    trigger="open-enter-pin"
+    [initialBreakpoint]="0.75"
+    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    class="enter-pin"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <div class="img-wrapper">
+          <!-- <img src="" alt=""> -->
+          <div class="default-img">AU</div>
+        </div>
+        <p class="p0">Pay {{transferUser.email}} (@ayees)</p>
+        <h3>${{sendAmount}}</h3>
+        <p class="p1">Enter your pin to complete transaction</p>
+        <div class="pin-wrapper">
+          <ion-input
+            [type]="inputPinTypePassword ? 'password' : 'text'"
+            name="password"
+            [maxlength]="4"
+            [(ngModel)]="pin"
+            disabled
+            (click)="onTapPinInput()"
+            [ngStyle]="{fontSize: inputPinTypePassword ? '5rem' : '1.5rem', color: inputPinTypePassword ? 'rgba(81, 175, 78, 0.2)' : '#211F42'}"
+          ></ion-input>
+        </div>
+        <ion-grid class="grid-keypad">
+          <ion-row>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('1')"
+                >1</ion-button
+              >
+            </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('2')"
+                >2</ion-button
+              >
+            </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('3')"
+                >3</ion-button
+              >
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('4')"
+                >4</ion-button
+              >
+            </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('5')"
+                >5</ion-button
+              >
+            </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('6')"
+                >6</ion-button
+              >
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('7')"
+                >7</ion-button
+              >
+            </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('8')"
+                >8</ion-button
+              >
+            </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('9')"
+                >9</ion-button
+              >
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center" size="4"> </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button size="small" fill="clear" (click)="getPressedKey('0')"
+                >0</ion-button
+              >
+            </ion-col>
+            <ion-col class="ion-text-center" size="4">
+              <ion-button
+                size="small"
+                fill="clear"
+                (click)="getPressedKey('cancel')"
+                ><ion-icon name="chevron-back-outline"></ion-icon
+              ></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Modal Enter Pin -->
+</ion-content>

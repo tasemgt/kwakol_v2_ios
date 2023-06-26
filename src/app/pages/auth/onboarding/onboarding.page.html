@@ -11,11 +11,13 @@
 
   <h3 class="feature">Your gateway to smart-innovative investments.</h3>
 
+  <!-- id="open-login-pin"  to open login with pin modal--> 
+
   <ion-row class="btn-row">
     <ion-col size="6">
       <ion-button
+        (click)="openLoginPasswordModal()"
         class="kwakol-btn kwakol-btn-outline white ion-text-uppercase"
-        id="open-login-pin"
         >Log in</ion-button
       >
     </ion-col>
@@ -161,7 +163,7 @@
     [ngClass]="{'slide-up': loginInputFocused , 'slide-down': !loginInputFocused}"
   >
     <div class="header">
-      <div class="switch-login" (click)="openLoginPinModal()">
+      <div class="switch-login">
         Login with Pin
       </div>
       <div class="round-button" (click)="closeLoginPasswordForm()">
@@ -208,7 +210,7 @@
             />
             <ion-icon
               slot="end"
-              [src]="'assets/icon/'+passwordIcon+'.svg'"
+              [src]="'assets/icon/v2-icons/'+passwordIcon+'-green.svg'"
               class="passwordIcon"
               (click)="hideShowPassword()"
             ></ion-icon>
@@ -327,7 +329,7 @@
               class="passwordIcon"
               (click)="hideShowPassword()"
             ></ion-icon>
-            <label class="did-floating-label">Enter your password</label>
+            <label class="did-floating-label">Confirm Password</label>
           </div>
         </ion-col>
 

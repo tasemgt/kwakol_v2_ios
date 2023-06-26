@@ -6,11 +6,16 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UiService {
 
-  private backdropState: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  private infoState: BehaviorSubject<{active: boolean; data: {type: string; data: any}}> = new BehaviorSubject(null);
+  private loadingState: BehaviorSubject<boolean> = new BehaviorSubject(null);
 
   constructor() {}
 
-  public getAuthStateSubject(){
-    return this.backdropState;
+  public getInfoStateSubject(){
+    return this.infoState;
+  }
+
+  public getLoadingStateSubject(){
+    return this.loadingState;
   }
 }

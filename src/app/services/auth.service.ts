@@ -19,7 +19,7 @@ export class AuthService {
   public user: User;
   public authState: BehaviorSubject<boolean> = new BehaviorSubject(null);
 
-  private baseUrl = `${constants.baseUrl}`;
+  private baseUrl = `${constants.baseUrlV2}/v1`;
   private currentUser = constants.currentUser;
 
   private headers = {'Content-Type': 'application/json'};

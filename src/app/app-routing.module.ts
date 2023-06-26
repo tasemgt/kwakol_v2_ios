@@ -111,6 +111,10 @@ const routes: Routes = [
   {
     path: 'kyc',
     loadChildren: () => import('./pages/auth/kyc/kyc.module').then( m => m.KycPageModule)
+  },
+  {
+    path: 'wallet-transfer-user',
+    loadChildren: () => import('./pages/subpages/for-generic/wallet-transfer-user/wallet-transfer-user.module').then( m => m.WalletTransferUserPageModule)
   }
 ];
 @NgModule({

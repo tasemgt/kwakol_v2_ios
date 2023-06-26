@@ -17,7 +17,7 @@
       <ion-col size="12" class="kwakol-input">
         <ion-item class="password-input">
           <ion-input placeholder="Password" (ionFocus)="onInputsFocus()" (ionBlur)="onInputsBlur()" [type]="passwordType" name="password" ngModel #password="ngModel" required></ion-input>
-          <ion-icon slot="end" [src]="'assets/icon/'+passwordIcon+'.svg'" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+          <ion-icon slot="end" [src]="'assets/icon/v2-icons/'+passwordIcon+'-green.svg'" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
         <p class="forgot-password"><a [routerLink]="'/forgot-password'">Forgot Password?</a></p>
       </ion-col>

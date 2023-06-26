@@ -14,18 +14,18 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     const url = req.url;
     console.log('URL>> ', url);
-
     // if(
-    //   !(url.includes('/login') ||
-    //     url.includes('/onboarding') ||
-    //     url.includes('/register') ||
-    //     url.includes('/otp') ||
-    //     url.includes('/forgot-pasword') ||
-    //     url.includes('/reset-pasword') ||
-    //     url.includes('/verify'))
-    //   )
-    //   {
-      const token = this.dataService.getAccessToken();
+      //   !(url.includes('/login') ||
+      //     url.includes('/onboarding') ||
+      //     url.includes('/register') ||
+      //     url.includes('/otp') ||
+      //     url.includes('/forgot-pasword') ||
+      //     url.includes('/reset-pasword') ||
+      //     url.includes('/verify'))
+      //   )
+      //   {
+        const token = this.dataService.getAccessToken();
+        // console.log('TOKEN>> ', token);
       req = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`)
       });

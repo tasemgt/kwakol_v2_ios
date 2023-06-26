@@ -38,7 +38,7 @@ export class OnboardingPage implements OnInit {
   public showResetPasswordForm = false;
 
   public passwordType = 'password';
-  public passwordIcon = 'eye-close';
+  public passwordIcon = 'eye-open';
 
   public loginInputFocused: boolean;
   public registrationInputFocused: boolean;
@@ -186,7 +186,7 @@ export class OnboardingPage implements OnInit {
     //   return;
     // }
     try {
-      this.notification_id = '12345';
+      // this.notification_id = '12345';
       console.log('Notification ID before send ', this.notification_id);
       if (!this.notification_id) {
         await this.getOneSignalPlayerID();
@@ -258,8 +258,33 @@ export class OnboardingPage implements OnInit {
     setTimeout(() => (this.showRegisterForm = false), 400);
   }
 
-  public proceedRegistration() {
-    this.util.presentLoading();
+  public async proceedRegistration() {
+    const email = this.regCreds.email.trim();
+    const password = this.regCreds.password.trim();
+    const confirmPassword = this.regCreds.confirmPassword.trim();
+
+    if(!email || !this.util.validateEmail(email)){
+      this.util.showToast('Please enter a valid email...', 2000, 'danger');
+      return;
+    }
+
+    if(!password){
+      this.util.showToast('Please enter a valid password', 2000, 'danger');
+      return;
+    }
+
+    if(!confirmPassword){
+      this.util.showToast('Please enter valid confirm password', 2000, 'danger');
+      return;
+    }
+
+    if(password !== confirmPassword){
+      this.util.showToast('Passwords do not match', 2000, 'danger');
+      return;
+    }
+
+    await this.util.presentLoading();
+
     setTimeout(() => {
       this.loading.dismiss();
       this.router.navigateByUrl('/register', {
@@ -294,7 +319,7 @@ export class OnboardingPage implements OnInit {
 
   leaveAnimation = (baseEl: HTMLElement) => {
     return this.enterAnimation(baseEl).direction('reverse');
-  };
+ };
 
 
 

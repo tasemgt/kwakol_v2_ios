@@ -1,29 +1,75 @@
 <!-- <ion-content> -->
 
-  <ion-tabs (ionTabsWillChange)="onTabChange()" #tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home">
-        <ion-icon [ngClass]="{'active' : tabList.home}"  src="assets/icon/tabs/home-active.svg"></ion-icon>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="portfolio">
-        <ion-icon [ngClass]="{'active' : tabList.portfolio}" src="assets/icon/tabs/portfolio-active.svg"></ion-icon>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="history">
-        <ion-icon [ngClass]="{'active' : tabList.history}" src="assets/icon/tabs/history-active.svg"></ion-icon>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="feed">
-        <ion-icon [ngClass]="{'active' : tabList.feed}" src="assets/icon/tabs/feed-active.svg"></ion-icon>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="profile">
-        <ion-icon [ngClass]="{'active' : tabList.profile}" src="assets/icon/tabs/profile-active.svg"></ion-icon>
-      </ion-tab-button>
-    </ion-tab-bar>
-    <!-- <div class="backdrop" *ngIf="backdropActive"></div> -->
-  </ion-tabs>
+<ion-tabs (ionTabsWillChange)="onTabChange()" #tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon
+        [ngClass]="{'active' : tabList.home}"
+        src="assets/icon/tabs/home-active.svg"
+      ></ion-icon>
+    </ion-tab-button>
 
+    <ion-tab-button tab="portfolio">
+      <ion-icon
+        [ngClass]="{'active' : tabList.portfolio}"
+        src="assets/icon/tabs/portfolio-active.svg"
+      ></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="history">
+      <ion-icon
+        [ngClass]="{'active' : tabList.history}"
+        src="assets/icon/tabs/history-active.svg"
+      ></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="feed">
+      <ion-icon
+        [ngClass]="{'active' : tabList.feed}"
+        src="assets/icon/tabs/feed-active.svg"
+      ></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile">
+      <ion-icon
+        [ngClass]="{'active' : tabList.profile}"
+        src="assets/icon/tabs/profile-active.svg"
+      ></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+  <div class="backdrop animate__animated animate__fadeIn" #backdrop *ngIf="backdropActive" (click)="closeInfoModal()"></div>
+
+  <!-- Info Modal Begin -->
+  <div
+    #InfoModalDiv
+    class="info-modal reset animate__animated animate__slideInUp"
+    *ngIf="showInfoModal"
+  >
+    <div class="header">
+      <ion-icon [src]="'assets/icon/v2-icons/'+ infoModalData.icon"></ion-icon>
+      <h4>{{infoModalData.title}}</h4>
+    </div>
+
+    <div class="content">
+      <p class="item" *ngFor="let item of infoModalData.content">
+        <span>{{item.item}}</span>
+        <span>{{item.value}} <ion-icon *ngIf="item.item === 'Reference'" src="assets/icon/copy.svg"></ion-icon></span>
+      </p>
+    </div>
+
+    <div class="footer">
+      <div class="amount-date">
+        <div class="amount">-${{util.numberWithCommas(infoModalData.amount)}}</div>
+        <div class="date">{{infoModalData.date | date}}</div>
+      </div>
+      <div class="round-button" (click)="closeInfoModal()">
+        <ion-icon src="assets/icon/close.svg"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <!-- Info Modal End -->
+
+</ion-tabs>
 
 <!-- </ion-content> -->

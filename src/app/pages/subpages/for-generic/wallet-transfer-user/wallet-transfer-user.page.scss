@@ -1,0 +1,231 @@
+ion-header {
+  position: relative;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+  background: var(--ion-color-tertiary);
+  padding: 5rem 1.35rem 2.5rem 1.35rem;
+
+  // .back-button {
+  //   position: relative;
+  //   z-index: 1000000;
+  //   ion-icon {
+  //     font-size: 1.3rem;
+  //     position: relative;
+  //     display: inline-block;
+  //   }
+  // }
+}
+
+.header-md::after {
+  background-image: none;
+}
+
+ion-content {
+  position: relative;
+  --padding-bottom: 12rem;
+}
+
+
+.item {
+  position: absolute;
+  top: 3.9rem;
+  right: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  p.text {
+    color: var(--ion-color-secondary);
+    font-family: BwModelicaRegular;
+    text-align: right;
+    span {
+      font-family: BwModelicaBold;
+    }
+  }
+}
+
+.default-img {
+  width: 2.3rem;
+  height: 2.3rem;
+  font-size: 1rem;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+
+  .chat-bubble-wrapper {
+    margin-top: 1rem;
+
+    .chat-bubble-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      ion-icon {
+        font-size: 1.3rem;
+      }
+    }
+
+    .chat-bubble {
+      padding: 0.6rem;
+      border-radius: 5px 5px 0px 5px;
+      background-color: var(--ion-color-primary);
+      width: fit-content;
+      div {
+        padding: 0.5rem;
+        border-radius: 5px 5px 0px 5px;
+        background-color: rgba(255, 255, 255, 0.1);
+        font-family: BwModelicaMedium;
+        color: #fff;
+      }
+    }
+
+    &.right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: flex-end;
+      .chat-bubble {
+        margin-right: -1rem;
+      }
+    }
+
+    &.left {
+      align-self: flex-start;
+
+      .chat-bubble {
+        border-radius: 5px 5px 5px 0px;
+        background-color: var(--ion-color-secondary);
+      }
+    }
+
+    p {
+      margin: 0;
+      margin-top: 0.3rem;
+      font-size: 0.7rem;
+      color: rgba(var(--ion-color-secondary-rgb), 0.5);
+      font-family: BwModelicaRegular;
+    }
+  }
+}
+
+.chat-input-container {
+  padding: 0.5rem 1.3rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  //   height: 60px;
+  background-color: #fff;
+  border-top: 0.5px solid rgba(33, 31, 66, 0.15);
+
+  .wallet-balance {
+    margin: 0.5rem auto;
+    background-color: rgba(var(--ion-color-primary-rgb), 0.2);
+    color: rgba(var(--ion-color-secondary-rgb), 0.5);
+    border-radius: 3px;
+    padding: 0.2rem 0.3rem;
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.019rem;
+    width: fit-content;
+
+    span {
+      color: var(--ion-color-secondary);
+      font-family: BwModelicaBold;
+    }
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.5);
+    border-radius: 5px;
+    padding: 0.9rem 0.625rem;
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+
+    label {
+      margin-right: 10px;
+    }
+
+    input {
+      font-size: 0.9rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+
+      &::placeholder {
+        color: rgba(var(--ion-color-secondary-rgb), 0.3);
+      }
+    }
+  }
+}
+
+ion-modal.enter-pin {
+  &::part(handle) {
+    background-color: var(--ion-color-primary);
+  }
+  --border-radius: 20px;
+  --border-width: 0;
+  ion-content {
+    --background: var(--ion-color-tertiary);
+    --padding-top: 2rem;
+
+    .default-img {
+      margin: 0 auto;
+    }
+
+    .p0,
+    .p1 {
+      font-size: 0.87rem;
+      letter-spacing: 0.01rem;
+      text-align: center;
+      margin: 0.5rem 0rem;
+      font-family: BwModelicaRegular;
+    }
+
+    h3 {
+      text-align: center;
+      font-family: BwModelicaBold;
+      font-size: 1.8rem;
+    }
+
+    .pin-wrapper {
+      text-align: center;
+      ion-input {
+        letter-spacing: 0.5rem;
+        position: absolute;
+        --color: rgba(81, 175, 78, 0.2); //#b3b3b3;
+        font-size: 3rem;
+        height: 3.4rem;
+      }
+    }
+
+    ion-grid.grid-keypad {
+      --ion-grid-padding-left: 3rem;
+      --ion-grid-padding-right: 3rem;
+      --ion-grid-padding-bottom: 1rem;
+      margin-top: 3rem;
+      position: relative;
+
+      ion-row {
+        margin-bottom: 0.5rem;
+        ion-col {
+          ion-button {
+            --color: var(--ion-color-secondary);
+            --background: rgba(81, 175, 78, 0.2);
+            --border-radius: 100%;
+            width: 4rem;
+            height: 4rem;
+            font-size: 1.5rem;
+            font-family: BwModelicaMedium;
+          }
+        }
+      }
+    }
+  }
+}

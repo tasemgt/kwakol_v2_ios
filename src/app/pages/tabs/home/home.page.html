@@ -2,7 +2,7 @@
 <ion-content
   [fullscreen]="true"
   class="page-content"
-  [ngClass]="activeSegment === 'investments' ? 'investments' : ''"
+  [ngClass]="activeSegment === 'investments' ? investment?.user_details.subscriber.subscription.length > 0 ? 'investments' : 'investments no-trans' : ''"
 >
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="rate">$1/N763</div>
+    <div class="rate">{{home? home.daily_rate : '-----' }}</div>
 
     <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
   </div>
@@ -40,7 +40,7 @@
       <div class="summary-header">
         <div class="balance">
           <p>Wallet Balance</p>
-          <h2 [ngClass]="!showBalance ? 'blur-text' : 'show-text'">$0.00</h2>
+          <h2 [ngClass]="!showBalance ? 'blur-text' : 'show-text'">${{util.numberWithCommas(wallet?.balance)}}</h2>
         </div>
         <div class="hidden-wrapper">
           <ion-icon
@@ -64,7 +64,7 @@
           </div>
         </ion-col>
         <ion-col>
-          <div class="cta">
+          <div class="cta" (click)="openTransferModal()">
             <ion-icon src="assets/icon/v2-icons/transfer.svg"></ion-icon>
             <p>Transfer</p>
           </div>
@@ -83,26 +83,26 @@
           ></ion-icon>
         </ion-col>
 
-        <ion-col size="4">
-          <div class="quick-transfer-item">
-            <div class="default-img">AJ</div>
-            <p>Akim</p>
+        <ion-col size="4" *ngFor="let quick of wallet?.quick_transfers">
+          <div class="quick-transfer-item" (click)="goToTransferUserPage(true, 'email')">
+            <div class="default-img">{{quick.fullname.split(' ')[0][0]}}{{quick.fullname.split(' ')[1][0]}}</div>
+            <p>{{quick.fullname.split(' ')[0]}}</p>
           </div>
         </ion-col>
         <ion-col size="4">
-          <div class="quick-transfer-item">
+          <div class="quick-transfer-item" (click)="goToTransferUserPage(true)">
             <div class="default-img">JM</div>
             <p>Janada</p>
           </div>
         </ion-col>
         <ion-col size="4">
-          <div class="quick-transfer-item">
+          <div class="quick-transfer-item" (click)="goToTransferUserPage(true)">
             <div class="default-img">IU</div>
             <p>Ibrahim</p>
           </div>
         </ion-col>
         <ion-col size="4">
-          <div class="quick-transfer-item">
+          <div class="quick-transfer-item" (click)="goToTransferUserPage(true)">
             <div class="default-img">AA</div>
             <p>Aisha</p>
           </div>
@@ -145,11 +145,11 @@
     </div>
 
     <div class="transactions-list">
-      <div class="transaction" (click)="openInfoModal('deposit', {})">
+      <div class="transaction" (click)="openInfoModal(trans.type.toLowerCase(), trans)" *ngFor="let trans of wallet?.latest_wallet_transactions | slice:0:5">
         <div class="trans-type-wrapper">
           <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
           <div class="trans-type">
-            <h3>Deposit</h3>
+            <h3>{{trans.type}}</h3>
             <p class="trans-type-p">Bank Transfer</p>
           </div>
         </div>
@@ -158,52 +158,12 @@
             class="amount"
             [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
           >
-            +$3,403.58
+            +${{util.numberWithCommas(trans.amount)}}
           </div>
-          <div class="trans-date">16 June 2023</div>
+          <div class="trans-date">{{trans.created_at | date }}</div>
         </div>
       </div>
-      <div class="transaction">
-        <div class="trans-type-wrapper">
-          <ion-icon
-            src="assets/icon/v2-icons/trans-transfer-user.svg"
-          ></ion-icon>
-          <div class="trans-type">
-            <h3>Transfer</h3>
-            <p class="trans-type-p">Wallet Transfer to Akim John</p>
-          </div>
-        </div>
-        <div class="amount-date">
-          <div
-            class="amount"
-            [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
-          >
-            +$3,403.58
-          </div>
-          <div class="trans-date">16 June 2023</div>
-        </div>
-      </div>
-      <div class="transaction">
-        <div class="trans-type-wrapper">
-          <ion-icon
-            src="assets/icon/v2-icons/trans-transfer-plan.svg"
-          ></ion-icon>
-          <div class="trans-type">
-            <h3>Transfer</h3>
-            <p class="trans-type-p">Wallet Transfer to The Plan (Junzi)</p>
-          </div>
-        </div>
-        <div class="amount-date">
-          <div
-            class="amount"
-            [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
-          >
-            +$3,403.58
-          </div>
-          <div class="trans-date">16 June 2023</div>
-        </div>
-      </div>
-      <div class="transaction">
+      <!-- <div class="transaction">
         <div class="trans-type-wrapper">
           <ion-icon src="assets/icon/v2-icons/trans-bonus.svg"></ion-icon>
           <div class="trans-type">
@@ -238,16 +198,16 @@
           </div>
           <div class="trans-date">16 June 2023</div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- <div class="no-transactions">
       <img src="assets/imgs/cacti.svg" />
       <p>It's a bit empty here because you haven't made any transaction yet.</p>
       <div class="quick-btn-round">Deposit Now</div>
-    </div>
+    </div> -->
 
-    <div class="finish-kyc">
+    <!-- <div class="finish-kyc">
       <div
         class="progress"
         [style]="'background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(var(--ion-color-primary) '+ percent +'%, rgba(var(--ion-color-secondary-rgb), 0.2) 0)'"
@@ -267,13 +227,6 @@
     *ngIf="activeSegment === 'investments'"
     class="segment segment-investments"
   >
-    <!-- <div class="summary2">
-      <img src="assets/icon/text-svgs/total-funds.svg">
-      <h2><span *ngIf="showBalance">${{ homeBalance }}</span><span *ngIf="!showBalance" class="hidden">******</span></h2>
-      <ion-icon src="assets/icon/home-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
-      <ion-icon src="assets/icon/home-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
-    </div> -->
-
     <div class="segment-head">
       <div class="quick-summary">
         <p class="title">
@@ -291,13 +244,13 @@
         <div class="cta-wrapper">
           <div class="cta">
             <div class="btn">
-              <ion-icon src="assets/icon/v2-icons/cta-deposit.svg"></ion-icon>
+              <ion-icon src="assets/icon/v2-icons/cta-deposit.svg" (click)="goToPage('/deposit')"></ion-icon>
             </div>
             <p>Deposit</p>
           </div>
           <div class="cta">
             <div class="btn">
-              <ion-icon src="assets/icon/v2-icons/cta-withdraw.svg"></ion-icon>
+              <ion-icon src="assets/icon/v2-icons/cta-withdraw.svg" (click)="goToPage('/withdrawal')"></ion-icon>
             </div>
             <p>Withdraw</p>
           </div>
@@ -310,7 +263,7 @@
         </div>
       </div>
 
-      <ion-row class="investments-wrapper">
+      <ion-row class="investments-wrapper" *ngIf="investment?.user_details.subscriber.subscription.length > 0">
         <ion-col size="2">
           <div class="add-investment-wrapper">
             <div class="add-investment" (click)="goToNewAccount()">
@@ -321,108 +274,8 @@
 
         <ion-col
           size="5"
-          *ngFor="let inv of home?.user_details.subscriber.subscription"
-          [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}"
-        >
-          <div class="investment-item" (click)="goToInvestmentDeets(inv)">
-            <div
-              class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
-            >
-              <div class="icon-wrapper">
-                <ion-icon
-                  [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"
-                ></ion-icon>
-              </div>
-              <h4>
-                <span>The Plan</span><br />
-                <span>
-                  {{ inv.subscription.name.substring(0,8)
-                  }}{{inv.subscription.name.length > 8 ? '...': ''}}
-                </span>
-              </h4>
-            </div>
-            <p>Balance</p>
-            <h4>
-              <span
-                class="balance"
-                [ngClass]="!showBalance ? 'blur-text green' : 'show-text regular'"
-                >${{ util.numberWithCommas(addInvBalances(inv)) }}</span
-              >
-              <!-- <span *ngIf="!showBalance" class="hidden">******</span> -->
-            </h4>
-          </div>
-        </ion-col>
-        <ion-col
-          size="5"
-          *ngFor="let inv of home?.user_details.subscriber.subscription"
-          [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}"
-        >
-          <div class="investment-item" (click)="goToInvestmentDeets(inv)">
-            <div
-              class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
-            >
-              <div class="icon-wrapper">
-                <ion-icon
-                  [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"
-                ></ion-icon>
-              </div>
-              <h4>
-                <span>The Plan</span><br />
-                <span>
-                  {{ inv.subscription.name.substring(0,8)
-                  }}{{inv.subscription.name.length > 8 ? '...': ''}}
-                </span>
-              </h4>
-            </div>
-            <p>Balance</p>
-            <h4>
-              <span
-                class="balance"
-                [ngClass]="!showBalance ? 'blur-text green' : 'show-text regular'"
-                >${{ util.numberWithCommas(addInvBalances(inv)) }}</span
-              >
-              <!-- <span *ngIf="!showBalance" class="hidden">******</span> -->
-            </h4>
-          </div>
-        </ion-col>
-        <ion-col
-          size="5"
-          *ngFor="let inv of home?.user_details.subscriber.subscription"
-          [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}"
-        >
-          <div class="investment-item" (click)="goToInvestmentDeets(inv)">
-            <div
-              class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
-            >
-              <div class="icon-wrapper">
-                <ion-icon
-                  [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"
-                ></ion-icon>
-              </div>
-              <h4>
-                <span>The Plan</span><br />
-                <span>
-                  {{ inv.subscription.name.substring(0,8)
-                  }}{{inv.subscription.name.length > 8 ? '...': ''}}
-                </span>
-              </h4>
-            </div>
-            <p>Balance</p>
-            <h4>
-              <span
-                class="balance"
-                [ngClass]="!showBalance ? 'blur-text green' : 'show-text regular'"
-                >${{ util.numberWithCommas(addInvBalances(inv)) }}</span
-              >
-              <!-- <span *ngIf="!showBalance" class="hidden">******</span> -->
-            </h4>
-          </div>
-        </ion-col>
-
-        <ion-col
-          size="5"
-          *ngFor="let inv of home?.user_details.subscriber.subscription"
-          [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}"
+          *ngFor="let inv of investment?.user_details.subscriber.subscription"
+          [ngClass]="{'alter-margin': investment?.user_details.subscriber.subscription.length === 1}"
         >
           <div class="investment-item" (click)="goToInvestmentDeets(inv)">
             <div
@@ -494,7 +347,7 @@
 
     <div class="list-wrapper">
 
-      <div class="recent-trans">
+      <div class="recent-trans investments">
         <p class="section-title">Transaction History</p>
         <p class="section-title">
           View all
@@ -502,7 +355,7 @@
         </p>
       </div>
 
-      <div class="transactions-list no-border">
+      <div class="transactions-list no-border" *ngIf="homeHistories.length > 0">
         <div class="transaction" *ngFor="let hist of homeHistories | slice:0:4">
           <div class="trans-type-wrapper">
             <ion-icon
@@ -512,7 +365,7 @@
               <h3>
                 {{ hist.type | capitalize }}
               </h3>
-              <p class="trans-type-p">First (Levadura)</p>
+              <p class="trans-type-p">{{hist.comment}}</p>
             </div>
           </div>
           <div class="amount-date">
@@ -522,7 +375,7 @@
             >
             ${{ util.numberWithCommas(hist.amount) }}
             </div>
-            <div class="trans-date">16 June 2023</div>
+            <div class="trans-date">{{ hist.date }}</div>
           </div>
           <!-- <p (click)="goToHistorySummary(hist)">
             {{ hist.date }}<span *ngIf="hist.type === 'profit'"
@@ -532,12 +385,18 @@
         </div>
       </div>
 
-      <p
+      <div class="no-transactions no-border" *ngIf="homeHistories.length === 0">
+        <img src="assets/imgs/cacti.svg" />
+        <p>It's a bit empty here because you haven't made any transaction yet.</p>
+        <div class="quick-btn-round">Deposit Now</div>
+      </div>
+
+      <!-- <p
         class="no-histories"
-        *ngIf="home && home?.user_details.transactions <= 0"
+        *ngIf="investment && investment?.user_details.transactions <= 0"
       >
         No history available...
-      </p>
+      </p> -->
 
       <div class="tt-skeletons" *ngIf="!home">
         <ion-item *ngFor="let f of [1,2,3,4]">
@@ -563,35 +422,117 @@
     </div>
   </div>
 
-  <!-- Info Modal Begin -->
-  <div
-    #InfoModalDiv
-    class="info-modal reset animate__animated animate__slideInUp"
-    *ngIf="showInfoModal"
+
+
+
+  <!-- MODALS FOR WALLET SECTION -->
+
+  <!-- Make transfer modal -->
+  <ion-modal
+    #transferModal
+    trigger="open-transfer-drawer"
+    [initialBreakpoint]="0.40"
+    [breakpoints]="[0, 0.40]"
+    class="kwakol-modal-bottom-drawer2"
+    handle="true"
   >
-    <div class="header">
-      <ion-icon [src]="'assets/icon/v2-icons/'+ infoModalData.icon"></ion-icon>
-      <h4>{{infoModalData.title}}</h4>
-    </div>
+    <ng-template>
+      <ion-content>
+    
+        <!-- <div class="round-button">
+          <ion-icon src="assets/icon/padlock.svg"></ion-icon>
+        </div> -->
+        <h3>Where would you like to transfer to?</h3>
+        <!-- <p class="p1">Enter your pin to log in</p> -->
 
-    <div class="content">
-      <p class="item" *ngFor="let item of infoModalData.content">
-        <span>{{item.item}}</span>
-        <span>{{item.value}}</span>
-      </p>
-    </div>
+        <div class="content-wrapper">
+          <div class="item" (click)="openTransferUserModal()">
+            <div class="round-button">
+              <ion-icon src="assets/icon/v2-icons/round-btns/user.svg"></ion-icon>
+            </div>
+            <p>User</p>
+          </div>
+          <div class="item">
+            <div class="round-button">
+              <ion-icon src="assets/icon/v2-icons/round-btns/investment.svg"></ion-icon>
+            </div>
+            <p>Investment</p>
+          </div>
+          <div class="item">
+            <div class="round-button">
+              <ion-icon src="assets/icon/v2-icons/round-btns/beneficiary.svg"></ion-icon>
+            </div>
+            <p>Beneficiary</p>
+          </div>
+        </div>
 
-    <div class="footer">
-      <div class="amount-date">
-        <div class="amount">-${{infoModalData.amount}}</div>
-        <div class="date">{{infoModalData.date}}</div>
-      </div>
-      <div class="round-button" (click)="closeInfoModal()">
-        <ion-icon src="assets/icon/close.svg"></ion-icon>
-      </div>
-    </div>
-  </div>
-  <!-- Info Modal End -->
+        <!-- <div class="pin-wrapper">
+          <ion-input
+            [type]="inputPinTypePassword ? 'password' : 'text'"
+            name="password"
+            [maxlength]="4"
+            [(ngModel)]="pin"
+            disabled
+            (click)="onTapPinInput()"
+            [ngStyle]="{fontSize: inputPinTypePassword ? '5rem' : '1.5rem', color: inputPinTypePassword ? 'rgba(81, 175, 78, 0.2)' : '#211F42'}"
+          ></ion-input>
+        </div> -->
+        
+        <!-- <ion-row class="btn-row">
+          <ion-col size="10" class="ion-text-center btn-col">
+            <ion-button
+              class="kwakol-btn ion-text-uppercase"
+              type="submit"
+              (click)="loginWithPin()"
+              >Log in</ion-button
+            >
+          </ion-col>
+        </ion-row> -->
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- Transfer Modal -->
 
-  <!-- <div class="backdrop"></div> -->
+  <!-- Transfer to User Modal -->
+  <ion-modal
+    #transferUserModal
+    trigger="open-transfer-user-drawer"
+    [initialBreakpoint]="0.75"
+    [breakpoints]="[0, 0.40, 0.55, 0.75]"
+    class="kwakol-modal-bottom-drawer2 transfer-user"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+    
+        <div class="round-button center">
+          <ion-icon src="assets/icon/v2-icons/round-btns/user.svg"></ion-icon>
+        </div>
+
+        <h3 class="ion-text-center">Transfer to User</h3>
+        <!-- <p class="p1">Enter your pin to log in</p> -->
+        
+        <div class="input-wrapper">
+          <label for="input-field">To:</label>
+          <input type="text" id="input-field" name="input-field" [(ngModel)] = "usernameOrEmail" (ngModelChange)="onUsernameEmailInputChange($event)" placeholder="@Username or email address">
+        </div>
+
+        <div class="user-items" *ngIf="userToTransferTo">
+          <div class="item" (click)="goToTransferUserPage(false)">
+            <div class="img-wrapper">
+              <!-- <img src="" alt=""> -->
+              <div class="default-img">AU</div>
+            </div>
+            <p class="text" >
+               {{userToTransferTo.email}} <br/>
+              <span>{{userToTransferTo.email}}</span>
+            </p>
+          </div>
+        </div>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- Transfer to User Modal -->
+
 </ion-content>

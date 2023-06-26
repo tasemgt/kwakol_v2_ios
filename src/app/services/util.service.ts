@@ -174,8 +174,10 @@ export class UtilService {
   }
 
   public numberWithCommas(x): string{
-    x = x.toString().replace(/,/g, '');
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if(x){
+      x = x.toString().replace(/,/g, '');
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
   }
 
   public hideShowPassword(passwordType: string, passwordIcon: string) {
