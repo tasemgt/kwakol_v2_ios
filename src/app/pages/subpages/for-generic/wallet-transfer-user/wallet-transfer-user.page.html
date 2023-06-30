@@ -56,12 +56,12 @@
 
   <div class="item">
     <p class="text">
-      {{transferUser?.email}} <br />
+      {{transferUser?.fullname}} <br />
       <span>{{transferUser?.email}}</span>
     </p>
     <div class="img-wrapper">
       <!-- <img src="" alt=""> -->
-      <div class="default-img">AU</div>
+      <div class="default-img">{{transferUser?.fullname.split(' ')[0][0]}}{{transferUser?.fullname.split(' ')[1][0]}}</div>
     </div>
   </div>
 </ion-header>
@@ -121,9 +121,9 @@
       <ion-content>
         <div class="img-wrapper">
           <!-- <img src="" alt=""> -->
-          <div class="default-img">AU</div>
+          <div class="default-img">{{transferUser?.fullname.split(' ')[0][0]}}{{transferUser?.fullname.split(' ')[1][0]}}</div>
         </div>
-        <p class="p0">Pay {{transferUser.email}} (@ayees)</p>
+        <p class="p0">Pay {{transferUser?.fullname}} ({{transferUser?.username}})</p>
         <h3>${{sendAmount}}</h3>
         <p class="p1">Enter your pin to complete transaction</p>
         <div class="pin-wrapper">

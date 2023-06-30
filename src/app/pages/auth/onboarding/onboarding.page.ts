@@ -186,7 +186,7 @@ export class OnboardingPage implements OnInit {
     //   return;
     // }
     try {
-      // this.notification_id = '12345';
+      this.notification_id = '12345';
       console.log('Notification ID before send ', this.notification_id);
       if (!this.notification_id) {
         await this.getOneSignalPlayerID();
@@ -284,13 +284,15 @@ export class OnboardingPage implements OnInit {
     }
 
     await this.util.presentLoading();
+    this.loading.dismiss();
 
     setTimeout(() => {
       this.loading.dismiss();
+      this.showRegisterForm = false;
       this.router.navigateByUrl('/register', {
-        state: { url: this.router.url },
+        state: { userInfo: {email, password, confirmPassword},  url: this.router.url }
       });
-    }, 1000);
+    }, 3000);
   }
 
   enterAnimation = (baseEl: HTMLElement) => {

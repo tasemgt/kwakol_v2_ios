@@ -24,7 +24,7 @@
     <div class="track-text">KYC Verification</div>
   </div>
 
-  <form class="auth-form" (ngSubmit)="continueReg()" #loginForm="ngForm">
+  <!-- <form class="auth-form" (ngSubmit)="continueReg()" #loginForm="ngForm"> -->
     <ion-row class="row-auth">
       <ion-col size="12" class="kwakol-input">
         <div class="did-floating-label-content">
@@ -33,6 +33,7 @@
             type="text"
             placeholder=" "
             #firstName
+            [(ngModel)] ="regCreds.firstname"
           />
           <label class="did-floating-label">First Name</label>
         </div>
@@ -44,6 +45,7 @@
             type="text"
             placeholder=" "
             #middleName
+            [(ngModel)] ="regCreds.middlename"
           />
           <label class="did-floating-label">Middle Name</label>
         </div>
@@ -55,6 +57,7 @@
             type="text"
             placeholder=" "
             #lastName
+            [(ngModel)] ="regCreds.lastname"
           />
           <label class="did-floating-label">Last Name</label>
         </div>
@@ -65,7 +68,7 @@
             class="did-floating-input email"
             type="email"
             placeholder=" "
-            [value]="'akim.akim@email.com'"
+            [value]="regCreds.email"
             [disabled]="true"
             #email
           />
@@ -79,6 +82,7 @@
             type="text"
             placeholder=" "
             #username
+            [(ngModel)] ="regCreds.username"
             (focus)="onInputsFocus()"
             (blur)="onInputsBlur()"
           />
@@ -86,10 +90,10 @@
         </div>
       </ion-col>
       <ion-col size="12" class="kwakol-input" id="open-select-dob">
-        <p class="p-input">Date of Birth</p>
+        <p class="p-input">{{regCreds.date_of_birth || 'Date of Birth'}}</p>
       </ion-col>
       <ion-col size="12" class="kwakol-input" id="open-select-country">
-        <p class="p-input">Country</p>
+        <p class="p-input country">{{regCreds.country || 'Country'}} <img *ngIf="selectedCountryImg" [src]="'assets/imgs/flags/'+ selectedCountryImg +'.svg'" /></p>
       </ion-col>
       <ion-col size="12" class="kwakol-input">
         <div class="did-floating-label-content">
@@ -98,6 +102,7 @@
             type="tel"
             placeholder=" "
             #phone
+            [(ngModel)] ="regCreds.phone"
             (focus)="onInputsFocus()"
             (blur)="onInputsBlur()"
           />
@@ -105,12 +110,12 @@
         </div>
       </ion-col>
       <ion-col size="12" class="ion-text-center btn-col">
-        <ion-button class="kwakol-btn ion-text-uppercase" type="submit"
+        <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="continueReg()"
           >Continue</ion-button
         >
       </ion-col>
     </ion-row>
-  </form>
+  <!-- </form> -->
 
   <!-- Select Country -->
   <ion-modal
@@ -132,39 +137,12 @@
         </div> -->
 
         <ion-list lines="inset">
-          <ion-item>
-            <img src="assets/imgs/flags/nigeria.svg" />
-            <ion-label>Nigeria</ion-label>
-          </ion-item>
-          <ion-item>
-            <img src="assets/imgs/flags/usa.svg" />
-            <ion-label>United States of America</ion-label>
-          </ion-item>
-          <ion-item>
-            <img src="assets/imgs/flags/uk.svg" />
-            <ion-label>United Kingdom</ion-label>
-          </ion-item>
-          <ion-item>
-            <img src="assets/imgs/flags/ghana.svg" />
-            <ion-label>Ghana</ion-label>
-          </ion-item>
-          <ion-item>
-            <img src="assets/imgs/flags/sa.svg" />
-            <ion-label>South Africa</ion-label>
-          </ion-item>
-          <ion-item>
-            <img src="assets/imgs/flags/brazil.svg" />
-            <ion-label>Brazil</ion-label>
-          </ion-item>
-          <ion-item>
-            <img src="assets/imgs/flags/portugal.svg" />
-            <ion-label>Portugal</ion-label>
-          </ion-item>
-          <ion-item>
-            <img src="assets/imgs/flags/france.svg" />
-            <ion-label>France</ion-label>
+          <ion-item *ngFor="let country of countries" (click)="selectCountry(country)">
+            <img [src]="'assets/imgs/flags/'+ country.img +'.svg'" />
+            <ion-label>{{country.name}}</ion-label>
           </ion-item>
         </ion-list>
+
       </ion-content>
     </ng-template>
   </ion-modal>
@@ -191,7 +169,7 @@
             >
           </ion-col>
           <ion-col size="6">
-            <ion-button class="kwakol-btn ion-text-uppercase"
+            <ion-button class="kwakol-btn ion-text-uppercase" (click)="selectDOB()"
               >Select</ion-button
             >
           </ion-col>
@@ -216,17 +194,17 @@
           <ion-icon src="assets/icon/padlock.svg"></ion-icon>
         </div>
         <h3>Enter Code</h3>
-        <p class="p1">
+        <p class="p1"> 
           We sent a One-Time-Password (OTP) to your email address.
         </p>
 
         <div class="otp-wrapper">
-          <input type="tel" maxlength="1" class="otp-input" />
-          <input type="tel" maxlength="1" class="otp-input" />
-          <input type="tel" maxlength="1" class="otp-input" />
-          <input type="tel" maxlength="1" class="otp-input" />
-          <input type="tel" maxlength="1" class="otp-input" />
-          <input type="tel" maxlength="1" class="otp-input" />
+          <input type="tel" maxlength="1" class="otp-input" [(ngModel)]="otp1" (ngModelChange)="onPinInputChange()"/>
+          <input type="tel" maxlength="1" class="otp-input" [(ngModel)]="otp2" (ngModelChange)="onPinInputChange()"/>
+          <input type="tel" maxlength="1" class="otp-input" [(ngModel)]="otp3" (ngModelChange)="onPinInputChange()"/>
+          <input type="tel" maxlength="1" class="otp-input" [(ngModel)]="otp4" (ngModelChange)="onPinInputChange()"/>
+          <input type="tel" maxlength="1" class="otp-input" [(ngModel)]="otp5" (ngModelChange)="onPinInputChange()"/>
+          <input type="tel" maxlength="1" class="otp-input" [(ngModel)]="otp6" (ngModelChange)="onPinInputChange()"/>
         </div>
 
         <p class="p2">Resend OTP in 59s</p>
@@ -237,6 +215,7 @@
               class="kwakol-btn ion-text-uppercase"
               type="submit"
               (click)="verifyOTP()"
+              [disabled]="!otpComplete"
               >Verify</ion-button
             >
           </ion-col>

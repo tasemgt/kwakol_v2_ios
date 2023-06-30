@@ -54,7 +54,7 @@
     <div class="content">
       <p class="item" *ngFor="let item of infoModalData.content">
         <span>{{item.item}}</span>
-        <span>{{item.value}} <ion-icon *ngIf="item.item === 'Reference'" src="assets/icon/copy.svg"></ion-icon></span>
+        <span>{{item.value}} <ion-icon *ngIf="item.item === 'Reference'" (click)="util.clipboardCopy(item.item)" src="assets/icon/copy.svg"></ion-icon></span>
       </p>
     </div>
 
@@ -63,12 +63,58 @@
         <div class="amount">-${{util.numberWithCommas(infoModalData.amount)}}</div>
         <div class="date">{{infoModalData.date | date}}</div>
       </div>
-      <div class="round-button" (click)="closeInfoModal()">
+      <div class="round-button" (click)="closeModal('infoModal')">
         <ion-icon src="assets/icon/close.svg"></ion-icon>
       </div>
     </div>
   </div>
   <!-- Info Modal End -->
+
+  <!-- Loading Modal Begin -->
+<div
+#LoadingModalDiv
+class="info-modal center-page reset animate__animated animate__slideInUp"
+*ngIf="showLoadingModal"
+>
+<div class="content">
+  <div class="loader-wrapper no-animation">
+    <!-- <div class="circle-3">
+      <div class="circle-2">
+        <div class="circle-1"> -->
+          <ion-icon
+            src="assets/imgs/v2-imgs/hour-glass.svg"
+            alt=""
+          ></ion-icon>
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+    <p class="loading-text">
+      Your deposit request is being reviewed. You will get a notification once it is approved.
+    </p>
+  </div>
+  <!-- <div class="load-complete" *ngIf="!isSending">
+    <img
+      src="assets/imgs/v2-imgs/img-cash.svg"
+      class="animate__animated animate__slideInLeft"
+      alt=""
+    />
+    <p>
+      You successfully transferred <br />
+      <span>${{sendAmount}}</span> to
+      <span>
+      {{transferUser?.email}}  <br />
+      {{transferUser?.email}} </span>
+    </p>
+  </div> -->
+</div>
+
+<div class="footer">
+  <div class="round-button" (click)="closeModal('loadingModal')">
+    <ion-icon src="assets/icon/close.svg"></ion-icon>
+  </div>
+</div>
+</div>
+<!-- Loading Modal End -->
 
 </ion-tabs>
 

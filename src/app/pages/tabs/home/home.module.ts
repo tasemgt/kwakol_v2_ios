@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { SharedModuleModule } from 'src/app/shared-module.module';
+import { KeypadModule } from 'src/app/components/keypad/keypad.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedModuleModule } from 'src/app/shared-module.module';
     CommonModule,
     FormsModule,
     HomePageRoutingModule,
-    SharedModuleModule
+    SharedModuleModule,
+    KeypadModule
   ],
   declarations: [HomePage]
 })

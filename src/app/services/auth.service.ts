@@ -9,6 +9,7 @@ import { DataService } from './data.service';
 import { StorageService } from './storage.service';
 import { UtilService } from './util.service';
 import { HttpService } from './_http.service';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Injectable({
@@ -19,7 +20,7 @@ export class AuthService {
   public user: User;
   public authState: BehaviorSubject<boolean> = new BehaviorSubject(null);
 
-  private baseUrl = `${constants.baseUrlV2}/v1`;
+  private baseUrl = `${constants.baseUrlV2}`;
   private currentUser = constants.currentUser;
 
   private headers = {'Content-Type': 'application/json'};
@@ -74,7 +75,7 @@ export class AuthService {
     const payload : LoginCred = data;
     // payload.notification_id = '123456';
     try{
-      const resp: User = await this.http.post(`${this.baseUrl}/login`, payload, this.headers);
+      const resp: User = await this.http.post(`${this.baseUrl}/v1/login`, payload, this.headers);
 
       if(resp.new_user === 'YES'){
         this.dataService.setAccessToken(resp.token);
@@ -93,6 +94,30 @@ export class AuthService {
     }
     catch(err){
       return Promise.reject(err);
+    }
+  }
+
+  public async doInitialRegister(payload){
+    try {
+      // const headers = new HttpHeaders();
+      // headers.set('Authorization', `Bearer ${'ergkermlgmlrkmgkerg'}`);
+      // console.log(headers.get('Authorization'));
+      const resp = await this.http.post(`${this.baseUrl}/v2/register`, payload, this.headers);
+      // this.dataService.setAccessToken(resp.token);
+      return Promise.resolve(resp);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async registerConfirm(otp: string, token: string){
+    try {
+      const initialReg = await this.storage.get('INITIAL_REG');
+      const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`};
+      console.log(headers);
+      return this.http.post(`${this.baseUrl}/v2/register-confirm`, {otp}, headers);
+    } catch (error) {
+      console.log(error);
     }
   }
 

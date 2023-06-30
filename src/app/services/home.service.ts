@@ -25,4 +25,15 @@ export class HomeService {
     return this.http.post(`${this.baseUrl}/v2/make-wallet-transfer`, payload , this.headers);
   }
 
+
+  //DEPOSIT TO WALLET
+  public initiateWalletDeposit(payload: any): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/make-wallet-deposit`, payload, this.headers);
+  }
+
+  public makeWalletDepositUSD(payload: any): Promise<any>{
+    const headers = {'Content-Type' : false, processData : false}; //Needed to upload file as file and not converted to string
+    return this.http.post(`${this.baseUrl}/v2/make-wallet-deposit-dollar`, payload, headers);
+  }
+
 }

@@ -21,6 +21,7 @@ export class TabsPage {
   public backdropActive = false;
 
   public showInfoModal: boolean;
+  public showLoadingModal: boolean;
   public infoModalData: any;
   // public showLoadingModal: boolean;
 
@@ -43,6 +44,13 @@ export class TabsPage {
       if (payload) {
         this.openInfoModal(payload.data.type, payload.data.data);
         this.backdropActive = payload.active;
+      }
+    });
+
+    this.uiService.getLoadingStateSubject().subscribe((payload) => {
+      if (payload) {
+        this.openLoadingModal();
+        this.backdropActive = payload;
       }
     });
 
@@ -119,18 +127,26 @@ export class TabsPage {
     }, 10);
   }
 
-  public closeInfoModal() {
-    const infoModalDiv = this.infoModalDiv.nativeElement;
+  public openLoadingModal(){
+    setTimeout(() => {
+      this.showLoadingModal = true;
+      // console.log(this.infoModalData);
+    }, 10);
+  }
+
+  public closeModal(name: string) {
+    const modalDiv = name === 'infoModal' ? this.infoModalDiv.nativeElement : this.loadingModalDiv.nativeElement;
     const backdrop = this.backdrop.nativeElement;
 
-    this.renderer.removeClass(infoModalDiv, 'animate__slideInUp');
-    this.renderer.addClass(infoModalDiv, 'animate__slideOutDown');
+    this.renderer.removeClass(modalDiv, 'animate__slideInUp');
+    this.renderer.addClass(modalDiv, 'animate__slideOutDown');
     this.renderer.removeClass(backdrop, 'animate__fadeIn');
     this.renderer.addClass(backdrop, 'animate__fadeOut');
     // this.renderer.setStyle(registerDiv, 'display', 'none');
     setTimeout(() => {
       this.backdropActive = false;
       this.showInfoModal = false;
+      this.showLoadingModal = false;
     }, 100);
   }
 

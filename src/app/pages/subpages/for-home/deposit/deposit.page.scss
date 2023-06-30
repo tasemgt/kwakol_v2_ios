@@ -1,27 +1,45 @@
-p{
-    letter-spacing: .02em;
-    margin: 0;
-    font-family: BwModelicaRegular;
+p {
+  letter-spacing: 0.02em;
+  margin: 0;
+  font-family: BwModelicaRegular;
 }
 
-ion-col.kwakol-input{
-
-    ion-item.select-input{
-        font-size: .9rem;
-    }
-
-    ion-input{
-        --padding-top: 0;
-        --padding-bottom: 0;
-    }
-    ion-icon{
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 1.1rem;
-    }
+p.proof {
+  margin: 1rem 0 0.5rem 0;
 }
 
-p.proof{
-    margin: .5rem 0;
+.content-wrapper {
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  border-radius: 6px;
+  background: #FFF;
+  padding: 0.9rem;
+  margin-bottom: 1.5rem;
+
+  p {
+    display: flex;
+    justify-content: space-between;
+    color: var(--ion-color-secondary);
+    letter-spacing: -0.02rem;
+    font-size: .8rem;
+
+
+    &:not(:last-child) {
+      margin-bottom: 1.3rem;
+    }
+
+    span:first-child {
+      color: rgba(var(--ion-color-secondary-rgb), 0.5);
+    }
+
+    span:last-child {
+      // font-family: BwModelicaMedium;
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+
+      ion-icon {
+        font-size: 1.2rem;
+      }
+    }
+  }
 }

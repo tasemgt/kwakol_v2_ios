@@ -7,6 +7,7 @@ import { alertPageParams } from '../models/constants';
 import { Router } from '@angular/router';
 import { LoadingPage } from '../pages/modals/loading/loading.page';
 import { LoadModalAnimation } from '../animation/loadModalAnimation';
+import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class UtilService {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private router: Router,
-    private platform: Platform) {
+    private platform: Platform,
+    private clipboard: Clipboard) {
       this.loadModalAnimator = new LoadModalAnimation(this.animationCtrl);
     }
 
@@ -200,6 +202,26 @@ export class UtilService {
     }
     // Between dawn and noon
     return 'morning';
+}
+
+public async clipboardCopy(item: string){
+  if(item){
+    const copied = await this.clipboard.copy(item);
+    if(copied){
+      this.showToast(`Item ${item} copied...`, 2000, 'success');
+    }
+  }
+}
+
+public checkUndefinedProperties(obj) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (!obj[key]) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 }

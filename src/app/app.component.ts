@@ -159,8 +159,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   // Handles Android HW Back button
    private handleHardwareBackButton(): void{
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
-      const closeAppRoutes = [ '/lock-modal', '/login', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
-      const backToLoginRoutes = ['/change-password', '/forgot-password'];
+      const closeAppRoutes = [ '/lock-modal', '/onboarding', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
+      const backToRegisterRoutes = ['/kyc'];
+      // const backToOnboardingRoutes = ['/register'];
       const backToProfileRoutes = ['/account-details', '/affiliate-link', '/settings'];
       const backToFeedRoutes = ['/feed-details'];
       const url = this.router.url.toString();
@@ -169,9 +170,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
       else{
         this.navController.setDirection('back');
-        if(backToLoginRoutes.includes(url)){
-          this.router.navigateByUrl('/login');
-        }
+        // if(backToOnboardingRoutes.includes(url)){
+        //   this.router.navigateByUrl('/onboarding');
+        // }
         if(backToProfileRoutes.includes(url)){
           this.router.navigateByUrl('/tabs/profile');
         }

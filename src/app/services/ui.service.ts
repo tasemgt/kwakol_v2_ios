@@ -8,6 +8,7 @@ export class UiService {
 
   private infoState: BehaviorSubject<{active: boolean; data: {type: string; data: any}}> = new BehaviorSubject(null);
   private loadingState: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  private backdropState: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor() {}
 
@@ -17,5 +18,9 @@ export class UiService {
 
   public getLoadingStateSubject(){
     return this.loadingState;
+  }
+
+  public getBackdropStateSubject(){
+    return this.backdropState;
   }
 }

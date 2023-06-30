@@ -25,7 +25,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
   imports: [
     BrowserModule,
     IonicModule.forRoot({
-      navAnimation: pageAnimation
+      navAnimation: pageAnimation,
+      swipeBackEnabled: false
     }),
     IonicStorageModule.forRoot(),
     AppRoutingModule,

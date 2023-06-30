@@ -2,60 +2,55 @@
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading">Deposit</h2>
+  <h2 class="subpage-heading left">USD Bank Transfer</h2>
 
-  <h1 class="subheader">How much would you like to deposit?</h1>
+  <h1 class="subheader">Deposit into the account details below.</h1>
 
-  <div class="currency" (click)="onTapSelect('currency')">
-    {{ selectedCurrency?.sym }} {{ selectedCurrency?.name }}
-    <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
-  </div>
 
-  <ion-row class="input-rows">
-    
-    <ion-col size="12" class="kwakol-input">
-      <ion-item>
-        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" (ionChange)="refreshModel()" required></ion-input>
-      </ion-item>
-    </ion-col>
-
-    <ion-col size="12" class="kwakol-input">
-      <ion-item class="select-input" (click)="onTapSelect('investment')">
-        {{ selectedInvestment?.name}}
-        <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
-      </ion-item>
-    </ion-col>
-
-    <ion-col size="12" class="kwakol-input">
-      <ion-item class="select-input" (click)="onTapSelect('bank')">
-        {{ selectedBank?.bankName }}
-        <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <div class="selected-bank" *ngIf="selectedBank.selected">
+  <div class="content-wrapper">
     <p>
-      Account Number
-      <span>{{ selectedBank?.accountNum  }} <ion-icon (click)="copyLink('accountNum')" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>Account Number</span>
+      <span>{{accInfo.account_number}} <ion-icon (click)="util.clipboardCopy(accInfo.account_number)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p>
-      Account name
-      <span>{{ selectedBank?.accountName }}</span>
+      <span>Account Name</span>
+      <span>{{accInfo.bank_name}}</span>
     </p>
     <p>
-      Sort Code
-      <span>{{ selectedBank?.sortCode || 'N/A'  }} <ion-icon (click)="copyLink('sortCode')" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>Bank Name</span>
+      <span>{{accInfo.bank_account_name}}</span>
     </p>
     <p>
-      Swift Code
-      <span>{{ selectedBank?.swiftCode || 'N/A'  }}</span>
+      <span>Swift Code</span>
+      <span>{{accInfo.swift_code}} <ion-icon (click)="util.clipboardCopy(accInfo.swift_code)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p>
-      Address
-      <span>{{ selectedBank?.branchAddress? selectedBank?.branchAddress.substring(0,27) : 'N/A'  }}{{ selectedBank?.branchAddress? (selectedBank?.branchAddress.length > 27 ? '...': ''): ''}}</span>
+      <span>Sort Code</span>
+      <span>{{accInfo.sort_code}} <ion-icon (click)="util.clipboardCopy(accInfo.sort_code)" src="assets/icon/copy.svg"></ion-icon></span>
+    </p>
+    <p>
+      <span>Branch</span>
+      <span>{{accInfo.branch}} <ion-icon (click)="util.clipboardCopy(accInfo.branch)" src="assets/icon/copy.svg"></ion-icon></span>
+    </p>
+    <p>
+      <span>Address</span>
+      <span>{{accInfo.branch_address}} <ion-icon (click)="util.clipboardCopy(accInfo.branch_address)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
   </div>
+
+  <ion-col size="12" class="kwakol-input">
+    <div class="did-floating-label-content">
+      <input
+        class="did-floating-input"
+        type="tel"
+        placeholder="0.00"
+        [(ngModel)]="depositAmount"
+        required
+        autocomplete="off"
+      />
+      <label class="did-floating-label">Enter Amount</label>
+    </div>
+  </ion-col>
 
   <p class="proof">Proof of Transfer</p>
   <div class="upload">
@@ -68,7 +63,7 @@
 
   <ion-row class="btn-row">
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="confirm()">Confirm</ion-button>
+      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="doTransfer()">Complete</ion-button>
     </ion-col>
   </ion-row>
 </ion-content>

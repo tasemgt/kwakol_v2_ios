@@ -37,6 +37,10 @@ export class StorageService {
     return user;
   }
 
+  public async remove(key: string){
+    this._storage?.remove(key);
+  }
+
   public async clear(){
     await this._storage?.clear();
   }
