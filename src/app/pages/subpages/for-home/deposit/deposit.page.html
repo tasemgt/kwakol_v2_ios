@@ -1,3 +1,35 @@
+<div
+  class="backdrop animate__animated animate__fadeIn"
+  #backdrop
+  *ngIf="backdropActive"
+></div>
+
+<!-- Loading Modal Begin -->
+<div
+  #LoadingModalDiv
+  class="info-modal center-page reset animate__animated animate__slideInUp"
+  *ngIf="showLoadingModal"
+>
+  <div class="content">
+    <div class="loader-wrapper no-animation">
+      <ion-icon
+        src="assets/imgs/v2-imgs/hour-glass.svg"
+        alt=""
+      ></ion-icon>
+      <p class="loading-text">
+        Your deposit request is being processed. <br/> Your account will be updated once it is confirmed.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="round-button" (click)="closeLoadingModal(true)">
+      <ion-icon src="assets/icon/close.svg"></ion-icon>
+    </div>
+  </div>
+</div>
+<!-- Loading Modal End -->
+
 <ion-content class="page-content">
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>

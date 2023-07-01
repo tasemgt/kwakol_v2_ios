@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { HomeService } from 'src/app/services/home.service';
@@ -13,6 +13,14 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class DepositPage implements OnInit{
 
+
+  @ViewChild('LoadingModalDiv') loadingModalDiv: ElementRef;
+  @ViewChild('backdrop') backdrop: ElementRef;
+
+  public backdropActive = false;
+  public showLoadingModal: boolean;
+  public isSending = false;
+
   public toastShown = false;
   public subscriber;
   public fromPage: string;
@@ -26,6 +34,7 @@ export class DepositPage implements OnInit{
   constructor(
     private router: Router,
     public util: UtilService,
+    private renderer: Renderer2,
     private loading: LoadingController,
     private homeService: HomeService,
     private uiService: UiService,
@@ -63,7 +72,7 @@ export class DepositPage implements OnInit{
       this.loading.dismiss();
       if(resp.code == 100){
         this.subService.getBalanceSubject().next(true);
-        this.uiService.getLoadingStateSubject().next(true);
+        this.openLoadingModal();
       }
     } catch (error) {
       this.loading.dismiss();
@@ -77,23 +86,27 @@ export class DepositPage implements OnInit{
     this.fileName = this.receipt.name.slice(0,35);
   }
 
-  // private putBanksInDataService(currency){
-  //   const banks = [];
-  //   currency.accounts.forEach(b =>{ 
-  //     const bank =  { 
-  //       id: b.id, 
-  //       accountName: b.bank_name,
-  //       accountNum: b.account_number,
-  //       bankName: b.bank_account_name,
-  //       sortCode: b.sort_code,
-  //       swiftCode: b.swift_code,
-  //       branch: b.branch,
-  //       branchAddress: b.branch_address,
-  //       selected: false
-  //     }
-  //     banks.push(bank);
-  //   });
-  //   this.dataService.setBanks(banks);
-  // }
+  public openLoadingModal() {
+    this.isSending = true;
+    setTimeout(() => {
+      this.backdropActive = true;
+      this.showLoadingModal = true;
+    }, 10);
+  }
+
+  public closeLoadingModal(doReload: boolean) {
+    const loadingModalDiv = this.loadingModalDiv.nativeElement;
+    const backdrop = this.backdrop.nativeElement;
+
+    this.renderer.removeClass(loadingModalDiv, 'animate__slideInUp');
+    this.renderer.addClass(loadingModalDiv, 'animate__slideOutDown');
+    this.renderer.removeClass(backdrop, 'animate__fadeIn');
+    this.renderer.addClass(backdrop, 'animate__fadeOut');
+    setTimeout(() => {
+      this.backdropActive = false;
+      this.showLoadingModal = false;
+      this.router.navigateByUrl('/tabs/home');
+    }, 100);
+  }
 
 }

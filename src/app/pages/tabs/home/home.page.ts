@@ -680,6 +680,7 @@ export class HomePage implements OnInit {
         }
 
         //Go to dollar transfer and upload receipt page for type = 'TRANSFER'
+        this.depositDollarModal.dismiss(); //Dismiss first dollar modal if present
         this.router.navigateByUrl('/deposit', {
           state: { url: this.router.url, data: resp.data },
         });
