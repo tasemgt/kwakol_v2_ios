@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { SharedModuleModule } from 'src/app/shared-module.module';
 import { KeypadModule } from 'src/app/components/keypad/keypad.module';
+import { QRCodeModule } from 'angular2-qrcode';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { KeypadModule } from 'src/app/components/keypad/keypad.module';
     FormsModule,
     HomePageRoutingModule,
     SharedModuleModule,
-    KeypadModule
+    KeypadModule,
+    // QRCodeModule
   ],
   declarations: [HomePage]
 })

@@ -19,6 +19,7 @@ export class TabsPage {
   public previousTab: string;
 
   public backdropActive = false;
+  public openedFrom: string;
 
   public showInfoModal: boolean;
   public showLoadingModal: boolean;
@@ -44,6 +45,7 @@ export class TabsPage {
       if (payload) {
         this.openInfoModal(payload.data.type, payload.data.data);
         this.backdropActive = payload.active;
+        this.openedFrom = 'info';
       }
     });
 
@@ -51,6 +53,7 @@ export class TabsPage {
       if (payload) {
         this.openLoadingModal();
         this.backdropActive = payload;
+        this.openedFrom = 'loading';
       }
     });
 
@@ -134,8 +137,8 @@ export class TabsPage {
     }, 10);
   }
 
-  public closeModal(name: string) {
-    const modalDiv = name === 'infoModal' ? this.infoModalDiv.nativeElement : this.loadingModalDiv.nativeElement;
+  public closeModal() {
+    const modalDiv = this.openedFrom === 'info' ? this.infoModalDiv.nativeElement : this.loadingModalDiv.nativeElement;
     const backdrop = this.backdrop.nativeElement;
 
     this.renderer.removeClass(modalDiv, 'animate__slideInUp');
@@ -147,6 +150,7 @@ export class TabsPage {
       this.backdropActive = false;
       this.showInfoModal = false;
       this.showLoadingModal = false;
+      this.openedFrom = '';
     }, 100);
   }
 

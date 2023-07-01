@@ -38,7 +38,7 @@
     </ion-tab-button>
   </ion-tab-bar>
 
-  <div class="backdrop animate__animated animate__fadeIn" #backdrop *ngIf="backdropActive" (click)="closeInfoModal()"></div>
+  <div class="backdrop animate__animated animate__fadeIn" #backdrop *ngIf="backdropActive" (click)="closeModal()"></div>
 
   <!-- Info Modal Begin -->
   <div
@@ -61,9 +61,9 @@
     <div class="footer">
       <div class="amount-date">
         <div class="amount">-${{util.numberWithCommas(infoModalData.amount)}}</div>
-        <div class="date">{{infoModalData.date | date}}</div>
+        <div class="date">{{infoModalData.date}}</div>
       </div>
-      <div class="round-button" (click)="closeModal('infoModal')">
+      <div class="round-button" (click)="closeModal()">
         <ion-icon src="assets/icon/close.svg"></ion-icon>
       </div>
     </div>
@@ -109,7 +109,7 @@ class="info-modal center-page reset animate__animated animate__slideInUp"
 </div>
 
 <div class="footer">
-  <div class="round-button" (click)="closeModal('loadingModal')">
+  <div class="round-button" (click)="closeModal()">
     <ion-icon src="assets/icon/close.svg"></ion-icon>
   </div>
 </div>

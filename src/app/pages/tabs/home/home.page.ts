@@ -34,10 +34,17 @@ export class HomePage implements OnInit {
   @ViewChild('doInvestmentTransferModal') doInvestmentTransferModal: IonModal;
   @ViewChild('beneficiaryTransferModal') beneficiaryTransferModal: IonModal;
   @ViewChild('doBeneficiaryTransferModal') doBeneficiaryTransferModal: IonModal;
+
   @ViewChild('depositModal') depositModal: IonModal;
   @ViewChild('depositNairaModal') depositNairaModal: IonModal;
   @ViewChild('depositDollarModal') depositDollarModal: IonModal;
   @ViewChild('dollarCashDepositModal') dollarCashDepositModal: IonModal;
+  @ViewChild('doDepositDollarCashModal') doDepositDollarCashModal: IonModal;
+
+  @ViewChild('withdrawalModal') withdrawalModal: IonModal;
+  @ViewChild('withdrawDollarModal') withdrawDollarModal: IonModal;
+  @ViewChild('dollarCashWithdrawalModal') dollarCashWithdrawalModal: IonModal;
+  @ViewChild('pinEnterModalWithdrawal') pinEnterModalWithdrawal: IonModal;
 
   //Loading Modals
   @ViewChild('LoadingModalDiv') loadingModalDiv: ElementRef;
@@ -51,6 +58,7 @@ export class HomePage implements OnInit {
   public showLoadingModal: boolean;
   public backdropActive: boolean;
   public isSending = false;
+  public listSpinner = false;
 
   //Home page data
   public user: User;
@@ -76,13 +84,22 @@ export class HomePage implements OnInit {
 
   //Transfer to investment Modal states
   public investmentTransferAmount: string;
+  public myInvestments = [];
   public selectedInvestment: any;
 
   //Transfer to beneficiary Modal states
   public beneficiaryTransferAmount: string;
+  public myBeneficiaries = [];
   public selectedBeneficiary: any;
 
   public typeOfTransfer: string;
+
+  //Deposit Modal states
+  public dollarCashAmount: string;
+  public dollarQRPageData: any;
+
+  //Withdrawal Modal states
+  public dollarCashWithdrawAmount: string;
 
   public inputTimer: any;
   public inputPinTypePassword = true;
@@ -295,7 +312,7 @@ export class HomePage implements OnInit {
     this.usernameOrEmail = '';
     this.transferUserModal.dismiss();
     this.router.navigateByUrl('/wallet-transfer-user', {
-      state: { user: this.userToTransferTo, url: this.router.url },
+      state: { user: this.userToTransferTo, url: this.router.url, walletBalance: this.wallet.balance },
     });
     setTimeout(() => (this.userToTransferTo = null), 200);
   }
@@ -334,10 +351,27 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openTransferInvestmentModal() {
-    this.transferModal.dismiss();
-    // this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
+  public async openTransferInvestmentModal() {
+    //Fetch investments from server
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getSubscriptions();
+      // this.listSpinner = false;
+      this.loading.dismiss();
+      this.transferModal.dismiss();
+      // this.listSpinner = true;
+      if(resp.code == 100){
+        this.myInvestments = resp.data;
+      }
+      if(this.myInvestments.length <= 1){
+        this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
+      }
+    } catch (err) {
+      this.loading.dismiss();
+      console.log(err);
+    }
     this.investmentTransferModal.present();
+    this.investmentTransferModal.onWillDismiss().then(() => this.myInvestments = []);
   }
 
   public openDoTransferInvestmentModal(selectedInvestment) {
@@ -346,10 +380,27 @@ export class HomePage implements OnInit {
     this.doInvestmentTransferModal.present();
   }
 
-  public openTransferBeneficiaryModal() {
-    this.transferModal.dismiss();
-    // this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
+  public async openTransferBeneficiaryModal() {
+    //Fetch investments from server
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getBeneficiaries();
+      // this.listSpinner = false;
+      this.loading.dismiss();
+      this.transferModal.dismiss();
+      // this.listSpinner = true;
+      if(resp.code == 100){
+        this.myBeneficiaries = resp.data;
+      }
+      if(this.myBeneficiaries.length <= 1){
+        this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
+      }
+    } catch (err) {
+      this.loading.dismiss();
+      console.log(err);
+    }
     this.beneficiaryTransferModal.present();
+    this.beneficiaryTransferModal.onWillDismiss().then(() => this.myBeneficiaries = []);
   }
 
   public openDoTransferBeneficiaryModal(selectedBeneficiary) {
@@ -366,13 +417,16 @@ export class HomePage implements OnInit {
     }
     this.typeOfTransfer = type;
     this.pinEnterModal.present();
+    //Clear pin value for accidental modal close
+    this.pinEnterModal.onWillDismiss().then((data) =>{
+      this.pin = '';
+    });
   }
 
   public onPinInputChange(e: { keypadText: string }) {
     console.log(e);
     this.pin = e.keypadText;
     if (this.pin.length === 4) {
-      this.pinEnterModal.dismiss();
       this.typeOfTransfer === 'investment'
         ? this.doTransferInvestmentFunds()
         : this.doTransferBeneficiaryFunds();
@@ -404,30 +458,97 @@ export class HomePage implements OnInit {
     this.dollarCashDepositModal.present();
   }
 
+  //For Dollar Deposit based on Cash
   public makeDollarCashDeposit(){
-    
+    if(!this.dollarCashAmount){
+      this.util.showToast('Please enter a cash amount', 2500, 'danger');
+      return;
+    }
+    const payload = {
+      currency: 'USD',
+      type: 'CASH',
+      amount: this.dollarCashAmount
+    };
+
+    this.doInitialDollarDeposit(payload, payload.type);
+
   }
 
+  //For Dollar Deposit based on Bank Transfer
   public async goToDepositDollarBankTransferPage() {
     const payload = {
       currency: 'USD',
       type: 'TRANSFER',
     };
-    this.util.presentLoading();
-    try {
-      const resp = await this.homeService.initiateWalletDeposit(payload);
-      this.loading.dismiss();
-      if (resp.code == 100) {
-        this.depositDollarModal.dismiss();
-        this.router.navigateByUrl('/deposit', {
-          state: { url: this.router.url, data: resp.data },
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      this.loading.dismiss();
+    this.doInitialDollarDeposit(payload, payload.type);
+  }
+
+
+  //WITHDRAWAL AREA!!
+
+  public openWithdrawalModal() {
+    this.withdrawalModal.present();
+  }
+
+  public openCurrencyWithdrawalModal(type){
+    if (type === 'naira') {
+      this.util.presentLoading();
+      setTimeout(() => {
+        this.loading.dismiss();
+        this.withdrawalModal.dismiss();
+        // this.depositNairaModal.present();
+      }, 1500);
+    } else {
+      //Dollar
+      this.withdrawalModal.dismiss();
+      this.withdrawDollarModal.present();
     }
   }
+
+  public openDollarCashWithdrawalModal(){
+    this.withdrawDollarModal.dismiss();
+    this.dollarCashWithdrawalModal.present();
+  }
+
+  public openChooseDollarBankAccountModal(){
+
+  }
+
+  public makeDollarCashWithdrawal(){
+   if(!this.dollarCashWithdrawAmount){
+    this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
+    return;
+   }
+   this.dollarCashWithdrawalModal.dismiss();
+   this.pinEnterModalWithdrawal.present();
+   //Clear pin value for accidental modal close
+   this.pinEnterModalWithdrawal.onWillDismiss().then((data) =>{
+    this.pin = '';
+  });
+  }
+
+  public onWithdrawalPinInputChange(e: { keypadText: string }) {
+    console.log(e);
+    this.pin = e.keypadText;
+    if (this.pin.length === 4) {
+      this.util.presentLoading();
+      setTimeout(() => {
+        this.loading.dismiss();
+        this.pinEnterModalWithdrawal.dismiss();
+        // this.uiService.getLoadingStateSubject().next(true);
+      }, 1500);
+      // this.typeOfTransfer === 'investment'
+      //   ? this.doTransferInvestmentFunds()
+      //   : this.doTransferBeneficiaryFunds();
+    }
+  }
+
+  // public openDollarBankTransferWithdrawalModal(){
+  //   this.withdrawDollarModal.dismiss();
+  //   this.dollarCashDepositModal.present();
+  // }
+
+
 
   // PRIVATES!!
   private async getHomeQuietly() {
@@ -469,33 +590,38 @@ export class HomePage implements OnInit {
     }
     const payload = {
       pin: this.pin,
-      subscription_id: '',
+      subscription_id: this.selectedInvestment.subscription_id,
       amount: this.investmentTransferAmount,
     };
-    this.pin = '';
-    this.investmentTransferAmount = '';
     this.util.presentLoading();
     console.log(payload);
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   this.loading.dismiss();
+    //   this.uiService.getLoadingStateSubject().next(true);
+    //   // this.isSending =false;
+    // }, 1000);
+    try {
+      const resp = await this.homeService.doTransferToSubscription(payload);
       this.loading.dismiss();
-      this.uiService.getLoadingStateSubject().next(true);
-      // this.isSending =false;
-    }, 1000);
-    // try {
-    //   const resp = await this.homeService.doTransferToUser(payload);
-    //   if(resp.code == '100'){
-    //     console.log(resp.message);
-    //     this.subService.getBalanceSubject().next(true);
-    //     this.isSending =false;
-    //   }
-    //   else if(resp.code == '418'){
-    //     console.log(resp);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   this.closeLoadingModal(false);
-    //   this.util.showToast(error.error.message, 2000, 'danger');
-    // }
+      if(resp.code == '100'){
+        console.log(resp.message);
+        this.pinEnterModal.dismiss();
+        this.uiService.getLoadingStateSubject().next(true);
+        this.subService.getBalanceSubject().next(true);
+        this.pin = '';
+        this.investmentTransferAmount = '';
+        this.selectedInvestment = null;
+        // this.isSending =false;
+      }
+      else if(resp.code == '418'){
+        console.log(resp);
+      }
+    } catch (error) {
+      console.log(error);
+      this.loading.dismiss();
+      // this.closeLoadingModal(false);
+      this.util.showToast(error.error.message, 2000, 'danger');
+    }
   }
 
   private async doTransferBeneficiaryFunds() {
@@ -507,34 +633,60 @@ export class HomePage implements OnInit {
     }
     const payload = {
       pin: this.pin,
-      subscription: '',
+      // subscription: '',
       amount: this.beneficiaryTransferAmount,
-      beneficiary_id: '',
+      beneficiary_id: this.selectedBeneficiary.beneficiary_id
     };
 
-    this.pin = '';
-    this.beneficiaryTransferAmount = '';
+    // this.pin = '';
+    // this.beneficiaryTransferAmount = '';
     this.util.presentLoading();
     console.log(payload);
-    setTimeout(() => {
+    try {
+      const resp = await this.homeService.doTransferToBeneficiary(payload);
       this.loading.dismiss();
-      this.uiService.getLoadingStateSubject().next(true);
-      // this.isSending =false;
-    }, 1000);
-    // try {
-    //   const resp = await this.homeService.doTransferToUser(payload);
-    //   if(resp.code == '100'){
-    //     console.log(resp.message);
-    //     this.subService.getBalanceSubject().next(true);
-    //     this.isSending =false;
-    //   }
-    //   else if(resp.code == '418'){
-    //     console.log(resp);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   this.closeLoadingModal(false);
-    //   this.util.showToast(error.error.message, 2000, 'danger');
-    // }
+      if(resp.code == '100'){
+        console.log(resp.message);
+        this.pinEnterModal.dismiss();
+        this.uiService.getLoadingStateSubject().next(true);
+        this.subService.getBalanceSubject().next(true);
+        this.pin = '';
+        this.beneficiaryTransferAmount = '';
+        this.selectedBeneficiary = null;
+      }
+      else if(resp.code == '418'){
+        console.log(resp);
+      }
+    } catch (error) {
+      this.loading.dismiss();
+      this.util.showToast(error.error.message, 2000, 'danger');
+    }
+  }
+
+  //Gets initial payment account or qr ref code for dollar deposits
+  private async doInitialDollarDeposit(payload, type){
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.initiateWalletDeposit(payload);
+      this.loading.dismiss();
+      if (resp.code == 100) {
+        if(type === 'CASH'){
+          console.log(resp.data.transaction);
+          this.dollarQRPageData = resp.data.transaction;
+          this.dollarCashDepositModal.dismiss(); //Dismiss cash modal if present
+          this.depositDollarModal.dismiss(); //Dismiss first dollar modal if present
+          this.doDepositDollarCashModal.present(); //Present QR Page for cash payments
+          return;
+        }
+
+        //Go to dollar transfer and upload receipt page for type = 'TRANSFER'
+        this.router.navigateByUrl('/deposit', {
+          state: { url: this.router.url, data: resp.data },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      this.loading.dismiss();
+    }
   }
 }

@@ -20,6 +20,7 @@ export class WalletTransferUserPage implements OnInit {
 
   public fromPage: string;
   public transferUser: any;
+  public walletBalance: string;
   public transferHistory;
 
   public pin: string;
@@ -46,6 +47,7 @@ export class WalletTransferUserPage implements OnInit {
     if (this.router.getCurrentNavigation().extras.state) {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
+      this.walletBalance = state.walletBalance;
       this.transferUser = state.user;
       this.transferHistory = this.transferUser.transfer_history.reverse();
       console.log(this.transferHistory);

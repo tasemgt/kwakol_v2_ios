@@ -526,7 +526,7 @@ ion-row.investments-wrapper {
   height: 3rem;
 
   ion-icon {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -535,6 +535,10 @@ ion-row.investments-wrapper {
     --color: var(--ion-color-secondary);
     h3 {
       margin-top: 0.5rem;
+    }
+
+    h1{
+      font-family: BwModelicaBold;
     }
   }
 
@@ -689,6 +693,23 @@ ion-row.investments-wrapper {
         }
       }
     }
+
+    ion-col{
+      p.wallet-balance{
+        background-color: rgba(var(--ion-color-primary-rgb), 0.2);
+        color: rgba(var(--ion-color-secondary-rgb), 0.5);
+        width: fit-content;
+        padding: 0.1rem 0.3rem;
+        font-size: .7rem !important;
+        margin: 0 auto !important;
+        border-radius: 3px;
+
+        span{
+          color: var(--ion-color-secondary);
+          font-family: BwModelicaMedium;
+        }
+      }
+    }
   }
 
   &.deposit-modal {
@@ -785,6 +806,20 @@ ion-row.investments-wrapper {
       justify-content: center;
       gap: 3rem;
     }
+
+    .code-wrapper{
+      width: fit-content;
+      padding: .5rem 1rem;
+      border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+      border-radius: 5px;
+      background: #FFF;
+      margin: 0 auto;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
   }
 }
 
@@ -802,7 +837,7 @@ ion-modal.enter-pin {
     .img-wrapper {
       width: 100%;
       margin-bottom: 0.5rem;
-      .round-button {
+      .round-button, .default-img {
         border: none;
         margin: 0 auto;
       }
@@ -826,10 +861,18 @@ ion-modal.enter-pin {
       }
     }
 
+    h4{
+      text-align: center;
+      font-family: BwModelicaMedium;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
     h3 {
       text-align: center;
       font-family: BwModelicaBold;
       font-size: 1.8rem;
+      margin-bottom: 1rem;
     }
 
     .pin-wrapper {
