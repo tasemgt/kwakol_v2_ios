@@ -1,20 +1,37 @@
 <ion-header>
   <div class="auth-banner small">
-    <h3>Feed</h3>
+    <h3 class="title">Feed</h3>
+  </div>
+  <div class="sub-header">
+    <div class="user-item">
+      <div class="user-name">
+        <div class="img-wrapper">
+          <div class="default-img">
+            JA
+          </div>
+        </div>
+        <div class="name">
+          <p>@jenewari</p>
+          <h3>Jafu Jenewari</h3>
+        </div>
+      </div>
+      <h3>Edit Profile</h3>
+    </div>
   </div>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="page-content tab-page-white">
-
   <div class="feeds-wrapper">
-    <div class="feed" (click)="goToFeedDetails(feed)" *ngFor="let feed of feeds">
+    <div
+      class="feed"
+      (click)="goToFeedDetails(feed)"
+      *ngFor="let feed of feeds"
+    >
       <ion-row>
         <ion-col size="12">
           <div class="content">
             <p class="date">{{ feed.published | date}}</p>
-            <h5>
-              {{ feed.title }}
-            </h5>
+            <h5>{{ feed.title }}</h5>
             <p class="author">by {{ feed.author }}</p>
           </div>
         </ion-col>
@@ -41,13 +58,32 @@
         <ion-skeleton-text animated></ion-skeleton-text>
       </ion-thumbnail>
       <ion-label>
-        <h3><ion-skeleton-text class="left" animated style="width: 30%"></ion-skeleton-text></h3>
-        <h3><ion-skeleton-text class="left" animated style="width: 90%"></ion-skeleton-text></h3>
-        <h3><ion-skeleton-text class="left" animated style="width: 40%"></ion-skeleton-text></h3>
+        <h3>
+          <ion-skeleton-text
+            class="left"
+            animated
+            style="width: 30%"
+          ></ion-skeleton-text>
+        </h3>
+        <h3>
+          <ion-skeleton-text
+            class="left"
+            animated
+            style="width: 90%"
+          ></ion-skeleton-text>
+        </h3>
+        <h3>
+          <ion-skeleton-text
+            class="left"
+            animated
+            style="width: 40%"
+          ></ion-skeleton-text>
+        </h3>
       </ion-label>
     </ion-item>
   </div>
-  
-  <p class="no-feeds" *ngIf="feeds && feeds?.length <= 0">No feeds available for now...</p>
 
+  <p class="no-feeds" *ngIf="feeds && feeds?.length <= 0">
+    No feeds available for now...
+  </p>
 </ion-content>

@@ -73,17 +73,18 @@ export class TabsPage {
   }
 
   public openInfoModal(type, data) {
+    console.log('DATA', data);
     switch (type) {
       case 'deposit':
         this.infoModalData.icon = 'trans-deposit.svg';
         this.infoModalData.title = 'Deposit';
         this.infoModalData.content = [
-          { item: 'Account Name', value: 'Akim John' },
-          { item: 'Bank Name', value: 'Akim John' },
-          { item: 'Reference', value: 'Akim John' },
-          { item: 'Deposit Type', value: 'Akim John' },
-          { item: 'Rate', value: 'Akim John' },
-          { item: 'Fee', value: 'Akim John' },
+          { item: 'Account Name', value: data.fullname },
+          { item: 'Bank Name', value: '---' },
+          { item: 'Reference', value: data.ref },
+          { item: 'Deposit Type', value: data.type },
+          { item: 'Rate', value: '----' },
+          { item: 'Fee', value: '$'+data.amount },
         ];
         this.infoModalData.amount = '560';
         this.infoModalData.date = '16 Feb 2023 - 9:03am';
@@ -92,12 +93,12 @@ export class TabsPage {
         this.infoModalData.icon = 'trans-withdraw.svg';
         this.infoModalData.title = 'Withdrawal';
         this.infoModalData.content = [
-          { item: 'Account Name', value: 'Akim John' },
+          { item: 'Account Name', value: data.fullname },
           { item: 'Account Number', value: 'Akim John' },
-          { item: 'Bank Name', value: 'Akim John' },
-          { item: 'Reference', value: 'Akim John' },
-          { item: 'Withdrawal Type', value: 'Akim John' },
-          { item: 'Fee', value: 'Akim John' },
+          { item: 'Bank Name', value: '----' },
+          { item: 'Reference', value: data.ref },
+          { item: 'Withdrawal Type', value: data.type },
+          { item: 'Fee', value: '$'+data.amount },
         ];
         this.infoModalData.amount = '560';
         this.infoModalData.date = '16 Feb 2023 - 9:03am';

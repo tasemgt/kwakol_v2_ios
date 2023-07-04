@@ -81,7 +81,7 @@ export class RegisterPage implements OnInit {
     this.regCreds.date_of_birth = '1990-01-01';
     this.selectDOBModal.dismiss();
   }
-  
+
   public selectCountry(country){
     console.log(country);
     this.regCreds.country = country.name;
@@ -114,12 +114,16 @@ export class RegisterPage implements OnInit {
       }
     } catch (error) {
       this.loading.dismiss();
+      console.log('ERROR', error);
+      if(error.error.message.includes('Duplicate entry')){
+        this.util.showToast('Email or phone number already taken', 3000, 'danger');
+      }
     }
 
-    setTimeout(() => {
-      this.loading.dismiss();
-      this.otpModal.present();
-    }, 1500);
+    // setTimeout(() => {
+    //   this.loading.dismiss();
+    //   this.otpModal.present();
+    // }, 1500);
   }
 
   public onPinInputChange(){
@@ -133,18 +137,19 @@ export class RegisterPage implements OnInit {
   }
 
   public async verifyOTP() {
+    const tempUser = await this.storage.get('INITIAL_REG');
     this.otpModal.dismiss();
     this.util.presentLoading();
     try {
       const resp = await this.auth.registerConfirm(this.otp, this.initialToken);
       this.loading.dismiss();
       if(resp.code == '100'){
-        this.storage.remove('INITIAL_REG');
         setTimeout(() => {
           this.util.presentLoadingModal({
             loadingText: 'Setting up your account...',
             onClosePageUrl: '/kyc',
             fromPageUrl: this.router.url,
+            data : tempUser
           });
         }, 100);
       }

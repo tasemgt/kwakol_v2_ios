@@ -115,6 +115,10 @@ const routes: Routes = [
   {
     path: 'wallet-transfer-user',
     loadChildren: () => import('./pages/subpages/for-generic/wallet-transfer-user/wallet-transfer-user.module').then( m => m.WalletTransferUserPageModule)
+  },
+  {
+    path: 'beneficiaries',
+    loadChildren: () => import('./pages/subpages/for-home/beneficiaries/beneficiaries.module').then( m => m.BeneficiariesPageModule)
   }
 ];
 @NgModule({

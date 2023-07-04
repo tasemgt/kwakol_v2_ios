@@ -68,7 +68,7 @@
             class="did-floating-input email"
             type="email"
             placeholder=" "
-            [value]="regCreds.email"
+            [value]="regCreds?.email"
             [disabled]="true"
             #email
           />
@@ -160,7 +160,15 @@
     <ng-template>
       <ion-content>
         <h3>Date of Birth</h3>
-        <ion-datetime presentation="date" mode="md" size="cover"></ion-datetime>
+        <!-- <ion-datetime presentation="date" mode="md" size="cover"></ion-datetime> [(ngModel)]="regCreds.date_of_birth" -->
+
+        <ion-datetime 
+            [size]="'fixed'"
+            presentation="date"
+            mode="md"
+            [doneText]="'Select'"
+            >
+          </ion-datetime>
 
         <ion-row class="btn-row">
           <ion-col size="6">

@@ -199,8 +199,9 @@ export class OnboardingPage implements OnInit {
       });
       this.loading.dismiss();
       setTimeout(() => form.reset(), 100);
-      if (!resp.token) {
-        this.util.showToast(resp.message, 3000, 'danger');
+      if (!resp?.token) {
+        console.log(resp?.message);
+        // this.util.showToast(resp?.message, 3000, 'danger');
         return;
       }
     } catch (err) {
@@ -283,15 +284,20 @@ export class OnboardingPage implements OnInit {
       return;
     }
 
+    const userInfo = {email, password, confirmPassword};
+
     await this.util.presentLoading();
     this.loading.dismiss();
 
     setTimeout(() => {
       this.loading.dismiss();
       this.showRegisterForm = false;
-      this.router.navigateByUrl('/register', {
-        state: { userInfo: {email, password, confirmPassword},  url: this.router.url }
-      });
+      setTimeout(() =>{
+        console.log('USER>>', userInfo);
+        this.router.navigateByUrl('/register', {
+          state: { userInfo,  url: this.router.url }
+        });
+      }, 500);
     }, 3000);
   }
 

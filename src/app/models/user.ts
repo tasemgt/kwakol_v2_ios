@@ -26,7 +26,7 @@ export class RegisterCred{
 
   email: string;
   firstname: string;
-  middlename: string;
+  middlename?: string;
   lastname: string;
   username: string;
   date_of_birth: string;

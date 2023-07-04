@@ -77,10 +77,17 @@ export class AuthService {
     try{
       const resp: User = await this.http.post(`${this.baseUrl}/v1/login`, payload, this.headers);
 
-      if(resp.new_user === 'YES'){
+      // if(resp.new_user === 'YES'){
+      //   this.dataService.setAccessToken(resp.token);
+      //   this.util.showToast('Successful! Kindly reset your password to continue...', 3000, 'success');
+      //   this.router.navigateByUrl('/change-password', {state: {url: this.router.url, user: resp}});
+      //   return;
+      // }
+
+      if(!resp.has_pin){
         this.dataService.setAccessToken(resp.token);
-        this.util.showToast('Successful! Kindly reset your password to continue...', 3000, 'success');
-        this.router.navigateByUrl('/change-password', {state: {url: this.router.url, user: resp}});
+        this.util.showToast('You\'ll need to set your pin to continue to application', 3000, 'warning');
+        this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: resp}});
         return;
       }
 
@@ -107,6 +114,7 @@ export class AuthService {
       return Promise.resolve(resp);
     } catch (error) {
       console.log(error);
+      return Promise.reject(error);
     }
   }
 
@@ -116,6 +124,17 @@ export class AuthService {
       const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`};
       console.log(headers);
       return this.http.post(`${this.baseUrl}/v2/register-confirm`, {otp}, headers);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async setPin(payload){
+    try {
+      const initialReg = await this.storage.get('INITIAL_REG');
+      const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`};
+      console.log(headers);
+      return this.http.post(`${this.baseUrl}/v2/create-pin`, payload, headers);
     } catch (error) {
       console.log(error);
     }

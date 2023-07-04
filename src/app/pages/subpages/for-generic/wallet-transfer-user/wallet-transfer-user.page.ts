@@ -49,7 +49,9 @@ export class WalletTransferUserPage implements OnInit {
       this.fromPage = state.url;
       this.walletBalance = state.walletBalance;
       this.transferUser = state.user;
-      this.transferHistory = this.transferUser.transfer_history.reverse();
+      if(this.transferUser.transfer_history){
+        this.transferHistory = this.transferUser.transfer_history.reverse();
+      }
       console.log(this.transferHistory);
     }
   }

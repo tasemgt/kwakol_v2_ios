@@ -46,6 +46,9 @@ export class HomePage implements OnInit {
   @ViewChild('dollarCashWithdrawalModal') dollarCashWithdrawalModal: IonModal;
   @ViewChild('pinEnterModalWithdrawal') pinEnterModalWithdrawal: IonModal;
 
+
+  @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
+
   //Loading Modals
   @ViewChild('LoadingModalDiv') loadingModalDiv: ElementRef;
   @ViewChild('backdrop') backdrop: ElementRef;
@@ -97,6 +100,7 @@ export class HomePage implements OnInit {
   //Deposit Modal states
   public dollarCashAmount: string;
   public dollarQRPageData: any;
+  public nairaDepositeModalData: any;
 
   //Withdrawal Modal states
   public dollarCashWithdrawAmount: string;
@@ -178,8 +182,10 @@ export class HomePage implements OnInit {
   }
 
   public async getHome() {
+    this.listSpinner = true;
     try {
       const resp = await this.homeService.getHome();
+      this.listSpinner = false;
       if (resp.code === '100') {
         this.home = resp.data.home;
         this.wallet = this.home.wallet;
@@ -188,16 +194,11 @@ export class HomePage implements OnInit {
         this.homeBalance = this.util.numberWithCommas(
           this.investment.total_fund
         );
-
-        // const top = await this.loading.getTop();
-        // if(top){
-        //   this.loading.dismiss();
-        //   this.goToPage(this.childPage);
-        // }
         console.log(this.home);
         console.log(this.investment);
       }
     } catch (error) {
+      // this.listSpinner = false;
       console.log(error);
       if (error.status === 0) {
         !this.toastShown
@@ -438,14 +439,29 @@ export class HomePage implements OnInit {
     this.depositModal.present();
   }
 
-  public openCurrencyDepositModal(type) {
+  public async openCurrencyDepositModal(type) {
     if (type === 'naira') {
+      //Naira
+      const payload = {
+        currency: 'NGN',
+        type: 'CASH',
+        amount: 100 //test amount...
+      };
       this.util.presentLoading();
-      setTimeout(() => {
+      try {
+        const resp = await this.homeService.initiateWalletDeposit(payload);
         this.loading.dismiss();
         this.depositModal.dismiss();
         this.depositNairaModal.present();
-      }, 1500);
+        if(resp.code == 100){
+          console.log(resp.data);
+          this.nairaDepositeModalData = resp.data;
+        }
+      } catch (error) {
+        this.loading.dismiss();
+        console.log(error);
+        this.util.showToast('An error occurred.', 2000, 'danger');
+      }
     } else {
       //Dollar
       this.depositModal.dismiss();
@@ -547,6 +563,32 @@ export class HomePage implements OnInit {
   //   this.withdrawDollarModal.dismiss();
   //   this.dollarCashDepositModal.present();
   // }
+
+
+
+  // INVESTMENTS SEGMENT AREA //
+
+  public openMoreOptionsModal(){
+    this.moreOptionsModal.present();
+  }
+
+  public async goToBeneficiariesPage(){
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getBeneficiaries();
+      this.loading.dismiss();
+      if(resp.code == 100){
+        this.myBeneficiaries = resp.data;
+        this.moreOptionsModal.dismiss();
+        this.router.navigateByUrl('/beneficiaries', {state: {url: this.router.url, beneficiaries: this.myBeneficiaries}});
+      }
+    }
+    catch(e){
+      this.loading.dismiss();
+      this.util.showToast('Please try again', 2000, 'danger');
+      console.log(e);
+    }
+  }
 
 
 

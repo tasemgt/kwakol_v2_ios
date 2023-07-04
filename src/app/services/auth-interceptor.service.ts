@@ -18,6 +18,9 @@ export class AuthInterceptorService implements HttpInterceptor {
     if(url === 'https://v2.kwml.work/api/v2/register-confirm'){
       return next.handle(req);
     }
+    if(url === 'https://v2.kwml.work/api/v2/create-pin'){
+      return next.handle(req);
+    }
     // if(
       //   !(url.includes('/login') ||
       //     url.includes('/onboarding') ||

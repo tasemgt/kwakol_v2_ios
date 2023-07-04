@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { IonModal, LoadingController, Platform } from '@ionic/angular';
 import { KeypadComponent } from 'src/app/components/keypad/keypad.component';
 import { constants } from 'src/app/models/constants';
+import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UtilService } from 'src/app/services/util.service';
 
 declare const cordova: any;
@@ -19,6 +21,7 @@ export class KycPage implements OnInit {
   public pinText: string;
 
   public fromPage: string;
+  public tempUser: any;
   public constants = constants;
 
   public inputs = ['', '', '', ''];
@@ -28,21 +31,30 @@ export class KycPage implements OnInit {
   public confirmPin = '';
 
   public showConfirm = false;
+  public isVerified = false;
 
   constructor(
     private router: Router,
     private util: UtilService,
     private loading: LoadingController,
+    private auth: AuthService,
+    private storage: StorageService,
     private platform: Platform,
     private el: ElementRef
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
-      this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+      const state = this.router.getCurrentNavigation().extras.state;
+      this.fromPage = state.url;
+      this.tempUser = state.data;
+      this.isVerified = this.tempUser.verified_kyc;
+
+      console.log('SSSS', state);
     }
   }
 
   ngOnInit() {
     this.pinText = '';
+    console.log('TEMP_USER', this.tempUser);
   }
 
   public async openSetPinModal() {
@@ -84,26 +96,52 @@ export class KycPage implements OnInit {
     }
   }
 
-  public handlePinSubmit(type){
-    this.appKeypad.onClearEmitter();
-    if(type === 'continue' && this.pin.length === 4){
+  public async handlePinSubmit(type){
+    if(type === 'continue'){
       console.log('HIIIIIIIIIII>>');
-      this.inputs = ['', '', '', ''];
-      this.pinText = '';
-      this.showConfirm = true;
+      if(this.pin.length === 4){
+        this.inputs = ['', '', '', ''];
+        this.pinText = '';
+        this.showConfirm = true;
+        this.appKeypad.onClearEmitter();
+      }
+      else{
+        this.util.showToast('A 4 digit pin is required to continue', 2000, 'danger');
+      }
     }
     else{
       //Confirm part
       console.log('Every>> ', this.pin, this.confirmPin);
-
-      //Proceed to login
+      if(this.pin !== this.confirmPin){
+        this.util.showToast('Both pins do not match', 2000, 'danger');
+        return;
+      }
+      const payload = {
+        pin: this.pin,
+        pin_confirmation: this.confirmPin
+      };
+      console.log(payload);
       this.util.presentLoading();
-      setTimeout(async () => {
+      try {
+        const resp = await this.auth.setPin(payload);
         this.loading.dismiss();
-        await this.setPinModal.dismiss();
-        // this.util.presentAlertModal('depositConfirm');
-        this.router.navigateByUrl('/onboarding');
-      }, 1000);
+        if(resp.code == 100){
+          this.util.showToast('Pin set successfully', 3000, 'success');
+          this.storage.remove('INITIAL_REG');
+          this.router.navigateByUrl('/onboarding');
+          await this.setPinModal.dismiss();
+        }
+        else{
+          this.util.showToast(resp.message, 2000, 'danger');
+        }
+      } catch (error) {
+        console.log('FAILED>', error);
+        this.loading.dismiss();
+      }
+      // setTimeout(async () => {
+      //   // this.util.presentAlertModal('depositConfirm');
+      // }, 1000);
+      // this.storage.remove('INITIAL_REG');
     }
   }
 
@@ -138,6 +176,9 @@ export class KycPage implements OnInit {
         console.log(
           'setMetaMapCallback success Verification: ' + params.verificationID
         );
+        this.util.showToast('KYC verification successful..', 2500, 'success');
+
+        this.openSetPinModal();
       },
 
       //Send IDs to backend for storage and confirmation in future..

@@ -108,7 +108,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         //   return;
         // }
         // else{
-          this.checkAutoLockState();
+          // this.checkAutoLockState();
         // }
       });
 
@@ -134,7 +134,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log('State', state);
       if (state === true) {
         console.log('Logged In 😇 ');
-        this.router.navigateByUrl('/tabs/home');
+        this.router.navigateByUrl('/tabs/profile');
       } else if(state === false){
         console.log('Logged Out 😢');
         this.router.navigateByUrl('/onboarding');

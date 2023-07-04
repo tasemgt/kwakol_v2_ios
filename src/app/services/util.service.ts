@@ -77,7 +77,7 @@ export class UtilService {
     return loading;
   }
 
-  public async presentLoadingModal(params: {loadingText: string; onClosePageUrl: string; fromPageUrl: string}){
+  public async presentLoadingModal(params: {loadingText: string; onClosePageUrl: string; fromPageUrl: string; data?: any}){
     // ModalLoaderParams {loadingText, onClosePage}
     try {
       const modal = await this.modalCtrl.create({
@@ -90,7 +90,7 @@ export class UtilService {
       });
       await modal.present();
       const {data} = await modal.onWillDismiss();
-      data ? this.router.navigateByUrl(params.onClosePageUrl, { state: {url: params.fromPageUrl}}) : '';
+      data ? this.router.navigateByUrl(params.onClosePageUrl, { state: {url: params.fromPageUrl, data: params.data}}) : '';
     }
     catch (error) {
       console.log('Error: ', error);
