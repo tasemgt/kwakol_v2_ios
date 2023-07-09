@@ -23,6 +23,10 @@ export class FeedPage implements OnInit {
     this.router.navigateByUrl('/feed-details', {state: {url:this.router.url, feed}});
   }
 
+  public viewNotifications(){
+    this.router.navigateByUrl('/notifications', {state: {url: this.router.url}});
+  }
+
   private async getFeeds(){
     try {
       const resp = await this.feedService.getFeeds();
@@ -34,4 +38,5 @@ export class FeedPage implements OnInit {
       console.log(error);
     }
   }
+
 }

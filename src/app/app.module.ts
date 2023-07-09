@@ -47,3 +47,4 @@ import { BnNgIdleService } from 'bn-ng-idle';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+

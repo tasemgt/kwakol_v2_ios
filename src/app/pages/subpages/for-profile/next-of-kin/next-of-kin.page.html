@@ -1,0 +1,81 @@
+<ion-content class="page-content">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading left">Next of Kin</h2>
+
+  <ion-row class="inputs-wrapper" style="margin-top: 2rem;">
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="nextOfKin.firstname"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">First Name</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="nextOfKin.lastname"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Las Name</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="tel"
+          placeholder=" "
+          [(ngModel)]="nextOfKin.phone"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Phone Number</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="email"
+          placeholder=" "
+          [(ngModel)]="nextOfKin.email"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Email</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="nextOfKin.relationship"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Relationship</label>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="btn-row">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button class="kwakol-btn ion-text-uppercase" type="submit">Confirm</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

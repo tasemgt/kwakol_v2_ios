@@ -22,7 +22,7 @@
 
 <ion-content [fullscreen]="true" class="page-content">
   <div class="actions">
-    <div class="action" (click)="goToPage('/account-details')">
+    <div class="action" (click)="goToBeneficiariesPage()">
       <div class="action-name">
         <div class="round-button">
           <ion-icon
@@ -33,7 +33,7 @@
       </div>
       <ion-icon class="arrow" src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action" (click)="goToPage('/account-details')">
+    <div class="action" (click)="openAccountManagerModal()">
       <div class="action-name">
         <div class="round-button">
           <ion-icon
@@ -44,7 +44,7 @@
       </div>
       <ion-icon class="arrow" src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action" (click)="goToPage('/account-details')">
+    <div class="action" (click)="goToNextOfKin()">
       <div class="action-name">
         <div class="round-button">
           <ion-icon
@@ -55,7 +55,7 @@
       </div>
       <ion-icon class="arrow" src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action" (click)="goToPage('/account-details')">
+    <div class="action">
       <div class="action-name">
         <div class="round-button">
           <ion-icon
@@ -66,7 +66,7 @@
       </div>
       <ion-icon class="arrow" src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action" (click)="goToPage('/account-details')">
+    <div class="action" (click)="goToChangePasswordPage()">
       <div class="action-name">
         <div class="round-button">
           <ion-icon
@@ -77,7 +77,7 @@
       </div>
       <ion-icon class="arrow" src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <div class="action" (click)="goToPage('/account-details')">
+    <div class="action" >
       <div class="action-name">
         <div class="round-button">
           <ion-icon
@@ -88,22 +88,6 @@
       </div>
       <ion-icon class="arrow" src="assets/icon/arrow-forward.svg"></ion-icon>
     </div>
-    <!-- <div class="action" (click)="goToPage('/affiliate-link')">
-      Affiliate Link
-      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-    </div>
-    <div class="action" (click)="requestPasswordReset()">
-      Password Reset
-      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-    </div> -->
-    <!-- <div class="action">
-      Help
-      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-    </div> -->
-    <!-- <div class="action">
-      Kwakol Gold Card
-      <ion-icon src="assets/icon/arrow-forward.svg"></ion-icon>
-    </div> -->
   </div>
 
   <div class="actions bottom">
@@ -135,4 +119,47 @@
   >
     Log Out
   </ion-button>
+
+
+  <!-- Account Manager modal -->
+  <ion-modal
+    #accountManagerModal
+    [initialBreakpoint]="0.18"
+    [breakpoints]="[0, 0.18]"
+    class="kwakol-modal-bottom-drawer2"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <!-- <div class="round-button">
+          <ion-icon src="assets/icon/padlock.svg"></ion-icon>
+        </div> -->
+        <h3>Account Manager</h3>
+
+        <div class="item">
+          <div>
+            <div class="default-img">
+              {{user.fullname.split(' ')[0][0]}}{{user.fullname.split(' ')[1][0]}}
+            </div>
+            Eyitope Oladapo
+          </div>
+          <div>
+            <div class="round-button">
+              <ion-icon
+                [src]="'assets/icon/v2-icons/round-btns/call.svg'"
+              ></ion-icon>
+            </div>
+            <div class="round-button">
+              <ion-icon
+                [src]="'assets/icon/v2-icons/round-btns/mail.svg'"
+              ></ion-icon>
+            </div>
+          </div>
+        </div>
+        
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Account Manager Modal -->
+
 </ion-content>

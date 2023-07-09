@@ -28,9 +28,9 @@ export class TabsPage {
 
   public tabList = {
     home: false,
-    portfolio: false,
+    // portfolio: false,
     history: false,
-    feed: false,
+    explore: false,
     profile: false,
   };
 
@@ -67,7 +67,8 @@ export class TabsPage {
 
   public onTabChange(): void {
     this.previousTab = this.selectedTab;
-    this.selectedTab = this.tabs.getSelected();
+    this.selectedTab = this.tabs.getSelected() === 'feed' ? 'explore' : this.tabs.getSelected();
+    console.log(this.selectedTab);
     this.tabList[this.selectedTab] = true;
     this.tabList[this.previousTab] = false;
   }

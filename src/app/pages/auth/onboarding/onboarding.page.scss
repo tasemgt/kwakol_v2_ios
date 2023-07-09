@@ -259,31 +259,6 @@ div.login-password {
     }
   }
 
-  .rules {
-    width: 80%;
-    font-size: 0.75rem;
-    letter-spacing: 0.01rem;
-    color: rgba(var(--ion-text-gray-color-rgb), 0.85);
-    font-family: "BwModelicaLight";
-
-    ul {
-      padding-left: 1.5rem;
-      margin-top: 0.2rem;
-      li {
-        div {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          ion-icon {
-            font-size: 0.9rem;
-          }
-        }
-      }
-    }
-  }
-
   //Input focus animation
   &.slide-up {
     bottom: 18.5rem;

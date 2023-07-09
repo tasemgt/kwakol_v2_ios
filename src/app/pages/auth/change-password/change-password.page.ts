@@ -16,6 +16,10 @@ export class ChangePasswordPage implements OnInit {
   public passwordType = 'password';
   public passwordIcon = 'eye-close';
 
+  public currentPassword: string;
+  public newPassword: string;
+  public confirmPassword: string;
+
   public fromPage: string;
   public user: User;
 

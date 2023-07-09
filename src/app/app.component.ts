@@ -134,7 +134,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log('State', state);
       if (state === true) {
         console.log('Logged In 😇 ');
-        this.router.navigateByUrl('/tabs/profile');
+        this.router.navigateByUrl('/tabs/feed');
       } else if(state === false){
         console.log('Logged Out 😢');
         this.router.navigateByUrl('/onboarding');

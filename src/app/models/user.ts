@@ -42,7 +42,18 @@ export class RegisterCred{
     this.phone = ''; this.password = ''; this.country = '';  this.password_confirmation = ''; this.notification_id = '';
     this.remember_me = false;
   }
+}
 
+export class NextOfKin{
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  phone?: string;
+  relationship?: string;
+
+  constructor(){
+    this.email = ''; this.firstname = ''; this.lastname = ''; this.phone = ''; this.relationship = '';
+  }
 }
 
 // export interface RegisterCred{

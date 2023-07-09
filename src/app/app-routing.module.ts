@@ -119,6 +119,26 @@ const routes: Routes = [
   {
     path: 'beneficiaries',
     loadChildren: () => import('./pages/subpages/for-home/beneficiaries/beneficiaries.module').then( m => m.BeneficiariesPageModule)
+  },
+  {
+    path: 'next-of-kin',
+    loadChildren: () => import('./pages/subpages/for-profile/next-of-kin/next-of-kin.module').then( m => m.NextOfKinPageModule)
+  },
+  {
+    path: 'notifications',
+    loadChildren: () => import('./pages/subpages/for-feed/notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },
+  {
+    path: 'faqs',
+    loadChildren: () => import('./pages/subpages/for-feed/faqs/faqs.module').then( m => m.FaqsPageModule)
+  },
+  {
+    path: 'faq-details',
+    loadChildren: () => import('./pages/subpages/for-feed/faq-details/faq-details.module').then( m => m.FaqDetailsPageModule)
+  },
+  {
+    path: 'feeds',
+    loadChildren: () => import('./pages/subpages/for-feed/feeds/feeds.module').then( m => m.FeedsPageModule)
   }
 ];
 @NgModule({

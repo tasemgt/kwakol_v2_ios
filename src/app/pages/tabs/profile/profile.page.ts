@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { IonModal, LoadingController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
+import { HomeService } from 'src/app/services/home.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -14,8 +15,12 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class ProfilePage implements OnInit {
 
+  @ViewChild('accountManagerModal') accountManagerModal: IonModal;
+
   public user: User;
   public accountDeets;
+
+  public myBeneficiaries = [];
 
   private execptions = ['/settings'];
 
@@ -24,6 +29,7 @@ export class ProfilePage implements OnInit {
     private auth: AuthService,
     private profileService: ProfileService,
     private util: UtilService,
+    private homeService: HomeService,
     private dataService: DataService,
     private loading: LoadingController) {}
 
@@ -96,7 +102,36 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  public async goToNextOfKin(){
+    this.router.navigateByUrl('/next-of-kin', {state: {url: this.router.url}});
+  }
+
   public goToLinks(link: string): void{
     window.open(link, '_system', 'location=yes');
+  }
+
+  public openAccountManagerModal(){
+    this.accountManagerModal.present();
+  }
+
+  public async goToBeneficiariesPage(){
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getBeneficiaries();
+      this.loading.dismiss();
+      if(resp.code == 100){
+        this.myBeneficiaries = resp.data;
+        this.router.navigateByUrl('/beneficiaries', {state: {url: this.router.url, beneficiaries: this.myBeneficiaries}});
+      }
+    }
+    catch(e){
+      this.loading.dismiss();
+      this.util.showToast('Please try again', 2000, 'danger');
+      console.log(e);
+    }
+  }
+
+  public goToChangePasswordPage(){
+    this.router.navigateByUrl('/change-password', {state: {url: this.router.url, user: this.user}});
   }
 }
