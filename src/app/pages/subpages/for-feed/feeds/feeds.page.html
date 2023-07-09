@@ -1,9 +1,49 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>feeds</ion-title>
-  </ion-toolbar>
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading left">Recent News</h2>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="page-content">
+
+  <ion-row class="news-wrapper">
+    <ion-col size="6">
+      <div class="news" (click)="viewFeedDetails()">
+        <div class="img-wrapper">
+          <img src="assets/imgs/v2-imgs/news1.png" alt="">
+        </div>
+        <h4>Kwakol Markets Wins Multiple Awards at the iFX Expo International</h4>
+        <p>February 21, 2022</p>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="news">
+        <div class="img-wrapper">
+          <img src="assets/imgs/v2-imgs/news1.png" alt="">
+        </div>
+        <h4>Kwakol Markets Wins Multiple Awards at the iFX Expo International</h4>
+        <p>February 21, 2022</p>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="news">
+        <div class="img-wrapper">
+          <img src="assets/imgs/v2-imgs/news1.png" alt="">
+        </div>
+        <h4>Kwakol Markets Wins Multiple Awards at the iFX Expo International</h4>
+        <p>February 21, 2022</p>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="news">
+        <div class="img-wrapper">
+          <img src="assets/imgs/v2-imgs/news1.png" alt="">
+        </div>
+        <h4>Kwakol Markets Wins Multiple Awards at the iFX Expo International</h4>
+        <p>February 21, 2022</p>
+      </div>
+    </ion-col>
+  </ion-row>
 
 </ion-content>

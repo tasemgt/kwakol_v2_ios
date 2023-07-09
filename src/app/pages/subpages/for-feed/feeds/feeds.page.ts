@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feeds',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedsPage implements OnInit {
 
-  constructor() { }
+  public fromPage: string;
+
+  constructor(private router: Router) {
+    if (this.router.getCurrentNavigation().extras.state) {
+      const state = this.router.getCurrentNavigation().extras.state;
+      this.fromPage = state.url;
+    }
+  }
+
+  public viewFeedDetails(){
+    this.router.navigateByUrl('/feed-details', {state: {url: this.router.url}});
+  }
 
   ngOnInit() {
   }

@@ -1,0 +1,53 @@
+ion-header {
+  position: relative;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+  background: var(--ion-color-tertiary);
+  padding: 5rem 1.35rem 0.7rem 1.35rem;
+}
+
+.header-md::after {
+  background-image: none;
+}
+
+h2.subpage-heading.left {
+  color: var(--ion-color-secondary);
+  margin-top: 0rem;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+ion-row.faqs-wrapper {
+  margin: 0 -0.6rem;
+  ion-col {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    .thumbnail {
+      border-radius: 7px;
+      position: relative;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 12rem;
+      width: 93%;
+
+      .icon-wrapper {
+        width: 100%;
+        padding: 0.6rem;
+        ion-icon {
+          float: right;
+          font-size: 1.8rem;
+        }
+      }
+
+      p {
+        position: absolute;
+        font-family: BwModelicaLight;
+        color: rgba(var(--ion-color-tertiary-rgb), 0.7);
+        padding: 0 0.5rem;
+        bottom: 0;
+      }
+    }
+  }
+}

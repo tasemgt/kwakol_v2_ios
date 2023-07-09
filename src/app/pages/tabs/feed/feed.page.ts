@@ -27,6 +27,22 @@ export class FeedPage implements OnInit {
     this.router.navigateByUrl('/notifications', {state: {url: this.router.url}});
   }
 
+  public viewFAQs(){
+    this.router.navigateByUrl('/faqs', {state: {url: this.router.url}});
+  }
+
+  public viewFAQDetails(){
+    this.router.navigateByUrl('/faq-details', {state: {url: this.router.url}});
+  }
+
+  public viewNewsFeeds(){
+    this.router.navigateByUrl('/feeds', {state: {url: this.router.url}});
+  }
+
+  public viewNewsFeedsDetails(){
+    this.router.navigateByUrl('/feed-details', {state: {url: this.router.url}});
+  }
+
   private async getFeeds(){
     try {
       const resp = await this.feedService.getFeeds();

@@ -1,9 +1,30 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>faq-details</ion-title>
-  </ion-toolbar>
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading left">Frequently Asked Questions</h2>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="page-content">
+
+  <div class="thumbnail-large" style="background-image:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('../../../../assets/imgs/v2-imgs/feed1.jpg');">
+    <div class="icon-wrapper">
+      <ion-icon src="assets/icon/v2-icons/play-big.svg"></ion-icon>
+    </div>
+  </div>
+
+  <p class="p0">Transcript</p>
+
+  <h5>How to transfer funds to your investment</h5>
+
+  <p class="p1">Transferring funds form your wallet to your investment is very easy. Simply follow these few steps</p>
+
+  <div class="steps">
+    <p>Step 1- On the homepage, click transfer</p>
+    <p>Step 2- Select Investment</p>
+    <p>Step 3- Select the investment you want to transfer to</p>
+    <p>Step 4- Enter Amount</p>
+    <p>Step 5- Enter your PIN</p>
+  </div>
 
 </ion-content>

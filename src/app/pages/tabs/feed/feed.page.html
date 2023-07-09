@@ -28,7 +28,7 @@
   
   <div class="recent-view">
     <p class="section-title">Frequently Asked Questions</p>
-    <p class="section-title">
+    <p class="section-title" (click)="viewFAQs()">
       View all
       <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon>
     </p>
@@ -36,7 +36,7 @@
   
   <ion-row class="faqs-wrapper">
     <ion-col size="6">
-      <div class="thumbnail" style="background-image:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('../../../../assets/imgs/v2-imgs/feed1.jpg');">
+      <div class="thumbnail" (click)="viewFAQDetails()" style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('../../../../assets/imgs/v2-imgs/feed1.jpg');">
         <div class="icon-wrapper">
           <ion-icon src="assets/icon/v2-icons/play.svg"></ion-icon>
         </div>
@@ -89,7 +89,7 @@
 
   <div class="recent-view">
     <p class="section-title">Recent News</p>
-    <p class="section-title">
+    <p class="section-title" (click)="viewNewsFeeds()">
       View all
       <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon>
     </p>
@@ -97,7 +97,7 @@
   
   <ion-row class="news-wrapper">
     <ion-col size="6">
-      <div class="news">
+      <div class="news" (click)="viewNewsFeedsDetails()">
         <div class="img-wrapper">
           <img src="assets/imgs/v2-imgs/news1.png" alt="">
         </div>

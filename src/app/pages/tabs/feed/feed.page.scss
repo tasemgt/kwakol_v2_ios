@@ -102,11 +102,9 @@ ion-row.faqs-wrapper {
     .thumbnail {
       border-radius: 7px;
       position: relative;
-      //   background-image: url('../../../../assets/imgs/feed1.jpg');
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
-      background-color: blueviolet;
       height: 12rem;
       width: 93%;
 
@@ -160,53 +158,6 @@ ion-row.news-wrapper {
         color: rgba(var(--ion-color-primary-rgb), 0.7);
       }
     }
-  }
-}
-
-.feeds-wrapper {
-  //   margin-top: 2rem;
-}
-
-.feed {
-  position: relative;
-  border: 1px solid var(--ion-light-green-color);
-  background-color: var(--ion-color-tertiary);
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border-radius: 5px;
-
-  ion-row {
-    ion-col {
-      margin: 0;
-
-      &[size="7"] {
-        padding-top: 0.1rem;
-        margin-left: 0.5rem;
-      }
-    }
-  }
-
-  img {
-    margin-top: 0.3rem;
-    // position: absolute;
-    // left: 0.6rem;
-    // top: 0.7rem;
-    width: 100%;
-  }
-
-  p.date {
-    color: var(--ion-color-primary);
-    font-size: 0.7rem;
-  }
-  h5 {
-    // height: 3.05rem;
-    font-size: 0.85rem;
-    font-family: BwModelicaBold;
-    margin: 0.2rem 0;
-  }
-
-  p.author {
-    font-size: 0.63rem;
   }
 }
 

@@ -1,0 +1,83 @@
+ion-header {
+  position: relative;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+  background: var(--ion-color-secondary);
+  padding: 5rem 1.35rem 0.7rem 1.35rem;
+}
+
+.header-md::after {
+  background-image: none;
+}
+
+h2.subpage-heading.left {
+  color: var(--ion-color-tertiary);
+  margin-top: 0rem;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+ion-content {
+  --background: var(--ion-color-secondary);
+}
+
+p,
+h5 {
+  color: var(--ion-color-tertiary);
+  margin: 0;
+}
+
+.thumbnail-large {
+  border-radius: 10px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 13rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .icon-wrapper {
+    width: fit-content;
+    ion-icon {
+      font-size: 3.8rem;
+    }
+  }
+}
+
+p.p0 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.02rem;
+  font-family: BwModelicaLight;
+  color: rgba(var(--ion-color-tertiary-rgb), 0.7);
+}
+
+h5 {
+  font-family: BwModelicaMedium;
+  width: 90%;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+p.p1,
+.steps p {
+  font-family: BwModelicaLight;
+  color: rgba(var(--ion-color-tertiary-rgb), 0.7);
+  letter-spacing: 0.03rem;
+  font-size: 0.87rem;
+}
+
+p.p1 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.steps {
+  p {
+    margin-bottom: 0.3rem;
+  }
+}
