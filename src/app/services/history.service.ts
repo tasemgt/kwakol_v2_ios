@@ -15,8 +15,8 @@ export class HistoryService {
 
   constructor(private http: HttpService) { }
 
-  public getHistories(param: string){
-    return this.http.get(`${this.baseUrl}/history/${param}`, {}, this.headers);
+  public getHistories(){
+    return this.http.get(`${this.baseUrl}/v2/transaction-history`, {}, this.headers);
   }
 
   public getHistoriesByDate(payload){

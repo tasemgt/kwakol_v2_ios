@@ -1,138 +1,197 @@
-h3,h4,p{
-    margin: 0;
+ion-header {
+  background-color: var(--ion-color-secondary);
 }
 
-ion-header{
-    padding-left: 1.8rem;
-    padding-right: 1.8rem;
-    background-color: #fff;
+.header-md::after {
+  background-image: none;
 }
 
-.header-md::after{
-    background-image: none;
+ion-content {
+  --padding-top: 2rem;
+  --padding-start: 1.3rem;
+  --padding-end: 1.3rem;
+  --background: var(--ion-color-tertiary);
+  // --padding-bottom: 2rem;
 }
 
-ion-row.types-wrapper{
-    overflow-y: scroll;
-    flex-wrap: nowrap;
-    margin: 1rem -1.35rem 0 -1.35rem;
+h3,
+h4,
+p {
+  margin: 0;
+}
 
-    &::-webkit-scrollbar {
-      display: none; //Disables browser's default scroll bar
+p {
+  font-family: BwModelicaRegular;
+}
+
+.sub-header {
+  padding: 0.8rem 1.3rem;
+  border-bottom: none;
+
+  ion-segment {
+    ion-segment-button {
+      // --background: rgba(var(--ion-color-primary-rgb), 0.2);
+      text-transform: capitalize;
+      --ripple-color: transparent;
+      font-size: 0.87rem;
+      font-family: "BwModelicaLight";
+      letter-spacing: 0rem;
+      font-size: 0.82rem;
+      --color-checked: var(--ion-color-secondary);
+      --indicator-color: var(--ion-color-primary);
+
+      &::part(native) {
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+      }
     }
+  }
+}
 
-    ion-col{
-      padding: 0;
+ion-row.types-wrapper {
+  overflow-y: scroll;
+  flex-wrap: nowrap;
+  margin: 1rem -1.3rem 0 -1.3rem;
+  padding-left: 1.3rem;
+
+  &::-webkit-scrollbar {
+    display: none; //Disables browser's default scroll bar
+  }
+
+  ion-col {
+    padding: 0;
     //   margin-right: -1rem;
-    }
+  }
 }
 
-.type{
-    font-size: .85rem;
-    position: relative;
-    border: 1px solid var(--ion-light-green-color);
-    font-family: BwModelicaRegular;
-    letter-spacing: .04em;
-    color: var(--ion-color-secondary);
-    padding: .9rem 0rem .9rem 2.7rem;
-    border-radius: 6px;
-    margin-right: .7rem;
+.type {
+  font-size: 0.85rem;
+  position: relative;
+  border: 1px solid var(--ion-color-tertiary);
+  font-family: BwModelicaRegular;
+  letter-spacing: 0.04em;
+  color: var(--ion-color-secondary);
+  padding: 0.9rem 0rem 0.9rem 2.7rem;
+  border-radius: 6px;
+  margin-right: 0.7rem;
 
-    ion-icon{
-        position: absolute;
-        left: .5rem;
-        top: .65rem;
-        font-size: 1.5rem;
-    }
-
-    &.profit{
-        background-color: var(--ion-light-green-color);
-        padding-left: 2.2rem;
-        ion-icon{ left: .3rem;}
-    }
-
-    &.pending{
-        background-color: #F5F1E6;
-    }
-
-    &.bonus{
-        background-color: #FFF8D1;
-        padding-left: 2.2rem;
-        ion-icon{ left: .3rem;}
-    }
-
-    &.withdrawal{
-        background-color: #FCD9D7;
-        font-size: .78rem;
-        padding-left: 2rem;
-        padding-right: .5rem;
-    }
-
-    &.deposit{
-        background-color: #D3D2D9;
-    }
-
-    &.selected{
-        border: 1px solid rgba(var(--ion-color-secondary-rgb), .55);
-        font-family: BwModelicaMedium;
-    }
-}
-
-.history-list{
-    margin-bottom: 4rem;
-    .history{
-        ion-icon{
-            font-size: 2.2rem;
-        }
-  
-        h4{
-            margin-bottom: .2rem;
-        }
-        p{
-            font-size: .8rem;
-        }
-    }
-}
-
-ion-button{
-    position: fixed;
-    bottom: 1rem;
-    right: 1.6rem;
-    width: 25%;
-    height: 2.5rem;
-    font-size: .8rem;
-    ion-icon{
-        font-size: .9rem !important;
-    }
-}
-
-.tt-skeletons{
-    margin-top: -3.5rem;
-    ion-avatar{
-        width: 2rem;
-        height: 2rem;
-    }
-    ion-label{
-        ion-skeleton-text.left{
-            float: left;
-        }
-        ion-skeleton-text.right{
-            float: right;
-        }
-    }
-    ion-item{
-        margin-bottom: .3rem;
-        --inner-border-width: 0px;
-    }
-}
-
-.no-histories{
+  ion-icon {
     position: absolute;
-    color: var(--ion-color-secondary);
-    font-size: 0.9rem;
-    top: 50%;
-    width: 70%;
-    text-align: center;
-    transform: translateX(-50%);
-    left: 50%;
+    left: 0.5rem;
+    top: 0.65rem;
+    font-size: 1.5rem;
+  }
+
+  &.profit {
+    background-color: var(--ion-light-green-color);
+    padding-left: 2.2rem;
+    ion-icon {
+      left: 0.3rem;
+    }
+    &.selected {
+      border: 1px solid var(--ion-color-primary);
+    }
+  }
+
+  &.pending,
+  &.all {
+    // background-color: #f5f1e6;
+    background-color: #fff;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.3);
+    &.selected {
+      border: 1px solid var(--ion-color-primary);
+    }
+  }
+
+  &.bonus {
+    background-color: #fff8d1;
+    padding-left: 2.2rem;
+    ion-icon {
+      left: 0.3rem;
+    }
+    &.selected {
+      border: 1px solid #fce461;
+    }
+  }
+
+  &.withdrawal {
+    background-color: #fcd9d7;
+    font-size: 0.78rem;
+    padding-left: 2rem;
+    padding-right: 0.5rem;
+    &.selected {
+      border: 1px solid #f05047;
+    }
+  }
+
+  &.deposit {
+    background-color: #d3d2d9;
+    &.selected {
+      border: 1px solid #828185;
+    }
+  }
+
+  &.selected {
+    font-family: BwModelicaMedium;
+  }
+}
+
+.transactions-list {
+  .transaction {
+    .amount-date {
+      .amount {
+        color: var(--ion-color-secondary);
+      }
+    }
+  }
+}
+
+.month-wrapper {
+    margin-bottom: 2rem;
+  .month {
+    color: rgba(var(--ion-color-secondary-rgb), 0.5);
+  }
+}
+
+// ion-button {
+//   position: fixed;
+//   bottom: 1rem;
+//   right: 1.6rem;
+//   width: 25%;
+//   height: 2.5rem;
+//   font-size: 0.8rem;
+//   ion-icon {
+//     font-size: 0.9rem !important;
+//   }
+// }
+
+.tt-skeletons {
+  margin-top: -3.5rem;
+  ion-avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+  ion-label {
+    ion-skeleton-text.left {
+      float: left;
+    }
+    ion-skeleton-text.right {
+      float: right;
+    }
+  }
+  ion-item {
+    margin-bottom: 0.3rem;
+    --inner-border-width: 0px;
+  }
+}
+
+.no-histories {
+  position: absolute;
+  color: var(--ion-color-secondary);
+  font-size: 0.9rem;
+  top: 50%;
+  width: 70%;
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
 }

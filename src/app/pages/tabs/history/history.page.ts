@@ -16,15 +16,13 @@ import { BottomDrawerPage } from '../../modals/bottom-drawer/bottom-drawer.page'
 })
 export class HistoryPage  implements OnInit{
 
-  private modal: HTMLIonModalElement;
-
+  
   public prevFilter;
   public selectedFilter;
-
   public histories;
-
+  
   public filters = [
-    { name: 'Show All', icon: 'all', size: '4', selected: true },
+    { name: 'Show All', icon: 'all', class: 'all', size: '4', selected: true },
     { name: 'Profit', icon: 'profit2', class: 'profit', size: '3', selected: false },
     { name: 'Pending', icon: 'pending', class: 'pending', size: '4', selected: false },
     { name: 'Bonus', icon: 'bonus2', class: 'bonus', size: '3', selected: false },
@@ -32,6 +30,11 @@ export class HistoryPage  implements OnInit{
     { name: 'Deposit', icon: 'deposit2', class: 'deposit', size: '4', selected: false }
   ];
 
+  //Segment states
+  public childPage;
+  public activeSegment: string;
+
+  private modal: HTMLIonModalElement;
   constructor(
     public util: UtilService,
     private modalCtrl: ModalController,
@@ -42,18 +45,19 @@ export class HistoryPage  implements OnInit{
     private dataService: DataService) {}
 
   ngOnInit() {
+    this.activeSegment = 'wallet';
     this.dataService.clearCBI(); //Clears all stored currency, bank, and investment info
     this.selectedFilter = this.filters[0];
     this.prevFilter = this.selectedFilter;
 
     this.auth.getAuthStateSubject().subscribe((state) =>{
       if(state){
-        this.getHistories('');
+        this.getHistories();
       }
     });
     this.subService.getBalanceSubject().subscribe((state) =>{
       if(state){
-        this.getHistories('');
+        this.getHistories();
       }
     });
   }
@@ -61,6 +65,11 @@ export class HistoryPage  implements OnInit{
 
   ionViewWillEnter(){
     this.getHistoriesQuiet();
+  }
+
+  public segmentChanged(event) {
+    console.log(event.target.value);
+    this.activeSegment = event.target.value;
   }
 
   public onTapFilter(filter){
@@ -75,7 +84,7 @@ export class HistoryPage  implements OnInit{
 
     const f = {...filter};
     f.name = f.name.toLowerCase();
-    f.name === 'show all' ? this.getHistories('') : this.getHistories(f.name);
+    // f.name === 'show all' ? this.getHistories() : this.getHistories();
   }
 
   public openHistorySummary(hist){
@@ -86,13 +95,13 @@ export class HistoryPage  implements OnInit{
     }
   }
 
-  public sort(){
-    this.presentModal('sort');
-  }
+  // public sort(){
+  //   this.presentModal('sort');
+  // }
 
-  public async getHistories(filter: string){
+  public async getHistories(){
     try {
-      const resp = await this.historyService.getHistories(filter);
+      const resp = await this.historyService.getHistories();
       if(resp.code === '100'){
         this.histories = resp.data.history.data;
         console.log(this.histories);
@@ -103,7 +112,7 @@ export class HistoryPage  implements OnInit{
   }
 
   public async getHistoriesQuiet(){
-    const resp = await this.historyService.getHistories('');
+    const resp = await this.historyService.getHistories();
     if(resp.code === '100'){
       this.histories = resp.data.history.data;
       console.log(this.histories);
@@ -114,41 +123,41 @@ export class HistoryPage  implements OnInit{
     return historyIcons[type];
   }
 
-  private async presentModal(type: string) {
-    this.modal = await this.modalCtrl.create({
-      component: BottomDrawerPage,
-      breakpoints: [0, 0.2, 0.4],
-      mode: 'ios',
-      initialBreakpoint: 0.4,
-      backdropBreakpoint: 0.2,
-      backdropDismiss: true,
-      swipeToClose: true,
-      keyboardClose: true,
-      cssClass: 'kwakol-modal-bottom-drawer',
-      componentProps: { type, formSelects: {}}
-    });
-    await this.modal.present();
-    const { data } = await this.modal.onWillDismiss();
-    if(!data) return;
-    const from = data.data.data.from;
-    const to = data.data.data.to;
-    this.filterHistoryByDate(from, to);
-  }
+  // private async presentModal(type: string) {
+  //   this.modal = await this.modalCtrl.create({
+  //     component: BottomDrawerPage,
+  //     breakpoints: [0, 0.2, 0.4],
+  //     mode: 'ios',
+  //     initialBreakpoint: 0.4,
+  //     backdropBreakpoint: 0.2,
+  //     backdropDismiss: true,
+  //     swipeToClose: true,
+  //     keyboardClose: true,
+  //     cssClass: 'kwakol-modal-bottom-drawer',
+  //     componentProps: { type, formSelects: {}}
+  //   });
+  //   await this.modal.present();
+  //   const { data } = await this.modal.onWillDismiss();
+  //   if(!data) return;
+  //   const from = data.data.data.from;
+  //   const to = data.data.data.to;
+  //   this.filterHistoryByDate(from, to);
+  // }
 
-  private async filterHistoryByDate(from, to){
-    const payload = {
-      from: `${from} 00:00:00`,
-      to: `${to} 23:59:59`
-    }
-    try {
-      const resp = await this.historyService.getHistoriesByDate(payload);
-      if(resp.code === '100'){
-        this.histories = resp.data.history;
-        console.log(this.histories);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // private async filterHistoryByDate(from, to){
+  //   const payload = {
+  //     from: `${from} 00:00:00`,
+  //     to: `${to} 23:59:59`
+  //   }
+  //   try {
+  //     const resp = await this.historyService.getHistoriesByDate(payload);
+  //     if(resp.code === '100'){
+  //       this.histories = resp.data.history;
+  //       console.log(this.histories);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
 }

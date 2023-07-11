@@ -13,31 +13,16 @@
 <ion-content class="page-content" [ngClass]="{'dark': moonVal && !sunVal}">
 
   <div class="feed-heading">
-    <p class="date">Dteaaa</p>
-    <!-- <p class="date">{{ feed.published | date}}</p> -->
+    <p class="date">{{ feed.published | date}}</p>
     <h5>
-    Titile
-    </h5>
-    <!-- <h5>
     {{ feed.title }}
-    </h5> -->
-    <!-- <p class="author">by {{ feed.author }}</p> -->
-    <p class="author">by Mike</p>
+    </h5>
+    <p class="author">by {{ feed.author }}</p>
   </div>
 
   <div class="feed-area">
-    <p class="section">
-      For most of us, technical investment terms can be confusing. Whether or not you’re new to the investment game, here is a list of ten important investment terms you should know.
-    </p>
-
-    <!-- <div [innerHTML]="feed.body">
-    </div> -->
-
-    <h6>Asset</h6>
-    <p>An asset is anything that has the potential to earn money for you in the short or long run. Assets are a store of value that can easily be converted to cash. It is reasonable to expect an ASSET to produce some value for you. Assets include cash, bond, stock, real estate, investments</p>
-
-    <h6>Asset Allocation</h6>
-    <p>This summarizes your investment strategy. The various categories of assets that you put your money into is your asset allocation. An optimal ASSET ALLOCATION helps you balance risk and reward by allocating assets into various classes according to age, investment goal, risk tolerance and investment tenor.</p>
+    <div [innerHTML]="feed.body">
+    </div>
   </div>
 
   </ion-content>

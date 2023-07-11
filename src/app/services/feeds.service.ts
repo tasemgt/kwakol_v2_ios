@@ -7,7 +7,7 @@ import { HttpService } from './_http.service';
 })
 export class FeedsService {
 
-  private baseUrl = `${constants.baseUrl}`;
+  private baseUrl = `${constants.baseUrlV2}`;
 
   private headers = {'Content-Type': 'application/json'};
 
@@ -15,7 +15,7 @@ export class FeedsService {
 
   constructor(private http: HttpService) { }
 
-  public getFeeds(){
-    return this.http.get(`${this.baseUrl}/feeds`, {}, this.headers);
+  public getExploreData(){
+    return this.http.get(`${this.baseUrl}/v2/explore`, {}, this.headers);
   }
 }

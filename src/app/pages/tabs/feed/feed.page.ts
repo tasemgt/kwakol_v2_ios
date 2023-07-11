@@ -9,7 +9,7 @@ import { FeedsService } from 'src/app/services/feeds.service';
 })
 export class FeedPage implements OnInit {
 
-  public feeds;
+  public explore;
 
   constructor(
     private router: Router,
@@ -39,16 +39,16 @@ export class FeedPage implements OnInit {
     this.router.navigateByUrl('/feeds', {state: {url: this.router.url}});
   }
 
-  public viewNewsFeedsDetails(){
-    this.router.navigateByUrl('/feed-details', {state: {url: this.router.url}});
+  public viewNewsFeedsDetails(feed){
+    this.router.navigateByUrl('/feed-details', {state: {url: this.router.url, feed}});
   }
 
   private async getFeeds(){
     try {
-      const resp = await this.feedService.getFeeds();
-      if(resp.code === '100'){
-        this.feeds = resp.data.feeds.data;
-        console.log(this.feeds);
+      const resp = await this.feedService.getExploreData();
+      if(resp.code == '100'){
+        this.explore = resp.data;
+        console.log(this.explore);
       }
     } catch (error) {
       console.log(error);

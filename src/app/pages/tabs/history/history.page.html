@@ -1,52 +1,221 @@
 <ion-header>
   <div class="auth-banner small">
-    <h3>History</h3>
+    <h3 class="title">History</h3>
   </div>
-  <ion-row class="types-wrapper">
-    <ion-col size="{{ filter.size }}" *ngFor="let filter of filters">
-      <div class="type" [class]="filter.class" [ngClass]="{'selected': filter.selected}" (click)="onTapFilter(filter)">
-        <ion-icon [src]="'assets/icon/history/'+filter.icon+'.svg'"></ion-icon>
-        {{ filter.name }}
-      </div>
-    </ion-col>
-  </ion-row>
+  <div class="sub-header">
+    <ion-segment value="wallet" (ionChange)="segmentChanged($event)" mode="md">
+      <ion-segment-button value="wallet" mode="md">
+        <ion-label>Wallet</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="investments">
+        <ion-label>Investments</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-row class="types-wrapper">
+      <ion-col size="{{ filter.size }}" *ngFor="let filter of filters">
+        <div
+          class="type"
+          [class]="filter.class"
+          [ngClass]="{'selected': filter.selected}"
+          (click)="onTapFilter(filter)"
+        >
+          <ion-icon
+            [src]="'assets/icon/history/'+filter.icon+'.svg'"
+          ></ion-icon>
+          {{ filter.name }}
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="page-content tab-page-white">
+<ion-content [fullscreen]="true" class="page-content">
+  <div
+    *ngIf="activeSegment === 'wallet'"
+    class="segment segment-investments"
+  >
+    <div class="month-wrapper">
+      <p class="month">April 2023</p>
+      <div class="transactions-list no-border">
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Withdrawal</h3>
+              <p class="trans-type-p">To Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">16 June 2023</div>
+          </div>
+        </div>
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Deposit</h3>
+              <p class="trans-type-p">From Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">pending</div>
+          </div>
+        </div>
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Withdrawal</h3>
+              <p class="trans-type-p">To Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">16 June 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="activeSegment === 'investments'" class="segment segment-investments">
+    <div class="month-wrapper">
+      <p class="month">March 2023</p>
+      <div class="transactions-list no-border">
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Withdrawal</h3>
+              <p class="trans-type-p">To Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">16 June 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="transactions-list no-border">
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Withdrawal</h3>
+              <p class="trans-type-p">To Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">16 June 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="transactions-list no-border">
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Withdrawal</h3>
+              <p class="trans-type-p">To Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">16 June 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="transactions-list no-border">
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Withdrawal</h3>
+              <p class="trans-type-p">To Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">16 June 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="transactions-list no-border">
+        <div class="transaction">
+          <div class="trans-type-wrapper">
+            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <div class="trans-type">
+              <h3>Withdrawal</h3>
+              <p class="trans-type-p">To Bank Account</p>
+            </div>
+          </div>
+          <div class="amount-date">
+            <div class="amount">+$3,403.58</div>
+            <div class="trans-date">16 June 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <div class="history-list">
-    <div class="history" (click)="openHistorySummary(hist)" *ngFor="let hist of histories">
-      <ion-icon [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"></ion-icon>
+    <div
+      class="history"
+      (click)="openHistorySummary(hist)"
+      *ngFor="let hist of histories"
+    >
+      <ion-icon
+        [src]="'assets/icon/history/'+getIconForType(hist.type)+'.svg'"
+      ></ion-icon>
       <h4>
-        {{ hist.type | capitalize }} 
+        {{ hist.type | capitalize }}
         <span class="{{ hist.type }}">
           ${{ util.numberWithCommas(hist.amount) }}
         </span>
       </h4>
-      <p>{{ hist.date }}<span *ngIf="hist.type === 'profit'">{{ hist.percentage || 0}}%</span></p>
+      <p>
+        {{ hist.date }}<span *ngIf="hist.type === 'profit'"
+          >{{ hist.percentage || 0}}%</span
+        >
+      </p>
     </div>
   </div>
 
-  <div class="tt-skeletons" *ngIf="!histories">
+  <!-- <div class="tt-skeletons" *ngIf="!histories">
     <ion-item *ngFor="let f of [1,2,3,4,5,6]">
       <ion-avatar slot="start">
         <ion-skeleton-text animated></ion-skeleton-text>
       </ion-avatar>
       <ion-label>
         <h3>
-          <ion-skeleton-text class="left" animated style="width: 25%"></ion-skeleton-text>
-          <ion-skeleton-text class="right" animated style="width: 15%"></ion-skeleton-text>
+          <ion-skeleton-text
+            class="left"
+            animated
+            style="width: 25%"
+          ></ion-skeleton-text>
+          <ion-skeleton-text
+            class="right"
+            animated
+            style="width: 15%"
+          ></ion-skeleton-text>
         </h3>
       </ion-label>
     </ion-item>
-  </div>
-  
-  <p class="no-histories" *ngIf="histories && histories?.length <= 0">'{{ this.selectedFilter.name }}' filter has no histories...</p>
+  </div> -->
 
-  <ion-button class="kwakol-btn round ion-text-uppercase" type="button" (click)="sort()">
+  <p class="no-histories" *ngIf="histories && histories?.length <= 0">
+    '{{ this.selectedFilter.name }}' filter has no histories...
+  </p>
+
+  <!-- <ion-button class="kwakol-btn round ion-text-uppercase" type="button" (click)="sort()">
     <ion-icon slot="start" src="assets/icon/calendar-white.svg"></ion-icon>
     Sort
-  </ion-button>
-  
-
+  </ion-button> -->
 </ion-content>
