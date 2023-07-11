@@ -1,26 +1,125 @@
-h3,p{
-    margin: 0;
+ion-header {
+  position: relative;
+  background: var(--ion-color-tertiary);
+  padding: 5rem 1.35rem 0.7rem 1.35rem;
 }
 
-.accounts{
-    .account{
-        border: 1px solid var(--ion-light-green-color);
-        border-radius: 5px;
-        padding: .85rem;
-        font-size: 3.5rem;
-        margin-bottom: 1rem;
+.header-md::after {
+  background-image: none;
+}
 
-        h3{
-            font-family: BwModelicaBold;
-            margin-bottom: .2rem;
-            font-size: 1.3rem;
-        }
+h2.subpage-heading.left {
+  color: var(--ion-color-secondary);
+  margin-top: 0rem;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
-        p{
-            font-size: .83rem;
-            width: 95%;
-            font-family: bwModelicaRegular;
-            letter-spacing: .01em;
-        }
+h1.subheader{
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+}
+
+h3,
+p {
+  margin: 0;
+}
+
+.accounts {
+  .account {
+    position: relative;
+    border-radius: 8px;
+    padding: 0.85rem;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+
+    img {
+      position: absolute;
+      right: 0;
+      top: 0;
     }
+
+    div {
+      width: 63%;
+      //   text-align:
+      h3 {
+        font-family: BwModelicaBold;
+        margin-bottom: 0.2rem;
+        font-size: 1.3rem;
+      }
+
+      p {
+        font-family: bwModelicaRegular;
+      }
+
+      p.p0 {
+        font-size: 0.83rem;
+        letter-spacing: 0.01em;
+        line-height: 1.5;
+        margin: 0.5rem 0;
+      }
+
+      hr {
+        margin: 0;
+        height: 1px;
+        background: rgb(255, 255, 255, 0.4);
+      }
+
+      p.p1 {
+        margin-top: 0.5rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.02rem;
+        color: rgba(var(--ion-color-secondary-rgb), 0.5);
+        span {
+          float: right;
+          color: var(--ion-color-secondary);
+        }
+      }
+  
+      &.junzi {
+        // font-family: bwModelicaHairline;
+        color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+        p.p1{
+            color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+            span{ color: rgba(var(--ion-color-tertiary-rgb), 0.8);}
+        }
+      }
+  
+      &.antipasto {
+        color: #FFF;
+        p.p1{
+            color: #FFF;
+            span{ color: #FFF;}
+        }
+      }
+  
+      &.veterano {
+        color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+        p.p1{
+            color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+            span{ color: rgba(var(--ion-color-tertiary-rgb), 0.8);}
+        }
+      }
+    }
+
+    &.levadura {
+      background: #d8c680;
+    }
+
+    &.marigold {
+      background: #af9685;
+    }
+
+    &.junzi {
+      background: #295513;
+    }
+
+    &.antipasto {
+      background: #41b651;
+    }
+
+    &.veterano {
+      background: #5e5d5c;
+    }
+  }
 }

@@ -139,6 +139,10 @@ const routes: Routes = [
   {
     path: 'feeds',
     loadChildren: () => import('./pages/subpages/for-feed/feeds/feeds.module').then( m => m.FeedsPageModule)
+  },
+  {
+    path: 'invest-in-account',
+    loadChildren: () => import('./pages/subpages/for-portfolio/invest-in-account/invest-in-account.module').then( m => m.InvestInAccountPageModule)
   }
 ];
 @NgModule({

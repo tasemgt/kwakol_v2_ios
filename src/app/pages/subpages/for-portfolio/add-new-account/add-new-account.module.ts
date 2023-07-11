@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AddNewAccountPageRoutingModule } from './add-new-account-routing.module';
 
 import { AddNewAccountPage } from './add-new-account.page';
+import { SharedModuleModule } from 'src/app/shared-module.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddNewAccountPageRoutingModule
+    AddNewAccountPageRoutingModule,
+    SharedModuleModule
   ],
   declarations: [AddNewAccountPage]
 })

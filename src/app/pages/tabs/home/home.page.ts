@@ -607,20 +607,23 @@ export class HomePage implements OnInit {
   }
 
   private async getInvestmentAccounts() {
-    this.util.presentLoading('Please wait...');
-    try {
-      const resp = await this.subService.getInvestmentAccounts();
-      this.loading.dismiss();
-      if (resp.code === '100') {
-        const invAccounts = resp.data.subscriptions;
-        this.router.navigateByUrl('/new-account', {
-          state: { url: this.router.url, accounts: invAccounts },
-        });
-      }
-    } catch (error) {
-      this.loading.dismiss();
-      console.log(error);
-    }
+    this.router.navigateByUrl('/new-account', {
+      state: { url: this.router.url },
+    });
+    // this.util.presentLoading('');
+    // try {
+    //   const resp = await this.subService.getInvestmentAccounts();
+    //   this.loading.dismiss();
+    //   if (resp.code === '100') {
+    //     const invAccounts = resp.data.subscriptions;
+    //     this.router.navigateByUrl('/new-account', {
+    //       state: { url: this.router.url, accounts: invAccounts },
+    //     });
+    //   }
+    // } catch (error) {
+    //   this.loading.dismiss();
+    //   console.log(error);
+    // }
   }
 
   private async doTransferInvestmentFunds() {

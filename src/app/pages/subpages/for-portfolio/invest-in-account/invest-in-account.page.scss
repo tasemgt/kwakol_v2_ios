@@ -1,0 +1,67 @@
+.investment-item {
+  background-color: #fff;
+  border: 1px solid var(--ion-light-green-color);
+  border-radius: 7px;
+  padding: 0.7rem 0.7rem 0.5rem 0.7rem;
+
+  ion-col {
+    .did-floating-label-content {
+      margin-bottom: 0.5rem;
+    }
+    input {
+      background-color: #fff;
+    }
+  }
+
+  .did-floating-label-content {
+    position: relative;
+
+    div {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      ion-icon {
+        font-size: 1.3rem;
+      }
+
+      span {
+        font-size: 0.85rem;
+        color: rgba(var(--ion-color-secondary-rgb), 0.5);
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    color: rgba(var(--ion-color-secondary-rgb), 0.5);
+  }
+
+  p.wallet-balance {
+    background-color: rgba(var(--ion-color-primary-rgb), 0.2);
+    width: fit-content;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.63rem !important;
+    border-radius: 3px;
+    letter-spacing: 0.03rem;
+
+    span {
+      color: var(--ion-color-secondary);
+      font-family: BwModelicaMedium;
+    }
+  }
+
+  p.eg {
+    font-weight: 600;
+  }
+}
+
+.btn-row {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  padding: 0 2rem;
+}

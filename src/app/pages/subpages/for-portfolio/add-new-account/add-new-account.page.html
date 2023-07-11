@@ -1,64 +1,61 @@
-<ion-content class="page-content">
+<ion-header class="{{account}}">
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
-    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+    <ion-icon src="assets/icon/arrow-back-white.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading">{{ account.name }}</h2>
+  <h2 class="subpage-heading left down">{{ account | capitalize }}</h2>
+  <img [src]="'assets/imgs/investment-types/'+ account + '-lg.svg'" alt="">
+</ion-header>
 
-  <h1 class="subheader">How much would you like to start with?</h1>
+<ion-content class="page-content">
 
-  <div class="currency" (click)="onTapSelect('currency')">
-    {{ selectedCurrency?.sym }} {{ selectedCurrency?.name }}
-    <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
-  </div>
-
-  <ion-row class="input-rows">
-    
-    <ion-col size="12" class="kwakol-input">
-      <ion-item class="amount-input">
-        <ion-input placeholder="Enter Amount" type="tel" name="amount" [(ngModel)]="amount" (ionChange)="refreshModel()" required></ion-input>
-      </ion-item>
-      <p>Minimum investment: $ {{ util.numberWithCommas(account.desc_minimum_investment)}}</p>
-    </ion-col>
-
-    <ion-col size="12" class="kwakol-input">
-      <ion-item class="select-input" (click)="onTapSelect('bank')">
-        {{ selectedBank?.bankName }}
-        <ion-icon class="arrow-down" src="assets/icon/arrow-down.svg"></ion-icon>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <p class="proof">Proof of Transfer</p>
-  <div class="upload">
-    <input type="file" class="form__upload" (change)="onFileChange($event)" />
-    <ion-icon src="assets/icon/upload.svg"></ion-icon>
-    <p>Upload Receipt</p>
-    <p>Supported file types: JPEG, PNG, PDF <br/>Max file size: 1mb</p>
-    <p class="file-name">{{ fileName }}</p>
-  </div>
+  <h3>About Levadura</h3>
+  
+  <p>
+    Levadura is a short-term investment package with a 3-month tenure.
+  </p>
+  
+  <h3>Features</h3>
 
   <div class="about">
-    <div class="item">
+    <!-- <div class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
        {{ account.description }}
-    </div>
-    <div class="item">
+    </div> -->
+    <p class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       Minimum investment: $ {{ util.numberWithCommas(account.desc_minimum_investment) }}.
-    </div>
-    <div class="item">
+       <!-- Minimum investment: $ {{ util.numberWithCommas(account.desc_minimum_investment) }}. -->
+       Minimum investment: $1,000.
+    </p>
+    <p class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       {{ account.desc_commission}}
-    </div>
-    <div class="item">
+       <!-- {{ account.desc_commission}} -->
+       Commission: 50% of Profit.
+    </p>
+    <p class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       {{ account.desc_comment}}
-    </div>
+       This package trades stock indices (50%) and currencies (50%)
+       <!-- {{ account.desc_comment}} -->
+    </p>
+    <p class="item">
+       <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
+       Projected Returns*: 35% profit margin per annum
+       <!-- {{ account.desc_comment}} -->
+    </p>
+    <p class="footer">
+      * Projected returns only provide estimates of performance based on Kwakol’s prudent investment approach and historic trading performance.
+    </p>
+  </div>
+
+  <h3>Performance</h3>
+
+  <div class="performance">
+    <p>Past year(Jan. - Dec.)</p>
+    <p>35.12%</p>
   </div>
 
   <ion-row>
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="continue()">Continue</ion-button>
+      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="goToInvestInAccount()">Invest</ion-button>
     </ion-col>
   </ion-row>
 </ion-content>

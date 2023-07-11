@@ -75,6 +75,15 @@ export const investmentIcons = {
     'fixed deposit': 'fixed-deposit-big'
 };
 
+export const investmentIconsBanner = {
+    levadura: 'levadura-banner',
+    marigold: 'marigold-banner',
+    junzi: 'junzi-banner',
+    antipasto: 'antipasto-banner',
+    veterano: 'veterano-banner',
+    'fixed deposit': 'fixed-deposit-banner'
+};
+
 
 export const investmentBGColors = {
     levadura: '#D8C680',

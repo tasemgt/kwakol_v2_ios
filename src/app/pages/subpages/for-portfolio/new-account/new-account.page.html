@@ -1,46 +1,85 @@
-<ion-content class="page-content">
+<ion-header>
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading">New Account</h2>
+  <h2 class="subpage-heading left">New Account</h2>
+</ion-header>
 
+<ion-content class="page-content">
   <h1 class="subheader">Select your preferred Investment Account</h1>
 
   <div class="accounts">
-    <div class="account" *ngFor="let account of accounts" (click)="addNewAccount(account)">
+    <!-- <div class="account" *ngFor="let account of accounts" (click)="addNewAccount(account)">
       <ion-icon [src]="'assets/icon/inv-type/'+ (getInvestmentIconFromName(account.name) || 'special-big') +'.svg'"></ion-icon>
       <h3>{{ account.name }}</h3>
       <p>{{ account.description }}</p>
+    </div> -->
+
+    <div class="account levadura" (click)="addNewAccount('levadura')">
+      <img src="assets/imgs/investment-types/levadura-banner.svg" alt="">
+      <div>
+        <h3>Levadura</h3>
+        <p class="p0">Levadura is a short-term investment package with a 3-month tenure.</p>
+        <hr>
+        <p class="p1">
+          Starting Amount
+          <span>$1,000</span>
+        </p>
+      </div>
+    </div>
+    <div class="account marigold" (click)="addNewAccount('marigold')">
+      <img src="assets/imgs/investment-types/marigold-banner.svg" alt="">
+      <div>
+        <h3>Marigold</h3>
+        <p class="p0">Marigold is a short-term investment package with a 6-month tenure.</p>
+        <hr>
+        <p class="p1">
+          Starting Amount
+          <span>$3,000</span>
+        </p>
+      </div>
+    </div>
+    <div class="account junzi" (click)="addNewAccount('junzi')">
+      <img src="assets/imgs/investment-types/junzi-banner.svg" alt="">
+      <div class="junzi">
+        <h3>Junzi</h3>
+        <p class="p0">Jūnzi is a fixed investment package with a 1-year tenure.</p>
+        <hr>
+        <p class="p1">
+          Starting Amount
+          <span>$10,000</span>
+        </p>
+      </div>
+    </div>
+    <div class="account antipasto" (click)="addNewAccount('antipasto')">
+      <img src="assets/imgs/investment-types/antipasto-banner.svg" alt="">
+      <div class="antipasto">
+        <h3>Antipasto</h3>
+        <p class="p0">Antipasto is designed to usher your kids onto the path of financial freedom.</p>
+        <hr>
+        <p class="p1">
+          Starting Amount
+          <span>$1,000</span>
+        </p>
+      </div>
+    </div>
+    <div class="account veterano" (click)="addNewAccount('veterano')">
+      <img src="assets/imgs/investment-types/veterano-banner.svg" alt="">
+      <div class="veterano">
+        <h3>Veterano</h3>
+        <p class="p0">Veterano looks to provide you with a prosperous retirement.</p>
+        <hr>
+        <p class="p1">
+          Starting Amount
+          <span>$1,000</span>
+        </p>
+      </div>
     </div>
 
-    <!-- <div class="account">
-      <ion-icon src="assets/icon/inv-type/marigold-big.svg"></ion-icon>
-      <h3>Marigold</h3>
-      <p>Marigold is a short-term investment package with a 6-month tenure.</p>
-    </div>
-
-    <div class="account">
-      <ion-icon src="assets/icon/inv-type/junzi-big.svg"></ion-icon>
-      <h3>Junzi</h3>
-      <p>Jūnzi is a fixed investment package with a 1-year tenure.</p>
-    </div>
-
-    <div class="account" (click)="addNewAccount()">
+    <!-- <div class="account" (click)="addNewAccount()">
       <ion-icon src="assets/icon/inv-type/antipasto-big.svg"></ion-icon>
       <h3>Antipasto</h3>
       <p>Antipasto is designed to usher your kids onto the path of financial freedom.</p>
-    </div>
-
-    <div class="account">
-      <ion-icon src="assets/icon/inv-type/veterano-big.svg"></ion-icon>
-      <h3>Veterano</h3>
-      <p>Veterano looks to provide you with a prosperous retirement.</p>
-    </div>
-
-    <div class="account">
-      <ion-icon src="assets/icon/inv-type/fixed-deposit-big.svg"></ion-icon>
-      <h3>Fixed Deposit</h3>
-      <p>A Fixed Deposit account lets you invest a specific amount of money for a fixed period of time with an agreed profit.</p>
     </div> -->
 
   </div>

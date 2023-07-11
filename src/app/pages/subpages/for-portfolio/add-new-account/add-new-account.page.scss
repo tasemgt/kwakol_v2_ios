@@ -1,67 +1,110 @@
-p{
-    letter-spacing: .02em;
-    margin: 0;
-    font-family: BwModelicaRegular;
+ion-header {
+  position: relative;
+  background: var(--ion-color-tertiary);
+  padding: 7rem 1.35rem 0.2rem 1.35rem;
+
+  &.levadura {
+    background: linear-gradient(to top, #01010180, #51af4e00), #d8c680;
+  }
+  &.marigold {
+    background: linear-gradient(to top, #01010180, #51af4e00), #af9685;
+  }
+  &.junzi {
+    background: linear-gradient(to top, #01010180, #51af4e00), #295513;
+  }
+  &.antipasto {
+    background: linear-gradient(to top, #01010180, #51af4e00), #41b651;
+  }
+  &.veterano {
+    background: linear-gradient(to top, #01010180, #51af4e00), #5e5d5c;
+  }
+
+  img {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    // background: linear-gradient(to top, #01010180, #51af4e00);
+  }
 }
 
-h1.subheader{
-    margin-bottom: 1.3rem;
+.header-md::after {
+  background-image: none;
 }
 
-ion-col.kwakol-input{
+h2.subpage-heading.left {
+  color: var(--ion-color-tertiary);
+  font-family: BwModelicaBold;
+  margin-left: 0.5rem;
+  font-size: 1.7rem;
+  padding-left: 0;
 
-    ion-item{
-        &.amount-input{
-            margin-bottom: 0;
-        }
-    
-        &.select-input{
-            font-size: .9rem;
-        }
-    }
-
-    p{ 
-        text-align: right;
-        color: var(--ion-color-primary);
-        font-family: BwModelicaLight;
-        font-size: .7rem;
-        margin: .2rem 0 .6rem 0;
-    }
-
-    ion-input{
-        --padding-top: 0;
-        --padding-bottom: 0;
-    }
-    ion-icon{
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 1.1rem;
-    }
+  &.down {
+  }
 }
 
-p.proof{
-    margin: .5rem 0;
+p {
+  letter-spacing: 0.02rem;
+  margin: 0;
+  font-family: BwModelicaLight;
+  color: rgba(var(--ion-color-secondary-rgb), 0.6);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-.upload{
-    margin-bottom: 1.3rem;
+h3 {
+  font-size: 1.23rem;
+  margin-top: 1.7rem;
+  font-family: BwModelicaBold;
 }
 
-.about{
-    margin-bottom: 1rem;
-    padding: .5rem;
-    border: 1px solid var(--ion-light-green-color);
-    border-radius: 5px;
-    .item{
-        font-size: .875rem;
-        position: relative;
-        padding: .5rem 0rem .5rem 2rem;
+.about {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--ion-light-green-color);
+  border-radius: 5px;
+  background: #fff;
+  .item {
+    font-size: 0.8rem;
+    position: relative;
+    padding: 0.3rem 0rem 0.8rem 2rem;
 
-        ion-icon{
-            position: absolute;
-            left: 0;
-            font-size: 1.5rem;
-        }
+    ion-icon {
+      position: absolute;
+      left: 0;
+      font-size: 1.5rem;
+      top: .15rem;
     }
+  }
+
+  .footer {
+    font-size: 0.6rem;
+    color: rgba(var(--ion-color-primary-rgb), 0.7);
+    font-weight: 100;
+    letter-spacing: 0.01rem;
+  }
+}
+
+.performance {
+  display: flex;
+  align-items: center;
+  padding: .85rem 0.5rem;
+  border: 1px solid var(--ion-light-green-color);
+  border-radius: 5px;
+  background: #fff;
+  margin-bottom: 2rem;
+  p {
+    width: 50%;
+    text-align: center;
+
+    &:first-child {
+        font-size: .85rem;
+    }
+
+    &:last-child {
+      font-size: 2.5rem;
+      color: rgba(var(--ion-color-primary-rgb), 0.7);
+      border-left: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+      font-weight: 100;
+    }
+  }
 }

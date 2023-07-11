@@ -14,8 +14,9 @@ export class NewAccountPage implements OnInit {
 
   constructor(private router: Router) {
     if(this.router.getCurrentNavigation().extras.state){
-      this.fromPage = this.router.getCurrentNavigation().extras.state.url;
-      this.accounts = this.router.getCurrentNavigation().extras.state.accounts;
+      const state = this.router.getCurrentNavigation().extras.state;
+      this.fromPage = state.url;
+      this.accounts = state.accounts;
     }
   }
 
@@ -23,10 +24,11 @@ export class NewAccountPage implements OnInit {
   }
 
   public addNewAccount(account){
+    console.log(account);
     this.router.navigateByUrl('/add-new-account', {state: { url: this.router.url, account}});
   }
 
-  public getInvestmentIconFromName(accountName: string){
-    return investmentIcons[accountName.toLowerCase()];
-  }
+  // public getInvestmentIconFromName(accountName: string){
+  //   return investmentIcons[accountName.toLowerCase()];
+  // }
 }
