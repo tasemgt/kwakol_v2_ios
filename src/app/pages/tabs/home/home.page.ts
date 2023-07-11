@@ -224,7 +224,7 @@ export class HomePage implements OnInit {
       // this.util.presentLoading('Please wait...');
       return;
     }
-    const subscriber = this.home.user_details.subscriber;
+    const subscriber = this.home.user_details?.subscriber;
     this.router.navigateByUrl(page, {
       state: { url: this.router.url, subscriber },
     });
