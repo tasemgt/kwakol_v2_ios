@@ -122,7 +122,7 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activeSegment = 'wallet';
+    this.activeSegment = 'investments';
     this.showInfoModal = false;
 
     this.showLoadingModal = false;
@@ -231,6 +231,7 @@ export class HomePage implements OnInit {
   }
 
   public goToNewAccount() {
+    this.moreOptionsModal.dismiss();
     this.getInvestmentAccounts();
   }
 
@@ -579,6 +580,7 @@ export class HomePage implements OnInit {
       this.loading.dismiss();
       if(resp.code == 100){
         this.myBeneficiaries = resp.data;
+        console.log(this.myBeneficiaries);
         this.moreOptionsModal.dismiss();
         this.router.navigateByUrl('/beneficiaries', {state: {url: this.router.url, beneficiaries: this.myBeneficiaries}});
       }

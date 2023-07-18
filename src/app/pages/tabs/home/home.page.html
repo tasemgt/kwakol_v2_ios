@@ -27,7 +27,7 @@
     <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
   </div>
 
-  <ion-segment value="wallet" (ionChange)="segmentChanged($event)" mode="md">
+  <ion-segment value="investments" (ionChange)="segmentChanged($event)" mode="md">
     <ion-segment-button value="wallet" mode="md">
       <ion-label>Wallet</ion-label>
     </ion-segment-button>
@@ -178,7 +178,7 @@
             class="amount"
             [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
           >
-            +${{util.numberWithCommas(trans.amount)}}
+            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
           </div>
           <div class="trans-date">{{trans.created_at | date }}</div>
         </div>
@@ -1275,8 +1275,8 @@
   <!-- More options modal -->
   <ion-modal
     #moreOptionsModal
-    [initialBreakpoint]="0.30"
-    [breakpoints]="[0, 0.30]"
+    [initialBreakpoint]="0.28"
+    [breakpoints]="[0, 0.28]"
     class="kwakol-modal-bottom-drawer2"
     handle="true"
   >
@@ -1293,7 +1293,7 @@
             </div>
             <p>Beneficiaries</p>
           </div>
-          <div class="item" (click)="openTransferInvestmentModal()">
+          <div class="item" (click)="goToNewAccount()">
             <div class="round-button">
               <ion-icon src="assets/icon/v2-icons/add-green.svg"></ion-icon>
             </div>

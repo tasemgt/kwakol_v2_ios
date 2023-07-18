@@ -54,19 +54,29 @@ export class UtilService {
   public async presentLoading(message?: string){
     const loading = await this.loadingCtrl.create({
       message: `
-      <div class="container">
-        <div class="switchbox">
-          <div class="switch"></div>
-          <div class="switch"></div>
-          <div class="switch"></div>
-        </div>
-      </div>
+      <ion-spinner color="primary" name="crescent"></ion-spinner>
       `,
       translucent: true,
       cssClass: 'kwakol-main-loader'
     });
     return loading.present();
   }
+  // public async presentLoading(message?: string){
+  //   const loading = await this.loadingCtrl.create({
+  //     message: `
+  //     <div class="container">
+  //       <div class="switchbox">
+  //         <div class="switch"></div>
+  //         <div class="switch"></div>
+  //         <div class="switch"></div>
+  //       </div>
+  //     </div>
+  //     `,
+  //     translucent: true,
+  //     cssClass: 'kwakol-main-loader'
+  //   });
+  //   return loading.present();
+  // }
 
   public async presentLoading2(message: string){
     const loading = await this.loadingCtrl.create({
@@ -202,6 +212,13 @@ export class UtilService {
     }
     // Between dawn and noon
     return 'morning';
+}
+
+public getAmountSign(type: string): string{
+  if(['deposit', 'bonus', 'profit'].includes(type)){
+    return '+';
+  }
+  return '-';
 }
 
 public async clipboardCopy(item: string){

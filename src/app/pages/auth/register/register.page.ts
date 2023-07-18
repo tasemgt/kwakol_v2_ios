@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonModal, LoadingController } from '@ionic/angular';
+import { countries } from 'src/app/models/constants';
 import { RegisterCred } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -20,6 +21,8 @@ export class RegisterPage implements OnInit {
   public regCreds = new RegisterCred();
   public selectedCountryImg = '';
 
+  public countries = countries;
+
   public otp: string;
   public otp1: string;
   public otp2: string;
@@ -32,17 +35,6 @@ export class RegisterPage implements OnInit {
   public initialToken = '';
 
   public inputFocused: boolean;
-
-  public countries = [
-    {name: 'Nigeria', img: 'nigeria'},
-    {name: 'United States of America', img: 'usa'},
-    {name: 'United Kingdom', img: 'uk'},
-    {name: 'Ghana', img: 'ghana'},
-    {name: 'South Africa', img: 'sa'},
-    {name: 'Brazil', img: 'brazil'},
-    {name: 'Portugal', img: 'portugal'},
-    {name: 'France', img: 'france'}
-  ];
 
   constructor(
     private router: Router,

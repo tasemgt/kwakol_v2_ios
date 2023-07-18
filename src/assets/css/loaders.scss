@@ -1,3 +1,8 @@
+ion-backdrop {
+  opacity: 0.5;
+}
+
+
 //Custom Loading Controller Style
 /* Hiding off default spinner*/
 .kwakol-main-loader{
@@ -24,7 +29,15 @@
       // margin-right: 6rem;
     }
   }
+
+  ion-spinner{
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 100px;
+    --color: var(--ion-color-primary);
+  }
+
 }
+
 
 
 /* Adding new spinner*/

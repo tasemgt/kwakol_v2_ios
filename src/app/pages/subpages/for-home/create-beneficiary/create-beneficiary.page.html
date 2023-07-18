@@ -1,0 +1,116 @@
+<ion-content class="page-content">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading left">Create Beneficiary</h2>
+
+  <ion-row class="inputs-wrapper" style="margin-top: 2rem;">
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="beneficiary.firstname"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">First Name</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="beneficiary.lastname"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Last Name</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input" (click)="openSelectDOBModal()">
+      <p class="p-input">{{beneficiary.date_of_birth || 'Date of Birth'}}</p>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input" (click)="openSelectCountryModal()">
+      <p class="p-input country">{{beneficiary.country || 'Country'}} <img *ngIf="selectedCountryImg" [src]="'assets/imgs/flags/'+ selectedCountryImg +'.svg'" /></p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="btn-row">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button class="kwakol-btn ion-text-uppercase" type="submit">Continue</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <!-- Select Country -->
+  <ion-modal
+    #selectCountryModal
+    [initialBreakpoint]="0.65"
+    [breakpoints]="[0, 0.25, 0.5, 0.65]"
+    class="select-country"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>Select Country</h3>
+
+        <!-- <div class="kwakol-ist">
+          <div class="kwakol-list-item">
+
+          </div>
+        </div> -->
+
+        <ion-list lines="inset">
+          <ion-item *ngFor="let country of countries" (click)="selectCountry(country)">
+            <img [src]="'assets/imgs/flags/'+ country.img +'.svg'" />
+            <ion-label>{{country.name}}</ion-label>
+          </ion-item>
+        </ion-list>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Modal Country -->
+
+  <!-- Modal Select DOB -->
+  <ion-modal
+    #selectDOBModal
+    [initialBreakpoint]="0.65"
+    [breakpoints]="[0, 0.25, 0.5, 0.65]"
+    class="select-dob"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>Date of Birth</h3>
+
+        <ion-datetime 
+            [size]="'fixed'"
+            presentation="date"
+            mode="md"
+            [doneText]="'Select'"
+            >
+          </ion-datetime>
+
+        <ion-row class="btn-row">
+          <ion-col size="6">
+            <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase"
+              >Cancel</ion-button
+            >
+          </ion-col>
+          <ion-col size="6">
+            <ion-button class="kwakol-btn ion-text-uppercase" (click)="selectDOB()"
+              >Select</ion-button
+            >
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Modal Select DOB -->
+
+</ion-content>
+

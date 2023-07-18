@@ -143,6 +143,10 @@ const routes: Routes = [
   {
     path: 'invest-in-account',
     loadChildren: () => import('./pages/subpages/for-portfolio/invest-in-account/invest-in-account.module').then( m => m.InvestInAccountPageModule)
+  },
+  {
+    path: 'create-beneficiary',
+    loadChildren: () => import('./pages/subpages/for-home/create-beneficiary/create-beneficiary.module').then( m => m.CreateBeneficiaryPageModule)
   }
 ];
 @NgModule({

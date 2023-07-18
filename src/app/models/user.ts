@@ -56,6 +56,17 @@ export class NextOfKin{
   }
 }
 
+export class Beneficiary{
+  firstname: string;
+  lastname: string;
+  date_of_birth: string;
+  country: string;
+
+  constructor(){
+    this.country = ''; this.firstname = ''; this.lastname = ''; this.date_of_birth = '';
+  }
+}
+
 // export interface RegisterCred{
 //   code?: number | string;
 //   email: string;

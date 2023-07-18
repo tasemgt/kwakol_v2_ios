@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content class="page-content">
-  <div class="beneficiaries-list">
+  <div class="beneficiaries-list" *ngIf="beneficiaries.length > 0">
     <div
       class="investment-item animate__animated animate__fadeIn"
       *ngFor="let ben of beneficiaries"
@@ -26,5 +26,18 @@
       </div>
       <h3>${{util.numberWithCommas(ben.balance)}}</h3>
     </div>
+  </div>
+
+  <div class="no-beneficiary" *ngIf="beneficiaries.length <= 0">
+    It's a bit empty here because you <br/> haven't added any beneficiaries yet.
+  </div>
+
+  <div class="add-beneficiary" (click)="goToCreateBeneficiaryPage()">
+    <div class="round-button">
+      <ion-icon
+        src="assets/icon/v2-icons/add-green.svg"
+      ></ion-icon>
+    </div>
+    Add Beneficiary
   </div>
 </ion-content>

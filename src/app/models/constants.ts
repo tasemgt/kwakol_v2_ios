@@ -94,6 +94,17 @@ export const investmentBGColors = {
     'fixed deposit': 'fixed-deposit-big'
 };
 
+export const countries = [
+    {name: 'Nigeria', img: 'nigeria'},
+    {name: 'United States of America', img: 'usa'},
+    {name: 'United Kingdom', img: 'uk'},
+    {name: 'Ghana', img: 'ghana'},
+    {name: 'South Africa', img: 'sa'},
+    {name: 'Brazil', img: 'brazil'},
+    {name: 'Portugal', img: 'portugal'},
+    {name: 'France', img: 'france'}
+  ];
+
 export const bottomDrawer = {
     banks: [
         { name: 'Wema Bank', selected: false },
