@@ -232,6 +232,9 @@ public async clipboardCopy(item: string){
 
 public checkUndefinedProperties(obj) {
   for (const key in obj) {
+    if(key === 'middlename'){
+      continue; //Skip middlename checks;
+    }
     if (obj.hasOwnProperty(key)) {
       if (!obj[key]) {
         return true;
