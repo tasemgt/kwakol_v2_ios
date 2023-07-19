@@ -53,10 +53,10 @@
         </div>
 
         <div class="pin-wrapper">
-          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[0]"/>
-          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[1]"/>
-          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[2]"/>
-          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[3]"/>
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[0]" [ngClass]="{'add-padding': inputs[0] === '*'}"/>
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[1]" [ngClass]="{'add-padding': inputs[1] === '*'}"/>
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[2]" [ngClass]="{'add-padding': inputs[2] === '*'}"/>
+          <input type="tel" maxlength="1" class="pin-input" [(ngModel)] ="inputs[3]" [ngClass]="{'add-padding': inputs[3] === '*'}"/>
         </div>
         
         <app-keypad *ngIf="!showConfirm" (keypadEmitter)="onKeypadChanged($event)" #appKeypad></app-keypad>

@@ -52,6 +52,10 @@
     outline: none;
     /*Hide number field arrows*/
     -moz-appearance: textfield;
+
+    &.add-padding{
+      padding-top: .8rem;
+    }
   }
 
   .btn-row {
