@@ -290,9 +290,16 @@ ion-col {
     ~ .did-floating-label {
       top: -8px;
       font-size: 14px;
+      color: var(--ion-color-primary);
       // font-family: BwModelicaMedium;
     }
   }
+
+  // &:valid{
+  //   ~ .did-floating-label {
+  //     color: var(--ion-color-primary);
+  //   }
+  // }
 }
 
 .did-floating-input:not(:placeholder-shown) ~ .did-floating-label {
@@ -513,7 +520,7 @@ ion-button.kwakol-btn {
   right: 1rem;
   font-size: 1.3rem;
   z-index: 1000;
-  top: 1.1rem;
+  top: 1rem;
 }
 
 .rules {

@@ -9,25 +9,26 @@
   <h1 class="subheader">Select your preferred Investment Account</h1>
 
   <div class="accounts">
+    
     <!-- <div class="account" *ngFor="let account of accounts" (click)="addNewAccount(account)">
-      <ion-icon [src]="'assets/icon/inv-type/'+ (getInvestmentIconFromName(account.name) || 'special-big') +'.svg'"></ion-icon>
+      <ion-icon [src]="'assets/icon/inv-type/'+ (getInvestmentBannerFromName(account.name) || 'special-big') +'.svg'"></ion-icon>
       <h3>{{ account.name }}</h3>
       <p>{{ account.description }}</p>
     </div> -->
 
-    <div class="account levadura" (click)="addNewAccount('levadura')">
-      <img src="assets/imgs/investment-types/levadura-banner.svg" alt="">
+    <div class="account {{account.name.toLowerCase()}}" *ngFor="let account of accounts" (click)="addNewAccount(account)">
+      <img [src]="'assets/imgs/investment-types/'+ (getInvestmentBannerFromName(account.name) || 'special-big') +'.svg'" alt="">
       <div>
-        <h3>Levadura</h3>
-        <p class="p0">Levadura is a short-term investment package with a 3-month tenure.</p>
+        <h3>{{ account.name }}</h3>
+        <p class="p0">{{ account.description }}</p>
         <hr>
         <p class="p1">
           Starting Amount
-          <span>$1,000</span>
+          <span>${{util.numberWithCommas(account.desc_minimum_investment)}}</span>
         </p>
       </div>
     </div>
-    <div class="account marigold" (click)="addNewAccount('marigold')">
+    <!-- <div class="account marigold" (click)="addNewAccount('marigold')">
       <img src="assets/imgs/investment-types/marigold-banner.svg" alt="">
       <div>
         <h3>Marigold</h3>
@@ -74,7 +75,7 @@
           <span>$1,000</span>
         </p>
       </div>
-    </div>
+    </div> -->
 
     <!-- <div class="account" (click)="addNewAccount()">
       <ion-icon src="assets/icon/inv-type/antipasto-big.svg"></ion-icon>

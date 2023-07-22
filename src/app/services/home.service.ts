@@ -34,6 +34,10 @@ export class HomeService {
     return this.http.post(`${this.baseUrl}/v2/fund-subscription`, payload , this.headers);
   }
 
+  public createBeneficiary(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/create-beneficiary`, payload, this.headers);
+  }
+
   public getBeneficiaries(): Promise<any>{
     return this.http.get(`${this.baseUrl}/v2/list-beneficiaries`, {}, this.headers);
   }

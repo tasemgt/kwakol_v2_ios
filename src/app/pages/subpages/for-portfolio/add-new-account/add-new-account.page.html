@@ -1,17 +1,17 @@
-<ion-header class="{{account}}">
+<ion-header class="{{account.name.toLowerCase()}}">
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back-white.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading left down">{{ account | capitalize }}</h2>
-  <img [src]="'assets/imgs/investment-types/'+ account + '-lg.svg'" alt="">
+  <h2 class="subpage-heading left down">{{ account.name }}</h2>
+  <img [src]="'assets/imgs/investment-types/'+ account.name.toLowerCase() + '-lg.svg'" alt="">
 </ion-header>
 
 <ion-content class="page-content">
 
-  <h3>About Levadura</h3>
+  <h3>About {{ account.name }} </h3>
   
   <p>
-    Levadura is a short-term investment package with a 3-month tenure.
+    {{ account.description }}
   </p>
   
   <h3>Features</h3>
@@ -23,23 +23,19 @@
     </div> -->
     <p class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       <!-- Minimum investment: $ {{ util.numberWithCommas(account.desc_minimum_investment) }}. -->
-       Minimum investment: $1,000.
+       Minimum investment: ${{util.numberWithCommas(account.desc_minimum_investment)}}.
     </p>
     <p class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       <!-- {{ account.desc_commission}} -->
-       Commission: 50% of Profit.
+       {{ account.desc_commission}}
     </p>
     <p class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       This package trades stock indices (50%) and currencies (50%)
-       <!-- {{ account.desc_comment}} -->
+       {{ account.desc_comment}}
     </p>
     <p class="item">
        <ion-icon src="assets/icon/check-circle.svg"></ion-icon>
-       Projected Returns*: 35% profit margin per annum
-       <!-- {{ account.desc_comment}} -->
+       {{ account.desc_comment}}
     </p>
     <p class="footer">
       * Projected returns only provide estimates of performance based on Kwakol’s prudent investment approach and historic trading performance.
@@ -50,7 +46,7 @@
 
   <div class="performance">
     <p>Past year(Jan. - Dec.)</p>
-    <p>35.12%</p>
+    <p>{{account.percentage}}%</p>
   </div>
 
   <ion-row>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
+import { Beneficiary } from 'src/app/models/user';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
 import { DataService } from 'src/app/services/data.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
@@ -16,6 +17,8 @@ export class AddNewAccountPage implements OnInit {
   public account;
   public fromPage: string;
 
+  public beneficiary: Beneficiary;
+
   constructor(
     private modalCtrl: ModalController,
     private navCtrl: NavController,
@@ -28,16 +31,17 @@ export class AddNewAccountPage implements OnInit {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
       this.account = state.account;
+      this.beneficiary = state.beneficiary;
     }
   }
 
   ngOnInit() {
-
+    console.log(this.account);
   }
 
   public goToInvestInAccount(){
     console.log(this.account);
-    this.router.navigateByUrl('/invest-in-account', {state: {url: this.router.url, account: this.account}});
+    this.router.navigateByUrl('/invest-in-account', {state: {url: this.router.url, account: this.account, beneficiary: this.beneficiary}});
   }
 
   // public async continue(){

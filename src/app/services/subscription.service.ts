@@ -8,13 +8,13 @@ import { HttpService } from './_http.service';
 })
 export class SubscriptionService {
 
-  private baseUrl = `${constants.baseUrl}`;
+  private baseUrl = `${constants.baseUrlV2}`;
 
   private headers = {'Content-Type': 'application/json'};
 
   private balanceSubject: BehaviorSubject<boolean> = new BehaviorSubject( false );
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService) {}
 
   public getDepositData(){
     return this.http.get(`${this.baseUrl}/deposit`, {}, this.headers);
@@ -30,12 +30,11 @@ export class SubscriptionService {
   }
 
   public getInvestmentAccounts(): Promise<any>{
-    return this.http.get(`${this.baseUrl}/new-subscription`, {}, this.headers);
+    return this.http.get(`${this.baseUrl}/v1/new-subscription`, {}, this.headers);
   }
 
   public doNewSubscription(payload): Promise<any>{
-    const headers = {'Content-Type' : false, processData : false}; //Needed to upload file as file and not converted to string
-    return this.http.post(`${this.baseUrl}/new-subscription`, payload, headers);
+    return this.http.post(`${this.baseUrl}/v1/new-subscription`, payload, this.headers);
   }
 
   public getBalanceSubject(){

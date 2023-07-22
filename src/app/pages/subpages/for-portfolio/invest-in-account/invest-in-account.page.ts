@@ -2,6 +2,9 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { Router } from '@angular/router';
 import { IonModal, LoadingController, Platform } from '@ionic/angular';
 import { investmentIcons } from 'src/app/models/constants';
+import { Beneficiary } from 'src/app/models/user';
+import { HomeService } from 'src/app/services/home.service';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -30,10 +33,13 @@ export class InvestInAccountPage implements OnInit {
   public isCustomizeName = false;
   public inputPinTypePassword = true;
   public pin: string;
+  public beneficiary: Beneficiary;
 
   constructor(
     private platform: Platform,
     private router: Router,
+    private homeService: HomeService,
+    private subscriptionService: SubscriptionService,
     public util: UtilService,
     private loading: LoadingController,
     private renderer: Renderer2
@@ -42,10 +48,12 @@ export class InvestInAccountPage implements OnInit {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
       this.account = state.account;
+      this.beneficiary = state.beneficiary;
     }
   }
 
   ngOnInit() {
+    console.log(this.beneficiary);
     this.platform.keyboardDidShow.subscribe((ev) => {
       const { keyboardHeight } = ev;
       this.keyboardHeight = keyboardHeight;
@@ -77,10 +85,15 @@ export class InvestInAccountPage implements OnInit {
   }
 
   public continueToCustomize() {
-    if (!this.isCustomizeName) {
+    if(!this.ammount){
+      this.util.showToast('A subscription amount is required.', 2500, 'danger');
+      return;
+    }
+    if (!this.isCustomizeName && !this.beneficiary) { //If we are still in amount entry and it isnt beneficiary creation
       this.isCustomizeName = true;
       return;
     }
+    //We have added custom name or its beneficiary adding...
     this.continueToPin();
   }
 
@@ -89,7 +102,7 @@ export class InvestInAccountPage implements OnInit {
   }
 
   public continueToPin() {
-    if (this.isCustomizeName) {
+    if (this.isCustomizeName || this.beneficiary) {
       this.pinEnterModal.present();
     }
   }
@@ -98,6 +111,10 @@ export class InvestInAccountPage implements OnInit {
     console.log(e);
     this.pin = e.keypadText;
     if (this.pin.length === 4) {
+      if(this.beneficiary){ // If Beneficiary exists for creation
+        this.doCreateBeneficiaryAccount();
+        return;
+      }
       this.doAddInvestmentAccount();
     }
   }
@@ -121,8 +138,37 @@ export class InvestInAccountPage implements OnInit {
     setTimeout(() => {
       this.backdropActive = false;
       this.showLoadingModal = false;
+      this.subscriptionService.getBalanceSubject().next(true);
       this.router.navigateByUrl('/tabs/home');
     }, 100);
+  }
+
+  private async doCreateBeneficiaryAccount(){
+    const payload = {
+      name: `${this.beneficiary.firstname} ${this.beneficiary.lastname}`,
+      subscription: this.account.id,
+      amount: this.ammount,
+      pin: this.pin
+    };
+    console.log(payload);
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.createBeneficiary(payload);
+      console.log(resp);
+      this.loading.dismiss();
+      if(resp.code == 100){
+        this.pinEnterModal.dismiss();
+        //Call balance refresh
+        this.openLoadingModal();
+      }
+      else{
+        this.util.showToast(resp.message, 2000, 'danger');
+      }
+    } catch (err) {
+      console.log(err);
+      this.loading.dismiss();
+      this.util.showToast(err.error.message, 2000, 'danger');
+    }
   }
 
   private doAddInvestmentAccount() {

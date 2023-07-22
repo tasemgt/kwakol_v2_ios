@@ -13,8 +13,17 @@
   <div class="content">
     <div class="loader-wrapper no-animation">
       <ion-icon src="assets/imgs/v2-imgs/hour-glass.svg" alt=""></ion-icon>
-      <p class="loading-text">
-        Your investment request for <span style="font-family: BwModelicaBold">{{account | capitalize}}</span> is being reviewed. You will get a notification once it is approved.
+      <p class="loading-text" *ngIf="!beneficiary">
+        Your investment request for
+        <span style="font-family: BwModelicaBold">{{account.name }}</span> is
+        being reviewed. You will get a notification once it is approved.
+      </p>
+      <p class="loading-text" *ngIf="beneficiary">
+        Your investment to create an investment for {{beneficiary.firstname+' '+beneficiary.lastname}}<span
+          style="font-family: BwModelicaBold"
+          > ({{account.name}})</span
+        >
+        is being reviewed. You will get a notification once it is approved.
       </p>
     </div>
   </div>
@@ -40,7 +49,7 @@
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
   <h2 *ngIf="!isCustomizeName" class="subpage-heading left">
-    Invest in {{account | capitalize}}
+    Invest in {{account.name}}
   </h2>
   <h2
     *ngIf="isCustomizeName"
@@ -122,14 +131,17 @@
         <div class="img-wrapper">
           <div class="round-button">
             <ion-icon
-              [src]="'assets/icon/inv-type/'+ (getIconForInvName(account) || 'special-big') +'.svg'"
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(account.name.toLowerCase()) || 'special-big') +'.svg'"
             ></ion-icon>
           </div>
         </div>
 
         <h3>${{ammount}}</h3>
 
-        <p class="p0">to {{customName || ''}} (<span>{{account}}</span>)</p>
+        <p class="p0">
+          to {{customName || beneficiary.firstname+' '+beneficiary.lastname ||
+          ''}} (<span>{{account.name}}</span>)
+        </p>
 
         <p class="p1">Enter your pin to complete transaction</p>
         <div class="pin-wrapper">
