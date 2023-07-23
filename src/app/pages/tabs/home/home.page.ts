@@ -592,6 +592,11 @@ export class HomePage implements OnInit {
     }
   }
 
+  public openInvestementDetailsPage(){
+    //Fetch investment from api
+    this.router.navigateByUrl('/investment-details', {state:{url: this.router.url}});
+  }
+
 
 
   // PRIVATES!!

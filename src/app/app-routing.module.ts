@@ -48,11 +48,11 @@ const routes: Routes = [
     canActivate: [AuthenGuard],
     loadChildren: () => import('./pages/subpages/for-portfolio/new-account/new-account.module').then( m => m.NewAccountPageModule)
   },
-  {
-    path: 'investment-details',
-    canActivate: [AuthenGuard],
-    loadChildren: () => import('./pages/subpages/for-portfolio/investment-details/investment-details.module').then( m => m.InvestmentDetailsPageModule)
-  },
+  // {
+  //   path: 'investment-details',
+  //   canActivate: [AuthenGuard],
+  //   loadChildren: () => import('./pages/subpages/for-portfolio/investment-details/investment-details.module').then( m => m.InvestmentDetailsPageModule)
+  // },
   {
     path: 'add-new-account',
     canActivate: [AuthenGuard],
@@ -147,6 +147,10 @@ const routes: Routes = [
   {
     path: 'create-beneficiary',
     loadChildren: () => import('./pages/subpages/for-home/create-beneficiary/create-beneficiary.module').then( m => m.CreateBeneficiaryPageModule)
+  },
+  {
+    path: 'investment-details',
+    loadChildren: () => import('./pages/subpages/for-home/investment-details/investment-details.module').then( m => m.InvestmentDetailsPageModule)
   }
 ];
 @NgModule({

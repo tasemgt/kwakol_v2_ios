@@ -116,7 +116,7 @@ h1.subheader {
   margin: 0 -1.8rem;
   background: var(--ion-color-secondary);
 
-  .title{
+  .title {
     text-align: center;
   }
 
@@ -126,15 +126,14 @@ h1.subheader {
     font-size: 1.25rem;
   }
 }
-.sub-header{
+.sub-header {
   padding: 1.3rem;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: var(--ion-color-tertiary);
-  margin-bottom: -.5rem;
+  margin-bottom: -0.5rem;
   border-bottom: 2px solid rgba(var(--ion-color-secondary-rgb), 0.1);
 }
-
 
 //Grid style
 ion-grid {
@@ -276,7 +275,7 @@ ion-col {
   box-sizing: border-box;
   letter-spacing: 0.02rem;
 
-  .active{
+  .active {
   }
 
   // &[type="email"]{
@@ -321,7 +320,7 @@ ion-col {
   letter-spacing: 0.02rem;
   font-family: "BwModelicaRegular";
 
-  &.country{
+  &.country {
     display: flex;
     justify-content: space-between;
   }
@@ -339,7 +338,7 @@ ion-col {
   justify-content: center;
   align-items: center;
 
-  &.center{
+  &.center {
     margin: 0 auto;
   }
 
@@ -573,6 +572,376 @@ ion-button.kwakol-btn {
   }
 }
 
+// Investment & Investment items
+.investment-item {
+  background-color: #fff;
+  border: 1px solid var(--ion-light-green-color);
+  border-radius: 7px;
+  padding: 0.7rem;
+  width: 75%;
+
+  p {
+    margin-top: 0.5rem;
+    font-size: 0.624rem;
+    letter-spacing: 0.03rem;
+    font-family: BwModelicaRegular;
+  }
+
+  h4 {
+    font-family: BwModelicaExtraBold;
+    color: var(--ion-color-primary);
+    font-size: 0.9rem;
+
+    span:first-child {
+      font-family: BwModelicaRegular;
+      font-size: 0.62rem;
+      letter-spacing: 0.03rem;
+    }
+
+    span.balance {
+      font-family: BwModelicaBold;
+      font-size: 0.72rem;
+      letter-spacing: 0.03rem;
+    }
+  }
+
+  .type-area {
+    padding: 0.3rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    div.icon-wrapper {
+      background: #fff;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      padding-bottom: 0.2rem;
+      padding-left: 0.1rem;
+      ion-icon {
+        font-size: 1.3rem;
+      }
+    }
+
+    &.levadura-big {
+      background-color: #d8c680;
+    }
+    &.marigold-big {
+      background-color: #af9685;
+    }
+    &.junzi-big {
+      background-color: #295513;
+    }
+
+    h4 {
+      color: var(--ion-color-secondary);
+    }
+  }
+
+  .hidden {
+    font-size: 1rem;
+  }
+}
+
+.kwakol-modal-bottom-drawer2 {
+  ion-content {
+    --color: var(--ion-color-secondary);
+    h3 {
+      margin-top: 0.5rem;
+    }
+
+    h1 {
+      font-family: BwModelicaBold;
+    }
+  }
+
+  .content-wrapper {
+    .item {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      p {
+        font-family: BwModelicaBold;
+        letter-spacing: 0.02rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  &.transfer-user {
+    ion-content {
+      .input-wrapper {
+        margin: 1rem -1rem 0 -1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-top: 1px solid rgba(var(--ion-color-primary-rgb), 0.5);
+        border-bottom: 1px solid rgba(var(--ion-color-primary-rgb), 0.5);
+        padding: 1rem 0.625rem;
+
+        label {
+          margin-right: 10px;
+        }
+
+        input {
+          font-size: 0.9rem;
+          background: transparent;
+          border: none;
+          outline: none;
+          width: 100%;
+
+          &::placeholder {
+            color: rgba(var(--ion-color-secondary-rgb), 0.3);
+          }
+        }
+      }
+
+      .user-items {
+        margin-top: 1rem;
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          p.text {
+            font-family: BwModelicaRegular;
+            span {
+              font-family: BwModelicaBold;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.transfer-investment {
+    ion-content {
+      .investment-item {
+        --animate-duration: 0.7s;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--ion-color-tertiary);
+        border: 1px solid rgba(var(--ion-color-primary-rgb), 0.25);
+        border-radius: 6px;
+        padding: 0.7rem;
+        margin-bottom: 0.7rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        p,
+        h3 {
+          margin: 0;
+          font-size: 0.95rem;
+        }
+
+        .investment-name {
+          display: flex;
+          gap: 0.3rem;
+          align-items: center;
+
+          .name {
+            p {
+              font-size: 0.7rem;
+              letter-spacing: 0.04rem;
+              color: rgba(var(--ion-color-secondary-rgb), 0.5);
+            }
+            h3 {
+              font-family: BwModelicaRegular;
+            }
+          }
+        }
+
+        h3 {
+          font-family: BwModelicaBold;
+        }
+
+        &.no-investments {
+          padding: 1rem 0.7rem;
+          display: flex;
+          justify-content: flex-start;
+          gap: 0.5rem;
+          ion-icon {
+            font-size: 1.4rem;
+          }
+
+          p {
+            color: rgba(var(--ion-color-secondary-rgb), 0.5);
+            font-size: 1rem;
+            letter-spacing: -0.04rem;
+          }
+        }
+
+        .did-floating-label-content {
+          position: relative;
+
+          div {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            ion-icon {
+              font-size: 1.3rem;
+            }
+
+            span {
+              font-size: 0.85rem;
+              color: rgba(var(--ion-color-secondary-rgb), 0.5);
+            }
+          }
+        }
+
+        .did-floating-input {
+          border: 2px solid var(--ion-color-primary);
+        }
+      }
+    }
+
+    ion-col {
+      p.wallet-balance {
+        background-color: rgba(var(--ion-color-primary-rgb), 0.2);
+        color: rgba(var(--ion-color-secondary-rgb), 0.5);
+        width: fit-content;
+        padding: 0.1rem 0.3rem;
+        font-size: 0.65rem !important;
+        font-family: BwModelicaLight;
+        font-weight: 600;
+        margin: 0 auto !important;
+        border-radius: 3px;
+
+        span {
+          color: var(--ion-color-secondary);
+          font-family: BwModelicaMedium;
+        }
+      }
+    }
+  }
+
+  &.deposit-modal {
+    .p0 {
+      margin-top: 0.5rem;
+      font-family: BwModelicaRegular;
+    }
+
+    .content-wrapper {
+      padding: 0.9rem;
+    }
+
+    .type-currency {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:first-child {
+        margin-bottom: 1rem;
+      }
+
+      .round-button {
+        border: none;
+        ion-icon {
+          font-size: 1.6rem;
+        }
+      }
+
+      p {
+        font-family: BwModelicaBold;
+      }
+    }
+  }
+
+  &.deposit-naira-modal {
+    text-align: center;
+
+    .round-button,
+    .daily-rate {
+      margin: 0 auto;
+      border: none;
+    }
+
+    .daily-rate {
+      margin-top: 1rem;
+    }
+
+    p {
+      font-family: BwModelicaRegular;
+    }
+
+    .p0 {
+      margin: 0.5rem auto 0 auto;
+      width: 85%;
+    }
+
+    ion-content {
+      --padding-start: 1.8rem;
+      --padding-end: 1.8rem;
+    }
+
+    .content-wrapper {
+      padding: 0.9rem;
+      margin-bottom: 1rem;
+
+      p {
+        display: flex;
+        justify-content: space-between;
+
+        &:not(:last-child) {
+          margin-bottom: 1rem;
+        }
+
+        span:first-child {
+          color: rgba(var(--ion-color-secondary-rgb), 0.5);
+        }
+
+        span:last-child {
+          // font-family: BwModelicaMedium;
+          display: flex;
+          gap: 0.4rem;
+          align-items: center;
+
+          ion-icon {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+
+    .options-wrapper {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+    }
+
+    .code-wrapper {
+      width: fit-content;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+      border-radius: 5px;
+      background: #fff;
+      margin: 0 auto;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+}
+
 /** 
     Modals Styles
 **/
@@ -641,7 +1010,7 @@ ion-modal.select-dob {
     text-align: center;
   }
 
-  .btn-row{
+  .btn-row {
     margin-top: 1rem;
   }
 
@@ -666,7 +1035,8 @@ ion-modal.enter-pin {
     .img-wrapper {
       width: 100%;
       margin-bottom: 0.5rem;
-      .round-button, .default-img {
+      .round-button,
+      .default-img {
         border: none;
         margin: 0 auto;
       }
@@ -690,7 +1060,7 @@ ion-modal.enter-pin {
       }
     }
 
-    h4{
+    h4 {
       text-align: center;
       font-family: BwModelicaMedium;
       font-size: 1.4rem;
@@ -730,26 +1100,25 @@ ion-modal.enter-pin {
   background-color: var(--ion-color-tertiary);
   padding: 0.7rem 1rem;
 
-  &.center-page{
+  &.center-page {
     bottom: 15rem;
 
-    .content{
+    // .content {
+    //   .loader-wrapper {
+    //     &.no-animation {
+    //       text-align: center;
 
-      .loader-wrapper{
-        &.no-animation{
-          text-align: center;
+    //       ion-icon {
+    //         font-size: 5rem;
+    //       }
+    //     }
+    //   }
+    // }
 
-          ion-icon{
-            font-size: 5rem;
-          }
-        }
-      }
-    }
-
-    .footer{
+    .footer {
       display: block;
-      padding: .7rem 0;
-      .round-button{
+      padding: 0.7rem 0;
+      .round-button {
         float: right;
       }
     }
@@ -814,26 +1183,36 @@ ion-modal.enter-pin {
         &:last-child {
           display: flex;
           gap: 0.4rem;
-          ion-icon{
-            font-size: .9rem;
+          ion-icon {
+            font-size: 0.9rem;
           }
         }
       }
     }
 
     .loader-wrapper {
-      .circle-1, .circle-2, .circle-3{
+      &.no-animation {
+        text-align: center;
+
+        ion-icon {
+          font-size: 5rem;
+        }
+      }
+
+      .circle-1,
+      .circle-2,
+      .circle-3 {
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 100%;
       }
-    
+
       .circle-1 {
         height: 4.6rem;
         width: 4.6rem;
         border: 1px solid rgba(var(--ion-color-primary-rgb), 1);
-    
+
         .logo-loaded {
           display: flex;
           align-items: center;
@@ -842,7 +1221,7 @@ ion-modal.enter-pin {
           border-radius: 100%;
           height: 2.7rem;
           width: 2.7rem;
-    
+
           .circle {
             position: relative;
             height: 1.7rem;
@@ -852,41 +1231,44 @@ ion-modal.enter-pin {
           }
         }
       }
-    
+
       .circle-2 {
         height: 5.5rem;
         width: 5.5rem;
         border: 0.5px solid rgba(var(--ion-color-primary-rgb), 0.5);
       }
-    
+
       .circle-3 {
         margin: 0 auto;
         height: 6.3rem;
         width: 6.3rem;
         border: 0.2px solid rgba(var(--ion-color-primary-rgb), 0.2);
       }
-    
+
       ion-icon {
         font-size: 2.85rem;
         // --animate-delay: 0.5s;
         --animate-duration: 1s;
       }
-    
-      .loading-text{
-        margin: .5rem 0 0 0;
-        font-size: .82rem;
+
+      .loading-text {
+        font-family: BwModelicaLight;
+        font-weight: 600;
+        margin: 0.5rem 0 0 0;
+        font-size: 0.83rem;
+        line-height: 1.3;
         text-align: center;
       }
     }
 
-    .load-complete{
+    .load-complete {
       text-align: center;
 
-      p{
+      p {
         font-family: BwModelicaRegular;
         font-size: 0.87rem;
-        letter-spacing: .01rem;
-        span{
+        letter-spacing: 0.01rem;
+        span {
           font-family: BwModelicaBold;
         }
       }
@@ -894,6 +1276,19 @@ ion-modal.enter-pin {
   }
 
   .footer {
+    .yes-button {
+      border: 1px solid var(--ion-color-primary);
+      background-color: #fff;
+      border-radius: 100px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.5rem 0.6rem;
+      width: 44%;
+      float: left;
+      font-family: BwModelicaBold;
+      font-size: 0.85rem;
+    }
+
     .amount-date {
       .amount {
         font-size: 1.3rem;
@@ -963,9 +1358,7 @@ ion-modal.enter-pin {
   }
 }
 
-
 .kwakol-modal-bottom-drawer2 {
-
   --backdrop-opacity: 1;
 
   &::part(handle) {
@@ -975,27 +1368,27 @@ ion-modal.enter-pin {
   &::part(backdrop) {
     background-color: rgba(var(--ion-color-secondary-rgb), 1);
   }
-  
+
   --border-radius: 20px;
   --border-width: 0;
-  
+
   ion-content {
     --background: var(--ion-color-tertiary);
     --padding-top: 2rem;
     --padding-start: 1rem;
     --padding-end: 1rem;
     --color: var(--ion-color-secondary);
-    
+
     // .round-button {
     //   margin: 0 auto;
     // }
-    
-    .content-wrapper{
+
+    .content-wrapper {
       margin-top: 1rem;
-      background-color: #FFF;
-      border: 1px solid rgba(var(--ion-color-primary-rgb), .25);
+      background-color: #fff;
+      border: 1px solid rgba(var(--ion-color-primary-rgb), 0.25);
       border-radius: 5px;
-      padding: .6rem;
+      padding: 0.6rem;
     }
 
     .p1 {
@@ -1060,8 +1453,6 @@ ion-modal.enter-pin {
     }
   }
 }
-
-
 
 /* Shared styles Pages */
 /* Deposit, Account, Withdrawal */
@@ -1322,7 +1713,7 @@ ion-refresher.refresher-native.refresher-refreshing
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0.7rem 0.5rem;
+    padding: 0.7rem 0rem;
     border-bottom: 0.005rem solid rgba(var(--ion-color-primary-rgb), 0.09);
 
     .trans-type-wrapper {
@@ -1342,7 +1733,8 @@ ion-refresher.refresher-native.refresher-refreshing
         h3 {
           font-size: 0.87rem;
           letter-spacing: -0.02rem;
-          font-family: BwModelicaRegular;
+          font-family: BwModelicaLight;
+          font-weight: 600;
           // font-weight: bold;
           color: var(--ion-color-secondary);
         }
@@ -1352,19 +1744,22 @@ ion-refresher.refresher-native.refresher-refreshing
     .amount-date {
       .amount {
         font-family: BwModelicaBold;
+        font-weight: 600;
       }
     }
 
     p.trans-type-p,
     .trans-date {
       font-size: 0.615rem;
-      font-family: BwModelicaRegular;
-      letter-spacing: 0.04rem;
+      font-family: BwModelicaLight;
+      font-weight: 600;
+      letter-spacing: 0.025rem;
       color: rgba(var(--ion-color-secondary-rgb), 0.5);
     }
 
     .trans-date {
       text-align: right;
+      margin-top: 0.1rem;
     }
 
     &:last-child {
@@ -1384,11 +1779,11 @@ ion-refresher.refresher-native.refresher-refreshing
   gap: 1rem;
   align-items: center;
 
-  &.less-padding{
+  &.less-padding {
     padding: 1.8rem 0;
   }
-  
-  &.more-padding{
+
+  &.more-padding {
     padding: 6rem 0;
   }
 
@@ -1472,7 +1867,6 @@ ion-refresher.refresher-native.refresher-refreshing
   opacity: 1;
   transition: opacity ease 0.3s;
 }
-
 
 // MISCSS
 

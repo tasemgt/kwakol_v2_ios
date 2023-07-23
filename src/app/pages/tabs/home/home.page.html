@@ -235,7 +235,7 @@
   </div>
   <!-- End Wallet Segment -->
 
-  <!-- Investments Segment... -->
+  <!------------------ Investments Segment... ------------------------>
   <div
     *ngIf="activeSegment === 'investments'"
     class="segment segment-investments"
@@ -265,7 +265,7 @@
             <div class="btn">
               <ion-icon
                 src="assets/icon/v2-icons/cta-withdraw.svg"
-                (click)="goToPage('/withdrawal')"
+                
               ></ion-icon>
             </div>
             <p>Withdraw</p>
@@ -297,7 +297,7 @@
           [ngClass]="{'alter-margin': investment?.user_details.subscriber.subscription.length === 1}"
         >
           <!-- <div class="investment-item" (click)="goToInvestmentDeets(inv)"> -->
-          <div class="investment-item">
+          <div class="investment-item" (click)="openInvestementDetailsPage()">
             <div
               class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
             >
@@ -326,7 +326,7 @@
           </div>
         </ion-col>
 
-        <ion-col size="5" *ngIf="!home" class="inv-skeleton">
+        <!-- <ion-col size="5" *ngIf="!home" class="inv-skeleton">
           <ion-item>
             <ion-thumbnail slot="start">
               <ion-skeleton-text animated></ion-skeleton-text>
@@ -340,7 +340,7 @@
               <ion-skeleton-text animated></ion-skeleton-text>
             </ion-thumbnail>
           </ion-item>
-        </ion-col>
+        </ion-col> -->
 
         <!-- <ion-col size="6">
           <div class="investment-item">
