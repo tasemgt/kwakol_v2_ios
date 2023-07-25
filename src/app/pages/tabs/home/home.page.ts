@@ -122,7 +122,7 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activeSegment = 'investments';
+    this.activeSegment = 'wallet';
     this.showInfoModal = false;
 
     this.showLoadingModal = false;
@@ -592,9 +592,9 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openInvestementDetailsPage(){
+  public openInvestementDetailsPage(inv){
     //Fetch investment from api
-    this.router.navigateByUrl('/investment-details', {state:{url: this.router.url}});
+    this.router.navigateByUrl('/investment-details', {state:{url: this.router.url, investment: inv}});
   }
 
 

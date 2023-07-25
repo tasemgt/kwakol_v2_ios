@@ -10,6 +10,8 @@ p {
 }
 
 ion-content {
+  --padding-start: 1.2rem;
+  --padding-end: 1.2rem;
   &.investments {
     --background: linear-gradient(
       to bottom,
@@ -271,7 +273,7 @@ p.section-title {
   display: flex;
   justify-content: space-between;
 
-  &.more-margin{
+  &.more-margin {
     margin: 1.5rem 0;
   }
 
@@ -359,6 +361,7 @@ ion-row.investments-wrapper {
   overflow-y: scroll;
   flex-wrap: nowrap;
   margin: 1rem -1.8rem;
+  padding-left: 1.5rem;
   // margin-left: -7rem;
 
   &::-webkit-scrollbar {

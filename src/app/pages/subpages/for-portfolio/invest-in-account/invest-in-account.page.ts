@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { IonModal, LoadingController, Platform } from '@ionic/angular';
 import { investmentIcons } from 'src/app/models/constants';
@@ -13,7 +19,6 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./invest-in-account.page.scss'],
 })
 export class InvestInAccountPage implements OnInit {
-
   @ViewChild('pinEnterModal') pinEnterModal: IonModal;
   @ViewChild('LoadingModalDiv') loadingModalDiv: ElementRef;
   @ViewChild('backdrop') backdrop: ElementRef;
@@ -85,11 +90,12 @@ export class InvestInAccountPage implements OnInit {
   }
 
   public continueToCustomize() {
-    if(!this.ammount){
+    if (!this.ammount) {
       this.util.showToast('A subscription amount is required.', 2500, 'danger');
       return;
     }
-    if (!this.isCustomizeName && !this.beneficiary) { //If we are still in amount entry and it isnt beneficiary creation
+    if (!this.isCustomizeName && !this.beneficiary) {
+      //If we are still in amount entry and it isnt beneficiary creation
       this.isCustomizeName = true;
       return;
     }
@@ -111,7 +117,8 @@ export class InvestInAccountPage implements OnInit {
     console.log(e);
     this.pin = e.keypadText;
     if (this.pin.length === 4) {
-      if(this.beneficiary){ // If Beneficiary exists for creation
+      if (this.beneficiary) {
+        // If Beneficiary exists for creation
         this.doCreateBeneficiaryAccount();
         return;
       }
@@ -143,12 +150,12 @@ export class InvestInAccountPage implements OnInit {
     }, 100);
   }
 
-  private async doCreateBeneficiaryAccount(){
+  private async doCreateBeneficiaryAccount() {
     const payload = {
       name: `${this.beneficiary.firstname} ${this.beneficiary.lastname}`,
       subscription: this.account.id,
       amount: this.ammount,
-      pin: this.pin
+      pin: this.pin,
     };
     console.log(payload);
     this.util.presentLoading();
@@ -156,12 +163,11 @@ export class InvestInAccountPage implements OnInit {
       const resp = await this.homeService.createBeneficiary(payload);
       console.log(resp);
       this.loading.dismiss();
-      if(resp.code == 100){
+      if (resp.code == 100) {
         this.pinEnterModal.dismiss();
         //Call balance refresh
         this.openLoadingModal();
-      }
-      else{
+      } else {
         this.util.showToast(resp.message, 2000, 'danger');
       }
     } catch (err) {
@@ -171,14 +177,30 @@ export class InvestInAccountPage implements OnInit {
     }
   }
 
-  private doAddInvestmentAccount() {
-    //call api
+  private async doAddInvestmentAccount() {
+    const payload = {
+      custom_name: this.customName,
+      subscription: `${this.account.id}`,
+      pin: this.pin,
+      amount: this.ammount,
+    };
+    console.log(payload);
     this.util.presentLoading();
-    setTimeout(() => {
+    try {
+      const resp = await this.subscriptionService.createInvestmentAccount(payload);
+      console.log(resp);
       this.loading.dismiss();
-      this.pinEnterModal.dismiss();
-      //Call balance refresh
-      this.openLoadingModal();
-    }, 2000);
+      if (resp.code == 100) {
+        this.pinEnterModal.dismiss();
+        //Call balance refresh
+        this.openLoadingModal();
+      } else {
+        this.util.showToast(resp.message, 2000, 'danger');
+      }
+    } catch (err) {
+      console.log(err);
+      this.loading.dismiss();
+      this.util.showToast(err.error.message, 2000, 'danger');
+    }
   }
 }

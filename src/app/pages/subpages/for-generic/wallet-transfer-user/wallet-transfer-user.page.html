@@ -4,6 +4,38 @@
   *ngIf="backdropActive"
 ></div>
 
+<div class="backdrop animate__animated animate__fadeIn" #backdropInfo *ngIf="backdropActive" (click)="closeInfoModal()"></div>
+
+  <!-- Info Modal Begin -->
+  <div
+    #InfoModalDiv
+    class="info-modal reset animate__animated animate__slideInUp"
+    *ngIf="showInfoModal"
+  >
+    <div class="header">
+      <ion-icon [src]="'assets/icon/v2-icons/'+ infoModalData.icon"></ion-icon>
+      <h4>{{infoModalData.title}}</h4>
+    </div>
+
+    <div class="content">
+      <p class="item" *ngFor="let item of infoModalData.content">
+        <span>{{item.item}}</span>
+        <span>{{item.value}} <ion-icon *ngIf="item.item === 'Reference'" (click)="util.clipboardCopy(item.item)" src="assets/icon/copy.svg"></ion-icon></span>
+      </p>
+    </div>
+
+    <div class="footer">
+      <div class="amount-date">
+        <div class="amount">-${{util.numberWithCommas(infoModalData.amount)}}</div>
+        <div class="date">{{infoModalData.date}}</div>
+      </div>
+      <div class="round-button" (click)="closeInfoModal()">
+        <ion-icon src="assets/icon/close.svg"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <!-- Info Modal End -->
+
 <!-- Loading Modal Begin -->
 <div
   #LoadingModalDiv
@@ -66,6 +98,8 @@
   </div>
 </ion-header>
 
+<!-- (click)="openInfoModal(transaction.)"  Getting transaction to be sure it displays info when clicked on...-->
+
 <ion-content class="page-content" #content [scrollEvents]="true">
   <div class="chat-container">
     <div
@@ -88,7 +122,7 @@
 
     <div class="input-wrapper">
       <input
-        type="text"
+        type="tel"
         id="input-field"
         name="input-field"
         placeholder="$0.00"

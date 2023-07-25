@@ -27,7 +27,7 @@
     <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
   </div>
 
-  <ion-segment value="investments" (ionChange)="segmentChanged($event)" mode="md">
+  <ion-segment value="wallet" (ionChange)="segmentChanged($event)" mode="md">
     <ion-segment-button value="wallet" mode="md">
       <ion-label>Wallet</ion-label>
     </ion-segment-button>
@@ -297,7 +297,7 @@
           [ngClass]="{'alter-margin': investment?.user_details.subscriber.subscription.length === 1}"
         >
           <!-- <div class="investment-item" (click)="goToInvestmentDeets(inv)"> -->
-          <div class="investment-item" (click)="openInvestementDetailsPage()">
+          <div class="investment-item" (click)="openInvestementDetailsPage(inv)">
             <div
               class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
             >
@@ -307,7 +307,7 @@
                 ></ion-icon>
               </div>
               <h4>
-                <span>The Plan</span><br />
+                <span>{{inv.custom_name || 'My Plan'}}</span><br />
                 <span>
                   {{ inv.subscription.name.substring(0,8)
                   }}{{inv.subscription.name.length > 8 ? '...': ''}}
@@ -378,7 +378,7 @@
         class="transactions-list no-border"
         *ngIf="homeHistories?.length > 0"
       >
-        <div class="transaction" *ngFor="let hist of homeHistories | slice:0:4">
+        <div class="transaction" *ngFor="let hist of homeHistories | slice:0:4" (click)="openInfoModal(hist.type.toLowerCase(), hist)">
           <div class="trans-type-wrapper">
             <ion-icon
               [src]="'assets/icon/v2-icons/'+getIconForType(hist.type)+'.svg'"
@@ -453,8 +453,8 @@
   <ion-modal
     #transferModal
     trigger="open-transfer-drawer"
-    [initialBreakpoint]="0.40"
-    [breakpoints]="[0, 0.40]"
+    [initialBreakpoint]="0.37"
+    [breakpoints]="[0, 0.37]"
     class="kwakol-modal-bottom-drawer2"
     handle="true"
   >
@@ -866,8 +866,8 @@
   <!-- Start Deposit Modal (Select currency)-->
   <ion-modal
     #depositModal
-    [initialBreakpoint]="0.37"
-    [breakpoints]="[0, 0.37]"
+    [initialBreakpoint]="0.34"
+    [breakpoints]="[0, 0.34]"
     class="kwakol-modal-bottom-drawer2 deposit-modal"
     handle="true"
   >

@@ -14,9 +14,11 @@ ion-header {
 
 h2.subpage-heading.left {
   padding-left: 3.2rem;
+  color: var(--ion-color-tertiary);
 }
 
 .summary-block {
+  color: var(--ion-color-tertiary);
   width: 90%;
   border-radius: 5px;
   border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
@@ -36,7 +38,7 @@ h2.subpage-heading.left {
 
       p {
         color: rgba(255, 255, 255, 0.35);
-        font-size: 0.68rem;
+        font-size: 0.65rem;
         font-family: BwModelicaHairline;
         letter-spacing: 0.05rem;
         font-weight: 600;
@@ -61,6 +63,26 @@ h2.subpage-heading.left {
         gap: 0.3rem;
         font-size: 0.97rem;
         letter-spacing: 0.01rem;
+
+        &.levadura {
+          background: #d8c680;
+        }
+
+        &.marigold {
+          background: #af9685;
+        }
+
+        &.junzi {
+          background: #295513;
+        }
+
+        &.antipasto {
+          background: #41b651;
+        }
+
+        &.veterano {
+          background: #5e5d5c;
+        }
 
         .icon-wrapper {
           display: flex;

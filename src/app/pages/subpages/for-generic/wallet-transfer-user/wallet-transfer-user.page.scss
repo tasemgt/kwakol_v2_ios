@@ -23,8 +23,9 @@ ion-header {
 ion-content {
   position: relative;
   --padding-bottom: 12rem;
+  --padding-start: 1.3rem;
+  --padding-end: 1.3rem;
 }
-
 
 .item {
   position: absolute;
@@ -87,7 +88,7 @@ ion-content {
       align-items: center;
       align-self: flex-end;
       .chat-bubble {
-        margin-right: -1rem;
+        // margin-right: -1rem;
       }
     }
 
@@ -106,6 +107,7 @@ ion-content {
       font-size: 0.7rem;
       color: rgba(var(--ion-color-secondary-rgb), 0.5);
       font-family: BwModelicaRegular;
+      align-self: flex-end;
     }
   }
 }

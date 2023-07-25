@@ -21,6 +21,7 @@ export class InvestmentDetailsPage implements OnInit {
   @ViewChild('backdrop') backdrop: ElementRef;
 
   @ViewChild('withdrawToWalletModal') withdrawToWalletModal: IonModal;
+  @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
   @ViewChild('pinEnterModal') pinEnterModal: IonModal;
 
   public fromPage: string;
@@ -54,6 +55,7 @@ export class InvestmentDetailsPage implements OnInit {
 
   ngOnInit() {
     this.activeSegment = 'history';
+    console.log('invvv ', this.investment );
   }
 
   public getIconForInvName(inv: string) {
@@ -133,5 +135,18 @@ export class InvestmentDetailsPage implements OnInit {
       this.openLoadingModal('alert');
       // this.router.navigateByUrl('/tabs/home');
     }, 1000);
+  }
+
+
+  public openMoreOptionsModal(){
+    this.moreOptionsModal.present();
+  }
+
+  public requestAccountStatement(){
+
+  }
+
+  public closeInvestment(){
+    
   }
 }

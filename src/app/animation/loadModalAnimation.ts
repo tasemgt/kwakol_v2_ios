@@ -26,7 +26,7 @@ export class LoadModalAnimation{
           .create()
           .addElement(baseEl)
           .easing('ease-out')
-          .duration(300)
+          .duration(200)
           .addAnimation([backdropAnimation, wrapperAnimation]);
       };
     

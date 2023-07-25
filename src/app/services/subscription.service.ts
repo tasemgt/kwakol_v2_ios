@@ -33,6 +33,10 @@ export class SubscriptionService {
     return this.http.get(`${this.baseUrl}/v1/new-subscription`, {}, this.headers);
   }
 
+  public createInvestmentAccount(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/new-subscription`, payload, this.headers);
+  }
+
   public doNewSubscription(payload): Promise<any>{
     return this.http.post(`${this.baseUrl}/v1/new-subscription`, payload, this.headers);
   }
