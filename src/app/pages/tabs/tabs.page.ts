@@ -22,9 +22,11 @@ export class TabsPage {
   public openedFrom: string;
 
   public showInfoModal: boolean;
-  public showLoadingModal: boolean;
   public infoModalData: any;
-  // public showLoadingModal: boolean;
+
+  public showLoadingModal: boolean;
+  public loadingModalType: string;
+  public loadingModalData: any;
 
   public tabList = {
     home: false,
@@ -51,8 +53,8 @@ export class TabsPage {
 
     this.uiService.getLoadingStateSubject().subscribe((payload) => {
       if (payload) {
-        this.openLoadingModal();
-        this.backdropActive = payload;
+        this.openLoadingModal(payload.data.type, payload.data.data);
+        this.backdropActive = payload.active;
         this.openedFrom = 'loading';
       }
     });
@@ -132,7 +134,9 @@ export class TabsPage {
     }, 10);
   }
 
-  public openLoadingModal(){
+  public openLoadingModal(type, data){
+    this.loadingModalType = type;
+    this.loadingModalData = data;
     setTimeout(() => {
       this.showLoadingModal = true;
       // console.log(this.infoModalData);

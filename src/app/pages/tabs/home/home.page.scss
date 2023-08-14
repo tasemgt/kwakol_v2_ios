@@ -476,3 +476,23 @@ ion-row.investments-wrapper {
   margin: 8rem 0;
   text-align: center;
 }
+
+.content-wrapper.banks-wrapper{
+  margin-bottom: 1rem;
+  color: rgba(var(--ion-color-secondary-rgb), 0.5);
+  .bank{
+    padding: .3rem;
+    margin-top: .5rem;
+    h4{
+      font-size: .85rem;
+      font-family: BwModelicaBold;
+      margin-bottom: .15rem;
+    }
+    p{
+      font-size: .8rem;
+      font-family: BwModelicaLight;
+      margin-bottom: .15rem;
+      font-weight: 600;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { constants } from '../models/constants';
 import { HttpService } from './_http.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,13 @@ export class HomeService {
 
   private headers = {'Content-Type': 'application/json'};
 
-  constructor(private http: HttpService) { }
+  private reopenSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  constructor(private http: HttpService) {}
+
+  public getReopenStateSubject(){
+    return this.reopenSubject;
+  }
 
   public getHome(): Promise<any>{
     return this.http.get(`${this.baseUrl}/v1/home`, {}, this.headers);
@@ -59,5 +66,12 @@ export class HomeService {
 
   // WITHDRAW FROM WALLET
   
+  public getMyBanks(): Promise<any>{
+    return this.http.get(`${this.baseUrl}/v2/get-bank-account`, {}, this.headers);
+  }
+
+  public createBank(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/create-bank-account`, payload, this.headers);
+  }
 
 }

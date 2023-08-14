@@ -22,6 +22,8 @@ export class InvestmentDetailsPage implements OnInit {
 
   @ViewChild('withdrawToWalletModal') withdrawToWalletModal: IonModal;
   @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
+  @ViewChild('accountStatementModal') accountStatementModal: IonModal;
+  // @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
   @ViewChild('pinEnterModal') pinEnterModal: IonModal;
 
   public fromPage: string;
@@ -38,6 +40,10 @@ export class InvestmentDetailsPage implements OnInit {
   public activeSegment: string;
 
   public withdrawAmount: string;
+  public date = {
+    from: '',
+    to: ''
+  };
 
   constructor(
     private router: Router,
@@ -143,6 +149,11 @@ export class InvestmentDetailsPage implements OnInit {
   }
 
   public requestAccountStatement(){
+    this.moreOptionsModal.dismiss();
+    this.accountStatementModal.present();
+  }
+
+  public openDateModal(type){
 
   }
 

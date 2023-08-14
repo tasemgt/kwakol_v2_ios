@@ -43,9 +43,10 @@ export class HomePage implements OnInit {
 
   @ViewChild('withdrawalModal') withdrawalModal: IonModal;
   @ViewChild('withdrawDollarModal') withdrawDollarModal: IonModal;
+  @ViewChild('chooseDollarBankAccountModal')
+  chooseDollarBankAccountModal: IonModal;
   @ViewChild('dollarCashWithdrawalModal') dollarCashWithdrawalModal: IonModal;
   @ViewChild('pinEnterModalWithdrawal') pinEnterModalWithdrawal: IonModal;
-
 
   @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
 
@@ -104,6 +105,8 @@ export class HomePage implements OnInit {
 
   //Withdrawal Modal states
   public dollarCashWithdrawAmount: string;
+  public withdrawCurrentcy: string;
+  public myBanks = [];
 
   public inputTimer: any;
   public inputPinTypePassword = true;
@@ -119,7 +122,9 @@ export class HomePage implements OnInit {
     private renderer: Renderer2,
     private subService: SubscriptionService,
     private homeService: HomeService
-  ) {}
+  ) {
+    console.log('here');
+  }
 
   ngOnInit(): void {
     this.activeSegment = 'wallet';
@@ -150,6 +155,12 @@ export class HomePage implements OnInit {
         this.getHomeQuietly();
       }
     });
+
+    this.homeService.getReopenStateSubject().subscribe((state) => {
+      if (state) {
+        this.openChooseBankAccountModal(this.withdrawCurrentcy);
+      }
+    });
   }
 
   ionViewWillEnter() {
@@ -169,11 +180,15 @@ export class HomePage implements OnInit {
   }
 
   public getIconForInvName(inv: string) {
-    return investmentIcons[inv.toLowerCase()];
+    if (inv) {
+      return investmentIcons[inv.toLowerCase()];
+    }
   }
 
   public getColorForInvName(inv: string) {
-    return investmentBGColors[inv.toLowerCase()];
+    if (inv) {
+      return investmentBGColors[inv.toLowerCase()];
+    }
   }
 
   public segmentChanged(event) {
@@ -314,7 +329,11 @@ export class HomePage implements OnInit {
     this.usernameOrEmail = '';
     this.transferUserModal.dismiss();
     this.router.navigateByUrl('/wallet-transfer-user', {
-      state: { user: this.userToTransferTo, url: this.router.url, walletBalance: this.wallet.balance },
+      state: {
+        user: this.userToTransferTo,
+        url: this.router.url,
+        walletBalance: this.wallet.balance,
+      },
     });
     setTimeout(() => (this.userToTransferTo = null), 200);
   }
@@ -362,10 +381,10 @@ export class HomePage implements OnInit {
       this.loading.dismiss();
       this.transferModal.dismiss();
       // this.listSpinner = true;
-      if(resp.code == 100){
+      if (resp.code == 100) {
         this.myInvestments = resp.data;
       }
-      if(this.myInvestments.length <= 1){
+      if (this.myInvestments.length <= 1) {
         this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
       }
     } catch (err) {
@@ -373,7 +392,9 @@ export class HomePage implements OnInit {
       console.log(err);
     }
     this.investmentTransferModal.present();
-    this.investmentTransferModal.onWillDismiss().then(() => this.myInvestments = []);
+    this.investmentTransferModal
+      .onWillDismiss()
+      .then(() => (this.myInvestments = []));
   }
 
   public openDoTransferInvestmentModal(selectedInvestment) {
@@ -391,10 +412,10 @@ export class HomePage implements OnInit {
       this.loading.dismiss();
       this.transferModal.dismiss();
       // this.listSpinner = true;
-      if(resp.code == 100){
+      if (resp.code == 100) {
         this.myBeneficiaries = resp.data;
       }
-      if(this.myBeneficiaries.length <= 1){
+      if (this.myBeneficiaries.length <= 1) {
         this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
       }
     } catch (err) {
@@ -402,7 +423,9 @@ export class HomePage implements OnInit {
       console.log(err);
     }
     this.beneficiaryTransferModal.present();
-    this.beneficiaryTransferModal.onWillDismiss().then(() => this.myBeneficiaries = []);
+    this.beneficiaryTransferModal
+      .onWillDismiss()
+      .then(() => (this.myBeneficiaries = []));
   }
 
   public openDoTransferBeneficiaryModal(selectedBeneficiary) {
@@ -420,7 +443,7 @@ export class HomePage implements OnInit {
     this.typeOfTransfer = type;
     this.pinEnterModal.present();
     //Clear pin value for accidental modal close
-    this.pinEnterModal.onWillDismiss().then((data) =>{
+    this.pinEnterModal.onWillDismiss().then((data) => {
       this.pin = '';
     });
   }
@@ -446,7 +469,7 @@ export class HomePage implements OnInit {
       const payload = {
         currency: 'NGN',
         type: 'CASH',
-        amount: 100 //test amount...
+        amount: 100, //test amount...
       };
       this.util.presentLoading();
       try {
@@ -454,7 +477,7 @@ export class HomePage implements OnInit {
         this.loading.dismiss();
         this.depositModal.dismiss();
         this.depositNairaModal.present();
-        if(resp.code == 100){
+        if (resp.code == 100) {
           console.log(resp.data);
           this.nairaDepositeModalData = resp.data;
         }
@@ -470,25 +493,24 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openDollarCashDepositModal(){
+  public openDollarCashDepositModal() {
     this.depositDollarModal.dismiss();
     this.dollarCashDepositModal.present();
   }
 
   //For Dollar Deposit based on Cash
-  public makeDollarCashDeposit(){
-    if(!this.dollarCashAmount){
+  public makeDollarCashDeposit() {
+    if (!this.dollarCashAmount) {
       this.util.showToast('Please enter a cash amount', 2500, 'danger');
       return;
     }
     const payload = {
       currency: 'USD',
       type: 'CASH',
-      amount: this.dollarCashAmount
+      amount: this.dollarCashAmount,
     };
 
     this.doInitialDollarDeposit(payload, payload.type);
-
   }
 
   //For Dollar Deposit based on Bank Transfer
@@ -500,21 +522,16 @@ export class HomePage implements OnInit {
     this.doInitialDollarDeposit(payload, payload.type);
   }
 
-
-  //WITHDRAWAL AREA!!
+  ////////////////////WITHDRAWAL AREA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   public openWithdrawalModal() {
     this.withdrawalModal.present();
   }
 
-  public openCurrencyWithdrawalModal(type){
+  public openCurrencyWithdrawalModal(type) {
     if (type === 'naira') {
-      this.util.presentLoading();
-      setTimeout(() => {
-        this.loading.dismiss();
-        this.withdrawalModal.dismiss();
-        // this.depositNairaModal.present();
-      }, 1500);
+      this.withdrawalModal.dismiss();
+      this.openChooseBankAccountModal('NGN');
     } else {
       //Dollar
       this.withdrawalModal.dismiss();
@@ -522,26 +539,59 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openDollarCashWithdrawalModal(){
+  public openDollarCashWithdrawalModal() {
     this.withdrawDollarModal.dismiss();
     this.dollarCashWithdrawalModal.present();
   }
 
-  public openChooseDollarBankAccountModal(){
-
+  public async openChooseBankAccountModal(type: string) {
+    this.withdrawCurrentcy = type;
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getMyBanks();
+      this.loading.dismiss();
+      if (resp.code == 100) {
+        console.log(resp.data);
+        if (this.withdrawCurrentcy === 'NGN') {
+          this.myBanks = resp.data.naira;
+        } else {
+          //USD
+          this.myBanks = resp.data.dollar;
+          this.withdrawDollarModal.dismiss();
+        }
+        if(this.myBanks.length <= 1){
+          this.chooseDollarBankAccountModal.initialBreakpoint = 0.3;
+        }
+        else{
+          this.chooseDollarBankAccountModal.initialBreakpoint = 0.4;
+        }
+        this.chooseDollarBankAccountModal.present();
+      }
+    } catch (e) {
+      this.loading.dismiss();
+      this.util.showToast('Please try again', 2000, 'danger');
+      console.log(e);
+    }
   }
 
-  public makeDollarCashWithdrawal(){
-   if(!this.dollarCashWithdrawAmount){
-    this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
-    return;
-   }
-   this.dollarCashWithdrawalModal.dismiss();
-   this.pinEnterModalWithdrawal.present();
-   //Clear pin value for accidental modal close
-   this.pinEnterModalWithdrawal.onWillDismiss().then((data) =>{
-    this.pin = '';
-  });
+  public goToAddBank(type) {
+    this.chooseDollarBankAccountModal.dismiss();
+    this.router.navigateByUrl('/add-bank', {
+      state: { url: this.router.url, type },
+    });
+  }
+
+  public makeDollarCashWithdrawal() {
+    if (!this.dollarCashWithdrawAmount) {
+      this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
+      return;
+    }
+    this.dollarCashWithdrawalModal.dismiss();
+    this.pinEnterModalWithdrawal.present();
+    //Clear pin value for accidental modal close
+    this.pinEnterModalWithdrawal.onWillDismiss().then((data) => {
+      this.pin = '';
+    });
   }
 
   public onWithdrawalPinInputChange(e: { keypadText: string }) {
@@ -549,14 +599,8 @@ export class HomePage implements OnInit {
     this.pin = e.keypadText;
     if (this.pin.length === 4) {
       this.util.presentLoading();
-      setTimeout(() => {
-        this.loading.dismiss();
-        this.pinEnterModalWithdrawal.dismiss();
-        // this.uiService.getLoadingStateSubject().next(true);
-      }, 1500);
-      // this.typeOfTransfer === 'investment'
-      //   ? this.doTransferInvestmentFunds()
-      //   : this.doTransferBeneficiaryFunds();
+      //Call withdraw api here
+      this.doWalletWithdrawal();
     }
   }
 
@@ -565,39 +609,38 @@ export class HomePage implements OnInit {
   //   this.dollarCashDepositModal.present();
   // }
 
-
-
   // INVESTMENTS SEGMENT AREA //
 
-  public openMoreOptionsModal(){
+  public openMoreOptionsModal() {
     this.moreOptionsModal.present();
   }
 
-  public async goToBeneficiariesPage(){
+  public async goToBeneficiariesPage() {
     this.util.presentLoading();
     try {
       const resp = await this.homeService.getBeneficiaries();
       this.loading.dismiss();
-      if(resp.code == 100){
+      if (resp.code == 100) {
         this.myBeneficiaries = resp.data;
         console.log(this.myBeneficiaries);
         this.moreOptionsModal.dismiss();
-        this.router.navigateByUrl('/beneficiaries', {state: {url: this.router.url, beneficiaries: this.myBeneficiaries}});
+        this.router.navigateByUrl('/beneficiaries', {
+          state: { url: this.router.url, beneficiaries: this.myBeneficiaries },
+        });
       }
-    }
-    catch(e){
+    } catch (e) {
       this.loading.dismiss();
       this.util.showToast('Please try again', 2000, 'danger');
       console.log(e);
     }
   }
 
-  public openInvestementDetailsPage(inv){
+  public openInvestementDetailsPage(inv) {
     //Fetch investment from api
-    this.router.navigateByUrl('/investment-details', {state:{url: this.router.url, investment: inv}});
+    this.router.navigateByUrl('/investment-details', {
+      state: { url: this.router.url, investment: inv },
+    });
   }
-
-
 
   // PRIVATES!!
   private async getHomeQuietly() {
@@ -655,17 +698,18 @@ export class HomePage implements OnInit {
     try {
       const resp = await this.homeService.doTransferToSubscription(payload);
       this.loading.dismiss();
-      if(resp.code == '100'){
+      if (resp.code == '100') {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
-        this.uiService.getLoadingStateSubject().next(true);
+        this.uiService
+          .getLoadingStateSubject()
+          .next({ active: true, data: { type: 'deposit', data: {} } });
         this.subService.getBalanceSubject().next(true);
         this.pin = '';
         this.investmentTransferAmount = '';
         this.selectedInvestment = null;
         // this.isSending =false;
-      }
-      else if(resp.code == '418'){
+      } else if (resp.code == '418') {
         console.log(resp);
       }
     } catch (error) {
@@ -687,7 +731,7 @@ export class HomePage implements OnInit {
       pin: this.pin,
       // subscription: '',
       amount: this.beneficiaryTransferAmount,
-      beneficiary_id: this.selectedBeneficiary.beneficiary_id
+      beneficiary_id: this.selectedBeneficiary.beneficiary_id,
     };
 
     // this.pin = '';
@@ -697,16 +741,17 @@ export class HomePage implements OnInit {
     try {
       const resp = await this.homeService.doTransferToBeneficiary(payload);
       this.loading.dismiss();
-      if(resp.code == '100'){
+      if (resp.code == '100') {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
-        this.uiService.getLoadingStateSubject().next(true);
+        this.uiService
+          .getLoadingStateSubject()
+          .next({ active: true, data: { type: 'deposit', data: {} } });
         this.subService.getBalanceSubject().next(true);
         this.pin = '';
         this.beneficiaryTransferAmount = '';
         this.selectedBeneficiary = null;
-      }
-      else if(resp.code == '418'){
+      } else if (resp.code == '418') {
         console.log(resp);
       }
     } catch (error) {
@@ -716,13 +761,13 @@ export class HomePage implements OnInit {
   }
 
   //Gets initial payment account or qr ref code for dollar deposits
-  private async doInitialDollarDeposit(payload, type){
+  private async doInitialDollarDeposit(payload, type) {
     this.util.presentLoading();
     try {
       const resp = await this.homeService.initiateWalletDeposit(payload);
       this.loading.dismiss();
       if (resp.code == 100) {
-        if(type === 'CASH'){
+        if (type === 'CASH') {
           console.log(resp.data.transaction);
           this.dollarQRPageData = resp.data.transaction;
           this.dollarCashDepositModal.dismiss(); //Dismiss cash modal if present
@@ -741,5 +786,15 @@ export class HomePage implements OnInit {
       console.log(error);
       this.loading.dismiss();
     }
+  }
+
+  private doWalletWithdrawal() {
+    setTimeout(() => {
+      this.loading.dismiss();
+      this.pinEnterModalWithdrawal.dismiss();
+      this.uiService
+        .getLoadingStateSubject()
+        .next({ active: true, data: { type: 'withdraw', data: {} } });
+    }, 1500);
   }
 }

@@ -147,7 +147,10 @@
       </ion-row>
     </div>
 
-    <div class="recent-trans" [ngClass]="{'more-margin': wallet?.quick_transfers.length <= 0}">
+    <div
+      class="recent-trans"
+      [ngClass]="{'more-margin': wallet?.quick_transfers.length <= 0}"
+    >
       <p class="section-title">Recent Wallet Transactions</p>
       <p class="section-title">
         View all
@@ -263,10 +266,7 @@
           </div>
           <div class="cta">
             <div class="btn">
-              <ion-icon
-                src="assets/icon/v2-icons/cta-withdraw.svg"
-                
-              ></ion-icon>
+              <ion-icon src="assets/icon/v2-icons/cta-withdraw.svg"></ion-icon>
             </div>
             <p>Withdraw</p>
           </div>
@@ -297,7 +297,10 @@
           [ngClass]="{'alter-margin': investment?.user_details.subscriber.subscription.length === 1}"
         >
           <!-- <div class="investment-item" (click)="goToInvestmentDeets(inv)"> -->
-          <div class="investment-item" (click)="openInvestementDetailsPage(inv)">
+          <div
+            class="investment-item"
+            (click)="openInvestementDetailsPage(inv)"
+          >
             <div
               class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
             >
@@ -378,7 +381,11 @@
         class="transactions-list no-border"
         *ngIf="homeHistories?.length > 0"
       >
-        <div class="transaction" *ngFor="let hist of homeHistories | slice:0:4" (click)="openInfoModal(hist.type.toLowerCase(), hist)">
+        <div
+          class="transaction"
+          *ngFor="let hist of homeHistories | slice:0:4"
+          (click)="openInfoModal(hist.type.toLowerCase(), hist)"
+        >
           <div class="trans-type-wrapper">
             <ion-icon
               [src]="'assets/icon/v2-icons/'+getIconForType(hist.type)+'.svg'"
@@ -1092,8 +1099,8 @@
   <!-- Start Withdrawal Modal (Select currency) -->
   <ion-modal
     #withdrawalModal
-    [initialBreakpoint]="0.37"
-    [breakpoints]="[0, 0.37]"
+    [initialBreakpoint]="0.33"
+    [breakpoints]="[0, 0.33]"
     class="kwakol-modal-bottom-drawer2 deposit-modal"
     handle="true"
   >
@@ -1153,7 +1160,7 @@
             />
             <p>Cash</p>
           </div>
-          <div class="option" (click)="openChooseDollarBankAccountModal()">
+          <div class="option" (click)="openChooseBankAccountModal('USD')">
             <img
               src="assets/imgs/v2-imgs/bank-transfer.svg"
               class="animate__animated animate__pulse"
@@ -1166,6 +1173,40 @@
     </ng-template>
   </ion-modal>
   <!-- End Dollar Withdrawal -->
+
+  <!-- Choose Dollar Bank Account modal -->
+  <ion-modal
+    #chooseDollarBankAccountModal
+    [initialBreakpoint]="0.4"
+    [breakpoints]="[0, 0.3, 0.4, 0.5, 0.7]"
+    class="kwakol-modal-bottom-drawer2"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3 *ngIf="withdrawCurrentcy === 'NGN'">Choose Naira Account</h3>
+        <h3 *ngIf="withdrawCurrentcy === 'USD'">Choose Dollar Account</h3>
+
+        <div class="content-wrapper banks-wrapper">
+          <div class="bank" *ngFor="let bank of myBanks">
+            <h4>{{bank.bank_name}}</h4>
+            <p>{{bank.bank_account_name}}</p>  
+            <p>{{bank.account_number}}</p>
+          </div>
+        </div>
+        <ion-col size="12" class="ion-text-center btn-col"> 
+          <ion-button
+            class="kwakol-btn ion-text-uppercase"
+            (click)="goToAddBank(withdrawCurrentcy)"
+            type="submit">
+            Add Bank
+            <ion-icon [src]="'assets/icon/v2-icons/add-white.svg'" style="font-size: 1.3rem;"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End More Options Modal -->
 
   <!-- Dollar cash withdrawal modal -->
   <ion-modal

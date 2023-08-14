@@ -151,6 +151,14 @@ const routes: Routes = [
   {
     path: 'investment-details',
     loadChildren: () => import('./pages/subpages/for-home/investment-details/investment-details.module').then( m => m.InvestmentDetailsPageModule)
+  },
+  {
+    path: 'beneficiary-details',
+    loadChildren: () => import('./pages/subpages/for-home/beneficiary-details/beneficiary-details.module').then( m => m.BeneficiaryDetailsPageModule)
+  },
+  {
+    path: 'add-bank',
+    loadChildren: () => import('./pages/subpages/for-home/add-bank/add-bank.module').then( m => m.AddBankPageModule)
   }
 ];
 @NgModule({

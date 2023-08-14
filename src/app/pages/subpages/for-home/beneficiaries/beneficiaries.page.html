@@ -11,6 +11,7 @@
     <div
       class="investment-item animate__animated animate__fadeIn"
       *ngFor="let ben of beneficiaries"
+      (click)="goToBeneficiaryDetailsPage(ben)"
     >
       <div class="investment-name">
         <div class="img-wrapper">

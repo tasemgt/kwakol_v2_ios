@@ -24,6 +24,11 @@ export class BeneficiariesPage implements OnInit {
   ngOnInit() {
   }
 
+
+  public goToBeneficiaryDetailsPage(beneficiary){
+    this.router.navigateByUrl('/beneficiary-details', {state: {url: this.router.url, beneficiary}});
+  }
+
   public goToCreateBeneficiaryPage(){
     this.router.navigateByUrl('/create-beneficiary', {state: {url: this.router.url }});
   }

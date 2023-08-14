@@ -1,0 +1,198 @@
+<div
+  class="backdrop animate__animated animate__fadeIn"
+  #backdrop
+  *ngIf="backdropActive"
+  (click)="closeLoadingModal()"
+></div>
+
+<!-- Loading Modal Begin -->
+<div
+  #LoadingModalDiv
+  class="info-modal reset animate__animated animate__slideInUp"
+  [ngClass]="{'center-page': loadingModalType === 'alert'}"
+  *ngIf="showLoadingModal"
+>
+  <div class="content">
+    <div class="loader-wrapper no-animation">
+      <ion-icon
+        *ngIf="loadingModalType === 'alert'"
+        src="assets/imgs/v2-imgs/bank.svg"
+        alt=""
+      ></ion-icon>
+      <ion-icon
+        *ngIf="loadingModalType === 'confirm'"
+        src="assets/imgs/v2-imgs/red-flag.svg"
+        alt=""
+      ></ion-icon>
+      <!-- <p class="loading-text" *ngIf="loadingModalType">
+        Your liquidation request is being processed. <br/> You will receive an email when it is approved.
+      </p> -->
+      <p class="loading-text" *ngIf="loadingModalType === 'alert'">
+        Bank Added
+      </p>
+      <p class="loading-text" *ngIf="loadingModalType === 'confirm'">
+        Withdrawing from an active investment <br />
+        might affect your profit. <br />
+        Do you still want to proceed?
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="round-button" (click)="closeLoadingModal()">
+      <ion-icon src="assets/icon/close.svg"></ion-icon>
+    </div>
+  </div>
+</div>
+<!-- Loading Modals End -->
+
+<ion-content class="page-content">
+  <div class="back-button" (click)="goBack()">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+
+  <h2 class="subpage-heading left" *ngIf="type === 'USD'">Add USD Bank</h2>
+  <h2 class="subpage-heading left" *ngIf="type === 'NGN'">
+    Add Naira Bank Account
+  </h2>
+
+  <div class="info">
+    <ion-icon src="assets/icon/v2-icons/exclaim.svg"></ion-icon>
+    <p>
+      Your bank details must be the same as your account name for all
+      transactions to be processed
+    </p>
+  </div>
+
+  <ion-row class="inputs-wrapper" style="margin-top: 1rem">
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="accountName"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Account Name</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="tel"
+          placeholder=" "
+          [(ngModel)]="accountNumber"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Account Number</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="bankName"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Bank Name</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input" *ngIf="type === 'USD'">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="sortCode"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Sort Code</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input" *ngIf="type === 'USD'">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="swiftCode"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Swift Code</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input" *ngIf="type === 'USD'">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="bankAddress"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Bank Address</label>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="btn-row" [ngStyle]="{'margin-top': type === 'NGN' ? '19rem' : '7rem'}">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button
+        class="kwakol-btn ion-text-uppercase"
+        type="submit"
+        (click)="doAddBank()"
+        >Add Bank</ion-button
+      >
+    </ion-col>
+  </ion-row>
+
+  <!-- Pin Modal -->
+  <ion-modal
+    #pinEnterModal
+    trigger="open-enter-pin"
+    [initialBreakpoint]="0.8"
+    [breakpoints]="[0, 0.25, 0.5, 0.8]"
+    class="enter-pin"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <div class="img-wrapper">
+          <div class="round-button">
+            <ion-icon src="assets/icon/v2-icons/add-green.svg"></ion-icon>
+          </div>
+        </div>
+
+        <h4>Add Bank</h4>
+
+        <h6>Guaranty Trust Bank</h6>
+        <p class="px">Jafu Jenewari</p>
+        <p class="px">0134563920</p>
+
+        <p class="p1">Enter your pin to complete adding a bank</p>
+        <div class="pin-wrapper">
+          <ion-input
+            [type]="inputPinTypePassword ? 'password' : 'text'"
+            name="password"
+            [maxlength]="4"
+            [(ngModel)]="pin"
+            disabled
+            (click)="onTapPinInput()"
+            [ngStyle]="{fontSize: inputPinTypePassword ? '5rem' : '1.5rem', color: inputPinTypePassword ? 'rgba(81, 175, 78, 0.2)' : '#211F42'}"
+          ></ion-input>
+        </div>
+        <app-keypad (keypadEmitter)="onPinInputChange($event)"></app-keypad>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

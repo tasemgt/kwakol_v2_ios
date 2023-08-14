@@ -1,0 +1,217 @@
+<ion-header>
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  
+  <h2 class="subpage-heading left">{{beneficiary.fullname}}</h2>
+  
+  <div class="summary-block">
+    <div class="top">
+      <div class="balance">
+        <p>Available Balance</p>
+        <h3>${{util.numberWithCommas(beneficiary.balance)}}</h3>
+      </div>
+      <div class="inv">
+        <p>Beneficiary Investment</p>
+        <div class="investment levadura">
+        <!-- <div class="investment {{investment.subscription.name.toLowerCase()}}"> -->
+          <div class="icon-wrapper">
+            <ion-icon
+              [src]="'assets/icon/inv-type/'+ 'levadura' +'.svg'"
+            ></ion-icon>
+            <!-- <ion-icon
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(investment.subscription.name.toLowerCase()) || 'special-big') +'.svg'"
+            ></ion-icon> -->
+          </div>
+          Levadura
+          <!-- {{investment.subscription.name}} -->
+        </div>
+      </div>
+    </div>
+    <div class="bottom"></div>
+    <div class="cta-wrapper">
+      <div class="cta">
+        <div class="btn">
+          <ion-icon src="assets/icon/v2-icons/cta-deposit.svg"></ion-icon>
+        </div>
+        <p>Deposit</p>
+      </div>
+      <div class="cta" (click)="openLoadingModal('confirm')">
+        <div class="btn">
+          <ion-icon src="assets/icon/v2-icons/cta-withdraw.svg"></ion-icon>
+        </div>
+        <p>Withdraw</p>
+      </div>
+      <div class="cta" (click)="openMoreOptionsModal()">
+        <div class="btn">
+          <ion-icon src="assets/icon/v2-icons/cta-more.svg"></ion-icon>
+        </div>
+        <p>More</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sub-header">
+    <div class="recent-trans">
+      <p class="section-title">Transaction History</p>
+    </div>
+  </div>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="transactions-list">
+    <!-- <div
+        class="transaction"
+        (click)="openInfoModal(trans.type.toLowerCase(), trans)"
+        *ngFor="let trans of wallet?.latest_wallet_transactions | slice:0:5"
+      >
+        <div class="trans-type-wrapper">
+          <ion-icon
+            [src]="'assets/icon/v2-icons/'+getIconForType(trans.type.toLowerCase())+'.svg'"
+          ></ion-icon>
+          <div class="trans-type">
+            <h3>{{trans.type}}</h3>
+            <p class="trans-type-p">Bank Transfer</p>
+          </div>
+        </div>
+        <div class="amount-date">
+          <div
+            class="amount"
+            [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
+          >
+            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
+          </div>
+          <div class="trans-date">{{trans.created_at | date }}</div>
+        </div>
+      </div> -->
+
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+        <div class="trans-type">
+          <h3>Withdrawal</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
+        <div class="trans-type">
+          <h3>Deposit</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon
+          src="assets/icon/v2-icons/trans-transfer-user.svg"
+        ></ion-icon>
+        <div class="trans-type">
+          <h3>Transfer</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
+        <div class="trans-type">
+          <h3>Deposit</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon
+          src="assets/icon/v2-icons/trans-transfer-user.svg"
+        ></ion-icon>
+        <div class="trans-type">
+          <h3>Transfer</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
+        <div class="trans-type">
+          <h3>Deposit</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon
+          src="assets/icon/v2-icons/trans-transfer-user.svg"
+        ></ion-icon>
+        <div class="trans-type">
+          <h3>Transfer</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
+        <div class="trans-type">
+          <h3>Deposit</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+    <div class="transaction">
+      <div class="trans-type-wrapper">
+        <ion-icon
+          src="assets/icon/v2-icons/trans-transfer-user.svg"
+        ></ion-icon>
+        <div class="trans-type">
+          <h3>Transfer</h3>
+          <p class="trans-type-p">To Bank Account</p>
+        </div>
+      </div>
+      <div class="amount-date">
+        <div class="amount">+$3,403.58</div>
+        <div class="trans-date">16 June 2023</div>
+      </div>
+    </div>
+  </div>
+</ion-content>

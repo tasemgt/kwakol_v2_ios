@@ -88,8 +88,11 @@ class="info-modal center-page reset animate__animated animate__slideInUp"
         <!-- </div> -->
       <!-- </div> -->
     <!-- </div> -->
-    <p class="loading-text">
+    <p class="loading-text" *ngIf="loadingModalType === 'deposit'">
       Your deposit request is being reviewed. You will get a notification once it is approved.
+    </p>
+    <p class="loading-text" *ngIf="loadingModalType === 'withdraw'">
+      Your cash withdrawal is being processed. You will get a notification once it is ready for pickup.
     </p>
   </div>
   <!-- <div class="load-complete" *ngIf="!isSending">
