@@ -496,3 +496,18 @@ ion-row.investments-wrapper {
     }
   }
 }
+
+ion-modal.enter-pin ion-content{
+  --color: var(--ion-color-secondary);
+
+  p.px.y{
+    font-size: .7rem;
+    color: rgba(var(--ion-color-secondary-rgb), 0.6);
+    margin-bottom: .2rem;
+    margin-top: .2rem;
+  }
+
+  h4{
+    font-size: 1.2rem;
+  }
+}

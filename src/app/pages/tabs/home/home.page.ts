@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
   @ViewChild('withdrawDollarModal') withdrawDollarModal: IonModal;
   @ViewChild('chooseDollarBankAccountModal')
   chooseDollarBankAccountModal: IonModal;
-  @ViewChild('dollarCashWithdrawalModal') dollarCashWithdrawalModal: IonModal;
+  @ViewChild('dollarAndNairaWithdrawalModal') dollarAndNairaWithdrawalModal: IonModal;
   @ViewChild('pinEnterModalWithdrawal') pinEnterModalWithdrawal: IonModal;
 
   @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
@@ -67,6 +67,7 @@ export class HomePage implements OnInit {
   //Home page data
   public user: User;
   public home: any;
+  public dailyRate: string;
   public wallet: any;
   public investment: any;
   public homeHistories: any[];
@@ -104,9 +105,12 @@ export class HomePage implements OnInit {
   public nairaDepositeModalData: any;
 
   //Withdrawal Modal states
-  public dollarCashWithdrawAmount: string;
+  public dollarOrNairaWithdrawAmount: string;
+  public nairaWithdrawEquivalentAmount: string;
   public withdrawCurrentcy: string;
+  public typeOfWithdrawal: string;
   public myBanks = [];
+  public selectedBank = null;
 
   public inputTimer: any;
   public inputPinTypePassword = true;
@@ -123,7 +127,6 @@ export class HomePage implements OnInit {
     private subService: SubscriptionService,
     private homeService: HomeService
   ) {
-    console.log('here');
   }
 
   ngOnInit(): void {
@@ -209,6 +212,7 @@ export class HomePage implements OnInit {
         this.homeBalance = this.util.numberWithCommas(
           this.investment.total_fund
         );
+        this.dailyRate = this.home.daily_rate.split('₦')[1];
         console.log(this.home);
         console.log(this.investment);
       }
@@ -539,9 +543,11 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openDollarCashWithdrawalModal() {
+  public openDollarAndNairaWithdrawalModal(type: string, bank?) {
+    this.typeOfWithdrawal = type;
+    this.selectedBank = bank;
     this.withdrawDollarModal.dismiss();
-    this.dollarCashWithdrawalModal.present();
+    this.dollarAndNairaWithdrawalModal.present();
   }
 
   public async openChooseBankAccountModal(type: string) {
@@ -565,6 +571,7 @@ export class HomePage implements OnInit {
         else{
           this.chooseDollarBankAccountModal.initialBreakpoint = 0.4;
         }
+        //More like choose any account number ngn or usd
         this.chooseDollarBankAccountModal.present();
       }
     } catch (e) {
@@ -574,6 +581,7 @@ export class HomePage implements OnInit {
     }
   }
 
+  //Go to Add Bank Page
   public goToAddBank(type) {
     this.chooseDollarBankAccountModal.dismiss();
     this.router.navigateByUrl('/add-bank', {
@@ -581,16 +589,21 @@ export class HomePage implements OnInit {
     });
   }
 
+
+  //Input withdraw amount and proceed to enter pin to authorize
   public makeDollarCashWithdrawal() {
-    if (!this.dollarCashWithdrawAmount) {
+    if (!this.dollarOrNairaWithdrawAmount) {
       this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
       return;
     }
-    this.dollarCashWithdrawalModal.dismiss();
+    const nairaEquiv = +this.dailyRate * +this.dollarOrNairaWithdrawAmount;
+    this.nairaWithdrawEquivalentAmount = nairaEquiv + '';
+    this.dollarAndNairaWithdrawalModal.dismiss();
     this.pinEnterModalWithdrawal.present();
-    //Clear pin value for accidental modal close
+    // Clear pin value for accidental modal close
     this.pinEnterModalWithdrawal.onWillDismiss().then((data) => {
       this.pin = '';
+      this.dollarOrNairaWithdrawAmount = '';
     });
   }
 
@@ -604,12 +617,13 @@ export class HomePage implements OnInit {
     }
   }
 
-  // public openDollarBankTransferWithdrawalModal(){
-  //   this.withdrawDollarModal.dismiss();
-  //   this.dollarCashDepositModal.present();
-  // }
 
-  // INVESTMENTS SEGMENT AREA //
+
+
+
+
+
+  ////////////////// INVESTMENTS SEGMENT AREA //////////////////////////
 
   public openMoreOptionsModal() {
     this.moreOptionsModal.present();
@@ -788,10 +802,12 @@ export class HomePage implements OnInit {
     }
   }
 
+  //Calls the wallet withdrawal api to finish withdrawal process
   private doWalletWithdrawal() {
     setTimeout(() => {
       this.loading.dismiss();
       this.pinEnterModalWithdrawal.dismiss();
+      this.chooseDollarBankAccountModal.dismiss();
       this.uiService
         .getLoadingStateSubject()
         .next({ active: true, data: { type: 'withdraw', data: {} } });

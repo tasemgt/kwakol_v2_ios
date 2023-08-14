@@ -1152,7 +1152,10 @@
         <p class="p0">How would you like your withdrawal?</p>
 
         <div class="options-wrapper">
-          <div class="option" (click)="openDollarCashWithdrawalModal()">
+          <div
+            class="option"
+            (click)="openDollarAndNairaWithdrawalModal('cash')"
+          >
             <img
               src="assets/imgs/v2-imgs/cash-deposit.svg"
               class="animate__animated animate__pulse"
@@ -1188,19 +1191,27 @@
         <h3 *ngIf="withdrawCurrentcy === 'USD'">Choose Dollar Account</h3>
 
         <div class="content-wrapper banks-wrapper">
-          <div class="bank" *ngFor="let bank of myBanks">
+          <div
+            class="bank"
+            *ngFor="let bank of myBanks"
+            (click)="openDollarAndNairaWithdrawalModal('transfer', bank)"
+          >
             <h4>{{bank.bank_name}}</h4>
-            <p>{{bank.bank_account_name}}</p>  
+            <p>{{bank.bank_account_name}}</p>
             <p>{{bank.account_number}}</p>
           </div>
         </div>
-        <ion-col size="12" class="ion-text-center btn-col"> 
+        <ion-col size="12" class="ion-text-center btn-col">
           <ion-button
             class="kwakol-btn ion-text-uppercase"
             (click)="goToAddBank(withdrawCurrentcy)"
-            type="submit">
+            type="submit"
+          >
             Add Bank
-            <ion-icon [src]="'assets/icon/v2-icons/add-white.svg'" style="font-size: 1.3rem;"></ion-icon>
+            <ion-icon
+              [src]="'assets/icon/v2-icons/add-white.svg'"
+              style="font-size: 1.3rem"
+            ></ion-icon>
           </ion-button>
         </ion-col>
       </ion-content>
@@ -1208,9 +1219,9 @@
   </ion-modal>
   <!-- End More Options Modal -->
 
-  <!-- Dollar cash withdrawal modal -->
+  <!-- Dollar and naira withdrawal modal -->
   <ion-modal
-    #dollarCashWithdrawalModal
+    #dollarAndNairaWithdrawalModal
     [initialBreakpoint]="0.65"
     [breakpoints]="[0, 0.30, 0.50, 0.65]"
     class="kwakol-modal-bottom-drawer2 transfer-investment"
@@ -1221,7 +1232,13 @@
         <!-- <div class="round-button">
           <ion-icon src="assets/icon/padlock.svg"></ion-icon>
         </div> -->
-        <h3>USD Withdrawal - Cash</h3>
+
+        <h3 *ngIf="withdrawCurrentcy === 'NGN'">Naira Withdrawal</h3>
+        <h3 *ngIf="withdrawCurrentcy === 'USD'">
+          USD Withdrawal -
+          <span *ngIf="typeOfWithdrawal === 'cash'">Cash</span>
+          <span *ngIf="typeOfWithdrawal === 'transfer'">Bank Transfer</span>
+        </h3>
 
         <div
           class="investment-item animate__animated animate__slideInDown"
@@ -1234,7 +1251,7 @@
                   class="did-floating-input"
                   type="tel"
                   placeholder="0.00"
-                  [(ngModel)]="dollarCashWithdrawAmount"
+                  [(ngModel)]="dollarOrNairaWithdrawAmount"
                   required
                   autocomplete="off"
                 />
@@ -1267,15 +1284,15 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-  <!-- End Dollar cash withdrawal modal -->
+  <!-- End Dollar and naira withdrawal modal -->
 
   <!-- Enter pin for withdrawal modal -->
   <!-- [keepContentsMounted]="true" -->
   <ion-modal
     #pinEnterModalWithdrawal
     trigger="open-enter-pin"
-    [initialBreakpoint]="0.75"
-    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    [initialBreakpoint]="0.85"
+    [breakpoints]="[0, 0.25, 0.5, 0.65, 0.85]"
     class="enter-pin"
     handle="true"
   >
@@ -1283,15 +1300,32 @@
       <ion-content>
         <div class="img-wrapper">
           <div class="round-button">
-            <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
-            <!-- <ion-icon [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"></ion-icon> -->
+            <ion-icon [src]="'assets/imgs/flags/usa.svg'" *ngIf="withdrawCurrentcy === 'USD'"></ion-icon>
+            <ion-icon [src]="'assets/imgs/flags/nigeria.svg'" *ngIf="withdrawCurrentcy === 'NGN'"></ion-icon>
           </div>
         </div>
-        <h4>USD Withdrawal - Cash</h4>
 
-        <h3>${{dollarCashWithdrawAmount}}</h3>
+        <h4 *ngIf="withdrawCurrentcy === 'NGN'">Naira Withdrawal</h4>
+        <h4 *ngIf="withdrawCurrentcy === 'USD'">
+          USD Withdrawal -
+          <span *ngIf="typeOfWithdrawal === 'cash'">Cash</span>
+          <span *ngIf="typeOfWithdrawal === 'transfer'">Bank Transfer</span>
+        </h4>
 
-        <p class="p1">Enter your pin to complete transaction</p>
+        <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">${{dollarOrNairaWithdrawAmount}} at {{home.daily_rate}}</p>
+        
+        <h3 *ngIf="withdrawCurrentcy === 'USD'">${{dollarOrNairaWithdrawAmount}}</h3>
+        <h3 *ngIf="withdrawCurrentcy === 'NGN'" style="margin-bottom: .5rem;">₦{{nairaWithdrawEquivalentAmount}}</h3>
+        
+        <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">+ N25 processing fee</p>
+
+        <div class="bank-transfer-details" *ngIf="typeOfWithdrawal === 'transfer'">
+          <h6>{{selectedBank.bank_name}}</h6>
+          <p class="px">{{selectedBank.bank_account_name}}</p>
+          <p class="px">{{selectedBank.account_number}}</p>
+        </div>
+
+        <p class="p1" style="margin-top: 2rem;">Enter your pin to complete transaction</p>
         <div class="pin-wrapper">
           <ion-input
             [type]="inputPinTypePassword ? 'password' : 'text'"

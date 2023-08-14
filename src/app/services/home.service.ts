@@ -65,13 +65,17 @@ export class HomeService {
 
 
   // WITHDRAW FROM WALLET
-  
+
   public getMyBanks(): Promise<any>{
     return this.http.get(`${this.baseUrl}/v2/get-bank-account`, {}, this.headers);
   }
 
   public createBank(payload): Promise<any>{
     return this.http.post(`${this.baseUrl}/v2/create-bank-account`, payload, this.headers);
+  }
+
+  public withdrawFromWallet(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/withdraw-to-bank-account`, payload, this.headers);
   }
 
 }
