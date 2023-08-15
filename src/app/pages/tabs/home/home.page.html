@@ -1259,7 +1259,8 @@
                   <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
                   <span>USD</span>
                 </div>
-                <label class="did-floating-label">Enter Amount</label>
+                <label class="did-floating-label" *ngIf="withdrawCurrentcy === 'USD'">Enter Amount</label>
+                <label class="did-floating-label" *ngIf="withdrawCurrentcy === 'NGN'">Enter Amount in USD</label>
               </div>
             </ion-col>
             <ion-col size="12">
@@ -1269,6 +1270,13 @@
               </p>
             </ion-col>
           </ion-row>
+        </div>
+
+        <div class="naira-equiv" *ngIf="withdrawCurrentcy === 'NGN'">
+          <div class="round-button">
+            <ion-icon [src]="'assets/imgs/flags/nigeria.svg'"></ion-icon>
+          </div>
+          <h5><del>N</del>{{util.numberWithCommas(+dollarOrNairaWithdrawAmount * +dailyRate) || '0.00'}}</h5>
         </div>
 
         <ion-col size="12" class="ion-text-center btn-col">
@@ -1314,8 +1322,8 @@
 
         <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">${{dollarOrNairaWithdrawAmount}} at {{home.daily_rate}}</p>
         
-        <h3 *ngIf="withdrawCurrentcy === 'USD'">${{dollarOrNairaWithdrawAmount}}</h3>
-        <h3 *ngIf="withdrawCurrentcy === 'NGN'" style="margin-bottom: .5rem;">₦{{nairaWithdrawEquivalentAmount}}</h3>
+        <h3 *ngIf="withdrawCurrentcy === 'USD'">${{util.numberWithCommas(dollarOrNairaWithdrawAmount)}}</h3>
+        <h3 *ngIf="withdrawCurrentcy === 'NGN'" style="margin-bottom: .5rem;"><del>N</del>{{util.numberWithCommas(nairaWithdrawEquivalentAmount)}}</h3>
         
         <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">+ N25 processing fee</p>
 

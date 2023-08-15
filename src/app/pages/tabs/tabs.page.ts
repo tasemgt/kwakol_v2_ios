@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { IonTabs } from '@ionic/angular';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -38,6 +39,7 @@ export class TabsPage {
 
   constructor(
     private uiService: UiService,
+    private subService: SubscriptionService,
     private renderer: Renderer2,
     public util: UtilService
   ) {
@@ -157,6 +159,7 @@ export class TabsPage {
       this.showInfoModal = false;
       this.showLoadingModal = false;
       this.openedFrom = '';
+      this.subService.getBalanceSubject().next(true);
     }, 100);
   }
 

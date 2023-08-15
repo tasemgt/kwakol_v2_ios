@@ -545,6 +545,10 @@ export class HomePage implements OnInit {
 
   public openDollarAndNairaWithdrawalModal(type: string, bank?) {
     this.typeOfWithdrawal = type;
+    if(type === 'cash'){
+      //Check if dollar selection is cash to ensure withdraw currency is set to USD
+      this.withdrawCurrentcy = 'USD';
+    }
     this.selectedBank = bank;
     this.withdrawDollarModal.dismiss();
     this.dollarAndNairaWithdrawalModal.present();
@@ -803,14 +807,31 @@ export class HomePage implements OnInit {
   }
 
   //Calls the wallet withdrawal api to finish withdrawal process
-  private doWalletWithdrawal() {
-    setTimeout(() => {
+  private async doWalletWithdrawal() {
+    const payload = {
+      amount: this.dollarOrNairaWithdrawAmount,
+      exchange_rate: this.dailyRate,
+      bank_account_id: this.selectedBank?.id || '1', // '1' for dollar cash so api doesn't break
+      type: this.typeOfWithdrawal,
+      pin: this.pin
+    };
+    console.log(payload);
+    try {
+      const resp = await this.homeService.withdrawFromWallet(payload);
       this.loading.dismiss();
-      this.pinEnterModalWithdrawal.dismiss();
-      this.chooseDollarBankAccountModal.dismiss();
-      this.uiService
-        .getLoadingStateSubject()
-        .next({ active: true, data: { type: 'withdraw', data: {} } });
-    }, 1500);
+      if (resp.code == '100') {
+        this.pinEnterModalWithdrawal.dismiss();
+        this.chooseDollarBankAccountModal.dismiss();
+        this.uiService
+          .getLoadingStateSubject()
+          .next({ active: true, data: { type: 'withdraw', data: {} } });
+        this.pin = '';
+      } else if (resp.code == '418') {
+        console.log(resp);
+      }
+    } catch (error) {
+      this.loading.dismiss();
+      this.util.showToast(error.error.message, 2000, 'danger');
+    }
   }
 }

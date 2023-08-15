@@ -511,3 +511,25 @@ ion-modal.enter-pin ion-content{
     font-size: 1.2rem;
   }
 }
+
+.naira-equiv{
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+
+  .round-button{
+    height: 2rem;
+    width: 2rem;
+
+    ion-icon{
+      font-size: 1.2rem;
+    }
+  }
+
+  h5{
+    margin: 0;
+    font-family: BwModelicaBold;
+  }
+}
