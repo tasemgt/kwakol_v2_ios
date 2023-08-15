@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { constants } from '../models/constants';
 import { HttpService } from './_http.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,14 @@ export class HistoryService {
 
   private headers = {'Content-Type': 'application/json'};
 
+  private activeSegmentSubject: BehaviorSubject<{activeSegment: string}> = new BehaviorSubject(null);
   // private balanceSubject: BehaviorSubject<boolean> = new BehaviorSubject( false );
 
   constructor(private http: HttpService) { }
+
+  public getActiveSegmentSubject(){
+    return this.activeSegmentSubject;
+  }
 
   public getHistories(){
     return this.http.get(`${this.baseUrl}/v2/transaction-history`, {}, this.headers);

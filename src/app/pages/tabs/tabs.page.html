@@ -38,7 +38,12 @@
     </ion-tab-button>
   </ion-tab-bar>
 
-  <div class="backdrop animate__animated animate__fadeIn" #backdrop *ngIf="backdropActive" (click)="closeModal()"></div>
+  <div
+    class="backdrop animate__animated animate__fadeIn"
+    #backdrop
+    *ngIf="backdropActive"
+    (click)="closeModal()"
+  ></div>
 
   <!-- Info Modal Begin -->
   <div
@@ -54,13 +59,22 @@
     <div class="content">
       <p class="item" *ngFor="let item of infoModalData.content">
         <span>{{item.item}}</span>
-        <span>{{item.value}} <ion-icon *ngIf="item.item === 'Reference'" (click)="util.clipboardCopy(item.item)" src="assets/icon/copy.svg"></ion-icon></span>
+        <span
+          >{{item.value}}
+          <ion-icon
+            *ngIf="item.item === 'Reference'"
+            (click)="util.clipboardCopy(item.item)"
+            src="assets/icon/copy.svg"
+          ></ion-icon
+        ></span>
       </p>
     </div>
 
     <div class="footer">
       <div class="amount-date">
-        <div class="amount">-${{util.numberWithCommas(infoModalData.amount)}}</div>
+        <div class="amount">
+          -${{util.numberWithCommas(infoModalData.amount)}}
+        </div>
         <div class="date">{{infoModalData.date}}</div>
       </div>
       <div class="round-button" (click)="closeModal()">
@@ -71,31 +85,42 @@
   <!-- Info Modal End -->
 
   <!-- Loading Modal Begin -->
-<div
-#LoadingModalDiv
-class="info-modal center-page reset animate__animated animate__slideInUp"
-*ngIf="showLoadingModal"
->
-<div class="content">
-  <div class="loader-wrapper no-animation">
-    <!-- <div class="circle-3">
+  <div
+    #LoadingModalDiv
+    class="info-modal reset animate__animated animate__slideInUp"
+    [ngClass]="{'center-page': loadingModalType !== 'confirm'}"
+    *ngIf="showLoadingModal"
+  >
+    <div class="content">
+      <div class="loader-wrapper no-animation">
+        <!-- <div class="circle-3">
       <div class="circle-2">
         <div class="circle-1"> -->
-          <ion-icon
-            src="assets/imgs/v2-imgs/hour-glass.svg"
-            alt=""
-          ></ion-icon>
+        <ion-icon *ngIf="loadingModalType !== 'confirm'" src="assets/imgs/v2-imgs/hour-glass.svg" alt=""></ion-icon>
         <!-- </div> -->
-      <!-- </div> -->
-    <!-- </div> -->
-    <p class="loading-text" *ngIf="loadingModalType === 'deposit'">
-      Your deposit request is being reviewed. You will get a notification once it is approved.
-    </p>
-    <p class="loading-text" *ngIf="loadingModalType === 'withdraw'">
-      Your cash withdrawal is being processed. You will get a notification once it is ready for pickup.
-    </p>
-  </div>
-  <!-- <div class="load-complete" *ngIf="!isSending">
+        <!-- </div> -->
+        <!-- </div> -->
+        <ion-icon
+          *ngIf="loadingModalType === 'confirm'"
+          src="assets/imgs/v2-imgs/red-flag.svg"
+          alt=""
+        ></ion-icon>
+
+        <p class="loading-text" *ngIf="loadingModalType === 'deposit'">
+          Your deposit request is being reviewed. You will get a notification
+          once it is approved.
+        </p>
+        <p class="loading-text" *ngIf="loadingModalType === 'withdraw'">
+          Your cash withdrawal is being processed. You will get a notification
+          once it is ready for pickup.
+        </p>
+        <p class="loading-text" *ngIf="loadingModalType === 'confirm'">
+          Withdrawing from an active investment <br />
+          might affect your profit. <br />
+          Do you still want to proceed?
+        </p>
+      </div>
+      <!-- <div class="load-complete" *ngIf="!isSending">
     <img
       src="assets/imgs/v2-imgs/img-cash.svg"
       class="animate__animated animate__slideInLeft"
@@ -109,16 +134,22 @@ class="info-modal center-page reset animate__animated animate__slideInUp"
       {{transferUser?.email}} </span>
     </p>
   </div> -->
-</div>
+    </div>
 
-<div class="footer">
-  <div class="round-button" (click)="closeModal()">
-    <ion-icon src="assets/icon/close.svg"></ion-icon>
+    <div class="footer">
+      <div
+        class="yes-button"
+        *ngIf="loadingModalType === 'confirm'"
+        (click)="continueHomeTask('withdraw')"
+      >
+        Yes, I'm Sure
+      </div>
+      <div class="round-button" (click)="closeModal()">
+        <ion-icon src="assets/icon/close.svg"></ion-icon>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-<!-- Loading Modal End -->
-
+  <!-- Loading Modal End -->
 </ion-tabs>
 
 <!-- </ion-content> -->

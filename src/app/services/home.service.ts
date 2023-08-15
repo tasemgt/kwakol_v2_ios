@@ -78,4 +78,11 @@ export class HomeService {
     return this.http.post(`${this.baseUrl}/v2/withdraw-to-bank-account`, payload, this.headers);
   }
 
+
+  // WITHDRAW FROM INVESTMENT
+
+  public withdrawFromInvestment(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/withdraw-subscription`, payload, this.headers);
+  }
+
 }

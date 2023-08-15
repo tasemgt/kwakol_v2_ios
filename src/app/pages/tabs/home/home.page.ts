@@ -12,9 +12,11 @@ import {
   investmentBGColors,
   investmentIcons,
 } from 'src/app/models/constants';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
+import { HistoryService } from 'src/app/services/history.service';
 import { HomeService } from 'src/app/services/home.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UiService } from 'src/app/services/ui.service';
@@ -46,9 +48,18 @@ export class HomePage implements OnInit {
   @ViewChild('chooseDollarBankAccountModal')
   chooseDollarBankAccountModal: IonModal;
   @ViewChild('dollarAndNairaWithdrawalModal') dollarAndNairaWithdrawalModal: IonModal;
+  @ViewChild('withdrawalInvestmentModal') withdrawalInvestmentModal: IonModal;
   @ViewChild('pinEnterModalWithdrawal') pinEnterModalWithdrawal: IonModal;
-
   @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
+
+  
+  //Amount Inputs
+  @ViewChild('dollarAndNairaWithdrawalModalRef') dollarAndNairaWithdrawalModalRef: ElementRef;
+  @ViewChild('doInvestmentTransferRef') doInvestmentTransferRef: ElementRef;
+  @ViewChild('doBeneficiaryTransferRef') doBeneficiaryTransferRef: ElementRef;
+  @ViewChild('doUserTransferRef') doUserTransferRef: ElementRef;
+  @ViewChild('dollarCashDepositRef') dollarCashDepositRef: ElementRef;
+  @ViewChild('withdrawalInvestmentRef') withdrawalInvestmentRef: ElementRef;
 
   //Loading Modals
   @ViewChild('LoadingModalDiv') loadingModalDiv: ElementRef;
@@ -109,6 +120,8 @@ export class HomePage implements OnInit {
   public nairaWithdrawEquivalentAmount: string;
   public withdrawCurrentcy: string;
   public typeOfWithdrawal: string;
+  public withdrawalInvestmentAmount: string;
+  public isInvestmentWithdrawal: boolean;
   public myBanks = [];
   public selectedBank = null;
 
@@ -117,6 +130,7 @@ export class HomePage implements OnInit {
   public pin: string;
 
   constructor(
+    private keyboard: Keyboard,
     private router: Router,
     private dataService: DataService,
     private auth: AuthService,
@@ -124,6 +138,7 @@ export class HomePage implements OnInit {
     public uiService: UiService,
     private loading: LoadingController,
     private renderer: Renderer2,
+    private historyService: HistoryService,
     private subService: SubscriptionService,
     private homeService: HomeService
   ) {
@@ -159,9 +174,18 @@ export class HomePage implements OnInit {
       }
     });
 
+    //This repopens select bank modal once the add form page closes
     this.homeService.getReopenStateSubject().subscribe((state) => {
       if (state) {
         this.openChooseBankAccountModal(this.withdrawCurrentcy);
+      }
+    });
+
+    //This opens a modal as directed from another page via the ui service (tabs page in this case)
+    this.uiService.getinstructHomeStateStateSubject().subscribe((state) => {
+      if (state) {
+        // True to denote that this opens investment list modals for withdrawal and not deposit or transfer
+        this.openTransferInvestmentModal(true);
       }
     });
   }
@@ -293,6 +317,11 @@ export class HomePage implements OnInit {
     this.showBalance = !this.showBalance;
   }
 
+  public goToHistory(activeSegment){
+    this.router.navigateByUrl('/tabs/history');
+    this.historyService.getActiveSegmentSubject().next(activeSegment);
+  }
+
   public openInfoModal(type, data) {
     this.uiService
       .getInfoStateSubject()
@@ -308,9 +337,13 @@ export class HomePage implements OnInit {
     this.transferModal.present();
   }
 
-  public openTransferUserModal() {
+  public async openTransferUserModal() {
     this.transferModal.dismiss();
-    this.transferUserModal.present();
+    await this.transferUserModal.present();
+    if(this.doUserTransferRef?.nativeElement){
+      this.doUserTransferRef.nativeElement.focus();
+      this.keyboard.show();
+    }
   }
 
   public async goToTransferUserPage(
@@ -376,7 +409,8 @@ export class HomePage implements OnInit {
     }
   }
 
-  public async openTransferInvestmentModal() {
+  public async openTransferInvestmentModal(isWithdrawal) {
+    this.isInvestmentWithdrawal = isWithdrawal;
     //Fetch investments from server
     this.util.presentLoading();
     try {
@@ -401,10 +435,23 @@ export class HomePage implements OnInit {
       .then(() => (this.myInvestments = []));
   }
 
-  public openDoTransferInvestmentModal(selectedInvestment) {
+  public async openDoTransferInvestmentModal(selectedInvestment) {
     this.selectedInvestment = selectedInvestment;
     this.investmentTransferModal.dismiss();
-    this.doInvestmentTransferModal.present();
+    if(this.isInvestmentWithdrawal){
+      await this.withdrawalInvestmentModal.present();
+      if(this.withdrawalInvestmentRef?.nativeElement){
+        this.withdrawalInvestmentRef.nativeElement.focus();
+        this.keyboard.show();
+      }
+    }
+    else{
+      await this.doInvestmentTransferModal.present();
+      if(this.doInvestmentTransferRef?.nativeElement){
+        this.doInvestmentTransferRef.nativeElement.focus();
+        this.keyboard.show();
+      }
+    }
   }
 
   public async openTransferBeneficiaryModal() {
@@ -432,16 +479,24 @@ export class HomePage implements OnInit {
       .then(() => (this.myBeneficiaries = []));
   }
 
-  public openDoTransferBeneficiaryModal(selectedBeneficiary) {
+  public async openDoTransferBeneficiaryModal(selectedBeneficiary) {
     this.selectedBeneficiary = selectedBeneficiary;
     this.beneficiaryTransferModal.dismiss();
-    this.doBeneficiaryTransferModal.present();
+    await this.doBeneficiaryTransferModal.present();
+    if(this.doBeneficiaryTransferRef?.nativeElement){
+      this.doBeneficiaryTransferRef.nativeElement.focus();
+      this.keyboard.show();
+    }
   }
 
   public makeInvestmentOrBeneficiaryTransfer(type: string) {
     if (type === 'investment') {
       this.doInvestmentTransferModal.dismiss();
+      if(this.isInvestmentWithdrawal){
+        this.withdrawalInvestmentModal.dismiss();
+      }
     } else {
+      //For beneficiary
       this.doBeneficiaryTransferModal.dismiss();
     }
     this.typeOfTransfer = type;
@@ -456,9 +511,16 @@ export class HomePage implements OnInit {
     console.log(e);
     this.pin = e.keypadText;
     if (this.pin.length === 4) {
-      this.typeOfTransfer === 'investment'
-        ? this.doTransferInvestmentFunds()
-        : this.doTransferBeneficiaryFunds();
+      if(this.typeOfTransfer === 'investment'){
+        if(this.isInvestmentWithdrawal){
+          this.makeInvestmentWithdrawal();
+          return;
+        }
+        this.doTransferInvestmentFunds();
+      }
+      else{
+        this.doTransferBeneficiaryFunds();
+      }
     }
   }
 
@@ -497,9 +559,13 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openDollarCashDepositModal() {
+  public async openDollarCashDepositModal() {
     this.depositDollarModal.dismiss();
-    this.dollarCashDepositModal.present();
+    await this.dollarCashDepositModal.present();
+    if(this.dollarCashDepositRef?.nativeElement){
+      this.dollarCashDepositRef.nativeElement.focus();
+      this.keyboard.show();
+    }
   }
 
   //For Dollar Deposit based on Cash
@@ -543,7 +609,7 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openDollarAndNairaWithdrawalModal(type: string, bank?) {
+  public async openDollarAndNairaWithdrawalModal(type: string, bank?) {
     this.typeOfWithdrawal = type;
     if(type === 'cash'){
       //Check if dollar selection is cash to ensure withdraw currency is set to USD
@@ -551,7 +617,11 @@ export class HomePage implements OnInit {
     }
     this.selectedBank = bank;
     this.withdrawDollarModal.dismiss();
-    this.dollarAndNairaWithdrawalModal.present();
+    await this.dollarAndNairaWithdrawalModal.present();
+    if(this.dollarAndNairaWithdrawalModalRef?.nativeElement){
+      this.dollarAndNairaWithdrawalModalRef.nativeElement.focus();
+      this.keyboard.show();
+    }
   }
 
   public async openChooseBankAccountModal(type: string) {
@@ -562,6 +632,11 @@ export class HomePage implements OnInit {
       this.loading.dismiss();
       if (resp.code == 100) {
         console.log(resp.data);
+        if(!resp.data){
+          this.chooseDollarBankAccountModal.initialBreakpoint = 0.3;
+          this.chooseDollarBankAccountModal.present();
+          return;
+        }
         if (this.withdrawCurrentcy === 'NGN') {
           this.myBanks = resp.data.naira;
         } else {
@@ -624,9 +699,6 @@ export class HomePage implements OnInit {
 
 
 
-
-
-
   ////////////////// INVESTMENTS SEGMENT AREA //////////////////////////
 
   public openMoreOptionsModal() {
@@ -658,6 +730,42 @@ export class HomePage implements OnInit {
     this.router.navigateByUrl('/investment-details', {
       state: { url: this.router.url, investment: inv },
     });
+  }
+
+  public startInvestmentWithdrawal(){
+    this.uiService.getLoadingStateSubject().next({active: true, data: {type: 'confirm', data: {}}});
+  }
+
+  public async makeInvestmentWithdrawal(){
+    const payload = {
+      subscription_id: this.selectedInvestment.subscription_id,
+      amount: this.withdrawalInvestmentAmount,
+      pin: this.pin
+    };
+    this.util.presentLoading();
+    console.log(payload);
+    try {
+      const resp = await this.homeService.withdrawFromInvestment(payload);
+      this.loading.dismiss();
+      if (resp.code == '100') {
+        console.log(resp.message);
+        this.pinEnterModal.dismiss();
+        this.uiService
+          .getLoadingStateSubject()
+          .next({ active: true, data: { type: 'withdraw', data: {} } });
+        this.subService.getBalanceSubject().next(true);
+        this.pin = '';
+        this.withdrawalInvestmentAmount = '';
+        this.selectedInvestment = null;
+        // this.isSending =false;
+      } else if (resp.code == '418') {
+        console.log(resp);
+      }
+    } catch (error) {
+      console.log(error);
+      this.loading.dismiss();
+      this.util.showToast(error.error.message, 2000, 'danger');
+    }
   }
 
   // PRIVATES!!
@@ -708,11 +816,6 @@ export class HomePage implements OnInit {
     };
     this.util.presentLoading();
     console.log(payload);
-    // setTimeout(() => {
-    //   this.loading.dismiss();
-    //   this.uiService.getLoadingStateSubject().next(true);
-    //   // this.isSending =false;
-    // }, 1000);
     try {
       const resp = await this.homeService.doTransferToSubscription(payload);
       this.loading.dismiss();

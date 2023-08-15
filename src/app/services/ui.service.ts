@@ -8,6 +8,7 @@ export class UiService {
 
   private infoState: BehaviorSubject<{active: boolean; data: {type: string; data: any}}> = new BehaviorSubject(null);
   private loadingState: BehaviorSubject<{active: boolean; data: {type: string; data: any}}> = new BehaviorSubject(null);
+  private instructHomeState: BehaviorSubject<{type: string; data: any}> = new BehaviorSubject(null);
   // private loadingState: BehaviorSubject<boolean> = new BehaviorSubject(null);
   private backdropState: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -15,6 +16,10 @@ export class UiService {
 
   public getInfoStateSubject(){
     return this.infoState;
+  }
+  
+  public getinstructHomeStateStateSubject(){
+    return this.instructHomeState;
   }
 
   public getLoadingStateSubject(){

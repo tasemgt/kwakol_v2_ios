@@ -163,4 +163,9 @@ export class TabsPage {
     }, 100);
   }
 
+  public continueHomeTask(task){
+    this.closeModal();
+    this.uiService.getinstructHomeStateStateSubject().next({type: task, data: {}});
+  }
+
 }

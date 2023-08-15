@@ -533,3 +533,21 @@ ion-modal.enter-pin ion-content{
     font-family: BwModelicaBold;
   }
 }
+
+.no-banks{
+  padding: .3rem;
+  h5,p{ margin: 0;}
+  h5{
+    font-family: BwModelicaMedium;
+    font-size: 1rem;
+    color: rgba(var(--ion-color-secondary-rgb), 0.8);
+    margin-bottom: .3rem;
+  }
+  
+  p{
+    font-size: .7rem;
+    font-family: BwModelicaLight;
+    font-weight: 600;
+    color: rgba(var(--ion-color-secondary-rgb), 0.6);
+  }
+}

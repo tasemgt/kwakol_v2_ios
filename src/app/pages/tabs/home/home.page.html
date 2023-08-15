@@ -152,7 +152,7 @@
       [ngClass]="{'more-margin': wallet?.quick_transfers.length <= 0}"
     >
       <p class="section-title">Recent Wallet Transactions</p>
-      <p class="section-title">
+      <p class="section-title" (click)="goToHistory('wallet')">
         View all
         <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon>
       </p>
@@ -258,14 +258,15 @@
         </h3>
 
         <div class="cta-wrapper">
-          <div class="cta" (click)="openTransferInvestmentModal()">
+          <!-- False to denote that this opens investment list modals for deposit or transfer and not withdrawal -->
+          <div class="cta" (click)="openTransferInvestmentModal(false)">
             <div class="btn">
               <ion-icon src="assets/icon/v2-icons/cta-deposit.svg"></ion-icon>
             </div>
             <p>Deposit</p>
           </div>
           <div class="cta">
-            <div class="btn">
+            <div class="btn" (click)="startInvestmentWithdrawal()">
               <ion-icon src="assets/icon/v2-icons/cta-withdraw.svg"></ion-icon>
             </div>
             <p>Withdraw</p>
@@ -371,7 +372,7 @@
     <div class="list-wrapper">
       <div class="recent-trans investments">
         <p class="section-title">Transaction History</p>
-        <p class="section-title">
+        <p class="section-title" (click)="goToHistory('investments')">
           View all
           <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon>
         </p>
@@ -482,7 +483,8 @@
             </div>
             <p>User</p>
           </div>
-          <div class="item" (click)="openTransferInvestmentModal()">
+          <!-- False to denote that this opens investment list modals for deposit or transfer and not withdrawal -->
+          <div class="item" (click)="openTransferInvestmentModal(false)">
             <div class="round-button">
               <ion-icon
                 src="assets/icon/v2-icons/round-btns/investment.svg"
@@ -531,6 +533,7 @@
             [(ngModel)]="usernameOrEmail"
             (ngModelChange)="onUsernameEmailInputChange($event)"
             placeholder="@Username or email address"
+            #doUserTransferRef
           />
         </div>
 
@@ -568,7 +571,8 @@
         <!-- <div class="round-button">
           <ion-icon src="assets/icon/padlock.svg"></ion-icon>
         </div> -->
-        <h3>Choose investment account</h3>
+        <h3 *ngIf="!isInvestmentWithdrawal">Choose investment account</h3>
+        <h3 *ngIf="isInvestmentWithdrawal">Choose the investment you would like to withdraw from</h3>
 
         <div class="content-wrapper">
           <div
@@ -668,6 +672,7 @@
                 [(ngModel)]="investmentTransferAmount"
                 required
                 autocomplete="off"
+                #doInvestmentTransferRef
               />
               <label class="did-floating-label">Enter Amount</label>
             </div>
@@ -795,6 +800,7 @@
                 [(ngModel)]="beneficiaryTransferAmount"
                 required
                 autocomplete="off"
+                #doBeneficiaryTransferRef
               />
               <label class="did-floating-label">Enter Amount</label>
             </div>
@@ -821,8 +827,8 @@
   <ion-modal
     #pinEnterModal
     trigger="open-enter-pin"
-    [initialBreakpoint]="0.75"
-    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    [initialBreakpoint]="0.8"
+    [breakpoints]="[0, 0.8]"
     class="enter-pin"
     handle="true"
   >
@@ -839,12 +845,13 @@
             ')[0][0]}}{{selectedBeneficiary?.fullname.split(' ')[1][0]}}
           </div>
         </div>
+        <p class="p0" *ngIf="typeOfTransfer === 'investment' && isInvestmentWithdrawal">Withdraw</p>
         <h3>
-          ${{util.numberWithCommas(investmentTransferAmount ||
+          ${{util.numberWithCommas(investmentTransferAmount || withdrawalInvestmentAmount ||
           beneficiaryTransferAmount)}}
         </h3>
         <p *ngIf="typeOfTransfer === 'investment'" class="p0">
-          to the Plan <span>({{selectedInvestment?.name}})</span>
+          <span *ngIf="!isInvestmentWithdrawal">to</span> <span *ngIf="isInvestmentWithdrawal">from</span> the Plan <span class="plan-name">({{selectedInvestment?.name}})</span>
         </p>
         <p *ngIf="typeOfTransfer === 'beneficiary'" class="p0">
           to the Beneficiary <br />
@@ -1028,6 +1035,7 @@
                 [(ngModel)]="dollarCashAmount"
                 required
                 autocomplete="off"
+                #dollarCashDepositRef
               />
               <div>
                 <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
@@ -1191,14 +1199,20 @@
         <h3 *ngIf="withdrawCurrentcy === 'USD'">Choose Dollar Account</h3>
 
         <div class="content-wrapper banks-wrapper">
-          <div
-            class="bank"
-            *ngFor="let bank of myBanks"
-            (click)="openDollarAndNairaWithdrawalModal('transfer', bank)"
-          >
-            <h4>{{bank.bank_name}}</h4>
-            <p>{{bank.bank_account_name}}</p>
-            <p>{{bank.account_number}}</p>
+          <div *ngIf="myBanks">
+            <div
+              class="bank"
+              *ngFor="let bank of myBanks"
+              (click)="openDollarAndNairaWithdrawalModal('transfer', bank)"
+            >
+              <h4>{{bank.bank_name}}</h4>
+              <p>{{bank.bank_account_name}}</p>
+              <p>{{bank.account_number}}</p>
+            </div>
+          </div>
+          <div *ngIf="!myBanks" class="no-banks">
+            <h5>No Bank Accounts Here</h5>
+            <p>Kindly Add a bank account to continue</p>
           </div>
         </div>
         <ion-col size="12" class="ion-text-center btn-col">
@@ -1254,6 +1268,7 @@
                   [(ngModel)]="dollarOrNairaWithdrawAmount"
                   required
                   autocomplete="off"
+                  #dollarAndNairaWithdrawalModalRef
                 />
                 <div>
                   <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
@@ -1387,4 +1402,73 @@
     </ng-template>
   </ion-modal>
   <!-- End More Options Modal -->
+
+   <!-- Start Withdrawal Investment modal -->
+   <ion-modal
+   #withdrawalInvestmentModal
+   [initialBreakpoint]="0.65"
+   [breakpoints]="[0, 0.30, 0.50, 0.65]"
+   class="kwakol-modal-bottom-drawer2 transfer-investment"
+   handle="true"
+ >
+   <ng-template>
+     <ion-content>
+
+      <h3>Withdraw to wallet</h3>
+
+      <!-- <div class="content-wrapper"> -->
+      <div class="investment-item" style="margin-top: 1rem">
+        <div class="investment-name">
+          <div class="round-button">
+            <ion-icon
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(selectedInvestment?.name) || 'special-big') +'.svg'"
+            ></ion-icon>
+          </div>
+          <div class="name">
+            <p>The Plan</p>
+            <h3>{{selectedInvestment?.name}}</h3>
+          </div>
+        </div>
+        <h3>${{util.numberWithCommas(selectedInvestment?.balance)}}</h3>
+      </div>
+
+       <div
+         class="investment-item animate__animated animate__slideInDown"
+         style="--animate-duration: 0.5s; margin-top: 1rem"
+       >
+         <ion-col size="12" class="kwakol-input">
+           <div class="did-floating-label-content">
+             <input
+               class="did-floating-input"
+               type="tel"
+               placeholder="0.00"
+               [(ngModel)]="withdrawalInvestmentAmount"
+               required
+               autocomplete="off"
+               #withdrawalInvestmentRef
+             />
+             <div>
+               <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
+               <span>USD</span>
+             </div>
+             <label class="did-floating-label">Enter Amount</label>
+           </div>
+         </ion-col>
+       </div>
+
+       <ion-col size="12" class="ion-text-center btn-col">
+         <ion-button
+           class="kwakol-btn ion-text-uppercase"
+           (click)="makeInvestmentOrBeneficiaryTransfer('investment')"
+           type="submit"
+         >
+           Withdraw
+         </ion-button>
+       </ion-col>
+       <!-- </div> -->
+     </ion-content>
+   </ng-template>
+ </ion-modal>
+ <!-- End Withdrawal Investment modal -->
+
 </ion-content>

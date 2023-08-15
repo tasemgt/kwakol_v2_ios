@@ -42,7 +42,8 @@ export class HistoryPage  implements OnInit{
     private auth: AuthService,
     private subService: SubscriptionService,
     private historyService: HistoryService,
-    private dataService: DataService) {}
+    private dataService: DataService) {
+    }
 
   ngOnInit() {
     this.activeSegment = 'wallet';
@@ -52,19 +53,24 @@ export class HistoryPage  implements OnInit{
 
     this.auth.getAuthStateSubject().subscribe((state) =>{
       if(state){
-        this.getHistories();
+        // this.getHistories();
       }
     });
     this.subService.getBalanceSubject().subscribe((state) =>{
       if(state){
-        this.getHistories();
+        // this.getHistories();
+      }
+    });
+    this.historyService.getActiveSegmentSubject().subscribe((state) =>{
+      if(state){
+        // this.activeSegment = state.activeSegment;
       }
     });
   }
 
 
   ionViewWillEnter(){
-    this.getHistoriesQuiet();
+    // this.getHistoriesQuiet();
   }
 
   public segmentChanged(event) {

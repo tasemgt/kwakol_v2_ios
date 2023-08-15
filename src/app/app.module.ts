@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { pageAnimation } from 'src/animations/nav-animations';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 // import { OneSignal } from '@awesome-cordova-plugins/onesignal/ngx';
@@ -41,7 +42,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
     AppMinimize,
     ScreenOrientation,
     FingerprintAIO,
-    BnNgIdleService
+    BnNgIdleService,
+    Keyboard
     // OneSignal
   ],
   bootstrap: [AppComponent],
