@@ -273,6 +273,10 @@ export class HomePage implements OnInit {
     });
   }
 
+  public goToProfilePage(){
+    this.router.navigateByUrl('/tabs/profile', {state:{url: this.router.url}});
+  }
+
   public goToNewAccount() {
     this.moreOptionsModal.dismiss();
     this.getInvestmentAccounts();

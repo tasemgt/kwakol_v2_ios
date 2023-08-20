@@ -1,0 +1,71 @@
+<ion-content class="page-content">
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+  <h2 class="subpage-heading left">Edit Profile</h2>
+
+  <div class="user-deets">
+    <div class="img-wrapper">
+      <div class="default-img">
+        {{user.fullname.split(' ')[0][0]}}{{user.fullname.split(' ')[1][0]}}
+      </div>
+    </div>
+  
+    <div class="name">
+      <h3>{{ user.fullname }}</h3>
+    </div>
+  
+    <!-- <div class="round-small-button" (click)="uploadPhoto()">Upload New Photo</div> -->
+    <div class="round-small-button" (click)="uploadPhoto()">{{username}}</div>
+  </div>
+
+
+  <ion-row class="inputs-wrapper" style="margin-top: 2rem;">
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input"
+          type="text"
+          placeholder=" "
+          [(ngModel)]="username"
+          required
+          autocomplete="off"
+        />
+        <label class="did-floating-label">Username</label>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="kwakol-input">
+      <div class="did-floating-label-content">
+        <input
+          class="did-floating-input email"
+          type="email"
+          placeholder=" "
+          [(ngModel)]="email"
+          autocomplete="off"
+          [disabled]="true"
+          />
+          <!-- <label class="did-floating-label">Email</label> -->
+        </div>
+      </ion-col>
+      <ion-col size="12" class="kwakol-input">
+        <div class="did-floating-label-content">
+          <input
+          class="did-floating-input email"
+          type="tel"
+          placeholder=" "
+          [(ngModel)]="phone"
+          autocomplete="off"
+          [disabled]="true"
+          />
+        <!-- <label class="did-floating-label">Phone Number</label> -->
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="btn-row" style="margin-top: 14rem;">
+    <ion-col size="12" class="ion-text-center btn-col">
+      <ion-button class="kwakol-btn ion-text-uppercase" type="submit">Save Changes</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

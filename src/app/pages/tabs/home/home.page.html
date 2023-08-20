@@ -10,7 +10,7 @@
 
   <div class="main-header">
     <div class="header-name">
-      <div class="img-wrapper">
+      <div class="img-wrapper" (click)="goToProfilePage()">
         <!-- <img src="" alt=""> -->
         <div class="default-img">
           {{user?.fullname.split(' ')[0][0]}}{{user?.fullname.split(' ')[1][0]}}
@@ -393,7 +393,7 @@
             ></ion-icon>
             <div class="trans-type">
               <h3>{{ hist.type | capitalize }}</h3>
-              <p class="trans-type-p">{{hist.comment}}</p>
+              <p class="trans-type-p">{{hist.comment.slice(0,50)}}</p>
             </div>
           </div>
           <div class="amount-date">
@@ -1406,8 +1406,8 @@
    <!-- Start Withdrawal Investment modal -->
    <ion-modal
    #withdrawalInvestmentModal
-   [initialBreakpoint]="0.65"
-   [breakpoints]="[0, 0.30, 0.50, 0.65]"
+   [initialBreakpoint]="0.75"
+   [breakpoints]="[0, 0.40, 0.75]"
    class="kwakol-modal-bottom-drawer2 transfer-investment"
    handle="true"
  >

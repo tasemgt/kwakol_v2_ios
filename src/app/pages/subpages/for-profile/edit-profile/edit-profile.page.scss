@@ -1,0 +1,49 @@
+.user-deets {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.7rem;
+  font-size: 1.8rem;
+
+  p,
+  h3 {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .default-img {
+    width: 4.7rem;
+    height: 4.7rem;
+  }
+
+  .name {
+    p {
+      font-size: 0.8rem;
+      letter-spacing: 0.03rem;
+      color: rgba(var(--ion-color-secondary-rgb), 0.6);
+    }
+    h3 {
+      font-family: BwModelicaBold;
+      color: var(--ion-color-secondary);
+      letter-spacing: -0.03rem;
+    }
+  }
+
+  div.round-small-button {
+    color: rgba(var(--ion-color-secondary-rgb), 0.65);
+    padding: 0.6rem;
+    background: #dcefdc;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    letter-spacing: 0.03rem;
+  }
+}
+
+.did-floating-input.email {
+  border: 1px solid rgba(174, 174, 174, 0.3);
+  color: var(--ion-text-gray-color);
+}

@@ -18,6 +18,7 @@ export class WalletTransferUserPage implements OnInit {
   @ViewChild('LoadingModalDiv') loadingModalDiv: ElementRef;
   @ViewChild('InfoModalDiv') infoModalDiv: ElementRef;
   @ViewChild('backdrop') backdrop: ElementRef;
+  @ViewChild('backdropInfo') backdropInfo: ElementRef;
 
   public fromPage: string;
   public transferUser: any;
@@ -57,6 +58,7 @@ export class WalletTransferUserPage implements OnInit {
         this.transferHistory = this.transferUser.transfer_history.reverse();
       }
       console.log(this.transferHistory);
+      console.log(this.transferUser);
     }
   }
 
@@ -111,7 +113,9 @@ export class WalletTransferUserPage implements OnInit {
       if(resp.code == '100'){
         console.log(resp.message);
         this.subService.getBalanceSubject().next(true);
-        this.isSending =false;
+        this.walletBalance = (+this.walletBalance - +payload.amount) + '';
+        this.sendAmount = '';
+        this.isSending = false;
       }
       else if(resp.code == '418'){
         console.log(resp);
@@ -168,10 +172,6 @@ export class WalletTransferUserPage implements OnInit {
     }
   }
 
-  public onTapTransaction(){
-
-  }
-
   public openLoadingModal() {
     this.pin = '';
     this.isSending = true;
@@ -183,66 +183,17 @@ export class WalletTransferUserPage implements OnInit {
 
   public openInfoModal(type, data) {
     console.log('DATA', data);
-    switch (type) {
-      case 'deposit':
-        this.infoModalData.icon = 'trans-deposit.svg';
-        this.infoModalData.title = 'Deposit';
-        this.infoModalData.content = [
-          { item: 'Account Name', value: data.fullname },
-          { item: 'Bank Name', value: '---' },
-          { item: 'Reference', value: data.ref },
-          { item: 'Deposit Type', value: data.type },
-          { item: 'Rate', value: '----' },
-          { item: 'Fee', value: '$'+data.amount },
-        ];
-        this.infoModalData.amount = '560';
-        this.infoModalData.date = '16 Feb 2023 - 9:03am';
-        break;
-      case 'withdrawal':
-        this.infoModalData.icon = 'trans-withdraw.svg';
-        this.infoModalData.title = 'Withdrawal';
-        this.infoModalData.content = [
-          { item: 'Account Name', value: data.fullname },
-          { item: 'Account Number', value: 'Akim John' },
-          { item: 'Bank Name', value: '----' },
-          { item: 'Reference', value: data.ref },
-          { item: 'Withdrawal Type', value: data.type },
-          { item: 'Fee', value: '$'+data.amount },
-        ];
-        this.infoModalData.amount = '560';
-        this.infoModalData.date = '16 Feb 2023 - 9:03am';
-        break;
-      case 'transfer':
-        this.infoModalData.icon = 'trans-transfer-user.svg';
-        this.infoModalData.title = 'Wallet Transfer';
-        this.infoModalData.content = [
-          { item: 'Username', value: data.email },
-          { item: 'Profile Name', value: data.fullname },
-          { item: 'Reference', value: data.ref },
-        ];
-        this.infoModalData.amount = data.amount;
-        this.infoModalData.date = data.created_at;
-        break;
-      case 'bonus':
-        this.infoModalData.icon = 'trans-bonus.svg';
-        this.infoModalData.title = 'Bonus';
-        this.infoModalData.content = [
-          { item: 'Bonus Type', value: 'Referral' },
-          { item: 'Reference', value: 'Akim John' },
-        ];
-        this.infoModalData.amount = '1200';
-        this.infoModalData.date = '16 Feb 2023 - 9:03am';
-    }
-
+    this.infoModalData = data;
     setTimeout(() => {
       this.showInfoModal = true;
+      this.backdropActiveInfo = true;
       console.log(this.infoModalData);
     }, 10);
   }
 
   public closeInfoModal() {
     const modalDiv = this.infoModalDiv.nativeElement;
-    const backdrop = this.backdrop.nativeElement;
+    const backdrop = this.backdropInfo.nativeElement;
 
     this.renderer.removeClass(modalDiv, 'animate__slideInUp');
     this.renderer.addClass(modalDiv, 'animate__slideOutDown');

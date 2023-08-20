@@ -36,45 +36,19 @@
     class="segment segment-investments"
   >
     <div class="month-wrapper">
-      <p class="month">April 2023</p>
+      <!-- <p class="month">April 2023</p> -->
       <div class="transactions-list no-border">
-        <div class="transaction">
+        <div class="transaction" *ngFor="let hist of walletHistories">
           <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">
-              <h3>Withdrawal</h3>
-              <p class="trans-type-p">To Bank Account</p>
+              <h3>{{hist.type}}</h3>
+              <p class="trans-type-p">{{hist.status}}</p>
             </div>
           </div>
           <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">16 June 2023</div>
-          </div>
-        </div>
-        <div class="transaction">
-          <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
-            <div class="trans-type">
-              <h3>Deposit</h3>
-              <p class="trans-type-p">From Bank Account</p>
-            </div>
-          </div>
-          <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">pending</div>
-          </div>
-        </div>
-        <div class="transaction">
-          <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
-            <div class="trans-type">
-              <h3>Withdrawal</h3>
-              <p class="trans-type-p">To Bank Account</p>
-            </div>
-          </div>
-          <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">16 June 2023</div>
+            <div class="amount">+${{hist.amount}}</div>
+            <div class="trans-date">{{hist.date}}</div>
           </div>
         </div>
       </div>
@@ -84,79 +58,19 @@
 
   <div *ngIf="activeSegment === 'investments'" class="segment segment-investments">
     <div class="month-wrapper">
-      <p class="month">March 2023</p>
+      <!-- <p class="month">March 2023</p> -->
       <div class="transactions-list no-border">
-        <div class="transaction">
+        <div class="transaction" *ngFor="let hist of investmentHistories">
           <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
+            <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">
-              <h3>Withdrawal</h3>
-              <p class="trans-type-p">To Bank Account</p>
+              <h3>{{hist.type}}</h3>
+              <p class="trans-type-p">{{hist.status}}</p>
             </div>
           </div>
           <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">16 June 2023</div>
-          </div>
-        </div>
-      </div>
-      <div class="transactions-list no-border">
-        <div class="transaction">
-          <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
-            <div class="trans-type">
-              <h3>Withdrawal</h3>
-              <p class="trans-type-p">To Bank Account</p>
-            </div>
-          </div>
-          <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">16 June 2023</div>
-          </div>
-        </div>
-      </div>
-      <div class="transactions-list no-border">
-        <div class="transaction">
-          <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
-            <div class="trans-type">
-              <h3>Withdrawal</h3>
-              <p class="trans-type-p">To Bank Account</p>
-            </div>
-          </div>
-          <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">16 June 2023</div>
-          </div>
-        </div>
-      </div>
-      <div class="transactions-list no-border">
-        <div class="transaction">
-          <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
-            <div class="trans-type">
-              <h3>Withdrawal</h3>
-              <p class="trans-type-p">To Bank Account</p>
-            </div>
-          </div>
-          <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">16 June 2023</div>
-          </div>
-        </div>
-      </div>
-      <div class="transactions-list no-border">
-        <div class="transaction">
-          <div class="trans-type-wrapper">
-            <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
-            <div class="trans-type">
-              <h3>Withdrawal</h3>
-              <p class="trans-type-p">To Bank Account</p>
-            </div>
-          </div>
-          <div class="amount-date">
-            <div class="amount">+$3,403.58</div>
-            <div class="trans-date">16 June 2023</div>
+            <div class="amount">+${{hist.amount}}</div>
+            <div class="trans-date">{{hist.date}}</div>
           </div>
         </div>
       </div>

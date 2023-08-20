@@ -6,6 +6,7 @@ export interface LoginCred{
 
 export interface User {
   fullname: string;
+  username: string;
   email: string;
   phone?: string;
   token: string;

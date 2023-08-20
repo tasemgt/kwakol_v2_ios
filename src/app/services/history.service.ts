@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HistoryService {
 
-  private baseUrl = `${constants.baseUrl}`;
+  private baseUrl = `${constants.baseUrlV2}`;
 
   private headers = {'Content-Type': 'application/json'};
 

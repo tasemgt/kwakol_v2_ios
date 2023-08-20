@@ -4,7 +4,7 @@
   *ngIf="backdropActive"
 ></div>
 
-<div class="backdrop animate__animated animate__fadeIn" #backdropInfo *ngIf="backdropActive" (click)="closeInfoModal()"></div>
+<div class="backdrop animate__animated animate__fadeIn" #backdropInfo *ngIf="backdropActiveInfo" (click)="closeInfoModal()"></div>
 
   <!-- Info Modal Begin -->
   <div
@@ -13,21 +13,29 @@
     *ngIf="showInfoModal"
   >
     <div class="header">
-      <ion-icon [src]="'assets/icon/v2-icons/'+ infoModalData.icon"></ion-icon>
-      <h4>{{infoModalData.title}}</h4>
+      <ion-icon [src]="'assets/icon/v2-icons/trans-transfer-user.svg'"></ion-icon>
+      <h4>{{transferUser.main_user == infoModalData.sender? 'Wallet Transfer' : 'Transferred from'}}</h4>
     </div>
 
     <div class="content">
-      <p class="item" *ngFor="let item of infoModalData.content">
-        <span>{{item.item}}</span>
-        <span>{{item.value}} <ion-icon *ngIf="item.item === 'Reference'" (click)="util.clipboardCopy(item.item)" src="assets/icon/copy.svg"></ion-icon></span>
+      <p class="item">
+        <span>Username</span>
+        <span>{{transferUser.username}}</span>
+      </p>
+      <p class="item">
+        <span>Profile Name</span>
+        <span>{{transferUser.fullname}}</span>
+      </p>
+      <p class="item">
+        <span>Reference</span>
+        <span>{{infoModalData.ref}}<ion-icon (click)="util.clipboardCopy(infoModalData.ref)" src="assets/icon/copy.svg"></ion-icon></span>
       </p>
     </div>
 
     <div class="footer">
       <div class="amount-date">
-        <div class="amount">-${{util.numberWithCommas(infoModalData.amount)}}</div>
-        <div class="date">{{infoModalData.date}}</div>
+        <div class="amount">{{transferUser.main_user == infoModalData.sender? '-':'+'}}${{util.numberWithCommas(infoModalData.amount)}}</div>
+        <div class="date">{{infoModalData.created_at | date}}</div>
       </div>
       <div class="round-button" (click)="closeInfoModal()">
         <ion-icon src="assets/icon/close.svg"></ion-icon>
@@ -106,6 +114,7 @@
       class="chat-bubble-wrapper"
       *ngFor="let transaction of transferHistory"
       [ngClass]="transferUser.main_user == transaction.sender? 'right' : 'left'"
+      (click)="openInfoModal('transfer', transaction)"
     >
       <div class="chat-bubble-container">
         <ion-icon *ngIf="transferUser.main_user == transaction.sender" src="assets/icon/v2-icons/circle-check.svg"></ion-icon>

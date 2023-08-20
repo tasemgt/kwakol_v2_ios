@@ -159,6 +159,10 @@ const routes: Routes = [
   {
     path: 'add-bank',
     loadChildren: () => import('./pages/subpages/for-home/add-bank/add-bank.module').then( m => m.AddBankPageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/subpages/for-profile/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   }
 ];
 @NgModule({

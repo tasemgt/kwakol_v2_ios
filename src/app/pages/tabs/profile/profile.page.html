@@ -12,10 +12,10 @@
         </div>
         <div class="name">
           <h3>{{ user.fullname }}</h3>
-          <p>@jenewari</p>
+          <p>{{user.username}}</p>
         </div>
       </div>
-      <div class="round-small-button">Edit Profile</div>
+      <div class="round-small-button" (click)="goToEditProfile()">Edit Profile</div>
     </div>
   </div>
 </ion-header>

@@ -102,6 +102,10 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  public async goToEditProfile(){
+    this.router.navigateByUrl('/edit-profile', {state: {url: this.router.url, user: this.user}});
+  }
+
   public async goToNextOfKin(){
     this.router.navigateByUrl('/next-of-kin', {state: {url: this.router.url}});
   }

@@ -20,6 +20,11 @@ export class HistoryPage  implements OnInit{
   public prevFilter;
   public selectedFilter;
   public histories;
+
+  public invHists = [];
+  public walletHists = [];
+  public investmentHistories = [];
+  public walletHistories = [];
   
   public filters = [
     { name: 'Show All', icon: 'all', class: 'all', size: '4', selected: true },
@@ -53,12 +58,12 @@ export class HistoryPage  implements OnInit{
 
     this.auth.getAuthStateSubject().subscribe((state) =>{
       if(state){
-        // this.getHistories();
+        this.getHistories();
       }
     });
     this.subService.getBalanceSubject().subscribe((state) =>{
       if(state){
-        // this.getHistories();
+        this.getHistories();
       }
     });
     this.historyService.getActiveSegmentSubject().subscribe((state) =>{
@@ -79,10 +84,13 @@ export class HistoryPage  implements OnInit{
   }
 
   public onTapFilter(filter){
+    this.walletHistories = this.walletHists;
+    this.investmentHistories = this.invHists;
     if(filter.name === this.selectedFilter.name){
       return;
     }
-    this.histories = null;
+    // this.walletHistories = null;
+    // this.investmentHistories = null;
     this.prevFilter = this.selectedFilter;
     filter.selected = true;
     this.selectedFilter = filter;
@@ -90,7 +98,13 @@ export class HistoryPage  implements OnInit{
 
     const f = {...filter};
     f.name = f.name.toLowerCase();
-    // f.name === 'show all' ? this.getHistories() : this.getHistories();
+    if(f.name === 'all'){
+      this.walletHistories = this.walletHists;
+      this.investmentHistories = this.invHists;
+    }
+
+    this.walletHistories = this.walletHistories.filter((wH) => wH.type.toLowerCase() === f.name );
+
   }
 
   public openHistorySummary(hist){
@@ -109,8 +123,14 @@ export class HistoryPage  implements OnInit{
     try {
       const resp = await this.historyService.getHistories();
       if(resp.code === '100'){
-        this.histories = resp.data.history.data;
-        console.log(this.histories);
+        this.invHists = resp.data.investment_history.data;
+        this.walletHists = resp.data.wallet_history.data;
+
+        this.investmentHistories = this.invHists;
+        this.walletHistories = this.walletHists;
+
+        console.log(this.investmentHistories);
+        console.log(this.walletHistories);
       }
     } catch (error) {
       console.log(error);
