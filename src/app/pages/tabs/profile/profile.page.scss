@@ -134,3 +134,22 @@ div.actions {
     }
   }
 }
+
+.set-pin{
+  p{
+    text-align: center;
+    font-family: BwModelicaLight;
+    font-weight: 600;
+    
+    &.p0{
+      margin: 1rem 0;
+      font-size: .8rem;
+    }
+    
+    &.p1{
+      font-size: .7rem;
+      margin-bottom: 0;
+      margin-top: 1.5rem;
+    }
+  }
+}

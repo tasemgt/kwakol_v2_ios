@@ -96,13 +96,19 @@
         <!-- <div class="circle-3">
       <div class="circle-2">
         <div class="circle-1"> -->
-        <ion-icon *ngIf="loadingModalType !== 'confirm'" src="assets/imgs/v2-imgs/hour-glass.svg" alt=""></ion-icon>
+        <ion-icon *ngIf="loadingModalType !== 'confirm' && loadingModalType !== 'pin'" src="assets/imgs/v2-imgs/hour-glass.svg" alt=""></ion-icon>
         <!-- </div> -->
         <!-- </div> -->
         <!-- </div> -->
         <ion-icon
           *ngIf="loadingModalType === 'confirm'"
           src="assets/imgs/v2-imgs/red-flag.svg"
+          alt=""
+        ></ion-icon>
+        
+        <ion-icon
+          *ngIf="loadingModalType === 'pin'"
+          src="assets/imgs/v2-imgs/padlock.svg"
           alt=""
         ></ion-icon>
 
@@ -118,6 +124,9 @@
           Withdrawing from an active investment <br />
           might affect your profit. <br />
           Do you still want to proceed?
+        </p>
+        <p class="loading-text" *ngIf="loadingModalType === 'pin'">
+          You've successfully changed your PIN.
         </p>
       </div>
       <!-- <div class="load-complete" *ngIf="!isSending">

@@ -969,6 +969,11 @@ ion-modal.otp-modal {
     margin: 0 auto;
   }
 
+  p{
+    font-family: BwModelicaLight;
+    font-weight: 600;
+  }
+
   .p1 {
     font-size: 0.7rem;
     letter-spacing: 0.01rem;
@@ -1125,7 +1130,7 @@ ion-modal.enter-pin {
   padding: 0.7rem 1rem;
 
   &.center-page {
-    bottom: 15rem;
+    bottom: 6rem; //Temporary to fix positioning bug on round botton
 
     // .content {
     //   .loader-wrapper {
@@ -1329,6 +1334,7 @@ ion-modal.enter-pin {
     .round-button {
       height: 2.3rem;
       width: 2.3rem;
+      float: right;
     }
   }
 }
@@ -1917,4 +1923,106 @@ div.backdrop {
   height: 2.7rem;
   font-family: BwModelicaLight;
   font-size: 1.2rem;
+}
+
+ion-modal.otp-modal {
+
+  ion-content {
+    --padding-start: 1.5rem;
+    --padding-end: 1.5rem;
+  }
+
+  .round-button {
+    margin-top: 2rem;
+  }
+
+  .btn-col{
+    .kwakol-btn{
+        width: 90%;
+        margin: 0 auto;
+    }
+  }
+
+  .otp-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+
+  .otp-input {
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.4);
+    background-color: var(--ion-color-tertiary);
+    outline: none;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 0.3em;
+    outline: none;
+    /*Hide number field arrows*/
+    -moz-appearance: textfield;
+  }
+
+  .p2 {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.03rem;
+    margin: 2rem auto;
+  }
+}
+
+.set-pin {
+  &::part(handle) {
+    background-color: var(--ion-color-primary);
+  }
+
+  --border-radius: 20px;
+  --border-width: 0;
+
+  color: var(--ion-color-secondary);
+
+  .header {
+    margin-top: 2rem;
+    text-align: center;
+
+    ion-icon {
+        font-size: 2.5rem;
+    }
+
+    h3 {
+        font-family: BwModelicaMedium;
+    }
+  }
+
+  .pin-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0 1rem 0;
+    padding: 0 2.5rem;
+  }
+
+  .pin-input {
+    height: 3.4rem;
+    width: 3.4rem;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.4);
+    background-color: var(--ion-color-tertiary);
+    outline: none;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 0.3rem;
+    outline: none;
+    /*Hide number field arrows*/
+    -moz-appearance: textfield;
+
+    &.add-padding{
+      padding-top: .8rem;
+    }
+  }
+
+  .btn-row {
+    padding: 0 1.3rem;
+    margin-top: 1rem;
+  }
 }

@@ -7,14 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
+import { KeypadModule } from 'src/app/components/keypad/keypad.module';
+import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    KeypadModule
   ],
-  declarations: [ProfilePage]
+  declarations: [
+    ProfilePage,
+    AutoTabDirective
+  ]
 })
 export class ProfilePageModule {}

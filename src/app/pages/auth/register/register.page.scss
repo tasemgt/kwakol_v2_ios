@@ -13,53 +13,6 @@
   color: var(--ion-text-gray-color);
 }
 
-ion-modal.otp-modal {
-
-  ion-content {
-    --padding-start: 1.5rem;
-    --padding-end: 1.5rem;
-  }
-
-  .round-button {
-    margin-top: 2rem;
-  }
-
-  .btn-col{
-    .kwakol-btn{
-        width: 90%;
-        margin: 0 auto;
-    }
-  }
-
-  .otp-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
-  }
-
-  .otp-input {
-    height: 3rem;
-    width: 3rem;
-    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.4);
-    background-color: var(--ion-color-tertiary);
-    outline: none;
-    text-align: center;
-    font-size: 1.5em;
-    border-radius: 0.3em;
-    outline: none;
-    /*Hide number field arrows*/
-    -moz-appearance: textfield;
-  }
-
-  .p2 {
-    text-align: center;
-    font-size: 0.65rem;
-    letter-spacing: 0.03rem;
-    margin: 2rem auto;
-  }
-}
-
 
 h2.subpage-heading{
   //Input focus animation
