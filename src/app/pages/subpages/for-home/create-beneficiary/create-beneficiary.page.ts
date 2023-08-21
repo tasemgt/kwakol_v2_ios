@@ -45,7 +45,12 @@ export class CreateBeneficiaryPage implements OnInit {
   }
 
   public selectDOB() {
-    this.beneficiary.date_of_birth = '1990-01-01';
+    this.beneficiary.date_of_birth = this.beneficiary.date_of_birth.split('T')[0];
+    this.selectDOBModal.dismiss();
+  }
+
+  public closeDateModal(){
+    // this.beneficiary.date_of_birth = 'Date of Birth';
     this.selectDOBModal.dismiss();
   }
 

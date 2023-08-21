@@ -152,4 +152,22 @@ div.actions {
       margin-top: 1.5rem;
     }
   }
+
+  .modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  ion-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Disable swiping or sliding */
+    --overflow: hidden;
+    --overflow-y: scroll;
+  }
 }

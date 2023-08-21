@@ -194,8 +194,8 @@ export class HomePage implements OnInit {
     this.getHomeQuietly();
     this.getTimeOfDay();
 
-    this.balanceIcon = 'eye-open';
-    this.showBalance = false;
+    this.balanceIcon = 'eye-close';
+    this.showBalance = true;
   }
 
   public async getUser() {
@@ -797,7 +797,7 @@ export class HomePage implements OnInit {
       if (resp.code === '100') {
         const invAccounts = resp.data.subscriptions;
         this.router.navigateByUrl('/new-account', {
-          state: { url: this.router.url, accounts: invAccounts },
+          state: { url: this.router.url, accounts: invAccounts, balance: this.home.wallet.balance },
         });
       }
     } catch (error) {

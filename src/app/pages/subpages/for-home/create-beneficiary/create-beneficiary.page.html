@@ -32,7 +32,7 @@
       </div>
     </ion-col>
     <ion-col size="12" class="kwakol-input" (click)="openSelectDOBModal()">
-      <p class="p-input">{{beneficiary.date_of_birth || 'Date of Birth'}}</p>
+      <p class="p-input">{{beneficiary.date_of_birth.split('T')[0] || 'Date of Birth'}}</p>
     </ion-col>
     <ion-col size="12" class="kwakol-input" (click)="openSelectCountryModal()">
       <p class="p-input country">
@@ -92,11 +92,11 @@
   <ion-modal
     #selectDOBModal
     [initialBreakpoint]="0.65"
-    [breakpoints]="[0, 0.65]"
     swipeToClose="false"
     keepContentsMounted="true"
     class="select-dob"
     handle="true"
+
   >
     <ng-template>
       <ion-content>
@@ -104,6 +104,7 @@
 
         <ion-datetime
           [size]="'cover'"
+          [(ngModel)]="beneficiary.date_of_birth"
           presentation="date"
           [locale]="'en-US'"
           mode="md"
@@ -113,8 +114,7 @@
 
         <ion-row class="btn-row">
           <ion-col size="6">
-            <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase"
-              >Cancel</ion-button
+            <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" (click)="closeDateModal()">Cancel</ion-button
             >
           </ion-col>
           <ion-col size="6">

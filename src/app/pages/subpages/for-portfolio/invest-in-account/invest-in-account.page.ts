@@ -30,7 +30,7 @@ export class InvestInAccountPage implements OnInit {
   public account;
   public ammount: string;
   public customName: string;
-  public balance = '2,200';
+  public balance : string;
 
   public showLoadingModal: boolean;
   public backdropActive = false;
@@ -54,11 +54,13 @@ export class InvestInAccountPage implements OnInit {
       this.fromPage = state.url;
       this.account = state.account;
       this.beneficiary = state.beneficiary;
+      this.balance = state.balance;
     }
   }
 
   ngOnInit() {
     console.log(this.beneficiary);
+    console.log(this.account);
     this.platform.keyboardDidShow.subscribe((ev) => {
       const { keyboardHeight } = ev;
       this.keyboardHeight = keyboardHeight;
@@ -100,6 +102,10 @@ export class InvestInAccountPage implements OnInit {
       return;
     }
     //We have added custom name or its beneficiary adding...
+    if(this.isCustomizeName && !this.beneficiary && !this.customName){
+      this.util.showToast('A custom name is required.', 2500, 'danger');
+      return;
+    }
     this.continueToPin();
   }
 

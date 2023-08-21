@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ModalController, NavController } from '@ionic/angular';
+import {
+  LoadingController,
+  ModalController,
+  NavController,
+} from '@ionic/angular';
 import { Beneficiary } from 'src/app/models/user';
 import { BottomDrawerPage } from 'src/app/pages/modals/bottom-drawer/bottom-drawer.page';
 import { DataService } from 'src/app/services/data.service';
@@ -13,9 +17,9 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./add-new-account.page.scss'],
 })
 export class AddNewAccountPage implements OnInit {
-
   public account;
   public fromPage: string;
+  public balance: string;
 
   public beneficiary: Beneficiary;
 
@@ -26,12 +30,14 @@ export class AddNewAccountPage implements OnInit {
     public util: UtilService,
     private loading: LoadingController,
     private subService: SubscriptionService,
-    private dataService: DataService) {
-    if(this.router.getCurrentNavigation().extras.state){
+    private dataService: DataService
+  ) {
+    if (this.router.getCurrentNavigation().extras.state) {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
       this.account = state.account;
       this.beneficiary = state.beneficiary;
+      this.balance = state.balance;
     }
   }
 
@@ -39,9 +45,16 @@ export class AddNewAccountPage implements OnInit {
     console.log(this.account);
   }
 
-  public goToInvestInAccount(){
+  public goToInvestInAccount() {
     console.log(this.account);
-    this.router.navigateByUrl('/invest-in-account', {state: {url: this.router.url, account: this.account, beneficiary: this.beneficiary}});
+    this.router.navigateByUrl('/invest-in-account', {
+      state: {
+        url: this.router.url,
+        account: this.account,
+        beneficiary: this.beneficiary,
+        balance: this.balance,
+      },
+    });
   }
 
   // public async continue(){
@@ -78,5 +91,4 @@ export class AddNewAccountPage implements OnInit {
   //   }
 
   // }
-
 }

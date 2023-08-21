@@ -287,11 +287,11 @@ export class ProfilePage implements OnInit {
         this.loading.dismiss();
         if(resp.code == 100){
           // this.util.showToast('Pin set successfully', 3000, 'success');
-        }
-        else{
           await this.setPinModal.dismiss();
           this.uiService.getLoadingStateSubject().next({active: true, data:{type:'pin', data:null}});
-          // this.util.showToast(resp.data, 2000, 'danger');
+        }
+        else{
+          this.util.showToast(resp.data, 2000, 'danger');
         }
       } catch (error) {
         console.log('FAILED>', error);

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { investmentIcons, investmentIconsBanner } from 'src/app/models/constants';
+import {
+  investmentIcons,
+  investmentIconsBanner,
+} from 'src/app/models/constants';
 import { Beneficiary } from 'src/app/models/user';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -10,29 +13,35 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./new-account.page.scss'],
 })
 export class NewAccountPage implements OnInit {
-
   public fromPage: string;
   public accounts;
-
+  public balance: string;
   public beneficiary: Beneficiary;
 
   constructor(private router: Router, public util: UtilService) {
-    if(this.router.getCurrentNavigation().extras.state){
+    if (this.router.getCurrentNavigation().extras.state) {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
       this.accounts = state.accounts;
       this.beneficiary = state.beneficiary;
+      this.balance = state.balance;
     }
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  public addNewAccount(account) {
+    this.router.navigateByUrl('/add-new-account', {
+      state: {
+        url: this.router.url,
+        account,
+        beneficiary: this.beneficiary,
+        balance: this.balance,
+      },
+    });
   }
 
-  public addNewAccount(account){
-    this.router.navigateByUrl('/add-new-account', {state: { url: this.router.url, account,  beneficiary: this.beneficiary }});
-  }
-
-  public getInvestmentBannerFromName(accountName: string){
+  public getInvestmentBannerFromName(accountName: string) {
     return investmentIconsBanner[accountName.toLowerCase()];
   }
   // public getInvestmentIconFromName(accountName: string){

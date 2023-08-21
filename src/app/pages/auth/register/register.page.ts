@@ -70,7 +70,12 @@ export class RegisterPage implements OnInit {
   }
 
   public selectDOB(){
-    this.regCreds.date_of_birth = '1990-01-01';
+    this.regCreds.date_of_birth = this.regCreds.date_of_birth.split('T')[0];
+    this.selectDOBModal.dismiss();
+  }
+
+  public closeDateModal(){
+    // this.regCreds.date_of_birth = 'Date of Birth';
     this.selectDOBModal.dismiss();
   }
 
