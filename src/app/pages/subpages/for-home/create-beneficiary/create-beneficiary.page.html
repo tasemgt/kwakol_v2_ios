@@ -91,7 +91,7 @@
   <!-- Modal Select DOB -->
   <ion-modal
     #selectDOBModal
-    [initialBreakpoint]="0.65"
+    [initialBreakpoint]="0.8"
     swipeToClose="false"
     keepContentsMounted="true"
     class="select-dob"
@@ -102,15 +102,10 @@
       <ion-content>
         <h3>Date of Birth</h3>
 
-        <ion-datetime
-          [size]="'cover'"
-          [(ngModel)]="beneficiary.date_of_birth"
-          presentation="date"
-          [locale]="'en-US'"
-          mode="md"
-          [doneText]="'Select'"
-        >
-        </ion-datetime>
+        <!-- <mat-card class="demo-inline-calendar-card"> -->
+          <p style="margin: 0;" class="selected-date">{{(selectedDate | date) || 'No Date selected'}}</p>
+          <mat-calendar [(selected)]="selectedDate" (selectedChange)="getSelectedDate($event)" [maxDate]="currentDate"></mat-calendar>
+        <!-- </mat-card> -->
 
         <ion-row class="btn-row">
           <ion-col size="6">
@@ -121,6 +116,7 @@
             <ion-button
               class="kwakol-btn ion-text-uppercase"
               (click)="selectDOB()"
+              [disabled]="!selectedDate"
               >Select</ion-button
             >
           </ion-col>

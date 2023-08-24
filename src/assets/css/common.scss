@@ -288,7 +288,7 @@ ion-col {
     transition: border ease-in 0.1s;
     ~ .did-floating-label {
       top: -8px;
-      font-size: 14px;
+      font-size: 10px;
       color: var(--ion-color-primary);
       // font-family: BwModelicaMedium;
     }
@@ -303,7 +303,7 @@ ion-col {
 
 .did-floating-input:not(:placeholder-shown) ~ .did-floating-label {
   top: -8px;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 .p-input {
@@ -1008,11 +1008,15 @@ ion-modal.otp-modal {
 }
 
 ion-modal.select-dob {
-  ion-datetime {
-    width: 100%;
-    margin: 3rem auto 0 auto;
-    font-family: BwModelicaRegular;
-    --background: var(--ion-color-tertiary);
+  
+  h3,p{
+    color: var(--ion-color-secondary);
+  }
+
+  p.selected-date{
+    text-align: center;
+    font-size: .8rem;
+    // color: ;
   }
 
   ion-col {
@@ -1020,7 +1024,7 @@ ion-modal.select-dob {
   }
 
   .btn-row {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
 
   ion-button.kwakol-btn {

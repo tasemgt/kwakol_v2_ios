@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonModal, LoadingController } from '@ionic/angular';
 import { countries } from 'src/app/models/constants';
@@ -14,10 +14,14 @@ import { UtilService } from 'src/app/services/util.service';
 export class CreateBeneficiaryPage implements OnInit {
   @ViewChild('selectCountryModal') selectCountryModal: IonModal;
   @ViewChild('selectDOBModal') selectDOBModal: IonModal;
+  @ViewChild('datepicker') datepicker: ElementRef;
 
   public countries = countries;
 
   public selectedCountryImg = '';
+
+  public currentDate: Date | null;
+  public selectedDate: Date | null;
 
   public fromPage: string;
   public beneficiary = new Beneficiary();
@@ -34,7 +38,9 @@ export class CreateBeneficiaryPage implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentDate = new Date();
+  }
 
   public openSelectDOBModal() {
     this.selectDOBModal.present();
@@ -45,8 +51,13 @@ export class CreateBeneficiaryPage implements OnInit {
   }
 
   public selectDOB() {
-    this.beneficiary.date_of_birth = this.beneficiary.date_of_birth.split('T')[0];
+    console.log('Selected Date>>> ', this.selectedDate);
+    this.beneficiary.date_of_birth = this.util.getSimpleDate(this.selectedDate);
     this.selectDOBModal.dismiss();
+  }
+
+  public getSelectedDate(event){
+    console.log('EVVF ', event);
   }
 
   public closeDateModal(){

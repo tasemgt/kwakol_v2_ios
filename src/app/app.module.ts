@@ -20,6 +20,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
 import { BnNgIdleService } from 'bn-ng-idle';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

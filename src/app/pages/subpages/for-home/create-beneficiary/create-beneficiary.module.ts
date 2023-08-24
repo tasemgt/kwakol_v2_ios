@@ -7,13 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { CreateBeneficiaryPageRoutingModule } from './create-beneficiary-routing.module';
 
 import { CreateBeneficiaryPage } from './create-beneficiary.page';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateBeneficiaryPageRoutingModule
+    CreateBeneficiaryPageRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule
   ],
   declarations: [CreateBeneficiaryPage]
 })

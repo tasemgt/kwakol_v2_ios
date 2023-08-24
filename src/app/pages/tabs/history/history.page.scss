@@ -147,7 +147,7 @@ ion-row.types-wrapper {
 }
 
 .month-wrapper {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   .month {
     color: rgba(var(--ion-color-secondary-rgb), 0.5);
   }
@@ -165,23 +165,33 @@ ion-row.types-wrapper {
 //   }
 // }
 
-.tt-skeletons {
-  margin-top: -3.5rem;
-  ion-avatar {
-    width: 2rem;
-    height: 2rem;
-  }
-  ion-label {
-    ion-skeleton-text.left {
-      float: left;
-    }
-    ion-skeleton-text.right {
-      float: right;
-    }
-  }
-  ion-item {
-    margin-bottom: 0.3rem;
-    --inner-border-width: 0px;
+// .tt-skeletons {
+//   margin-top: -3.5rem;
+//   ion-avatar {
+//     width: 2rem;
+//     height: 2rem;
+//   }
+//   ion-label {
+//     ion-skeleton-text.left {
+//       float: left;
+//     }
+//     ion-skeleton-text.right {
+//       float: right;
+//     }
+//   }
+//   ion-item {
+//     margin-bottom: 0.3rem;
+//     --inner-border-width: 0px;
+//   }
+// }
+
+.loading-spinner-wrapper{
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%);
+  ion-spinner{
+
   }
 }
 
@@ -194,4 +204,9 @@ ion-row.types-wrapper {
   text-align: center;
   transform: translateX(-50%);
   left: 50%;
+}
+
+.no-transactions{
+  background-color: transparent;
+  border: none;
 }

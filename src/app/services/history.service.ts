@@ -21,8 +21,16 @@ export class HistoryService {
     return this.activeSegmentSubject;
   }
 
-  public getHistories(){
-    return this.http.get(`${this.baseUrl}/v2/transaction-history`, {}, this.headers);
+  public getHistories(param: string){
+    return this.http.get(`${this.baseUrl}/history/${param}`, {}, this.headers);
+  }
+
+  public getWalletHistoriesV2(param: string){
+    return this.http.get(`${this.baseUrl}/v2/history-wallet/${param}`, {}, this.headers);
+  }
+
+  public getInvestmentHistoriesV2(param: string){
+    return this.http.get(`${this.baseUrl}/v2/history-investment/${param}`, {}, this.headers);
   }
 
   public getHistoriesByDate(payload){

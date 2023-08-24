@@ -1,0 +1,68 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Define your custom color palette
+$mat-custom-palette: (
+  50: #edf9eb,
+  100: #d2f0d4,
+  200: #b6e6bb,
+  300: #9bdc9f,
+  400: #85d38a,
+  500: #6ec976,
+  600: #63c66e,
+  700: #57bd65,
+  800: #4cb55d,
+  900: #3aa446,
+  A100: #ffffff,
+  A200: #c5ffbd,
+  A400: #92ff91,
+  A700: #79ff7a,
+);
+
+// Define your custom theme by extending the Material theme
+$mat-custom-theme: mat.define-light-theme(
+  (
+    color: (
+      warn: $mat-custom-palette,
+      accent: (
+        50: #e3e2ea,
+        100: #b1afc7,
+        200: #7f7d9f,
+        300: #4e4c76,
+        400: #302e59,
+        500: #211f42,  // Accent color: #211F42
+        600: #1a1938,
+        700: #13112e,
+        800: #0d0c24,
+        900: #050514,
+        A100: #7775c5,
+        A200: #4d4b98,
+        A400: #2a285e,
+        A700: #181648,
+      ),
+      primary: (
+        50: #f2d5da,
+        100: #e5abb6,
+        200: #d97c8f,
+        300: #cc4c69,
+        400: #c3284c,
+        500: #800219,  // Warn color: #800219
+        600: #a11317,
+        700: #850e15,
+        800: #6a0a12,
+        900: #4e070f,
+        A100: #ffb1b6,
+        A200: #ff7e8c,
+        A400: #ff4c62,
+        A700: #ff314a,
+      ),
+      // Customize other colors as needed
+    ),
+    // typography: mat.typography-config(),
+    // Customize other properties as needed
+  )
+);
+
+// @include mat.core-theme($mat-custom-theme);
+@include mat.all-component-themes($mat-custom-theme);
