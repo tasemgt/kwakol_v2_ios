@@ -188,6 +188,14 @@ export class HomePage implements OnInit {
         this.openTransferInvestmentModal(true);
       }
     });
+
+    //This opens deposit modal here from history page
+    this.historyService.getDoHomeActionSubject().subscribe((state) => {
+      if (state) {
+        console.log('Opening eposit');
+        this.openDepositModal();
+      }
+    });
   }
 
   ionViewWillEnter() {

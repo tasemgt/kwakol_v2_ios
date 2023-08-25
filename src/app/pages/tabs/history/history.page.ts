@@ -28,7 +28,7 @@ export class HistoryPage implements OnInit {
 
   public listSpinner: boolean;
 
-  public filters = [
+  public _filters = [
     { name: 'Show All', icon: 'all', class: 'all', size: '4', selected: true },
     {
       name: 'Profit',
@@ -67,6 +67,8 @@ export class HistoryPage implements OnInit {
     },
   ];
 
+  public filters = [];
+
   //Segment states
   public childPage;
   public activeSegment: string;
@@ -84,7 +86,9 @@ export class HistoryPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.filters = [...this._filters];
     this.activeSegment = 'wallet';
+    this.filters = this.filters.filter((f) => f.name.toLowerCase() !== 'profit');
     this.dataService.clearCBI(); //Clears all stored currency, bank, and investment info
     this.selectedFilter = this.filters[0];
     this.prevFilter = this.selectedFilter;
@@ -110,9 +114,24 @@ export class HistoryPage implements OnInit {
     // this.getHistoriesQuiet();
   }
 
+  public doRefresh(event): void {
+    this.getHistoriesQuiet();
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
   public segmentChanged(event) {
+    this.filters = [...this._filters];
     console.log(event.target.value);
     this.activeSegment = event.target.value;
+    if(this.activeSegment === 'wallet'){
+      this.filters = this.filters.filter((f) => f.name.toLowerCase() !== 'profit');
+    }
+    else{
+      this.filters = this.filters.filter((f) => f.name.toLowerCase() !== 'bonus');
+    }
   }
 
   public onTapFilter(filter) {
@@ -223,5 +242,7 @@ export class HistoryPage implements OnInit {
   }
 
   public openDepositModal(){
+    this.historyService.getDoHomeActionSubject().next({action: true, type: 'deposit'});
+    this.router.navigateByUrl('/tabs/home');
   }
 }

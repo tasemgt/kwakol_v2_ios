@@ -31,6 +31,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="page-content">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div
     *ngIf="activeSegment === 'wallet'"
     class="segment segment-investments"
@@ -102,35 +107,13 @@
     </div>
   </div>
 
-  <!-- <div class="tt-skeletons" *ngIf="!histories">
-    <ion-item *ngFor="let f of [1,2,3,4,5,6]">
-      <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-avatar>
-      <ion-label>
-        <h3>
-          <ion-skeleton-text
-            class="left"
-            animated
-            style="width: 25%"
-          ></ion-skeleton-text>
-          <ion-skeleton-text
-            class="right"
-            animated
-            style="width: 15%"
-          ></ion-skeleton-text>
-        </h3>
-      </ion-label>
-    </ion-item>
-  </div> -->
-
   <div class="loading-spinner-wrapper" *ngIf="listSpinner">
     <ion-spinner color="secondary" name="crescent"></ion-spinner>
   </div>
 
   <div
     class="no-transactions animate__animated animate__pulse"
-    *ngIf="!listSpinner && walletHistories.length <= 0"
+    *ngIf="!listSpinner && (walletHistories.length <= 0 || investmentHistories.length <= 0)"
   >
     <img src="assets/imgs/cacti.svg" />
     <p>It's a bit empty here because you haven't made any transaction yet.</p>
@@ -139,9 +122,9 @@
     </div>
   </div>
 
-  <p class="no-histories" *ngIf="histories && histories?.length <= 0">
+  <!-- <p class="no-histories" *ngIf="histories && histories?.length <= 0">
     '{{ this.selectedFilter.name }}' filter has no histories...
-  </p>
+  </p> -->
 
   <!-- <ion-button class="kwakol-btn round ion-text-uppercase" type="button" (click)="sort()">
     <ion-icon slot="start" src="assets/icon/calendar-white.svg"></ion-icon>
