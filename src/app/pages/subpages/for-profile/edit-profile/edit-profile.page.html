@@ -16,7 +16,7 @@
     </div>
   
     <!-- <div class="round-small-button" (click)="uploadPhoto()">Upload New Photo</div> -->
-    <div class="round-small-button" (click)="uploadPhoto()">{{username}}</div>
+    <div class="round-small-button" (click)="uploadPhoto()">{{user.username}}</div>
   </div>
 
 
@@ -64,7 +64,7 @@
 
   <ion-row class="btn-row" style="margin-top: 14rem;">
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn ion-text-uppercase" type="submit">Save Changes</ion-button>
+      <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="doEditProfile()">Save Changes</ion-button>
     </ion-col>
   </ion-row>
 

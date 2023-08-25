@@ -68,6 +68,12 @@ export class ProfilePage implements OnInit {
         this.getUser();
       }
     });
+
+    this.profileService.getProfileUpdateSubject().subscribe((state) => {
+      if (state) {
+        this.user.username = state.username;
+      }
+    });
   }
 
   public async getUser() {

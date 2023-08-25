@@ -62,7 +62,7 @@
         <span
           >{{item.value}}
           <ion-icon
-            *ngIf="item.item === 'Reference'"
+            *ngIf="item.item === 'Reference' || item.item === 'Opening Balance'"
             (click)="util.clipboardCopy(item.item)"
             src="assets/icon/copy.svg"
           ></ion-icon

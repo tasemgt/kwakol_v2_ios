@@ -119,6 +119,20 @@ export class TabsPage {
         this.infoModalData.amount = data.amount;
         this.infoModalData.date = data.created_at;
         break;
+      case 'profit':
+        this.infoModalData.icon = 'trans-profit.svg';
+        this.infoModalData.title = 'Profit';
+        this.infoModalData.content = [
+          { item: 'Closed Trade', value: `$${data.close_trade}` },
+          { item: 'Commission', value: `$${data.commission}` },
+          { item: 'Percentage (P/L)', value: `${data.percentage}%` },
+          { item: 'Opening Balance', value: `$${data.opening_balance}` },
+          // { item: 'Month', value: 'Akim John' },
+          { item: 'Profit', value: `$${data.net_profit}` },
+        ];
+        this.infoModalData.amount = '1200';
+        this.infoModalData.date = '16 Feb 2023 - 9:03am';
+        break;
       case 'bonus':
         this.infoModalData.icon = 'trans-bonus.svg';
         this.infoModalData.title = 'Bonus';
