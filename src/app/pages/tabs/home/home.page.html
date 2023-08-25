@@ -311,7 +311,7 @@
                 ></ion-icon>
               </div>
               <h4>
-                <span>{{inv.custom_name || 'My Plan'}}</span><br />
+                <span>{{inv.custom_name?.length > 11 ? inv.custom_name.slice(0,11)+'...' : inv.custom_name || 'My Plan'}}</span><br />
                 <span>
                   {{ inv.subscription.name.substring(0,8)
                   }}{{inv.subscription.name.length > 8 ? '...': ''}}
@@ -613,7 +613,7 @@
           </div>
 
           <ion-col size="12" class="ion-text-center btn-col">
-            <ion-button class="kwakol-btn ion-text-uppercase" type="submit">
+            <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="goToNewAccount()">
               New Investment
               <ion-icon
                 slot="end"
@@ -739,7 +739,7 @@
           </div>
 
           <ion-col size="12" class="ion-text-center btn-col">
-            <ion-button class="kwakol-btn ion-text-uppercase" type="submit">
+            <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="goToCreateBeneficiaryPage()">
               New Beneficiary
               <ion-icon
                 slot="end"

@@ -44,6 +44,11 @@ export class ProfilePage implements OnInit {
 
   public otpComplete = false;
 
+  public pinResendSecs = 59;
+  public resendOTPText = 'Resend OTP in';
+  public isResendingOTP = false;
+  public countTimerValue;
+
   private execptions = ['/settings'];
 
   constructor(
@@ -194,7 +199,9 @@ export class ProfilePage implements OnInit {
     }, 100);
     await this.setPinModal.onWillDismiss();
     this.inputs = ['', '', '', ''];
-    this.confirmPin = ''; this.currentPin = ''; this.newPin = '';
+    this.confirmPin = '';
+    this.currentPin = '';
+    this.newPin = '';
     await this.setPinModal.onDidDismiss();
     // if(this.pinMode === 'reset'){
     //   this.showingStatus = 'new';
@@ -285,12 +292,13 @@ export class ProfilePage implements OnInit {
       try {
         const resp = await this.profileService.updatePin(payload);
         this.loading.dismiss();
-        if(resp.code == 100){
+        if (resp.code == 100) {
           // this.util.showToast('Pin set successfully', 3000, 'success');
           await this.setPinModal.dismiss();
-          this.uiService.getLoadingStateSubject().next({active: true, data:{type:'pin', data:null}});
-        }
-        else{
+          this.uiService
+            .getLoadingStateSubject()
+            .next({ active: true, data: { type: 'pin', data: null } });
+        } else {
           this.util.showToast(resp.data, 2000, 'danger');
         }
       } catch (error) {
@@ -303,9 +311,18 @@ export class ProfilePage implements OnInit {
   public async openOTPModal() {
     this.setPinModal.dismiss();
     this.otpModal.present();
+    this.countTimerValue = this.countdownTimer();
     await this.otpModal.onDidDismiss();
-    this.otp = ''; this.otp1 = ''; this.otp2 = ''; this.otp3 = ''; this.otp4 = ''; this.otp5 = ''; this.otp6 = '';
+    this.otp = '';
+    this.otp1 = '';
+    this.otp2 = '';
+    this.otp3 = '';
+    this.otp4 = '';
+    this.otp5 = '';
+    this.otp6 = '';
     this.otpComplete = false;
+    clearInterval(this.countTimerValue);
+    this.pinResendSecs = 59;
   }
 
   public onOTPInputChange() {
@@ -352,4 +369,31 @@ export class ProfilePage implements OnInit {
     //   console.log(error);
     // }
   }
+
+  public countdownTimer() {
+    const timer = setInterval(() => {
+      console.log(this.pinResendSecs + 's');
+
+      if (this.pinResendSecs === 1) {
+        clearInterval(timer);
+        console.log('Time is up!');
+        setTimeout(() => {
+          this.isResendingOTP = true;
+          this.resendOTPText = 'Resending OTP...';
+
+          setTimeout(() => {
+            this.util.showToast('Your OTP has been resent...', 2000, 'success');
+            this.resendOTPText = 'Resend OTP in';
+            this.isResendingOTP = false;
+            this.pinResendSecs = 59;
+            this.countTimerValue = this.countdownTimer();
+          }, 1500);
+        }, 100);
+      }
+      this.pinResendSecs--;
+    }, 1000);
+    return timer;
+  }
+
+  // this.countdownTimer();
 }

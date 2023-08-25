@@ -279,6 +279,7 @@ export class HomePage implements OnInit {
 
   public goToNewAccount() {
     this.moreOptionsModal.dismiss();
+    this.investmentTransferModal.dismiss(); //If investment transfer modal is open.
     this.getInvestmentAccounts();
   }
 
@@ -471,7 +472,7 @@ export class HomePage implements OnInit {
         this.myBeneficiaries = resp.data;
       }
       if (this.myBeneficiaries.length <= 1) {
-        this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
+        this.beneficiaryTransferModal.initialBreakpoint = 0.3; //If no beneficiary
       }
     } catch (err) {
       this.loading.dismiss();
@@ -771,6 +772,13 @@ export class HomePage implements OnInit {
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }
+
+
+  public goToCreateBeneficiaryPage(){
+    this.beneficiaryTransferModal.dismiss();
+    this.router.navigateByUrl('/create-beneficiary', {state: {url: this.router.url }});
+  }
+
 
   // PRIVATES!!
   private async getHomeQuietly() {

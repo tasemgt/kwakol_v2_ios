@@ -8,13 +8,18 @@ import { RegisterPageRoutingModule } from './register-routing.module';
 
 import { RegisterPage } from './register.page';
 import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegisterPageRoutingModule
+    RegisterPageRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    // MatCardModule
   ],
   declarations: [
     RegisterPage,

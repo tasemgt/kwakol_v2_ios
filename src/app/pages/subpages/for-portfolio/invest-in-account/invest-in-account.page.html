@@ -56,7 +56,7 @@
     class="subpage-heading left animate__animated animate__slideInRight"
     style="--animate-duration: 0.2s"
   >
-    customize Name
+    Customize Name
   </h2>
 
   <div class="investment-item" *ngIf="!isCustomizeName">
@@ -97,6 +97,7 @@
           autofocus
           required
           autocomplete="off"
+          [maxlength]="15"
         />
         <label class="did-floating-label">Enter Name</label>
       </div>

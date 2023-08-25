@@ -20,6 +20,8 @@ export class RegisterPage implements OnInit {
   public fromPage: string;
   public regCreds = new RegisterCred();
   public selectedCountryImg = '';
+  public currentDate: Date | null;
+  public selectedDate: Date | null;
 
   public countries = countries;
 
@@ -30,6 +32,11 @@ export class RegisterPage implements OnInit {
   public otp4: string;
   public otp5: string;
   public otp6: string;
+
+  public pinResendSecs = 59;
+  public resendOTPText = 'Resend OTP in';
+  public isResendingOTP = false;
+  public countTimerValue;
 
   public otpComplete = false;
   public initialToken = '';
@@ -59,6 +66,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
     console.log('Im here na');
     this.otp = '';
+    this.currentDate = new Date();
   }
 
   public onInputsFocus(): void {
@@ -69,17 +77,17 @@ export class RegisterPage implements OnInit {
     this.inputFocused = false;
   }
 
-  public selectDOB(){
-    this.regCreds.date_of_birth = this.regCreds.date_of_birth.split('T')[0];
+  public selectDOB() {
+    this.regCreds.date_of_birth = this.util.getSimpleDate(this.selectedDate);
     this.selectDOBModal.dismiss();
   }
 
-  public closeDateModal(){
+  public closeDateModal() {
     // this.regCreds.date_of_birth = 'Date of Birth';
     this.selectDOBModal.dismiss();
   }
 
-  public selectCountry(country){
+  public selectCountry(country) {
     console.log(country);
     this.regCreds.country = country.name;
     this.selectedCountryImg = country.img;
@@ -88,13 +96,14 @@ export class RegisterPage implements OnInit {
 
   public async continueReg() {
     console.log(this.regCreds);
-    if(this.util.checkUndefinedProperties(this.regCreds)){
+    if (this.util.checkUndefinedProperties(this.regCreds)) {
       this.util.showToast('Kindly ensure no empty fields', 2500, 'danger');
       return;
     }
     const initialReg = await this.storage.get('INITIAL_REG');
-    if(initialReg){
-      this.otpModal.present();
+    if (initialReg) {
+      // this.otpModal.present();
+      this.openOTPModal();
       return;
     }
     this.util.presentLoading();
@@ -105,15 +114,20 @@ export class RegisterPage implements OnInit {
         console.log(resp.data);
         this.storage.set('INITIAL_REG', resp.data);
         this.initialToken = resp.data.token;
-        this.otpModal.present();
+        // this.otpModal.present();
+        this.openOTPModal();
       } else if (resp.code === '418') {
         console.log(resp);
       }
     } catch (error) {
       this.loading.dismiss();
       console.log('ERROR', error);
-      if(error.error.message.includes('Duplicate entry')){
-        this.util.showToast('Email or phone number already taken', 3000, 'danger');
+      if (error.error.message.includes('Duplicate entry')) {
+        this.util.showToast(
+          'Email or phone number already taken',
+          3000,
+          'danger'
+        );
       }
     }
 
@@ -123,14 +137,38 @@ export class RegisterPage implements OnInit {
     // }, 1500);
   }
 
-  public onPinInputChange(){
-    if(this.otp1 && this.otp2 && this.otp3 && this.otp4 && this.otp5 && this.otp6){
-      this.otp = this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5 + this.otp6;
+  public onPinInputChange() {
+    if (
+      this.otp1 &&
+      this.otp2 &&
+      this.otp3 &&
+      this.otp4 &&
+      this.otp5 &&
+      this.otp6
+    ) {
+      this.otp =
+        this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5 + this.otp6;
       this.otpComplete = true;
       console.log(this.otp);
       return;
     }
     this.otpComplete = false;
+  }
+
+  public async openOTPModal() {
+    this.otpModal.present();
+    this.countTimerValue = this.countdownTimer();
+    await this.otpModal.onDidDismiss();
+    this.otp = '';
+    this.otp1 = '';
+    this.otp2 = '';
+    this.otp3 = '';
+    this.otp4 = '';
+    this.otp5 = '';
+    this.otp6 = '';
+    this.otpComplete = false;
+    clearInterval(this.countTimerValue);
+    this.pinResendSecs = 59;
   }
 
   public async verifyOTP() {
@@ -140,22 +178,49 @@ export class RegisterPage implements OnInit {
     try {
       const resp = await this.auth.registerConfirm(this.otp, this.initialToken);
       this.loading.dismiss();
-      if(resp.code == '100'){
+      if (resp.code == '100') {
         setTimeout(() => {
           this.util.presentLoadingModal({
             loadingText: 'Setting up your account...',
             onClosePageUrl: '/kyc',
             fromPageUrl: this.router.url,
-            data : tempUser
+            data: tempUser,
           });
         }, 100);
       }
     } catch (error) {
       this.loading.dismiss();
-      this.util.showToast('OTP entered is likely to be incorrect', 2500, 'danger');
+      this.util.showToast(
+        'OTP entered is likely to be incorrect',
+        2500,
+        'danger'
+      );
       console.log(error);
     }
+  }
 
+  public countdownTimer() {
+    const timer = setInterval(() => {
+      console.log(this.pinResendSecs + 's');
 
+      if (this.pinResendSecs === 1) {
+        clearInterval(timer);
+        console.log('Time is up!');
+        setTimeout(() => {
+          this.isResendingOTP = true;
+          this.resendOTPText = 'Resending OTP...';
+
+          setTimeout(() => {
+            this.util.showToast('Your OTP has been resent...', 2000, 'success');
+            this.resendOTPText = 'Resend OTP in';
+            this.isResendingOTP = false;
+            this.pinResendSecs = 59;
+            this.countTimerValue = this.countdownTimer();
+          }, 1500);
+        }, 100);
+      }
+      this.pinResendSecs--;
+    }, 1000);
+    return timer;
   }
 }

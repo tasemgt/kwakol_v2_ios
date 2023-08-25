@@ -51,7 +51,7 @@ export class CreateBeneficiaryPage implements OnInit {
   }
 
   public selectDOB() {
-    console.log('Selected Date>>> ', this.selectedDate);
+    // console.log('Selected Date>>> ', this.selectedDate);
     this.beneficiary.date_of_birth = this.util.getSimpleDate(this.selectedDate);
     this.selectDOBModal.dismiss();
   }
