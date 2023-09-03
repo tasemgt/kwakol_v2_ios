@@ -97,7 +97,9 @@
               {{quick.fullname.split(' ')[0][0]}}{{quick.fullname.split('
               ')[1][0]}}
             </div>
-            <p>{{quick.fullname.split(' ')[0] +' '+ quick.fullname.split(' ')[1][0]}}.</p>
+            <p>
+              {{(quick.fullname.split(' ')[0].length > 7 ? quick.fullname.split(' ')[0].slice(0,7)+'...' : quick.fullname.split(' ')[0])+' '+ (quick.fullname.split(' ')[1] ? quick.fullname.split(' ')[1].trim()[0] : '')}}
+            </p>
           </div>
         </ion-col>
         <!-- <ion-col size="4">
@@ -462,7 +464,6 @@
     #transferModal
     trigger="open-transfer-drawer"
     [initialBreakpoint]="0.37"
-    [breakpoints]="[0, 0.37]"
     class="kwakol-modal-bottom-drawer2"
     handle="true"
   >
@@ -511,7 +512,6 @@
     #transferUserModal
     trigger="open-transfer-user-drawer"
     [initialBreakpoint]="0.75"
-    [breakpoints]="[0, 0.40, 0.55, 0.75]"
     class="kwakol-modal-bottom-drawer2 transfer-user"
     handle="true"
   >
@@ -716,12 +716,11 @@
               <div class="img-wrapper">
                 <!-- <img src="" alt=""> -->
                 <div class="default-img">
-                  {{ben.fullname.split(' ')[0][0]}}{{ben.fullname.split('
-                  ')[1][0]}}
+                  {{ben.fullname.split(' ')[0][0]}}{{ben.fullname.split(' ')[1] ? ben.fullname.split(' ')[1].trim()[0] : ''}}
                 </div>
               </div>
               <div class="name">
-                <p>Levadura</p>
+                <p>{{ben.subscription_name}}</p>
                 <h3>{{ben.fullname}}</h3>
               </div>
             </div>
@@ -776,11 +775,11 @@
               <!-- <img src="" alt=""> -->
               <div class="default-img">
                 {{selectedBeneficiary?.fullname.split('
-                ')[0][0]}}{{selectedBeneficiary?.fullname.split(' ')[1][0]}}
+                ')[0][0]}}{{(selectedBeneficiary?.fullname.split(' ')[1]) ? selectedBeneficiary?.fullname.split(' ')[1].trim()[0] : ''}}
               </div>
             </div>
             <div class="name">
-              <p>Levadura</p>
+              <p>{{selectedBeneficiary.subscription_name}}</p>
               <h3>{{selectedBeneficiary?.fullname}}</h3>
             </div>
           </div>
@@ -842,7 +841,7 @@
           </div>
           <div class="default-img" *ngIf="typeOfTransfer === 'beneficiary'">
             {{selectedBeneficiary?.fullname.split('
-            ')[0][0]}}{{selectedBeneficiary?.fullname.split(' ')[1][0]}}
+            ')[0][0]}}{{selectedBeneficiary?.fullname.split(' ')[1] ? selectedBeneficiary?.fullname.split(' ')[1].trim()[0] : ''}}
           </div>
         </div>
         <p class="p0" *ngIf="typeOfTransfer === 'investment' && isInvestmentWithdrawal">Withdraw</p>
@@ -881,7 +880,6 @@
   <ion-modal
     #depositModal
     [initialBreakpoint]="0.34"
-    [breakpoints]="[0, 0.34]"
     class="kwakol-modal-bottom-drawer2 deposit-modal"
     handle="true"
   >
@@ -922,7 +920,6 @@
   <ion-modal
     #depositNairaModal
     [initialBreakpoint]="0.50"
-    [breakpoints]="[0, 0.50]"
     class="kwakol-modal-bottom-drawer2 deposit-naira-modal"
     handle="true"
   >
@@ -972,7 +969,6 @@
   <ion-modal
     #depositDollarModal
     [initialBreakpoint]="0.40"
-    [breakpoints]="[0, 0.40]"
     class="kwakol-modal-bottom-drawer2 deposit-naira-modal"
     handle="true"
   >
@@ -1108,7 +1104,6 @@
   <ion-modal
     #withdrawalModal
     [initialBreakpoint]="0.33"
-    [breakpoints]="[0, 0.33]"
     class="kwakol-modal-bottom-drawer2 deposit-modal"
     handle="true"
   >
@@ -1147,7 +1142,6 @@
   <ion-modal
     #withdrawDollarModal
     [initialBreakpoint]="0.40"
-    [breakpoints]="[0, 0.40]"
     class="kwakol-modal-bottom-drawer2 deposit-naira-modal"
     handle="true"
   >
@@ -1210,7 +1204,7 @@
               <p>{{bank.account_number}}</p>
             </div>
           </div>
-          <div *ngIf="!myBanks" class="no-banks">
+          <div *ngIf="!myBanks || myBanks.length <= 0" class="no-banks">
             <h5>No Bank Accounts Here</h5>
             <p>Kindly Add a bank account to continue</p>
           </div>

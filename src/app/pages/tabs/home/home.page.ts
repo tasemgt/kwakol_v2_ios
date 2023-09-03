@@ -13,6 +13,7 @@ import {
   investmentIcons,
 } from 'src/app/models/constants';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
@@ -45,8 +46,7 @@ export class HomePage implements OnInit {
 
   @ViewChild('withdrawalModal') withdrawalModal: IonModal;
   @ViewChild('withdrawDollarModal') withdrawDollarModal: IonModal;
-  @ViewChild('chooseDollarBankAccountModal')
-  chooseDollarBankAccountModal: IonModal;
+  @ViewChild('chooseDollarBankAccountModal') chooseDollarBankAccountModal: IonModal;
   @ViewChild('dollarAndNairaWithdrawalModal') dollarAndNairaWithdrawalModal: IonModal;
   @ViewChild('withdrawalInvestmentModal') withdrawalInvestmentModal: IonModal;
   @ViewChild('pinEnterModalWithdrawal') pinEnterModalWithdrawal: IonModal;
@@ -131,6 +131,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private keyboard: Keyboard,
+    private vibration: Vibration,
     private router: Router,
     private dataService: DataService,
     private auth: AuthService,
@@ -540,6 +541,7 @@ export class HomePage implements OnInit {
   //DEPOST AREA
   public openDepositModal() {
     this.depositModal.present();
+    this.vibration.vibrate(500);
   }
 
   public async openCurrencyDepositModal(type) {
@@ -644,7 +646,7 @@ export class HomePage implements OnInit {
       const resp = await this.homeService.getMyBanks();
       this.loading.dismiss();
       if (resp.code == 100) {
-        console.log(resp.data);
+        console.log(resp.data, this.withdrawCurrentcy);
         if(!resp.data){
           this.chooseDollarBankAccountModal.initialBreakpoint = 0.3;
           this.chooseDollarBankAccountModal.present();
@@ -658,6 +660,7 @@ export class HomePage implements OnInit {
           this.withdrawDollarModal.dismiss();
         }
         if(this.myBanks.length <= 1){
+          console.log('Im here o')
           this.chooseDollarBankAccountModal.initialBreakpoint = 0.3;
         }
         else{

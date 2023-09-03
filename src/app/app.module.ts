@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 import { BnNgIdleService } from 'bn-ng-idle';
 
 
@@ -44,7 +45,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
     ScreenOrientation,
     FingerprintAIO,
     BnNgIdleService,
-    Keyboard
+    Keyboard,
+    Vibration
     // OneSignal
   ],
   bootstrap: [AppComponent],

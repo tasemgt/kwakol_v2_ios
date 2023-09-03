@@ -17,11 +17,11 @@
         <div class="img-wrapper">
           <!-- <img src="" alt=""> -->
           <div class="default-img">
-            {{ben.fullname.split(' ')[0][0]}}{{ben.fullname.split(' ')[1][0]}}
+            {{ben.fullname.split(' ')[0][0]}}{{ben.fullname.split(' ')[1] ? ben.fullname.split(' ')[1].trim()[0] : ''}}
           </div>
         </div>
         <div class="name">
-          <p>Levadura</p>
+          <p>{{ben.subscription_name}}</p>
           <h3>{{ben.fullname}}</h3>
         </div>
       </div>
