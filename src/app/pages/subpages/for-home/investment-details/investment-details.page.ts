@@ -31,6 +31,7 @@ export class InvestmentDetailsPage implements OnInit {
 
   //Amount Inputs
   @ViewChild('doDepositFromWalletRef') doDepositFromWalletRef: ElementRef;
+  @ViewChild('withdrawAmountRef') withdrawAmountRef: ElementRef;
 
   @ViewChild('selectDateModal') selectDateModal: IonModal;
   @ViewChild('datepicker') datepicker: ElementRef;
@@ -125,13 +126,17 @@ export class InvestmentDetailsPage implements OnInit {
     }, 100);
   }
 
-  public openEnterWithdrawalAmount() {
+  public async openEnterWithdrawalAmount() {
     this.closeLoadingModal(); //
-    this.withdrawToWalletModal.present();
+    await this.withdrawToWalletModal.present();
+    if (this.withdrawAmountRef?.nativeElement) {
+      this.withdrawAmountRef.nativeElement.focus();
+      this.keyboard.show();
+    }
   }
 
-  public openEnterDepositFromWalletAmount() {
-    this.doDepositFromWalletModal.present();
+  public async openEnterDepositFromWalletAmount() {
+    await this.doDepositFromWalletModal.present();
     if (this.doDepositFromWalletRef?.nativeElement) {
       this.doDepositFromWalletRef.nativeElement.focus();
       this.keyboard.show();

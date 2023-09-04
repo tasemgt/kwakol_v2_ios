@@ -125,84 +125,27 @@
 <ion-content [fullscreen]="true" class="page-content">
   <div *ngIf="activeSegment === 'history'" class="segment segment-history">
     <div class="transactions-list">
-      <!-- <div
+      <div
         class="transaction"
-        (click)="openInfoModal(trans.type.toLowerCase(), trans)"
-        *ngFor="let trans of wallet?.latest_wallet_transactions | slice:0:5"
+        *ngFor="let trans of history"
       >
         <div class="trans-type-wrapper">
           <ion-icon
             [src]="'assets/icon/v2-icons/'+getIconForType(trans.type.toLowerCase())+'.svg'"
           ></ion-icon>
           <div class="trans-type">
-            <h3>{{trans.type}}</h3>
-            <p class="trans-type-p">Bank Transfer</p>
+            <h3>{{trans.type | capitalize}}</h3>
+            <p class="trans-type-p">
+              {{trans.comment.slice(0,50).length > 50 ? trans.comment.slice(0,45)+'...' :trans.comment.slice(0,45)}}
           </div>
         </div>
         <div class="amount-date">
           <div
             class="amount"
-            [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
           >
             {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
           </div>
-          <div class="trans-date">{{trans.created_at | date }}</div>
-        </div>
-      </div> -->
-      <div class="transaction">
-        <div class="trans-type-wrapper">
-          <ion-icon
-            src="assets/icon/v2-icons/trans-transfer-user.svg"
-          ></ion-icon>
-          <div class="trans-type">
-            <h3>Transfer</h3>
-            <p class="trans-type-p">To Bank Account</p>
-          </div>
-        </div>
-        <div class="amount-date">
-          <div class="amount">+$3,403.58</div>
-          <div class="trans-date">16 June 2023</div>
-        </div>
-      </div>
-      <div class="transaction">
-        <div class="trans-type-wrapper">
-          <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
-          <div class="trans-type">
-            <h3>Deposit</h3>
-            <p class="trans-type-p">To Bank Account</p>
-          </div>
-        </div>
-        <div class="amount-date">
-          <div class="amount">+$3,403.58</div>
-          <div class="trans-date">16 June 2023</div>
-        </div>
-      </div>
-      <div class="transaction">
-        <div class="trans-type-wrapper">
-          <ion-icon
-            src="assets/icon/v2-icons/trans-transfer-user.svg"
-          ></ion-icon>
-          <div class="trans-type">
-            <h3>Transfer</h3>
-            <p class="trans-type-p">To Bank Account</p>
-          </div>
-        </div>
-        <div class="amount-date">
-          <div class="amount">+$3,403.58</div>
-          <div class="trans-date">16 June 2023</div>
-        </div>
-      </div>
-      <div class="transaction">
-        <div class="trans-type-wrapper">
-          <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
-          <div class="trans-type">
-            <h3>Deposit</h3>
-            <p class="trans-type-p">To Bank Account</p>
-          </div>
-        </div>
-        <div class="amount-date">
-          <div class="amount">+$3,403.58</div>
-          <div class="trans-date">16 June 2023</div>
+          <div class="trans-date">{{trans.date}}</div>
         </div>
       </div>
     </div>
@@ -215,18 +158,18 @@
   >
     <div class="stat-wrapper">
       <div class="stat-item">
-        <h3>3.4%</h3>
+        <h3>{{stat.projected_performance}}%</h3>
         <p>Projected Performance</p>
       </div>
       <div class="stat-item">
-        <h3>4.2%</h3>
+        <h3>{{stat.last_month_performance}}</h3>
         <p>Last Month's Performance</p>
       </div>
       <div class="stat-item">
-        <h3>$345.11</h3>
+        <h3>${{stat.profit_balance}}</h3>
         <p>My Total Profit</p>
       </div>
-      <div class="stat-item">
+      <!-- <div class="stat-item">
         <h3>$1,000.50</h3>
         <p>My Total Deposits</p>
       </div>
@@ -237,7 +180,7 @@
       <div class="stat-item">
         <h3>2</h3>
         <p>Free Withdrawals Left</p>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -300,7 +243,7 @@
   <!-- Withdraw to wallet modal -->
   <ion-modal
     #withdrawToWalletModal
-    [initialBreakpoint]="0.64"
+    [initialBreakpoint]="0.73"
     class="kwakol-modal-bottom-drawer2 transfer-investment"
     handle="true"
   >
@@ -341,6 +284,7 @@
                   [(ngModel)]="withdrawAmount"
                   required
                   autocomplete="off"
+                  #withdrawAmountRef
                 />
                 <div>
                   <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>

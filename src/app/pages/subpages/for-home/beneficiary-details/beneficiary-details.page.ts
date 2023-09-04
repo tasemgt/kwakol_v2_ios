@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IonModal, LoadingController } from '@ionic/angular';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
-import { investmentIcons } from 'src/app/models/constants';
+import { historyIcons, investmentIcons } from 'src/app/models/constants';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { HomeService } from 'src/app/services/home.service';
 
@@ -27,6 +27,7 @@ export class BeneficiaryDetailsPage implements OnInit {
   //Amount Inputs
   @ViewChild('doDepositFromWalletToBeneficiaryRef')
   doDepositFromWalletToBeneficiaryRef: ElementRef;
+  @ViewChild('withdrawAmountRef') withdrawAmountRef: ElementRef;
 
   @ViewChild('selectDateModal') selectDateModal: IonModal;
   @ViewChild('datepicker') datepicker: ElementRef;
@@ -46,6 +47,9 @@ export class BeneficiaryDetailsPage implements OnInit {
   public fromPage: string;
   public beneficiary: any;
   public activeSegment: string;
+
+  public history = [];
+  public stat: any;
 
   public depositFromWalletToBeneficiaryAmount: string;
 
@@ -73,6 +77,8 @@ export class BeneficiaryDetailsPage implements OnInit {
       this.fromPage = state.url;
       this.beneficiary = state.beneficiary;
       this.walletBal = state.walletBal;
+      this.stat = state.benHistStat.beneficiary_details;
+      this.history = state.benHistStat.transaction_details.data;
     }
   }
 
@@ -81,6 +87,7 @@ export class BeneficiaryDetailsPage implements OnInit {
     this.currentDate = new Date();
     this.walletBal = this.homeService.getWalletBallance();
     console.log(this.beneficiary);
+    console.log(this.history);
   }
 
   public segmentChanged(event) {
@@ -116,13 +123,17 @@ export class BeneficiaryDetailsPage implements OnInit {
     }, 100);
   }
 
-  public openEnterWithdrawalAmount() {
+  public async openEnterWithdrawalAmount() {
     this.closeLoadingModal(); //
-    this.withdrawToWalletModal.present();
+    await this.withdrawToWalletModal.present();
+    if (this.withdrawAmountRef?.nativeElement) {
+      this.withdrawAmountRef.nativeElement.focus();
+      this.keyboard.show();
+    }
   }
 
-  public openEnterDepositFromWalletAmount() {
-    this.doDepositFromWalletToBeneficiaryModal.present();
+  public async openEnterDepositFromWalletAmount() {
+    await this.doDepositFromWalletToBeneficiaryModal.present();
     if (this.doDepositFromWalletToBeneficiaryRef?.nativeElement) {
       this.doDepositFromWalletToBeneficiaryRef.nativeElement.focus();
       this.keyboard.show();
@@ -289,5 +300,9 @@ export class BeneficiaryDetailsPage implements OnInit {
       return investmentIcons[inv.toLowerCase()];
     }
     return '';
+  }
+
+  public getIconForType(type: string) {
+    return historyIcons[type];
   }
 }

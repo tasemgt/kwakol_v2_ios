@@ -102,8 +102,12 @@ export class HomeService {
   }
 
   //Investment Details History
-  public get(): Promise<any>{
-    return this.http.get(`${this.baseUrl}/v2/get-bank-account`, {}, this.headers);
-  }
+  // public getIn(): Promise<any>{
+  //   return this.http.get(`${this.baseUrl}/v2/get-bank-account`, {}, this.headers);
+  // }
 
+  //Beneficiary History
+  public getBeneficiaryHistory(beneficiaryId): Promise<any>{
+    return this.http.get(`${this.baseUrl}/v2/beneficiary-history/${beneficiaryId}`, {}, this.headers);
+  }
 }

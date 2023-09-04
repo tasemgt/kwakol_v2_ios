@@ -286,7 +286,7 @@
   <!-- Withdraw to wallet modal -->
   <ion-modal
     #withdrawToWalletModal
-    [initialBreakpoint]="0.77"
+    [initialBreakpoint]="0.73"
     class="kwakol-modal-bottom-drawer2 transfer-investment"
     handle="true"
   >
@@ -328,6 +328,7 @@
                   [(ngModel)]="withdrawAmount"
                   required
                   autocomplete="off"
+                  #withdrawAmountRef
                 />
                 <div>
                   <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
@@ -351,7 +352,7 @@
             (click)="openEnterPinModal('withdrawal')"
             type="submit"
           >
-            Transfer
+            Withdraw
           </ion-button>
         </ion-col>
         <!-- </div> -->
