@@ -631,8 +631,7 @@
   <!-- Do investment transfer modal -->
   <ion-modal
     #doInvestmentTransferModal
-    [initialBreakpoint]="0.70"
-    [breakpoints]="[0, 0.30, 0.50, 0.70, 0.90]"
+    [initialBreakpoint]="0.75"
     class="kwakol-modal-bottom-drawer2 transfer-investment"
     handle="true"
   >
@@ -1334,7 +1333,7 @@
         <h3 *ngIf="withdrawCurrentcy === 'USD'">${{util.numberWithCommas(dollarOrNairaWithdrawAmount)}}</h3>
         <h3 *ngIf="withdrawCurrentcy === 'NGN'" style="margin-bottom: .5rem;"><del>N</del>{{util.numberWithCommas(nairaWithdrawEquivalentAmount)}}</h3>
         
-        <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">+ N25 processing fee</p>
+        <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">+ <del>N</del>{{home.fees[0].amount}} processing fee</p>
 
         <div class="bank-transfer-details" *ngIf="typeOfWithdrawal === 'transfer'">
           <h6>{{selectedBank.bank_name}}</h6>

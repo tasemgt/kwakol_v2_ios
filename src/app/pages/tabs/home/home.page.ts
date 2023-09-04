@@ -660,7 +660,6 @@ export class HomePage implements OnInit {
           this.withdrawDollarModal.dismiss();
         }
         if(this.myBanks.length <= 1){
-          console.log('Im here o')
           this.chooseDollarBankAccountModal.initialBreakpoint = 0.3;
         }
         else{
@@ -744,7 +743,7 @@ export class HomePage implements OnInit {
   public openInvestementDetailsPage(inv) {
     //Fetch investment from api
     this.router.navigateByUrl('/investment-details', {
-      state: { url: this.router.url, investment: inv },
+      state: { url: this.router.url, investment: inv, walletBal: this.home.wallet.balance }
     });
   }
 

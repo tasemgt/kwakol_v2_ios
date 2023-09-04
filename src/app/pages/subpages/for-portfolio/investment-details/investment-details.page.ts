@@ -14,6 +14,7 @@ export class InvestmentDetailsPage implements OnInit {
   public fromPage: string;
   public sub;
   public subscriber;
+  public walletBal;
 
   public selectedTab;
   public prevTab;
@@ -34,6 +35,7 @@ export class InvestmentDetailsPage implements OnInit {
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
       this.sub = this.router.getCurrentNavigation().extras.state.sub;
       this.subscriber = this.router.getCurrentNavigation().extras.state.subscriber;
+      this.walletBal = this.router.getCurrentNavigation().extras.state.walletBal;
     }
   }
 
@@ -43,6 +45,8 @@ export class InvestmentDetailsPage implements OnInit {
     this.prevTab = this.tabs[0];
 
     this.getSubHistories(this.sub.subscription_id);
+
+    console.log(this.walletBal);
   }
 
   public switchTab(tab: any){

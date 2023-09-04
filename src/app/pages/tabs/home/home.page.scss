@@ -305,6 +305,10 @@ ion-row.quick-transfer-wrapper {
   ion-col {
     padding: 0;
     margin-right: 0.5rem;
+    
+    &:last-child{
+      margin-right: 1rem;
+    }
   }
 
   ion-col:first-child {
