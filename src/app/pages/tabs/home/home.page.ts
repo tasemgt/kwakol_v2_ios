@@ -751,6 +751,7 @@ export class HomePage implements OnInit {
     this.uiService.getLoadingStateSubject().next({active: true, data: {type: 'confirm', data: {}}});
   }
 
+  //This makes a withdrawal from subscription into wallet
   public async makeInvestmentWithdrawal(){
     const payload = {
       subscription_id: this.selectedInvestment.subscription_id,

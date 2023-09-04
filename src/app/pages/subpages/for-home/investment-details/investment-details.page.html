@@ -9,13 +9,13 @@
 <div
   #LoadingModalDiv
   class="info-modal reset animate__animated animate__slideInUp"
-  [ngClass]="{'center-page': loadingModalType === 'alert'}"
+  [ngClass]="{'center-page': loadingModalType === 'alert' || loadingModalType === 'alert-statement'}"
   *ngIf="showLoadingModal"
 >
   <div class="content">
     <div class="loader-wrapper no-animation">
       <ion-icon
-        *ngIf="loadingModalType === 'alert'"
+        *ngIf="loadingModalType === 'alert' || loadingModalType === 'alert-statement'"
         src="assets/imgs/v2-imgs/hour-glass.svg"
         alt=""
       ></ion-icon>
@@ -28,8 +28,14 @@
         Your liquidation request is being processed. <br/> You will receive an email when it is approved.
       </p> -->
       <p class="loading-text" *ngIf="loadingModalType === 'alert'">
-        Your <span *ngIf="transType === 'deposit'">deposit</span> <span *ngIf="transType === 'withdrawal'">withdrawal</span> request is being reviewed. <br />
+        Your <span *ngIf="transType === 'deposit'">deposit</span>
+        <span *ngIf="transType === 'withdrawal'">withdrawal</span> request is
+        being reviewed. <br />
         You'll get a notification once it is approved.
+      </p>
+      <p class="loading-text" *ngIf="loadingModalType === 'alert-statement'">
+        Your statement request is being processed.<br />
+        You'll receive it in your email within the next 20 minutes.
       </p>
       <p class="loading-text" *ngIf="loadingModalType === 'confirm'">
         Withdrawing from an active investment <br />
@@ -296,16 +302,16 @@
             <div class="round-button">
               <!-- <ion-icon [src]="'assets/icon/inv-type/'+ (getIconForInvName(selectedInvestment?.name) || 'special-big') +'.svg'"></ion-icon> -->
               <ion-icon
-                [src]="'assets/icon/inv-type/'+ (getIconForInvName('levadura') || 'special-big') +'.svg'"
+                [src]="'assets/icon/inv-type/'+ getIconForInvName(investment.subscription.name.toLowerCase() || 'special-big') +'.svg'"
               ></ion-icon>
             </div>
             <div class="name">
-              <p>The Plan</p>
+              <p>My Plan</p>
               <!-- <h3>{{selectedInvestment?.name}}</h3> -->
-              <h3>Levadura</h3>
+              <h3>{{investment.subscription.name}}</h3>
             </div>
           </div>
-          <h3>$1,255.49</h3>
+          <h3>${{investment.balance}}</h3>
         </div>
 
         <div
@@ -358,7 +364,6 @@
   <ion-modal
     #moreOptionsModal
     [initialBreakpoint]="0.28"
-    [breakpoints]="[0, 0.28]"
     class="kwakol-modal-bottom-drawer2"
     handle="true"
   >
@@ -391,7 +396,6 @@
   <ion-modal
     #accountStatementModal
     [initialBreakpoint]="0.37"
-    [breakpoints]="[0, 0.37]"
     class="kwakol-modal-bottom-drawer2"
     handle="true"
   >
@@ -421,7 +425,7 @@
         <ion-col size="12" class="ion-text-center btn-col">
           <ion-button
             class="kwakol-btn ion-text-uppercase"
-            (click)="openEnterPinModal()"
+            (click)="generateAccountStatement()"
             type="submit"
           >
             Generate Statement
@@ -431,6 +435,52 @@
     </ng-template>
   </ion-modal>
   <!-- Account Statement Modal -->
+
+  <!-- Modal Select Date -->
+  <ion-modal
+    #selectDateModal
+    [initialBreakpoint]="0.7"
+    swipeToClose="false"
+    keepContentsMounted="true"
+    class="select-dob"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>Timeframe <span *ngIf="dateState === 'from'">From</span><span *ngIf="dateState === 'to'">To</span></h3>
+
+        <!-- <mat-card class="demo-inline-calendar-card"> -->
+        <p style="margin-top: .7rem" class="selected-date">
+          {{(selectedDate | date) || 'No Date selected'}}
+        </p>
+        <mat-calendar
+          [(selected)]="selectedDate"
+          (selectedChange)="getSelectedDate($event)"
+          [maxDate]="currentDate"
+        ></mat-calendar>
+        <!-- </mat-card> -->
+
+        <ion-row class="btn-row">
+          <ion-col size="6">
+            <ion-button
+              class="kwakol-btn kwakol-btn-outline ion-text-uppercase"
+              (click)="closeDateModal()"
+              >Cancel</ion-button
+            >
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              class="kwakol-btn ion-text-uppercase"
+              (click)="selectDate()"
+              [disabled]="!selectedDate"
+              >Select</ion-button
+            >
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Modal Select DOB -->
 
   <!-- Pin Modal -->
   <ion-modal
@@ -445,7 +495,6 @@
       <ion-content>
         <div class="img-wrapper">
           <div class="round-button">
-            <!-- <ion-icon [src]="'assets/icon/inv-type/'+ (getIconForInvName(account.name.toLowerCase()) || 'special-big') +'.svg'"></ion-icon> -->
             <ion-icon
               [src]="'assets/icon/inv-type/'+ (getIconForInvName(investment.subscription.name.toLowerCase()) || 'special-big') +'.svg'"
             ></ion-icon>

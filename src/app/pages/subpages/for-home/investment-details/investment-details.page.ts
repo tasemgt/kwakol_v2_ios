@@ -29,8 +29,11 @@ export class InvestmentDetailsPage implements OnInit {
   // @ViewChild('moreOptionsModal') moreOptionsModal: IonModal;
   @ViewChild('pinEnterModal') pinEnterModal: IonModal;
 
-   //Amount Inputs
-   @ViewChild('doDepositFromWalletRef') doDepositFromWalletRef: ElementRef;
+  //Amount Inputs
+  @ViewChild('doDepositFromWalletRef') doDepositFromWalletRef: ElementRef;
+
+  @ViewChild('selectDateModal') selectDateModal: IonModal;
+  @ViewChild('datepicker') datepicker: ElementRef;
 
   public fromPage: string;
   public investment: any;
@@ -41,6 +44,9 @@ export class InvestmentDetailsPage implements OnInit {
   public backdropActive = false;
   public loadingModalType: string;
 
+  public currentDate: Date | null;
+  public selectedDate: Date | null;
+  public dateState = 'from';
 
   public depositFromWalletAmount: string;
   public inputPinTypePassword = true;
@@ -52,7 +58,7 @@ export class InvestmentDetailsPage implements OnInit {
   public withdrawAmount: string;
   public date = {
     from: '',
-    to: ''
+    to: '',
   };
 
   constructor(
@@ -68,14 +74,16 @@ export class InvestmentDetailsPage implements OnInit {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
       this.investment = state.investment;
-      this.walletBal = this.router.getCurrentNavigation().extras.state.walletBal;
+      this.walletBal =
+        this.router.getCurrentNavigation().extras.state.walletBal;
     }
   }
 
   ngOnInit() {
     this.activeSegment = 'history';
-    console.log('invvv ', this.investment );
-    console.log('ballll ', this.walletBal );
+    this.currentDate = new Date();
+    console.log('invvv ', this.investment);
+    console.log('ballll ', this.walletBal);
   }
 
   public getIconForInvName(inv: string) {
@@ -113,7 +121,7 @@ export class InvestmentDetailsPage implements OnInit {
 
       if (this.loadingModalType === 'alert') {
         this.subscriptionService.getBalanceSubject().next(true);
-        this.router.navigateByUrl('/tabs/home');
+        // this.router.navigateByUrl('/tabs/home');
       }
     }, 100);
   }
@@ -125,7 +133,7 @@ export class InvestmentDetailsPage implements OnInit {
 
   public openEnterDepositFromWalletAmount() {
     this.doDepositFromWalletModal.present();
-    if(this.doDepositFromWalletRef?.nativeElement){
+    if (this.doDepositFromWalletRef?.nativeElement) {
       this.doDepositFromWalletRef.nativeElement.focus();
       this.keyboard.show();
     }
@@ -133,7 +141,7 @@ export class InvestmentDetailsPage implements OnInit {
 
   public openEnterPinModal(type) {
     this.transType = type;
-    if(type === 'withdrawal'){
+    if (type === 'withdrawal') {
       if (!this.withdrawAmount) {
         this.util.showToast(
           'Kindly enter your withdrawal amount',
@@ -143,15 +151,10 @@ export class InvestmentDetailsPage implements OnInit {
         return;
       }
       this.withdrawToWalletModal.dismiss();
-    }
-    else{
+    } else {
       //Deposit
       if (!this.depositFromWalletAmount) {
-        this.util.showToast(
-          'Kindly enter your deposit amount',
-          2500,
-          'danger'
-        );
+        this.util.showToast('Kindly enter your deposit amount', 2500, 'danger');
         return;
       }
       this.doDepositFromWalletModal.dismiss();
@@ -167,10 +170,9 @@ export class InvestmentDetailsPage implements OnInit {
     console.log(e);
     this.pin = e.keypadText;
     if (this.pin.length === 4) {
-      if(this.transType === 'withdrawal'){
+      if (this.transType === 'withdrawal') {
         this.makeWithdrawalToWallet();
-      }
-      else{
+      } else {
         this.doDepositFromWalletToInvestment();
       }
     }
@@ -197,7 +199,8 @@ export class InvestmentDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        this.investment.balance = (+this.investment.balance + +this.depositFromWalletAmount)+''; //update the investment balance on the page
+        this.investment.balance =
+          +this.investment.balance + +this.depositFromWalletAmount + ''; //update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
         this.pin = '';
         this.depositFromWalletAmount = '';
@@ -211,31 +214,88 @@ export class InvestmentDetailsPage implements OnInit {
     }
   }
 
-  public makeWithdrawalToWallet() {
+  public async makeWithdrawalToWallet() {
+    // setTimeout(() => {
+    //   this.loading.dismiss();
+    //   this.pinEnterModal.dismiss();
+    //   this.openLoadingModal('alert');
+    //   // this.router.navigateByUrl('/tabs/home');
+    // }, 1000);
+
+    const payload = {
+      subscription_id: this.investment.subscription_id,
+      amount: this.withdrawAmount,
+      pin: this.pin,
+    };
     this.util.presentLoading();
-    setTimeout(() => {
+    console.log(payload);
+    try {
+      const resp = await this.homeService.withdrawFromInvestment(payload);
       this.loading.dismiss();
-      this.pinEnterModal.dismiss();
-      this.openLoadingModal('alert');
-      // this.router.navigateByUrl('/tabs/home');
-    }, 1000);
+      if (resp.code == '100') {
+        console.log(resp.message);
+        this.pinEnterModal.dismiss();
+        this.openLoadingModal('alert');
+        this.investment.balance =
+          +this.investment.balance - +this.withdrawAmount + ''; //update the investment balance on the page
+        this.subscriptionService.getBalanceSubject().next(true);
+        this.pin = '';
+        this.withdrawAmount = '';
+      } else if (resp.code == '418') {
+        console.log(resp);
+      }
+    } catch (error) {
+      console.log(error);
+      this.loading.dismiss();
+      this.util.showToast(error.error.message, 2000, 'danger');
+    }
   }
 
-
-  public openMoreOptionsModal(){
+  public openMoreOptionsModal() {
     this.moreOptionsModal.present();
   }
 
-  public requestAccountStatement(){
+  public requestAccountStatement() {
     this.moreOptionsModal.dismiss();
     this.accountStatementModal.present();
   }
 
-  public openDateModal(type){
-
+  public generateAccountStatement() {
+    if(!this.date.from && !this.date.to){
+      this.util.showToast('Please select a date range', 2000, 'danger');
+      return;
+    }
+    this.util.presentLoading();
+    setTimeout(() => {
+      this.loading.dismiss();
+      this.accountStatementModal.dismiss();
+      this.openLoadingModal('alert-statement');
+    }, 1000);
   }
 
-  public closeInvestment(){
-    
+  public openDateModal(type) {
+    this.dateState = type;
+    this.selectDateModal.present();
   }
+
+  public selectDate() {
+    // console.log('Selected Date>>> ', this.selectedDate);
+    if (this.dateState === 'from') {
+      this.date.from = this.util.getSimpleDate(this.selectedDate);
+    } else {
+      this.date.to = this.util.getSimpleDate(this.selectedDate);
+    }
+    this.selectDateModal.dismiss();
+  }
+
+  public getSelectedDate(event) {
+    console.log('EVVF ', event);
+  }
+
+  public closeDateModal() {
+    // this.beneficiary.date_of_birth = 'Date of Birth';
+    this.selectDateModal.dismiss();
+  }
+
+  public closeInvestment() {}
 }

@@ -8,6 +8,9 @@ import { InvestmentDetailsPageRoutingModule } from './investment-details-routing
 
 import { InvestmentDetailsPage } from './investment-details.page';
 import { KeypadModule } from 'src/app/components/keypad/keypad.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
@@ -15,7 +18,10 @@ import { KeypadModule } from 'src/app/components/keypad/keypad.module';
     FormsModule,
     IonicModule,
     InvestmentDetailsPageRoutingModule,
-    KeypadModule
+    KeypadModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule
   ],
   declarations: [InvestmentDetailsPage]
 })
