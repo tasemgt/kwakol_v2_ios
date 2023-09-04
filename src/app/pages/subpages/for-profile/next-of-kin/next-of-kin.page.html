@@ -74,8 +74,50 @@
 
   <ion-row class="btn-row">
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn ion-text-uppercase" type="submit">Confirm</ion-button>
+      <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="openPinModal()">Confirm</ion-button>
     </ion-col>
   </ion-row>
 
+  <!-- Pin Modal -->
+  <ion-modal
+    #pinEnterModal
+    trigger="open-enter-pin"
+    [initialBreakpoint]="0.7"
+    [breakpoints]="[0, 0.25, 0.5, 0.6, 0.7]"
+    class="enter-pin"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <div class="img-wrapper">
+        </div>
+
+        <p
+          style="margin: 0.5rem 0; text-align: center; font-size: 1rem;"
+        >
+          Add 
+        </p>
+
+        <p class="p0" style="font-size: 1rem;">
+          <span class="plan-name">{{nextOfKin.firstname + " " + nextOfKin.lastname}}</span> <br/><br/>
+          as Next of Kin
+        </p>
+        
+
+        <p class="p1">Enter your pin to complete transaction</p>
+        <div class="pin-wrapper">
+          <ion-input
+            [type]="inputPinTypePassword ? 'password' : 'text'"
+            name="password"
+            [maxlength]="4"
+            [(ngModel)]="pin"
+            disabled
+            (click)="onTapPinInput()"
+            [ngStyle]="{fontSize: inputPinTypePassword ? '5rem' : '1.5rem', color: inputPinTypePassword ? 'rgba(81, 175, 78, 0.2)' : '#211F42'}"
+          ></ion-input>
+        </div>
+        <app-keypad (keypadEmitter)="onPinInputChange($event)"></app-keypad>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

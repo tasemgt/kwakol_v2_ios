@@ -51,9 +51,10 @@ export class NextOfKin{
   email?: string;
   phone?: string;
   relationship?: string;
+  pin?: string;
 
   constructor(){
-    this.email = ''; this.firstname = ''; this.lastname = ''; this.phone = ''; this.relationship = '';
+    this.email = ''; this.firstname = ''; this.lastname = ''; this.phone = ''; this.relationship = ''; this.pin = '';
   }
 }
 

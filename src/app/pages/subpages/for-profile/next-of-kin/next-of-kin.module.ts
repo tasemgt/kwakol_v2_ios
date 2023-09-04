@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NextOfKinPageRoutingModule } from './next-of-kin-routing.module';
 
 import { NextOfKinPage } from './next-of-kin.page';
+import { KeypadModule } from 'src/app/components/keypad/keypad.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NextOfKinPageRoutingModule
+    NextOfKinPageRoutingModule,
+    KeypadModule
   ],
   declarations: [NextOfKinPage]
 })
