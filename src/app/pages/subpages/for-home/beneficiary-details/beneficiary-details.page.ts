@@ -34,6 +34,11 @@ export class BeneficiaryDetailsPage implements OnInit {
   public transType: string;
   public walletBal: string;
 
+
+  public currentDate: Date | null;
+  public selectedDate: Date | null;
+  public dateState = 'from';
+
   public showLoadingModal: boolean;
   public backdropActive = false;
   public loadingModalType: string;
@@ -73,6 +78,7 @@ export class BeneficiaryDetailsPage implements OnInit {
 
   ngOnInit() {
     this.activeSegment = 'history';
+    this.currentDate = new Date();
     this.walletBal = this.homeService.getWalletBallance();
     console.log(this.beneficiary);
   }
@@ -108,6 +114,11 @@ export class BeneficiaryDetailsPage implements OnInit {
         // this.router.navigateByUrl('/tabs/home');
       }
     }, 100);
+  }
+
+  public openEnterWithdrawalAmount() {
+    this.closeLoadingModal(); //
+    this.withdrawToWalletModal.present();
   }
 
   public openEnterDepositFromWalletAmount() {
@@ -196,11 +207,82 @@ export class BeneficiaryDetailsPage implements OnInit {
     }
   }
 
-  public async makeWithdrawalToWallet() {}
+  public async makeWithdrawalToWallet() {
+    const payload = {
+      beneficiary_id: this.beneficiary.beneficiary_id,
+      amount: this.withdrawAmount,
+      pin: this.pin,
+    };
+    this.util.presentLoading();
+    console.log(payload);
+    try {
+      const resp = await this.homeService.withdrawFromBeneficiary(payload);
+      this.loading.dismiss();
+      if (resp.code == '100') {
+        console.log(resp.message);
+        this.pinEnterModal.dismiss();
+        this.openLoadingModal('alert');
+        this.beneficiary.balance =
+          +this.beneficiary.balance - +this.withdrawAmount + ''; //update the investment balance on the page
+        this.subscriptionService.getBalanceSubject().next(true);
+        this.pin = '';
+        this.withdrawAmount = '';
+      } else if (resp.code == '418') {
+        console.log(resp);
+      }
+    } catch (error) {
+      console.log(error);
+      this.loading.dismiss();
+      this.util.showToast(error.error.message, 2000, 'danger');
+    }
+  }
 
   public openMoreOptionsModal() {
-    // this.moreOptionsModal.present();
+    this.moreOptionsModal.present();
   }
+
+  public requestAccountStatement() {
+    this.moreOptionsModal.dismiss();
+    this.accountStatementModal.present();
+  }
+
+  public generateAccountStatement() {
+    if(!this.date.from && !this.date.to){
+      this.util.showToast('Please select a date range', 2000, 'danger');
+      return;
+    }
+    this.util.presentLoading();
+    setTimeout(() => {
+      this.loading.dismiss();
+      this.accountStatementModal.dismiss();
+      this.openLoadingModal('alert-statement');
+    }, 1000);
+  }
+
+  public openDateModal(type) {
+    this.dateState = type;
+    this.selectDateModal.present();
+  }
+
+  public selectDate() {
+    // console.log('Selected Date>>> ', this.selectedDate);
+    if (this.dateState === 'from') {
+      this.date.from = this.util.getSimpleDate(this.selectedDate);
+    } else {
+      this.date.to = this.util.getSimpleDate(this.selectedDate);
+    }
+    this.selectDateModal.dismiss();
+  }
+
+  public getSelectedDate(event) {
+    console.log('EVVF ', event);
+  }
+
+  public closeDateModal() {
+    this.selectDateModal.dismiss();
+  }
+
+  public closeInvestment(){}
 
   public getIconForInvName(inv: string) {
     if (inv) {

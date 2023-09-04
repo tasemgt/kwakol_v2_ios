@@ -209,7 +209,10 @@
   </div>
 
   <!-- Statistics Segment... -->
-  <div *ngIf="activeSegment === 'statistics'" class="segment segment-statistics">
+  <div
+    *ngIf="activeSegment === 'statistics'"
+    class="segment segment-statistics"
+  >
     <div class="stat-wrapper">
       <div class="stat-item">
         <h3>3.4%</h3>
@@ -241,7 +244,7 @@
   <!-- Deposit from wallet to beneficiary modal -->
   <ion-modal
     #doDepositFromWalletToBeneficiaryModal
-    [initialBreakpoint]="0.71"
+    [initialBreakpoint]="0.62"
     class="kwakol-modal-bottom-drawer2 transfer-investment"
     handle="true"
   >
@@ -268,7 +271,7 @@
                 [(ngModel)]="depositFromWalletToBeneficiaryAmount"
                 required
                 autocomplete="off"
-                #doDepositFromWalletRef
+                #doDepositFromWalletToBeneficiaryRef
               />
               <div>
                 <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
@@ -294,6 +297,204 @@
   </ion-modal>
   <!-- End Deposit from wallet to beneficiary modal  -->
 
+  <!-- Withdraw to wallet modal -->
+  <ion-modal
+    #withdrawToWalletModal
+    [initialBreakpoint]="0.64"
+    class="kwakol-modal-bottom-drawer2 transfer-investment"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <!-- <div class="round-button">
+      <ion-icon src="assets/icon/padlock.svg"></ion-icon>
+    </div> -->
+        <h3>Withdraw to wallet</h3>
+
+        <div class="investment-item" style="margin-top: 1rem">
+          <div class="investment-name">
+            <div class="default-img">
+              {{beneficiary?.fullname.split('
+              ')[0][0]}}{{beneficiary?.fullname.split(' ')[1] ?
+              beneficiary?.fullname.split(' ')[1].trim()[0] : ''}}
+            </div>
+            <div class="name">
+              <p>{{beneficiary.subscription_name}}</p>
+              <!-- <h3>{{selectedInvestment?.name}}</h3> -->
+              <h3>{{beneficiary.fullname}}</h3>
+            </div>
+          </div>
+          <h3>${{beneficiary.balance}}</h3>
+        </div>
+
+        <div
+          class="investment-item animate__animated animate__slideInDown"
+          style="--animate-duration: 0.5s; margin-top: 1rem"
+        >
+          <ion-row>
+            <ion-col size="12" class="kwakol-input">
+              <div class="did-floating-label-content">
+                <input
+                  class="did-floating-input"
+                  type="tel"
+                  placeholder="0.00"
+                  [(ngModel)]="withdrawAmount"
+                  required
+                  autocomplete="off"
+                />
+                <div>
+                  <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
+                  <span>USD</span>
+                </div>
+                <label class="did-floating-label">Enter Amount</label>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <p class="wallet-balance">
+                Free withdrawals left:
+                <span>3</span>
+              </p>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <ion-col size="12" class="ion-text-center btn-col">
+          <ion-button
+            class="kwakol-btn ion-text-uppercase"
+            (click)="openEnterPinModal('withdrawal')"
+            type="submit"
+          >
+            Withdraw
+          </ion-button>
+        </ion-col>
+        <!-- </div> -->
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Withdraw to wallet modal -->
+
+  <!-- More options modal -->
+  <ion-modal
+    #moreOptionsModal
+    [initialBreakpoint]="0.28"
+    class="kwakol-modal-bottom-drawer2"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>More Options</h3>
+
+        <div class="content-wrapper">
+          <div class="item" (click)="requestAccountStatement()">
+            <div class="round-button">
+              <ion-icon
+                src="assets/icon/v2-icons/round-btns/note.svg"
+              ></ion-icon>
+            </div>
+            <p>Request Account Statement</p>
+          </div>
+          <div class="item" (click)="closeInvestment()">
+            <div class="round-button">
+              <ion-icon src="assets/icon/close.svg"></ion-icon>
+            </div>
+            <p>Close Investment</p>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End More Options Modal -->
+
+  <!-- Account Statement modal -->
+  <ion-modal
+    #accountStatementModal
+    [initialBreakpoint]="0.37"
+    class="kwakol-modal-bottom-drawer2"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>Generate Account Statement</h3>
+        <p class="modal-sub">Choose a timeframe for your statement</p>
+        <div class="content-wrapper" style="margin-bottom: 0.7rem">
+          <ion-row class="inputs-wrapper">
+            <ion-col
+              size="12"
+              class="kwakol-input"
+              (click)="openDateModal('from')"
+              style="margin-bottom: 0.4rem"
+            >
+              <p class="p-input">{{date.from|| 'From'}}</p>
+            </ion-col>
+            <ion-col
+              size="12"
+              class="kwakol-input"
+              (click)="openDateModal('to')"
+            >
+              <p class="p-input">{{date.to || 'To'}}</p>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ion-col size="12" class="ion-text-center btn-col">
+          <ion-button
+            class="kwakol-btn ion-text-uppercase"
+            (click)="generateAccountStatement()"
+            type="submit"
+          >
+            Generate Statement
+          </ion-button>
+        </ion-col>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- Account Statement Modal -->
+
+  <!-- Modal Select Date -->
+  <ion-modal
+    #selectDateModal
+    [initialBreakpoint]="0.75"
+    swipeToClose="false"
+    keepContentsMounted="true"
+    class="select-dob"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>Timeframe <span *ngIf="dateState === 'from'">From</span><span *ngIf="dateState === 'to'">To</span></h3>
+
+        <!-- <mat-card class="demo-inline-calendar-card"> -->
+        <p style="margin-top: .7rem" class="selected-date">
+          {{(selectedDate | date) || 'No Date selected'}}
+        </p>
+        <mat-calendar
+          [(selected)]="selectedDate"
+          (selectedChange)="getSelectedDate($event)"
+          [maxDate]="currentDate"
+        ></mat-calendar>
+        <!-- </mat-card> -->
+
+        <ion-row class="btn-row">
+          <ion-col size="6">
+            <ion-button
+              class="kwakol-btn kwakol-btn-outline ion-text-uppercase"
+              (click)="closeDateModal()"
+              >Cancel</ion-button
+            >
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+              class="kwakol-btn ion-text-uppercase"
+              (click)="selectDate()"
+              [disabled]="!selectedDate"
+              >Select</ion-button
+            >
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Modal Select DOB -->
+
   <!-- Pin Modal -->
   <ion-modal
     #pinEnterModal
@@ -308,7 +509,8 @@
         <div class="img-wrapper">
           <div class="default-img">
             {{beneficiary?.fullname.split('
-            ')[0][0]}}{{beneficiary?.fullname.split(' ')[1] ? beneficiary?.fullname.split(' ')[1].trim()[0] : ''}}
+            ')[0][0]}}{{beneficiary?.fullname.split(' ')[1] ?
+            beneficiary?.fullname.split(' ')[1].trim()[0] : ''}}
           </div>
         </div>
 
@@ -320,17 +522,16 @@
         </p>
 
         <h3 *ngIf="transType === 'withdrawal'">${{withdrawAmount}}</h3>
-        <h3 *ngIf="transType === 'deposit'">${{depositFromWalletToBeneficiaryAmount}}</h3>
-
-        <!-- <p class="p0">
+        <h3 *ngIf="transType === 'deposit'">
+          ${{depositFromWalletToBeneficiaryAmount}}
+        </h3>
+        <p class="p0">
           <span *ngIf="transType === 'deposit'">to</span>
-          <span *ngIf="transType === 'withdrawal'">from</span> The Plan (<span
-            class="plan-name"
-            >{{investment.subscription.name}}</span
+          <span *ngIf="transType === 'withdrawal'">from</span>
+          {{beneficiary.fullname || ''}} (<span class="plan-name"
+            >{{beneficiary.subscription_name}}</span
           >)
-        </p> -->
-        <p class="p0">to {{beneficiary.fullname || ''}} (<span class="plan-name">{{beneficiary.subscription_name}}</span>)
-    </p>
+        </p>
 
         <p class="p1">Enter your pin to complete transaction</p>
         <div class="pin-wrapper">
@@ -348,5 +549,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
 </ion-content>

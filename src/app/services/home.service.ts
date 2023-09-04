@@ -94,14 +94,16 @@ export class HomeService {
   public withdrawFromInvestment(payload): Promise<any>{
     return this.http.post(`${this.baseUrl}/v2/withdraw-subscription`, payload, this.headers);
   }
+ 
+  // WITHDRAW FROM BENEFICIARY
 
+  public withdrawFromBeneficiary(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/withdraw-beneficiary`, payload, this.headers);
+  }
 
   //Investment Details History
   public get(): Promise<any>{
     return this.http.get(`${this.baseUrl}/v2/get-bank-account`, {}, this.headers);
   }
-
-
-
 
 }

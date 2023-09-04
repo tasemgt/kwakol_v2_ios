@@ -217,13 +217,6 @@ export class InvestmentDetailsPage implements OnInit {
   }
 
   public async makeWithdrawalToWallet() {
-    // setTimeout(() => {
-    //   this.loading.dismiss();
-    //   this.pinEnterModal.dismiss();
-    //   this.openLoadingModal('alert');
-    //   // this.router.navigateByUrl('/tabs/home');
-    // }, 1000);
-
     const payload = {
       subscription_id: this.investment.subscription_id,
       amount: this.withdrawAmount,
