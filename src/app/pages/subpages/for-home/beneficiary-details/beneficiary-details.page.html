@@ -1,10 +1,72 @@
+<div
+  class="backdrop animate__animated animate__fadeIn"
+  #backdrop
+  *ngIf="backdropActive"
+  (click)="closeLoadingModal()"
+></div>
+
+<!-- Loading Modal Begin -->
+<div
+  #LoadingModalDiv
+  class="info-modal reset animate__animated animate__slideInUp"
+  [ngClass]="{'center-page': loadingModalType === 'alert' || loadingModalType === 'alert-statement'}"
+  *ngIf="showLoadingModal"
+>
+  <div class="content">
+    <div class="loader-wrapper no-animation">
+      <ion-icon
+        *ngIf="loadingModalType === 'alert' || loadingModalType === 'alert-statement'"
+        src="assets/imgs/v2-imgs/hour-glass.svg"
+        alt=""
+      ></ion-icon>
+      <ion-icon
+        *ngIf="loadingModalType === 'confirm'"
+        src="assets/imgs/v2-imgs/red-flag.svg"
+        alt=""
+      ></ion-icon>
+      <!-- <p class="loading-text" *ngIf="loadingModalType">
+        Your liquidation request is being processed. <br/> You will receive an email when it is approved.
+      </p> -->
+      <p class="loading-text" *ngIf="loadingModalType === 'alert'">
+        Your <span *ngIf="transType === 'deposit'">deposit</span>
+        <span *ngIf="transType === 'withdrawal'">withdrawal</span> request is
+        being reviewed. <br />
+        You'll get a notification once it is approved.
+      </p>
+      <p class="loading-text" *ngIf="loadingModalType === 'alert-statement'">
+        Your statement request is being processed.<br />
+        You'll receive it in your email within the next 20 minutes.
+      </p>
+      <p class="loading-text" *ngIf="loadingModalType === 'confirm'">
+        Withdrawing from an active investment <br />
+        might affect your profit. <br />
+        Do you still want to proceed?
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div
+      class="yes-button"
+      *ngIf="loadingModalType === 'confirm'"
+      (click)="openEnterWithdrawalAmount()"
+    >
+      Yes, I'm Sure
+    </div>
+    <div class="round-button" (click)="closeLoadingModal()">
+      <ion-icon src="assets/icon/close.svg"></ion-icon>
+    </div>
+  </div>
+</div>
+<!-- Loading Modals End -->
+
 <ion-header>
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  
+
   <h2 class="subpage-heading left">{{beneficiary.fullname}}</h2>
-  
+
   <div class="summary-block">
     <div class="top">
       <div class="balance">
@@ -14,23 +76,20 @@
       <div class="inv">
         <p>Beneficiary Investment</p>
         <div class="investment levadura">
-        <!-- <div class="investment {{investment.subscription.name.toLowerCase()}}"> -->
+          <!-- <div class="investment {{investment.subscription.name.toLowerCase()}}"> -->
           <div class="icon-wrapper">
             <ion-icon
-              [src]="'assets/icon/inv-type/'+ 'levadura' +'.svg'"
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(beneficiary.subscription_name.toLowerCase()) || 'special-big') +'.svg'"
             ></ion-icon>
-            <!-- <ion-icon
-              [src]="'assets/icon/inv-type/'+ (getIconForInvName(investment.subscription.name.toLowerCase()) || 'special-big') +'.svg'"
-            ></ion-icon> -->
           </div>
-          Levadura
+          {{beneficiary.subscription_name}}
           <!-- {{investment.subscription.name}} -->
         </div>
       </div>
     </div>
     <div class="bottom"></div>
     <div class="cta-wrapper">
-      <div class="cta">
+      <div class="cta" (click)="openEnterDepositFromWalletAmount()">
         <div class="btn">
           <ion-icon src="assets/icon/v2-icons/cta-deposit.svg"></ion-icon>
         </div>
@@ -51,19 +110,22 @@
     </div>
   </div>
 
-
   <div class="sub-header">
-    <div class="recent-trans">
-      <p class="section-title">Transaction History</p>
-    </div>
+    <ion-segment value="history" (ionChange)="segmentChanged($event)" mode="md">
+      <ion-segment-button value="history" mode="md">
+        <ion-label>History</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="statistics">
+        <ion-label>Statistics</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </div>
-
 </ion-header>
 
-
-<ion-content>
-  <div class="transactions-list">
-    <!-- <div
+<ion-content [fullscreen]="true" class="page-content">
+  <div *ngIf="activeSegment === 'history'" class="segment segment-history">
+    <div class="transactions-list">
+      <!-- <div
         class="transaction"
         (click)="openInfoModal(trans.type.toLowerCase(), trans)"
         *ngFor="let trans of wallet?.latest_wallet_transactions | slice:0:5"
@@ -87,131 +149,204 @@
           <div class="trans-date">{{trans.created_at | date }}</div>
         </div>
       </div> -->
-
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon src="assets/icon/v2-icons/trans-withdraw.svg"></ion-icon>
-        <div class="trans-type">
-          <h3>Withdrawal</h3>
-          <p class="trans-type-p">To Bank Account</p>
+      <div class="transaction">
+        <div class="trans-type-wrapper">
+          <ion-icon
+            src="assets/icon/v2-icons/trans-transfer-user.svg"
+          ></ion-icon>
+          <div class="trans-type">
+            <h3>Transfer</h3>
+            <p class="trans-type-p">To Bank Account</p>
+          </div>
+        </div>
+        <div class="amount-date">
+          <div class="amount">+$3,403.58</div>
+          <div class="trans-date">16 June 2023</div>
         </div>
       </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
-        <div class="trans-type">
-          <h3>Deposit</h3>
-          <p class="trans-type-p">To Bank Account</p>
+      <div class="transaction">
+        <div class="trans-type-wrapper">
+          <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
+          <div class="trans-type">
+            <h3>Deposit</h3>
+            <p class="trans-type-p">To Bank Account</p>
+          </div>
+        </div>
+        <div class="amount-date">
+          <div class="amount">+$3,403.58</div>
+          <div class="trans-date">16 June 2023</div>
         </div>
       </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon
-          src="assets/icon/v2-icons/trans-transfer-user.svg"
-        ></ion-icon>
-        <div class="trans-type">
-          <h3>Transfer</h3>
-          <p class="trans-type-p">To Bank Account</p>
+      <div class="transaction">
+        <div class="trans-type-wrapper">
+          <ion-icon
+            src="assets/icon/v2-icons/trans-transfer-user.svg"
+          ></ion-icon>
+          <div class="trans-type">
+            <h3>Transfer</h3>
+            <p class="trans-type-p">To Bank Account</p>
+          </div>
+        </div>
+        <div class="amount-date">
+          <div class="amount">+$3,403.58</div>
+          <div class="trans-date">16 June 2023</div>
         </div>
       </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
-        <div class="trans-type">
-          <h3>Deposit</h3>
-          <p class="trans-type-p">To Bank Account</p>
+      <div class="transaction">
+        <div class="trans-type-wrapper">
+          <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
+          <div class="trans-type">
+            <h3>Deposit</h3>
+            <p class="trans-type-p">To Bank Account</p>
+          </div>
         </div>
-      </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon
-          src="assets/icon/v2-icons/trans-transfer-user.svg"
-        ></ion-icon>
-        <div class="trans-type">
-          <h3>Transfer</h3>
-          <p class="trans-type-p">To Bank Account</p>
+        <div class="amount-date">
+          <div class="amount">+$3,403.58</div>
+          <div class="trans-date">16 June 2023</div>
         </div>
-      </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
-        <div class="trans-type">
-          <h3>Deposit</h3>
-          <p class="trans-type-p">To Bank Account</p>
-        </div>
-      </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon
-          src="assets/icon/v2-icons/trans-transfer-user.svg"
-        ></ion-icon>
-        <div class="trans-type">
-          <h3>Transfer</h3>
-          <p class="trans-type-p">To Bank Account</p>
-        </div>
-      </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon src="assets/icon/v2-icons/trans-deposit.svg"></ion-icon>
-        <div class="trans-type">
-          <h3>Deposit</h3>
-          <p class="trans-type-p">To Bank Account</p>
-        </div>
-      </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
-      </div>
-    </div>
-    <div class="transaction">
-      <div class="trans-type-wrapper">
-        <ion-icon
-          src="assets/icon/v2-icons/trans-transfer-user.svg"
-        ></ion-icon>
-        <div class="trans-type">
-          <h3>Transfer</h3>
-          <p class="trans-type-p">To Bank Account</p>
-        </div>
-      </div>
-      <div class="amount-date">
-        <div class="amount">+$3,403.58</div>
-        <div class="trans-date">16 June 2023</div>
       </div>
     </div>
   </div>
+
+  <!-- Statistics Segment... -->
+  <div *ngIf="activeSegment === 'statistics'" class="segment segment-statistics">
+    <div class="stat-wrapper">
+      <div class="stat-item">
+        <h3>3.4%</h3>
+        <p>Projected Performance</p>
+      </div>
+      <div class="stat-item">
+        <h3>4.2%</h3>
+        <p>Last Month's Performance</p>
+      </div>
+      <div class="stat-item">
+        <h3>$345.11</h3>
+        <p>My Total Profit</p>
+      </div>
+      <div class="stat-item">
+        <h3>$1,000.50</h3>
+        <p>My Total Deposits</p>
+      </div>
+      <div class="stat-item">
+        <h3>$125.03</h3>
+        <p>My Total Withdrawals</p>
+      </div>
+      <div class="stat-item">
+        <h3>2</h3>
+        <p>Free Withdrawals Left</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deposit from wallet to beneficiary modal -->
+  <ion-modal
+    #doDepositFromWalletToBeneficiaryModal
+    [initialBreakpoint]="0.71"
+    class="kwakol-modal-bottom-drawer2 transfer-investment"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>Deposit from wallet</h3>
+
+        <ion-col>
+          <p class="wallet-balance left">
+            Wallet Ballance: <span>${{util.numberWithCommas(walletBal)}}</span>
+          </p>
+        </ion-col>
+
+        <div
+          class="investment-item animate__animated animate__slideInDown"
+          style="--animate-duration: 0.5s"
+        >
+          <ion-col size="12" class="kwakol-input">
+            <div class="did-floating-label-content">
+              <input
+                class="did-floating-input"
+                type="tel"
+                placeholder="0.00"
+                [(ngModel)]="depositFromWalletToBeneficiaryAmount"
+                required
+                autocomplete="off"
+                #doDepositFromWalletRef
+              />
+              <div>
+                <ion-icon [src]="'assets/imgs/flags/usa.svg'"></ion-icon>
+                <span>USD</span>
+              </div>
+              <label class="did-floating-label">Enter Amount</label>
+            </div>
+          </ion-col>
+        </div>
+
+        <ion-col size="12" class="ion-text-center btn-col">
+          <ion-button
+            class="kwakol-btn ion-text-uppercase"
+            (click)="openEnterPinModal('deposit')"
+            type="submit"
+          >
+            Continue
+          </ion-button>
+        </ion-col>
+        <!-- </div> -->
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Deposit from wallet to beneficiary modal  -->
+
+  <!-- Pin Modal -->
+  <ion-modal
+    #pinEnterModal
+    trigger="open-enter-pin"
+    [initialBreakpoint]="0.8"
+    [breakpoints]="[0, 0.25, 0.5, 0.6, 0.8]"
+    class="enter-pin"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <div class="img-wrapper">
+          <div class="default-img">
+            {{beneficiary?.fullname.split('
+            ')[0][0]}}{{beneficiary?.fullname.split(' ')[1] ? beneficiary?.fullname.split(' ')[1].trim()[0] : ''}}
+          </div>
+        </div>
+
+        <p
+          style="margin: 0.5rem 0; text-align: center"
+          *ngIf="transType === 'withdrawal'"
+        >
+          Withdraw
+        </p>
+
+        <h3 *ngIf="transType === 'withdrawal'">${{withdrawAmount}}</h3>
+        <h3 *ngIf="transType === 'deposit'">${{depositFromWalletToBeneficiaryAmount}}</h3>
+
+        <!-- <p class="p0">
+          <span *ngIf="transType === 'deposit'">to</span>
+          <span *ngIf="transType === 'withdrawal'">from</span> The Plan (<span
+            class="plan-name"
+            >{{investment.subscription.name}}</span
+          >)
+        </p> -->
+        <p class="p0">to {{beneficiary.fullname || ''}} (<span class="plan-name">{{beneficiary.subscription_name}}</span>)
+    </p>
+
+        <p class="p1">Enter your pin to complete transaction</p>
+        <div class="pin-wrapper">
+          <ion-input
+            [type]="inputPinTypePassword ? 'password' : 'text'"
+            name="password"
+            [maxlength]="4"
+            [(ngModel)]="pin"
+            disabled
+            (click)="onTapPinInput()"
+            [ngStyle]="{fontSize: inputPinTypePassword ? '5rem' : '1.5rem', color: inputPinTypePassword ? 'rgba(81, 175, 78, 0.2)' : '#211F42'}"
+          ></ion-input>
+        </div>
+        <app-keypad (keypadEmitter)="onPinInputChange($event)"></app-keypad>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

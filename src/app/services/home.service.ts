@@ -10,11 +10,21 @@ export class HomeService {
 
   private baseUrl = `${constants.baseUrlV2}`;
 
+  private walletBal: string;
+
   private headers = {'Content-Type': 'application/json'};
 
   private reopenSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private http: HttpService) {}
+
+  public getWalletBallance(){
+    return this.walletBal;
+  }
+
+  public setWalletBallance(walletBal){
+    this.walletBal = walletBal;
+  }
 
   public getReopenStateSubject(){
     return this.reopenSubject;
@@ -84,5 +94,14 @@ export class HomeService {
   public withdrawFromInvestment(payload): Promise<any>{
     return this.http.post(`${this.baseUrl}/v2/withdraw-subscription`, payload, this.headers);
   }
+
+
+  //Investment Details History
+  public get(): Promise<any>{
+    return this.http.get(`${this.baseUrl}/v2/get-bank-account`, {}, this.headers);
+  }
+
+
+
 
 }

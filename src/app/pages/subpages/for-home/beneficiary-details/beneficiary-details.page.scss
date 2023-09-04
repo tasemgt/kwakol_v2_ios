@@ -137,13 +137,36 @@ h2.subpage-heading.left {
   }
 }
 
+// .sub-header {
+//   margin-top: 2rem;
+//   padding: 0rem 1.3rem;
+//   border-bottom: none;
+//   color: rgba(var(--ion-color-secondary-rgb), 0.45);
+//   font-family: BwModelicaHailine;
+//   font-weight: 600;
+// }
+
 .sub-header {
-  margin-top: 2rem;
-  padding: 0rem 1.3rem;
+  padding: 0rem 0.3rem;
   border-bottom: none;
-  color: rgba(var(--ion-color-secondary-rgb), 0.45);
-  font-family: BwModelicaHailine;
-  font-weight: 600;
+
+  ion-segment {
+    ion-segment-button {
+      text-transform: capitalize;
+      --ripple-color: transparent;
+      font-family: "BwModelicaLight";
+      font-weight: 600;
+      letter-spacing: 0rem;
+      font-size: 0.83rem;
+      --color-checked: var(--ion-color-secondary);
+      --indicator-color: var(--ion-color-primary);
+
+      &::part(native) {
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+      }
+    }
+  }
 }
 
 ion-content {
@@ -157,4 +180,41 @@ ion-content {
 .transactions-list {
   border: none;
   background-color: transparent;
+}
+
+.stat-wrapper {
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2.5rem;
+
+  .stat-item {
+    flex: 0 0 calc(50% - 20px);
+    h3 {
+      font-size: 1.4rem;
+      letter-spacing: -0.02rem;
+      font-family: BwModelicaMedium;
+      font-weight: 600;
+      color: var(--ion-color-secondary);
+    }
+    p {
+      font-size: 0.65rem;
+      font-family: BwModelicaLight;
+      font-weight: 600;
+      letter-spacing: 0.025rem;
+      color: rgba(var(--ion-color-secondary-rgb), 0.5);
+    }
+  }
+}
+
+.kwakol-modal-bottom-drawer2.transfer-investment ion-col p.wallet-balance.left {
+  margin: 0.5rem 0 !important;
+  span {
+    font-family: BwModelicaLight;
+    font-weight: 600;
+  }
 }

@@ -74,8 +74,7 @@ export class InvestmentDetailsPage implements OnInit {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
       this.investment = state.investment;
-      this.walletBal =
-        this.router.getCurrentNavigation().extras.state.walletBal;
+      this.walletBal = state.walletBal;
     }
   }
 
@@ -139,6 +138,7 @@ export class InvestmentDetailsPage implements OnInit {
     }
   }
 
+  //Pin stuff
   public openEnterPinModal(type) {
     this.transType = type;
     if (type === 'withdrawal') {
@@ -177,7 +177,9 @@ export class InvestmentDetailsPage implements OnInit {
       }
     }
   }
+  // End Pin stuff
 
+  
   public async doDepositFromWalletToInvestment() {
     if (!this.pin) {
       return;

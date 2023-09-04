@@ -7,12 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { BeneficiaryDetailsPageRoutingModule } from './beneficiary-details-routing.module';
 
 import { BeneficiaryDetailsPage } from './beneficiary-details.page';
+import { KeypadModule } from 'src/app/components/keypad/keypad.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    KeypadModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
     BeneficiaryDetailsPageRoutingModule
   ],
   declarations: [BeneficiaryDetailsPage]

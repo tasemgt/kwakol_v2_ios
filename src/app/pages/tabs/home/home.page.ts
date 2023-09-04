@@ -245,6 +245,7 @@ export class HomePage implements OnInit {
         this.homeBalance = this.util.numberWithCommas(
           this.investment.total_fund
         );
+        this.homeService.setWalletBallance(this.wallet.balance);
         this.dailyRate = this.home.daily_rate.split('₦')[1];
         console.log(this.home);
         console.log(this.investment);
@@ -741,7 +742,31 @@ export class HomePage implements OnInit {
   }
 
   public openInvestementDetailsPage(inv) {
-    //Fetch investment from api
+    //Fetch investment histry from api
+    // this.util.presentLoading();
+    // try {
+    //   const resp = await this.homeService.withdrawFromInvestment(payload);
+    //   this.loading.dismiss();
+    //   if (resp.code == '100') {
+    //     console.log(resp.message);
+    //     this.pinEnterModal.dismiss();
+    //     this.uiService
+    //       .getLoadingStateSubject()
+    //       .next({ active: true, data: { type: 'withdraw', data: {} } });
+    //     this.subService.getBalanceSubject().next(true);
+    //     this.pin = '';
+    //     this.withdrawalInvestmentAmount = '';
+    //     this.selectedInvestment = null;
+    //     // this.isSending =false;
+    //   } else if (resp.code == '418') {
+    //     console.log(resp);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   this.loading.dismiss();
+    //   this.util.showToast(error.error.message, 2000, 'danger');
+    // }
+
     this.router.navigateByUrl('/investment-details', {
       state: { url: this.router.url, investment: inv, walletBal: this.home.wallet.balance }
     });
@@ -802,6 +827,7 @@ export class HomePage implements OnInit {
       this.investment = this.home.investment;
       this.homeHistories = this.investment.user_details.transactions;
       this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
+      this.homeService.setWalletBallance(this.wallet.balance);
     }
   }
 
