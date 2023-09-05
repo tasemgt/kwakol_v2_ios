@@ -37,6 +37,10 @@ export class ProfileService {
     return this.http.post(`${this.baseUrl}/v2/next-of-kin`, payload, this.headers);
   }
 
+  // public changePassword(payload): Promise<any>{
+  //   return this.http.post(`${this.baseUrl}/v2/change-password`, payload, this.headers);
+  // }
+
   // public passwordReset(payload): Promise<any>{
   //   return this.http.post(`${this.baseUrl}/v2/update-pin`, payload, this.headers);
   // }
