@@ -54,7 +54,7 @@ export class InvestInAccountPage implements OnInit {
       this.fromPage = state.url;
       this.account = state.account;
       this.beneficiary = state.beneficiary;
-      this.balance = state.balance;
+      this.balance = state.balance || homeService.getWalletBallance();
     }
   }
 

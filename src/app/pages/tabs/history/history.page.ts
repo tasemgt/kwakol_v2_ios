@@ -196,7 +196,7 @@ export class HistoryPage implements OnInit {
       console.log(resp1);
       console.log(resp2);
 
-      this.walletHistories = this.objectsToArray(resp1.data);
+      this.walletHistories = this.objectsToArray(resp1.data.wallet_history.data);
       this.investmentHistories = this.objectsToArray(resp2.data.investment_history.data);
 
       // if (resp1.code == '100' && resp2.code == '100') {

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HistoryPage } from './history.page';
 import { HistoryPageRoutingModule } from './history-routing.module';
 import { SharedModuleModule } from 'src/app/shared-module.module';
+import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
 
 @NgModule({
   imports: [
@@ -16,6 +17,9 @@ import { SharedModuleModule } from 'src/app/shared-module.module';
     HistoryPageRoutingModule,
     SharedModuleModule
   ],
-  declarations: [HistoryPage]
+  declarations: [
+    HistoryPage,
+    CapitalizePipe
+  ]
 })
 export class HistoryPageModule {}

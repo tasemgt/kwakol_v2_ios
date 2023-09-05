@@ -727,6 +727,11 @@ ion-button.kwakol-btn {
   &.transfer-investment {
     ion-content {
       .investment-item {
+
+        ion-row{
+          width: 100%;
+        }
+
         --animate-duration: 0.7s;
         width: 100%;
         display: flex;
@@ -930,6 +935,12 @@ ion-button.kwakol-btn {
       display: flex;
       justify-content: center;
       gap: 3rem;
+
+      .option{
+        img{
+          width: 6rem;
+        }
+      }
     }
 
     .code-wrapper {

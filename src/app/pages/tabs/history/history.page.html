@@ -47,7 +47,7 @@
           <div class="trans-type-wrapper">
             <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">
-              <h3>{{hist.type}}</h3>
+              <h3>{{hist.type | capitalize}}</h3>
               <p class="trans-type-p">{{hist.status}}</p>
             </div>
           </div>
@@ -69,7 +69,7 @@
           <div class="trans-type-wrapper">
             <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">
-              <h3>{{hist.type}}</h3>
+              <h3>{{hist.type | capitalize}}</h3>
               <p class="trans-type-p">{{hist.status}}</p>
             </div>
           </div>
