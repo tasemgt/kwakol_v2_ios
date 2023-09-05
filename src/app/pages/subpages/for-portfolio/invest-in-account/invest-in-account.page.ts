@@ -158,9 +158,9 @@ export class InvestInAccountPage implements OnInit {
 
   private async doCreateBeneficiaryAccount() {
     const payload = {
-      name: `${this.beneficiary.firstname} ${this.beneficiary.lastname}`,
+      name: `${this.beneficiary.firstname.trim()} ${this.beneficiary.lastname.trim()}`,
       subscription: this.account.id,
-      amount: this.ammount,
+      amount: this.ammount.trim(),
       pin: this.pin,
     };
     console.log(payload);

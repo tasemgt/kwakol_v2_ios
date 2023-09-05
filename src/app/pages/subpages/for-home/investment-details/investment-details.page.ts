@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { IonModal, LoadingController } from '@ionic/angular';
-import { investmentIcons } from 'src/app/models/constants';
+import { historyIcons, investmentIcons } from 'src/app/models/constants';
 import { HomeService } from 'src/app/services/home.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -40,6 +40,7 @@ export class InvestmentDetailsPage implements OnInit {
   public investment: any;
   public walletBal: string;
   public transType: string;
+  public histStats: any;
 
   public showLoadingModal: boolean;
   public backdropActive = false;
@@ -76,6 +77,7 @@ export class InvestmentDetailsPage implements OnInit {
       this.fromPage = state.url;
       this.investment = state.investment;
       this.walletBal = state.walletBal;
+      this.histStats = state.histStats;
     }
   }
 
@@ -84,6 +86,7 @@ export class InvestmentDetailsPage implements OnInit {
     this.currentDate = new Date();
     console.log('invvv ', this.investment);
     console.log('ballll ', this.walletBal);
+    console.log('HistStats ', this.histStats);
   }
 
   public getIconForInvName(inv: string) {
@@ -295,6 +298,10 @@ export class InvestmentDetailsPage implements OnInit {
   public closeDateModal() {
     // this.beneficiary.date_of_birth = 'Date of Birth';
     this.selectDateModal.dismiss();
+  }
+
+  public getIconForType(type: string) {
+    return historyIcons[type];
   }
 
   public closeInvestment() {}

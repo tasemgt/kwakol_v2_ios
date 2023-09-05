@@ -265,6 +265,18 @@ export class UtilService {
     return false;
   }
 
+  public trimProperties(obj) {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (typeof obj[key] === 'boolean') {
+          continue; //Skip remember me or any other bools checks;
+        }
+        obj[key] = obj[key].trim();
+      }
+    }
+    return obj;
+  }
+
   public getSimpleDate(date) {
     // Input date string
     const inputDateString = date;

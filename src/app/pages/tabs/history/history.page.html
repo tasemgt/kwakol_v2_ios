@@ -3,7 +3,7 @@
     <h3 class="title">History</h3>
   </div>
   <div class="sub-header">
-    <ion-segment value="wallet" (ionChange)="segmentChanged($event)" mode="md">
+    <ion-segment value="wallet" [(ngModel)]="activeSegment" (ionChange)="segmentChanged($event)" mode="md">
       <ion-segment-button value="wallet" mode="md">
         <ion-label>Wallet</ion-label>
       </ion-segment-button>
@@ -13,7 +13,8 @@
     </ion-segment>
 
     <ion-row class="types-wrapper">
-      <ion-col size="{{ filter.size }}" *ngFor="let filter of filters">
+      <!-- <ion-col size="{{ filter.size }}" *ngFor="let filter of filters"> -->
+      <ion-col size="5" *ngFor="let filter of filters">
         <div
           class="type"
           [class]="filter.class"

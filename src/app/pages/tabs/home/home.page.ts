@@ -333,8 +333,8 @@ export class HomePage implements OnInit {
   }
 
   public goToHistory(activeSegment){
-    this.router.navigateByUrl('/tabs/history');
     this.historyService.getActiveSegmentSubject().next(activeSegment);
+    this.router.navigateByUrl('/tabs/history');
   }
 
   public openInfoModal(type, data) {
@@ -742,35 +742,22 @@ export class HomePage implements OnInit {
     }
   }
 
-  public openInvestementDetailsPage(inv) {
+  public async openInvestementDetailsPage(inv) {
     //Fetch investment histry from api
-    // this.util.presentLoading();
-    // try {
-    //   const resp = await this.homeService.withdrawFromInvestment(payload);
-    //   this.loading.dismiss();
-    //   if (resp.code == '100') {
-    //     console.log(resp.message);
-    //     this.pinEnterModal.dismiss();
-    //     this.uiService
-    //       .getLoadingStateSubject()
-    //       .next({ active: true, data: { type: 'withdraw', data: {} } });
-    //     this.subService.getBalanceSubject().next(true);
-    //     this.pin = '';
-    //     this.withdrawalInvestmentAmount = '';
-    //     this.selectedInvestment = null;
-    //     // this.isSending =false;
-    //   } else if (resp.code == '418') {
-    //     console.log(resp);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   this.loading.dismiss();
-    //   this.util.showToast(error.error.message, 2000, 'danger');
-    // }
-
-    this.router.navigateByUrl('/investment-details', {
-      state: { url: this.router.url, investment: inv, walletBal: this.home.wallet.balance }
-    });
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getInvestmentHistory(inv.id);
+      this.loading.dismiss();
+      if (resp.code == '100') {
+        this.router.navigateByUrl('/investment-details', {
+          state: { url: this.router.url, investment: inv, walletBal: this.home.wallet.balance, histStats: resp.data }
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      this.loading.dismiss();
+      this.util.showToast(error.error.message, 2000, 'danger');
+    }
   }
 
   public startInvestmentWithdrawal(){

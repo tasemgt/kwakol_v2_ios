@@ -102,9 +102,9 @@ export class HomeService {
   }
 
   //Investment Details History
-  // public getIn(): Promise<any>{
-  //   return this.http.get(`${this.baseUrl}/v2/get-bank-account`, {}, this.headers);
-  // }
+  public getInvestmentHistory(id): Promise<any>{
+    return this.http.get(`${this.baseUrl}/v1/subscription-history/${id}`, {}, this.headers);
+  }
 
   //Beneficiary History
   public getBeneficiaryHistory(beneficiaryId): Promise<any>{

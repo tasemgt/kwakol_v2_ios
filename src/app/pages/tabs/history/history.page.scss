@@ -65,13 +65,15 @@ ion-row.types-wrapper {
 }
 
 .type {
+  text-align: center;
   font-size: 0.85rem;
   position: relative;
   border: 1px solid var(--ion-color-tertiary);
   font-family: BwModelicaRegular;
   letter-spacing: 0.04em;
   color: var(--ion-color-secondary);
-  padding: 0.9rem 0rem 0.9rem 2.7rem;
+  padding: 0.9rem 0rem 0.9rem 0rem;
+  // padding: 0.9rem 0rem 0.9rem 2.7rem;
   border-radius: 6px;
   margin-right: 0.7rem;
 
@@ -79,12 +81,12 @@ ion-row.types-wrapper {
     position: absolute;
     left: 0.5rem;
     top: 0.65rem;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
 
   &.profit {
     background-color: var(--ion-light-green-color);
-    padding-left: 2.2rem;
+    // padding-left: 2.2rem;
     ion-icon {
       left: 0.3rem;
     }
@@ -98,6 +100,12 @@ ion-row.types-wrapper {
     // background-color: #f5f1e6;
     background-color: #fff;
     border: 1px solid rgba(var(--ion-color-primary-rgb), 0.3);
+
+    ion-icon{
+      font-size: 1.3rem;
+      top: .8rem;
+    }
+
     &.selected {
       border: 1px solid var(--ion-color-primary);
     }

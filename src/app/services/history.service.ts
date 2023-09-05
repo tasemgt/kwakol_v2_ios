@@ -12,7 +12,7 @@ export class HistoryService {
 
   private headers = {'Content-Type': 'application/json'};
 
-  private activeSegmentSubject: BehaviorSubject<{activeSegment: string}> = new BehaviorSubject(null);
+  private activeSegmentSubject: BehaviorSubject<string> = new BehaviorSubject(null);
   private homeActionSubject: BehaviorSubject<{action: boolean; type: string}> = new BehaviorSubject(null);
   // private balanceSubject: BehaviorSubject<boolean> = new BehaviorSubject( false );
 

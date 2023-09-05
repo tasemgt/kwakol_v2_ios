@@ -108,7 +108,7 @@ export class RegisterPage implements OnInit {
     }
     this.util.presentLoading();
     try {
-      const resp = await this.auth.doInitialRegister(this.regCreds);
+      const resp = await this.auth.doInitialRegister(this.util.trimProperties(this.regCreds));
       this.loading.dismiss();
       if (resp.code === '100') {
         console.log(resp.data);
