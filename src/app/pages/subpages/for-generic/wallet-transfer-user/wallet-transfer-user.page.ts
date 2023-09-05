@@ -54,11 +54,12 @@ export class WalletTransferUserPage implements OnInit {
       this.fromPage = state.url;
       this.walletBalance = state.walletBalance;
       this.transferUser = state.user;
+      console.log(state);
+      console.log(this.transferUser);
+
       if(this.transferUser.transfer_history){
         this.transferHistory = this.transferUser.transfer_history.reverse();
       }
-      console.log(this.transferHistory);
-      console.log(this.transferUser);
     }
   }
 
@@ -112,10 +113,12 @@ export class WalletTransferUserPage implements OnInit {
       const resp = await this.homeService.doTransferToUser(payload);
       if(resp.code == '100'){
         console.log(resp.message);
-        this.subService.getBalanceSubject().next(true);
-        this.walletBalance = (+this.walletBalance - +payload.amount) + '';
-        this.sendAmount = '';
-        this.isSending = false;
+        //A little delay to make process seemer
+        setTimeout(() =>{
+          this.subService.getBalanceSubject().next(true);
+          this.walletBalance = (+this.walletBalance - +payload.amount) + '';
+          this.isSending = false;
+        }, 1300);
       }
       else if(resp.code == '418'){
         console.log(resp);
@@ -217,6 +220,7 @@ export class WalletTransferUserPage implements OnInit {
     setTimeout(() => {
       this.backdropActive = false;
       this.showLoadingModal = false;
+      this.sendAmount = '';
     }, 100);
 
     if(doReload){

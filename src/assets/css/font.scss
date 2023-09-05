@@ -54,6 +54,55 @@ html{
 */
 
 
+//Fold 5 wide
+@media only screen
+  and (device-width: 1812px)
+  and (device-height: 2176px){
+    html{
+      font-size: 260%;
+    }
+}
+
+
+//Fold 5 cover
+@media only screen
+  and (device-width: 904px)
+  and (device-height: 2316px){
+    html{
+      font-size: 270%;
+    }
+}
+
+//Fold 2 & 3 cover
+@media only screen
+  and (min-width: 816px)
+  and (max-width: 830px)
+  and (min-height: 2260px)
+  and (max-height: 2268px){
+    html{
+      font-size: 260%;
+    }
+}
+
+
+//Fold 1 & 4 wide
+@media only screen
+  and (device-width: 1536px)
+  and (device-height: 2152px){
+    html{
+      font-size: 250%;
+    }
+}
+
+//Fold 1 & 4 cover
+@media only screen
+  and (device-width: 720px)
+  and (device-height: 1680px){
+    html{
+      font-size: 195%;
+    }
+}
+
 //Nexus 10
 @media only screen
   and (device-width: 800px)

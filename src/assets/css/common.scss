@@ -249,7 +249,7 @@ ion-col {
 }
 .did-floating-label {
   color: var(--ion-color-secondary);
-  font-size: 13px;
+  font-size: .8125rem;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
@@ -263,7 +263,7 @@ ion-col {
 }
 .did-floating-input,
 .did-floating-select {
-  font-size: 13px;
+  font-size: .8125rem;
   display: block;
   width: 100%;
   height: 3.3rem;
@@ -288,7 +288,7 @@ ion-col {
     transition: border ease-in 0.1s;
     ~ .did-floating-label {
       top: -8px;
-      font-size: 10px;
+      font-size: .625rem;
       color: var(--ion-color-primary);
       // font-family: BwModelicaMedium;
     }
@@ -303,7 +303,7 @@ ion-col {
 
 .did-floating-input:not(:placeholder-shown) ~ .did-floating-label {
   top: -8px;
-  font-size: 10px;
+  font-size: .625rem;
 }
 
 .p-input {
@@ -355,6 +355,7 @@ ion-button.kwakol-btn {
   margin: 0px;
   width: 100%;
   height: 3.1rem;
+  font-size: .9rem;
   --box-shadow: 5px 5px 15px 0px rgba(30, 51, 0, 0.1);
 
   &.round {
@@ -953,6 +954,10 @@ ion-button.kwakol-btn {
 ion-modal.select-country,
 ion-modal.select-dob,
 ion-modal.otp-modal {
+
+  --width: 100%;
+  --height: 100%;
+
   &::part(handle) {
     background-color: var(--ion-color-primary);
   }
@@ -1394,6 +1399,10 @@ ion-modal.enter-pin {
 }
 
 .kwakol-modal-bottom-drawer2 {
+
+  --width: 100%;
+  --height: 100%;
+
   --backdrop-opacity: 1;
 
   &::part(handle) {
@@ -2029,4 +2038,22 @@ ion-modal.otp-modal {
     padding: 0 1.3rem;
     margin-top: 1rem;
   }
+}
+
+.mat-calendar-table-header th{
+  font-size: .6875rem;
+}
+
+.mat-calendar-body{
+  font-size: .8125rem;
+}
+
+.mat-calendar-period-button,
+.mat-calendar-body-label{
+  font-size: .875rem;
+}
+
+.mat-icon-button{
+  // width: 1.5rem !important;
+  // height: 1.5rem !important;
 }

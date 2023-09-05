@@ -120,19 +120,22 @@ export class ProfilePage implements OnInit {
   }
 
   public logOut() {
-    this.util.presentAlertConfirm(
-      'Logout',
-      'Checking out of Kwakol Funds?',
-      () => {
-        this.util.presentLoading();
-        setTimeout(() => {
-          this.loading.dismiss();
-          this.auth.logout();
-        }, 1500);
-      },
-      'Cancel',
-      'Yes'
-    );
+    this.uiService
+      .getLoadingStateSubject()
+      .next({ active: true, data: { type: 'logout', data: null } });
+    // this.util.presentAlertConfirm(
+    //   'Logout',
+    //   'Checking out of Kwakol Funds?',
+    //   () => {
+    //     this.util.presentLoading();
+    //     setTimeout(() => {
+    //       this.loading.dismiss();
+    //       this.auth.logout();
+    //     }, 1500);
+    //   },
+    //   'Cancel',
+    //   'Yes'
+    // );
   }
 
   public async getAccountDetails(page) {

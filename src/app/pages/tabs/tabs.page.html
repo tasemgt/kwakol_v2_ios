@@ -93,15 +93,9 @@
   >
     <div class="content">
       <div class="loader-wrapper no-animation">
-        <!-- <div class="circle-3">
-      <div class="circle-2">
-        <div class="circle-1"> -->
-        <ion-icon *ngIf="loadingModalType !== 'confirm' && loadingModalType !== 'pin'" src="assets/imgs/v2-imgs/hour-glass.svg" alt=""></ion-icon>
-        <!-- </div> -->
-        <!-- </div> -->
-        <!-- </div> -->
+        <ion-icon *ngIf="loadingModalType !== 'confirm' && loadingModalType !== 'pin' && loadingModalType !== 'logout'" src="assets/imgs/v2-imgs/hour-glass.svg" alt=""></ion-icon>
         <ion-icon
-          *ngIf="loadingModalType === 'confirm'"
+          *ngIf="loadingModalType === 'confirm' || loadingModalType === 'logout'"
           src="assets/imgs/v2-imgs/red-flag.svg"
           alt=""
         ></ion-icon>
@@ -123,6 +117,11 @@
         <p class="loading-text" *ngIf="loadingModalType === 'confirm'">
           Withdrawing from an active investment <br />
           might affect your profit. <br />
+          Do you still want to proceed?
+        </p>
+        <p class="loading-text" *ngIf="loadingModalType === 'logout'">
+          This will log you out of your app <br />
+          You will need to login to continue use. <br />
           Do you still want to proceed?
         </p>
         <p class="loading-text" *ngIf="loadingModalType === 'pin'">
@@ -150,6 +149,13 @@
         class="yes-button"
         *ngIf="loadingModalType === 'confirm'"
         (click)="continueHomeTask('withdraw')"
+      >
+        Yes, I'm Sure
+      </div>
+      <div
+        class="yes-button"
+        *ngIf="loadingModalType === 'logout'"
+        (click)="logoutUser()"
       >
         Yes, I'm Sure
       </div>

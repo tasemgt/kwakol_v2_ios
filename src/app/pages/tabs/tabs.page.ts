@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { IonTabs } from '@ionic/angular';
+import { IonTabs, LoadingController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -39,9 +40,11 @@ export class TabsPage {
 
   constructor(
     private uiService: UiService,
+    private auth: AuthService,
     private subService: SubscriptionService,
     private renderer: Renderer2,
-    public util: UtilService
+    public util: UtilService,
+    private loading: LoadingController
   ) {
     this.infoModalData = {};
 
@@ -71,7 +74,8 @@ export class TabsPage {
 
   public onTabChange(): void {
     this.previousTab = this.selectedTab;
-    this.selectedTab = this.tabs.getSelected() === 'feed' ? 'explore' : this.tabs.getSelected();
+    this.selectedTab =
+      this.tabs.getSelected() === 'feed' ? 'explore' : this.tabs.getSelected();
     console.log(this.selectedTab);
     this.tabList[this.selectedTab] = true;
     this.tabList[this.previousTab] = false;
@@ -89,7 +93,7 @@ export class TabsPage {
           { item: 'Reference', value: data.ref },
           { item: 'Deposit Type', value: data.type },
           { item: 'Rate', value: '----' },
-          { item: 'Fee', value: '$'+data.amount },
+          { item: 'Fee', value: '$' + data.amount },
         ];
         this.infoModalData.amount = '560';
         this.infoModalData.date = '16 Feb 2023 - 9:03am';
@@ -103,7 +107,7 @@ export class TabsPage {
           { item: 'Bank Name', value: '----' },
           { item: 'Reference', value: data.ref },
           { item: 'Withdrawal Type', value: data.type },
-          { item: 'Fee', value: '$'+data.amount },
+          { item: 'Fee', value: '$' + data.amount },
         ];
         this.infoModalData.amount = '560';
         this.infoModalData.date = '16 Feb 2023 - 9:03am';
@@ -150,7 +154,7 @@ export class TabsPage {
     }, 10);
   }
 
-  public openLoadingModal(type, data){
+  public openLoadingModal(type, data) {
     this.loadingModalType = type;
     this.loadingModalData = data;
     setTimeout(() => {
@@ -160,7 +164,10 @@ export class TabsPage {
   }
 
   public closeModal() {
-    const modalDiv = this.openedFrom === 'info' ? this.infoModalDiv.nativeElement : this.loadingModalDiv.nativeElement;
+    const modalDiv =
+      this.openedFrom === 'info'
+        ? this.infoModalDiv.nativeElement
+        : this.loadingModalDiv.nativeElement;
     const backdrop = this.backdrop.nativeElement;
 
     this.renderer.removeClass(modalDiv, 'animate__slideInUp');
@@ -177,9 +184,20 @@ export class TabsPage {
     }, 100);
   }
 
-  public continueHomeTask(task){
+  //Instructs the Home page to perform certain action
+  public continueHomeTask(task) {
     this.closeModal();
-    this.uiService.getinstructHomeStateStateSubject().next({type: task, data: {}});
+    this.uiService
+      .getinstructHomeStateStateSubject()
+      .next({ type: task, data: {} });
   }
 
+  public logoutUser() {
+    this.closeModal();
+    this.util.presentLoading();
+    setTimeout(() => {
+      this.loading.dismiss();
+      this.auth.logout();
+    }, 1500);
+  }
 }

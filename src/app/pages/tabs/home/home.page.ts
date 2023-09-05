@@ -368,6 +368,7 @@ export class HomePage implements OnInit {
     if (quickTransfer) {
       this.util.presentLoading();
       const resp = await this.getUserToTransferTo(usernameOrEmail);
+      console.log(usernameOrEmail);
       this.loading.dismiss();
       this.handleGoToDoTransferPage();
       return;
