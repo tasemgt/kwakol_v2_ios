@@ -304,6 +304,8 @@
             class="investment-item"
             (click)="openInvestementDetailsPage(inv)"
           >
+            <div *ngIf="inv.status !== 'active'" class="blur-cover"></div>
+            <div *ngIf="inv.status !== 'active'" class="inv-pending">Pending</div>
             <div
               class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
             >
@@ -331,33 +333,7 @@
             </h4>
           </div>
         </ion-col>
-
-        <!-- <ion-col size="5" *ngIf="!home" class="inv-skeleton">
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-thumbnail>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="6" *ngIf="!home" class="inv-skeleton">
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-thumbnail>
-          </ion-item>
-        </ion-col> -->
-
-        <!-- <ion-col size="6">
-          <div class="investment-item">
-            <p>Balance</p>
-            <h4>$7,534.59</h4>
-            <div class="type-area marigold-big">
-              <ion-icon src="assets/icon/inv-type/marigold.svg"></ion-icon>
-              <h4>Marigold</h4>
-            </div>
-          </div>
-        </ion-col>
+        <!-- 
         <ion-col size="6">
           <div class="investment-item">
             <p>Balance</p>
@@ -421,34 +397,10 @@
         <div class="quick-btn-round">Deposit Now</div>
       </div>
 
-      <!-- <p
-        class="no-histories"
-        *ngIf="investment && investment?.user_details.transactions <= 0"
-      >
-        No history available...
-      </p> -->
-
-      <div class="tt-skeletons" *ngIf="!home">
-        <ion-item *ngFor="let f of [1,2,3,4]">
-          <ion-avatar slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-avatar>
-          <ion-label>
-            <h3>
-              <ion-skeleton-text
-                class="left"
-                animated
-                style="width: 25%"
-              ></ion-skeleton-text>
-              <ion-skeleton-text
-                class="right"
-                animated
-                style="width: 15%"
-              ></ion-skeleton-text>
-            </h3>
-          </ion-label>
-        </ion-item>
+      <div class="loading-spinner-wrapper" *ngIf="listSpinner">
+        <ion-spinner color="secondary" name="crescent"></ion-spinner>
       </div>
+
     </div>
   </div>
 

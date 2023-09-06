@@ -106,6 +106,10 @@
           alt=""
         ></ion-icon>
 
+        <p class="loading-text" *ngIf="loadingModalType === 'inactive'">
+          Your investment request for <span class="bolder">{{loadingModalData.plan}}</span> is being reviewed. You will get a notification
+          once it is approved.
+        </p>
         <p class="loading-text" *ngIf="loadingModalType === 'deposit'">
           Your deposit request is being reviewed. You will get a notification
           once it is approved.

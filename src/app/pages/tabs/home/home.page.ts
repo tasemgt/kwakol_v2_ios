@@ -440,6 +440,7 @@ export class HomePage implements OnInit {
       // this.listSpinner = true;
       if (resp.code == 100) {
         this.myInvestments = resp.data;
+        this.myInvestments = this.myInvestments.filter((inv) => inv.status === 'active'); //return and display only active investments
       }
       if (this.myInvestments.length <= 1) {
         this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment
@@ -746,6 +747,17 @@ export class HomePage implements OnInit {
   }
 
   public async openInvestementDetailsPage(inv) {
+
+    //Check if investment is active first
+
+    if(inv.status !== 'active'){
+      this.uiService
+          .getLoadingStateSubject()
+          .next({ active: true, data: { type: 'inactive', data: { plan: inv.subscription.name }} });
+      return;
+    }
+
+
     //Fetch investment histry from api
     this.util.presentLoading();
     try {

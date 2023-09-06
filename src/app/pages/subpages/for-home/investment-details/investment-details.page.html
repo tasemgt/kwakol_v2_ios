@@ -140,8 +140,8 @@
           <div
             class="amount"
           >
-            {{util.getAmountSign(trans.type.toLowerCase())}}${{trans.amount}}
-            <!-- {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}} -->
+            <!-- {{util.getAmountSign(trans.type.toLowerCase())}}${{trans.amount}} -->
+            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
           </div>
           <div class="trans-date">{{trans.date}}</div>
         </div>
