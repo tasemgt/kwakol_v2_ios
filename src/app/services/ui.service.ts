@@ -12,12 +12,16 @@ export class UiService {
   // private loadingState: BehaviorSubject<boolean> = new BehaviorSubject(null);
   private backdropState: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  private clearPinState: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+
+
   constructor() {}
 
   public getInfoStateSubject(){
     return this.infoState;
   }
-  
+
   public getinstructHomeStateStateSubject(){
     return this.instructHomeState;
   }
@@ -28,5 +32,9 @@ export class UiService {
 
   public getBackdropStateSubject(){
     return this.backdropState;
+  }
+
+  public getClearPinStateSubject(){
+    return this.clearPinState;
   }
 }

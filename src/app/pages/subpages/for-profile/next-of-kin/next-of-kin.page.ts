@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IonModal, LoadingController, NavController } from '@ionic/angular';
 import { NextOfKin } from 'src/app/models/user';
 import { ProfileService } from 'src/app/services/profile.service';
+import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class NextOfKinPage implements OnInit {
     private router: Router,
     private profileService: ProfileService,
     public util: UtilService,
+    public uiService: UiService,
     private loading: LoadingController,
     private navController: NavController
   ) {
@@ -71,6 +73,7 @@ export class NextOfKinPage implements OnInit {
         console.log(resp.data);
         this.util.showToast('Your Next of Kin has been added', 2500, 'success');
         this.pinEnterModal.dismiss();
+        this.pin = '';
         this.navController.setDirection('back');
         this.router.navigateByUrl('/tabs/profile');
       } else if (resp.code == '418') {
@@ -79,6 +82,9 @@ export class NextOfKinPage implements OnInit {
       }
     } catch (error) {
       this.loading.dismiss();
+      this.util.showToast(error.error.message, 2500, 'danger');
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       console.log('ERROR', error);
     }
   }

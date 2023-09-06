@@ -338,6 +338,9 @@ export class HomePage implements OnInit {
   }
 
   public openInfoModal(type, data) {
+    if(type === 'bonus'){
+      return;
+    }
     this.uiService
       .getInfoStateSubject()
       .next({ active: true, data: { type, data } });
@@ -793,6 +796,8 @@ export class HomePage implements OnInit {
     } catch (error) {
       console.log(error);
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }
@@ -873,7 +878,8 @@ export class HomePage implements OnInit {
     } catch (error) {
       console.log(error);
       this.loading.dismiss();
-      // this.closeLoadingModal(false);
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }
@@ -914,6 +920,8 @@ export class HomePage implements OnInit {
       }
     } catch (error) {
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }
@@ -971,6 +979,8 @@ export class HomePage implements OnInit {
       }
     } catch (error) {
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }

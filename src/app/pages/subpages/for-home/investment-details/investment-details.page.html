@@ -133,14 +133,15 @@
           <div class="trans-type">
             <h3>{{trans.type | capitalize}}</h3>
             <p class="trans-type-p">
-              {{trans.comment.slice(0,40).length > 40 ? trans.comment.slice(0,35)+'...' :trans.comment.slice(0,40)}}
+              {{trans.comment.length > 35 ? trans.comment.slice(0,35)+'...' :trans.comment.slice(0,35)}}
           </div>
         </div>
         <div class="amount-date">
           <div
             class="amount"
           >
-            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
+            {{util.getAmountSign(trans.type.toLowerCase())}}${{trans.amount}}
+            <!-- {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}} -->
           </div>
           <div class="trans-date">{{trans.date}}</div>
         </div>

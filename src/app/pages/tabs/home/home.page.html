@@ -174,8 +174,8 @@
             [src]="'assets/icon/v2-icons/'+getIconForType(trans.type.toLowerCase())+'.svg'"
           ></ion-icon>
           <div class="trans-type">
-            <h3>{{trans.type}}</h3>
-            <p class="trans-type-p">Bank Transfer</p>
+            <h3>{{trans.type | capitalize}}</h3>
+            <p class="trans-type-p">{{trans.comment}}</p>
           </div>
         </div>
         <div class="amount-date">
@@ -185,7 +185,7 @@
           >
             {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
           </div>
-          <div class="trans-date">{{trans.created_at | date }}</div>
+          <div class="trans-date">{{trans.status === 'pending' ?  'pending' : (trans.created_at | date) }}</div>
         </div>
       </div>
       <!-- 
@@ -405,13 +405,8 @@
             >
               ${{ util.numberWithCommas(hist.amount) }}
             </div>
-            <div class="trans-date">{{ hist.date }}</div>
+            <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
-          <!-- <p (click)="goToHistorySummary(hist)">
-            {{ hist.date }}<span *ngIf="hist.type === 'profit'"
-              >{{ hist.percentage || 0}}%</span
-            >
-          </p> -->
         </div>
       </div>
 

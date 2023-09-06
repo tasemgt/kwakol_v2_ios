@@ -246,7 +246,8 @@ export class UtilService {
     if (item) {
       const copied = await this.clipboard.copy(item);
       if (copied) {
-        this.showToast(`Item ${item} copied...`, 2000, 'success');
+        // this.showToast(`Item ${item} copied...`, 2000, 'success');
+        this.showToast(`Copied to clipboard`, 2000, 'success');
       }
     }
   }

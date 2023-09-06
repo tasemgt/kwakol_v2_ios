@@ -237,6 +237,9 @@ export class HistoryPage implements OnInit {
   }
 
   public openInfoModal(type, data) {
+    if(type === 'bonus'){
+      return;
+    }
     this.uiService
       .getInfoStateSubject()
       .next({ active: true, data: { type, data } });

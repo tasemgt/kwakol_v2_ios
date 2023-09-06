@@ -49,12 +49,12 @@
             <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">
               <h3>{{hist.type | capitalize}}</h3>
-              <p class="trans-type-p">{{hist.status}}</p>
+              <p class="trans-type-p">{{hist.comment?.length > 45 ? hist.comment.slice(0,45)+'...' : hist.comment}}</p>
             </div>
           </div>
           <div class="amount-date">
             <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{hist.amount}}</div>
-            <div class="trans-date">{{hist.date}}</div>
+            <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
         </div>
       </div>
@@ -71,12 +71,12 @@
             <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">
               <h3>{{hist.type | capitalize}}</h3>
-              <p class="trans-type-p">{{hist.status}}</p>
+              <p class="trans-type-p">{{hist.comment?.length > 45 ? hist.comment.slice(0,45)+'...' : hist.comment}}</p>
             </div>
           </div>
           <div class="amount-date">
             <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{hist.amount}}</div>
-            <div class="trans-date">{{hist.date}}</div>
+            <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
         </div>
       </div>

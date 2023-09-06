@@ -6,6 +6,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { historyIcons, investmentIcons } from 'src/app/models/constants';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { HomeService } from 'src/app/services/home.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-beneficiary-details',
@@ -67,6 +68,7 @@ export class BeneficiaryDetailsPage implements OnInit {
     private keyboard: Keyboard,
     private router: Router,
     public util: UtilService,
+    private uiService: UiService,
     private homeService: HomeService,
     private subscriptionService: SubscriptionService,
     private loading: LoadingController,
@@ -214,6 +216,8 @@ export class BeneficiaryDetailsPage implements OnInit {
     } catch (error) {
       console.log(error);
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }
@@ -244,6 +248,8 @@ export class BeneficiaryDetailsPage implements OnInit {
     } catch (error) {
       console.log(error);
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }

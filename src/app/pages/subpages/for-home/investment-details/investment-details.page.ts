@@ -11,6 +11,7 @@ import { IonModal, LoadingController } from '@ionic/angular';
 import { historyIcons, investmentIcons } from 'src/app/models/constants';
 import { HomeService } from 'src/app/services/home.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
+import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -67,6 +68,7 @@ export class InvestmentDetailsPage implements OnInit {
     private keyboard: Keyboard,
     private router: Router,
     public util: UtilService,
+    private uiService: UiService,
     private subscriptionService: SubscriptionService,
     public homeService: HomeService,
     private loading: LoadingController,
@@ -220,6 +222,8 @@ export class InvestmentDetailsPage implements OnInit {
     } catch (error) {
       console.log(error);
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }
@@ -250,6 +254,8 @@ export class InvestmentDetailsPage implements OnInit {
     } catch (error) {
       console.log(error);
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }

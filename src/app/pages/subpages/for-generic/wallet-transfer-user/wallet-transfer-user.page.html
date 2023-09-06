@@ -13,7 +13,7 @@
     *ngIf="showInfoModal"
   >
     <div class="header">
-      <ion-icon [src]="'assets/icon/v2-icons/trans-transfer-user.svg'"></ion-icon>
+      <ion-icon [src]="'assets/icon/v2-icons/trans-transfer-plan.svg'"></ion-icon>
       <h4>{{transferUser.main_user == infoModalData.sender? 'Wallet Transfer' : 'Transferred from'}}</h4>
     </div>
 
@@ -35,7 +35,8 @@
     <div class="footer">
       <div class="amount-date">
         <div class="amount">{{transferUser.main_user == infoModalData.sender? '-':'+'}}${{util.numberWithCommas(infoModalData.amount)}}</div>
-        <div class="date">{{infoModalData.created_at | date}}</div>
+        <!-- <div class="date">{{infoModalData.created_at | date}}</div> -->
+        <div class="date">{{infoModalData.date+ '-' + infoModalData.time}}</div>
       </div>
       <div class="round-button" (click)="closeInfoModal()">
         <ion-icon src="assets/icon/close.svg"></ion-icon>

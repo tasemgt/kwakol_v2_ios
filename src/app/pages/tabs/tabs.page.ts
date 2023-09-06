@@ -25,6 +25,7 @@ export class TabsPage {
 
   public showInfoModal: boolean;
   public infoModalData: any;
+  public infoModalDataType: string;
 
   public showLoadingModal: boolean;
   public loadingModalType: string;
@@ -83,37 +84,38 @@ export class TabsPage {
 
   public openInfoModal(type, data) {
     console.log('DATA', data);
+    this.infoModalDataType = type;
     switch (type) {
       case 'deposit':
         this.infoModalData.icon = 'trans-deposit.svg';
         this.infoModalData.title = 'Deposit';
         this.infoModalData.content = [
           { item: 'Account Name', value: data.fullname },
-          { item: 'Bank Name', value: '---' },
+          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Deposit Type', value: data.type },
-          { item: 'Rate', value: '----' },
-          { item: 'Fee', value: '$' + data.amount },
+          // { item: 'Rate', value: '----' },
+          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ data.fee },
         ];
-        this.infoModalData.amount = '560';
-        this.infoModalData.date = '16 Feb 2023 - 9:03am';
+        this.infoModalData.amount = data.amount;
+        this.infoModalData.date = `${data.date} - ${data.time}`;
         break;
       case 'withdrawal':
         this.infoModalData.icon = 'trans-withdraw.svg';
         this.infoModalData.title = 'Withdrawal';
         this.infoModalData.content = [
           { item: 'Account Name', value: data.fullname },
-          { item: 'Account Number', value: 'Akim John' },
-          { item: 'Bank Name', value: '----' },
+          { item: 'Account Number', value: data.bank_account || 'Cash' },
+          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Withdrawal Type', value: data.type },
-          { item: 'Fee', value: '$' + data.amount },
+          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ data.fee },
         ];
-        this.infoModalData.amount = '560';
-        this.infoModalData.date = '16 Feb 2023 - 9:03am';
+        this.infoModalData.amount = data.amount;
+        this.infoModalData.date = `${data.date} - ${data.time}`;
         break;
       case 'transfer':
-        this.infoModalData.icon = 'trans-transfer-user.svg';
+        this.infoModalData.icon = 'trans-transfer-plan.svg';
         this.infoModalData.title = 'Wallet Transfer';
         this.infoModalData.content = [
           { item: 'Username', value: data.email },
@@ -121,7 +123,7 @@ export class TabsPage {
           { item: 'Reference', value: data.ref },
         ];
         this.infoModalData.amount = data.amount;
-        this.infoModalData.date = data.created_at;
+        this.infoModalData.date = `${data.date} - ${data.time}`;
         break;
       case 'profit':
         this.infoModalData.icon = 'trans-profit.svg';
@@ -134,8 +136,8 @@ export class TabsPage {
           // { item: 'Month', value: 'Akim John' },
           { item: 'Profit', value: `$${data.net_profit}` },
         ];
-        this.infoModalData.amount = '1200';
-        this.infoModalData.date = '16 Feb 2023 - 9:03am';
+        this.infoModalData.amount = data.amount;
+        this.infoModalData.date = `${data.date} - ${data.time}`;
         break;
       case 'bonus':
         this.infoModalData.icon = 'trans-bonus.svg';
@@ -145,7 +147,7 @@ export class TabsPage {
           { item: 'Reference', value: 'Akim John' },
         ];
         this.infoModalData.amount = '1200';
-        this.infoModalData.date = '16 Feb 2023 - 9:03am';
+        this.infoModalData.date = `${data.date} - ${data.time}`;
     }
 
     setTimeout(() => {

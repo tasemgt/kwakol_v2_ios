@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-keypad',
@@ -10,10 +11,16 @@ export class KeypadComponent implements OnInit {
   @Output() keypadEmitter = new EventEmitter<{ keypadText: string }>();
   public keypadText: string;
 
-  constructor() { }
+  constructor(private uiService: UiService) { }
 
   ngOnInit() {
     this.keypadText = '';
+    this.uiService.getClearPinStateSubject().subscribe((state) => {
+      if (state) {
+        //clear keypad text when state is true
+        this.keypadText = '';
+      }
+    });
   }
 
   public getPressedKey(key: string): void {

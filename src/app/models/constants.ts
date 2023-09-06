@@ -63,7 +63,7 @@ export const historyIcons = {
     deposit: 'trans-deposit',
     profit: 'trans-profit',
     withdrawal: 'trans-withdraw',
-    transfer: 'trans-transfer-user'
+    transfer: 'trans-transfer-plan'
 };
 
 export const investmentIcons = {

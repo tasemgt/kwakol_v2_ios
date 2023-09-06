@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { Router } from '@angular/router';
 import { IonModal, LoadingController, NavController } from '@ionic/angular';
 import { HomeService } from 'src/app/services/home.service';
+import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -36,6 +37,7 @@ export class AddBankPage implements OnInit {
     private router: Router,
     private navController: NavController,
     private util: UtilService,
+    private uiService: UiService,
     private homeService: HomeService,
     private loading: LoadingController,
     private renderer: Renderer2
@@ -137,6 +139,7 @@ export class AddBankPage implements OnInit {
       this.loading.dismiss();
       if (resp.code == 100) {
         this.pinEnterModal.dismiss();
+        this.pin = '';
         this.openLoadingModal('alert');
       } else {
         this.util.showToast(resp.data, 2000, 'danger');
@@ -144,6 +147,8 @@ export class AddBankPage implements OnInit {
     } catch (err) {
       console.log(err);
       this.loading.dismiss();
+      this.pin = '';
+      this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
       this.util.showToast(err.error.message, 2000, 'danger');
     }
   }

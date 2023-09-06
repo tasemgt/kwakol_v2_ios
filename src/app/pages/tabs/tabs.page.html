@@ -73,7 +73,7 @@
     <div class="footer">
       <div class="amount-date">
         <div class="amount">
-          -${{util.numberWithCommas(infoModalData.amount)}}
+          {{util.getAmountSign(infoModalDataType.toLowerCase())}}${{util.numberWithCommas(infoModalData.amount)}}
         </div>
         <div class="date">{{infoModalData.date}}</div>
       </div>
