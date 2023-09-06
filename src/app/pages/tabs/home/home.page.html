@@ -88,7 +88,7 @@
           ></ion-icon>
         </ion-col>
 
-        <ion-col size="4" *ngFor="let quick of wallet?.quick_transfers">
+        <ion-col size="auto" *ngFor="let quick of wallet?.quick_transfers">
           <div
             class="quick-transfer-item"
             (click)="goToTransferUserPage(true, quick.username)"
@@ -98,8 +98,11 @@
               ')[1][0]}}
             </div>
             <p>
-              {{(quick.fullname.split(' ')[0].length > 7 ? quick.fullname.split(' ')[0].slice(0,7)+'...' : quick.fullname.split(' ')[0])+' '+ (quick.fullname.split(' ')[1] ? quick.fullname.split(' ')[1].trim()[0] : '')}}
+              {{quick.fullname.split(' ')[0]}}
             </p>
+            <!-- <p>
+              {{(quick.fullname.split(' ')[0].length > 7 ? quick.fullname.split(' ')[0].slice(0,7)+'...' : quick.fullname.split(' ')[0])+' '+ (quick.fullname.split(' ')[1] ? quick.fullname.split(' ')[1].trim()[0] : '')}}
+            </p> -->
           </div>
         </ion-col>
         <!-- <ion-col size="4">

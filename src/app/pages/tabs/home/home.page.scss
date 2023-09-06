@@ -328,7 +328,7 @@ ion-row.quick-transfer-wrapper {
   background-color: #fff;
   border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
   border-radius: 100px;
-  padding: 0.27rem 0.3rem;
+  padding: 0.27rem 0.7rem 0.27rem 0.3rem;
   width: 98%;
   display: flex;
   gap: 0.5rem;
@@ -336,7 +336,7 @@ ion-row.quick-transfer-wrapper {
 
   .default-img {
     height: 2.5rem;
-    width: 2.5rem;
+    // width: 2.5rem;
     font-size: 1rem;
   }
 

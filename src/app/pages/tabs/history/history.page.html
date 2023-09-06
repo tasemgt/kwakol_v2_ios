@@ -14,7 +14,7 @@
 
     <ion-row class="types-wrapper">
       <!-- <ion-col size="{{ filter.size }}" *ngFor="let filter of filters"> -->
-      <ion-col size="5" *ngFor="let filter of filters">
+      <ion-col size="auto" *ngFor="let filter of filters">
         <div
           class="type"
           [class]="filter.class"
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="amount-date">
-            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{hist.amount}}</div>
+            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{util.numberWithCommas(hist.amount)}}</div>
             <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
         </div>
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div class="amount-date">
-            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{hist.amount}}</div>
+            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{util.numberWithCommas(hist.amount)}}</div>
             <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
         </div>

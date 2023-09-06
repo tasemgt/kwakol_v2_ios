@@ -7,7 +7,7 @@ ion-header {
 }
 
 ion-content {
-  --padding-top: 2rem;
+  --padding-top: 1rem;
   --padding-start: 1.3rem;
   --padding-end: 1.3rem;
   --background: var(--ion-color-tertiary);
@@ -68,28 +68,24 @@ ion-row.types-wrapper {
   text-align: center;
   font-size: 0.85rem;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .2rem;
   border: 1px solid var(--ion-color-tertiary);
   font-family: BwModelicaRegular;
   letter-spacing: 0.04em;
   color: var(--ion-color-secondary);
-  padding: 0.9rem 0rem 0.9rem 0rem;
-  // padding: 0.9rem 0rem 0.9rem 2.7rem;
-  border-radius: 6px;
+  padding: 0.4rem 0.5rem;
+  border-radius: .5rem;
   margin-right: 0.7rem;
 
   ion-icon {
-    position: absolute;
-    left: 0.5rem;
-    top: 0.65rem;
     font-size: 1.7rem;
   }
 
   &.profit {
     background-color: var(--ion-light-green-color);
-    // padding-left: 2.2rem;
-    ion-icon {
-      left: 0.3rem;
-    }
     &.selected {
       border: 1px solid var(--ion-color-primary);
     }
@@ -97,14 +93,8 @@ ion-row.types-wrapper {
 
   &.pending,
   &.all {
-    // background-color: #f5f1e6;
     background-color: #fff;
     border: 1px solid rgba(var(--ion-color-primary-rgb), 0.3);
-
-    ion-icon{
-      font-size: 1.3rem;
-      top: .8rem;
-    }
 
     &.selected {
       border: 1px solid var(--ion-color-primary);
@@ -113,10 +103,6 @@ ion-row.types-wrapper {
 
   &.bonus {
     background-color: #fff8d1;
-    padding-left: 2.2rem;
-    ion-icon {
-      left: 0.3rem;
-    }
     &.selected {
       border: 1px solid #fce461;
     }
@@ -125,8 +111,6 @@ ion-row.types-wrapper {
   &.withdrawal {
     background-color: #fcd9d7;
     font-size: 0.78rem;
-    padding-left: 2rem;
-    padding-right: 0.5rem;
     &.selected {
       border: 1px solid #f05047;
     }
