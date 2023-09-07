@@ -367,7 +367,7 @@
       >
         <div
           class="transaction"
-          *ngFor="let hist of homeHistories | slice:0:4"
+          *ngFor="let hist of homeHistories | slice:0:5"
           (click)="openInfoModal(hist.type.toLowerCase(), hist)"
         >
           <div class="trans-type-wrapper">
