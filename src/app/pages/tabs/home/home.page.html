@@ -8,33 +8,35 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div class="main-header">
-    <div class="header-name">
-      <div class="img-wrapper" (click)="goToProfilePage()">
-        <!-- <img src="" alt=""> -->
-        <div class="default-img">
-          {{user?.fullname.split(' ')[0][0]}}{{user?.fullname.split(' ')[1][0]}}
+  <div class="segment-tabs-wrapper" [ngClass]="activeSegment === 'investments' ? 'is-investments' : ''">
+    <div class="main-header">
+      <div class="header-name">
+        <div class="img-wrapper" (click)="goToProfilePage()">
+          <!-- <img src="" alt=""> -->
+          <div class="default-img">
+            {{user?.fullname.split(' ')[0][0]}}{{user?.fullname.split(' ')[1][0]}}
+          </div>
+        </div>
+        <div class="name">
+          <h3>Hi {{ user?.fullname.split(' ')[0] }},</h3>
+          <p>Hope you're having a great {{ getTimeOfDay()}}.</p>
         </div>
       </div>
-      <div class="name">
-        <h3>Hi {{ user?.fullname.split(' ')[0] }},</h3>
-        <p>Hope you're having a great {{ getTimeOfDay()}}.</p>
-      </div>
+  
+      <div class="daily-rate">{{home? home.daily_rate : '-----' }}</div>
+  
+      <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
     </div>
-
-    <div class="daily-rate">{{home? home.daily_rate : '-----' }}</div>
-
-    <!-- <ion-icon src="assets/icon/chat.svg"></ion-icon> -->
+  
+    <ion-segment value="wallet" (ionChange)="segmentChanged($event)" mode="md">
+      <ion-segment-button value="wallet" mode="md">
+        <ion-label>Wallet</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="investments">
+        <ion-label>Investments</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </div>
-
-  <ion-segment value="wallet" (ionChange)="segmentChanged($event)" mode="md">
-    <ion-segment-button value="wallet" mode="md">
-      <ion-label>Wallet</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="investments">
-      <ion-label>Investments</ion-label>
-    </ion-segment-button>
-  </ion-segment>
 
   <!-- Wallet Segment... -->
   <div *ngIf="activeSegment === 'wallet'" class="segment segment-wallet">
@@ -249,7 +251,7 @@
     class="segment segment-investments"
   >
     <div class="segment-head">
-      <div class="quick-summary">
+      <div class="quick-summary investments-green">
         <p class="title">
           Total Investments
           <ion-icon
@@ -286,7 +288,7 @@
       </div>
 
       <ion-row
-        class="investments-wrapper"
+        class="investments-wrapper investments-green"
         *ngIf="investment?.user_details.subscriber.subscription.length > 0"
       >
         <ion-col size="2">

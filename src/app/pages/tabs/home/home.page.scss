@@ -12,28 +12,44 @@ p {
 ion-content {
   --padding-start: 1.2rem;
   --padding-end: 1.2rem;
-  &.investments {
-    --background: linear-gradient(
-      to bottom,
-      #d9ecd8,
-      #d9ecd8 53%,
-      var(--ion-color-tertiary) 53%,
-      var(--ion-color-tertiary)
-    );
 
-    &.no-trans {
-      --background: linear-gradient(
-        to bottom,
-        #d9ecd8,
-        #d9ecd8 38%,
-        var(--ion-color-tertiary) 38%,
-        var(--ion-color-tertiary)
-      );
-    }
-    // background-attachment: fixed;
-  }
+
+  // &.investment {
+  //   --background: linear-gradient(
+  //     to bottom,
+  //     #d9ecd8,
+  //     #d9ecd8 53%,
+  //     var(--ion-color-tertiary) 53%,
+  //     var(--ion-color-tertiary)
+  //   );
+
+  //   &.no-trans {
+  //     --background: linear-gradient(
+  //       to bottom,
+  //       #d9ecd8,
+  //       #d9ecd8 38%,
+  //       var(--ion-color-tertiary) 38%,
+  //       var(--ion-color-tertiary)
+  //     );
+  //   }
+  //   // background-attachment: fixed;
+  // }
 }
 // Normal = 53%
+
+.segment-tabs-wrapper{
+  margin-left: -1.2rem;
+  margin-right: -1.2rem !important;
+  padding: 0 1.2rem;
+
+  &.is-investments{
+    background: #d9ecd8;
+  }
+}
+
+.investments-green{
+  background-color: #d9ecd8;
+}
 
 .daily-rate {
   width: fit-content;
@@ -52,7 +68,8 @@ ion-content {
 }
 
 .main-header {
-  margin: 4.3rem 0 0.3rem 0;
+  padding-top: 4.3rem;
+  margin-bottom: 0.3rem;
   display: flex;
   justify-content: space-between;
 
@@ -85,7 +102,7 @@ ion-content {
 }
 
 .segment {
-  margin-top: 0.5rem;
+  // padding-top: 0.5rem;
 
   .finish-kyc {
     margin-top: 1rem;
@@ -118,6 +135,7 @@ ion-segment-button {
 }
 
 .summary {
+  margin-top: .5rem;
   padding: 1.1rem;
   background: linear-gradient(103.58deg, #211f42 21.06%, #51af4e 102.24%);
   box-shadow: 0px 3px 4px rgba(33, 31, 66, 0.1);
@@ -201,7 +219,8 @@ ion-segment-button {
 }
 
 .quick-summary {
-  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  padding-bottom: 1rem;
 
   p.title {
     text-align: center;
@@ -218,7 +237,7 @@ ion-segment-button {
   }
 
   .cta-wrapper {
-    margin: 1rem 0;
+    margin: 1rem 0 0 0;
     padding: 0 4rem;
     display: flex;
     justify-content: space-around;
@@ -254,7 +273,7 @@ ion-segment-button {
 
 .list-wrapper {
   height: 55%;
-  padding-top: 2.3rem;
+  padding-top: 1.7rem;
 }
 
 p.section-title {
@@ -269,7 +288,7 @@ p.section-title {
 }
 
 .recent-trans {
-  margin: 1rem 0 0.5rem 0;
+  margin: 1.3rem 0 0.5rem 0;
   display: flex;
   justify-content: space-between;
 
@@ -364,9 +383,9 @@ div.segment-head {
 ion-row.investments-wrapper {
   overflow-y: scroll;
   flex-wrap: nowrap;
-  margin: 1rem -1.8rem;
+  margin: 0rem -1.8rem;
   padding-left: 1.5rem;
-  // margin-left: -7rem;
+  padding-bottom: 1rem;
 
   &::-webkit-scrollbar {
     display: none; //Disables browser's default scroll bar
