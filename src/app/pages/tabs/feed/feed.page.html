@@ -17,8 +17,8 @@
         ></ion-icon>
       </div>
       <div class="notification">
-        <p>Your withdrawal request from The Plan (Junzi) has been accepted</p>
-        <p>16 Feb 2023</p>
+        <p>{{notifications[0].message}}</p>
+        <p>{{notifications[0].created_at | date}}</p>
       </div>
     </div>
 
@@ -40,63 +40,28 @@
   </div>
   
   <ion-row class="faqs-wrapper" *ngIf="explore">
-    <ion-col size="6">
-      <div class="thumbnail" (click)="viewFAQDetails()" style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('../../../../assets/imgs/v2-imgs/feed1.jpg');">
+    <ion-col size="6" *ngFor="let faq of faqs">
+      <div class="thumbnail" (click)="viewFAQDetails(faq)" style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('{{'https://v2.kwml.work/storage/'+faq.thumbnail_image}}')">
         <div class="icon-wrapper">
           <ion-icon src="assets/icon/v2-icons/play.svg"></ion-icon>
         </div>
-        <p>How to transfer funds to your investment</p>
+        <p>{{faq.title}}</p>
       </div>
     </ion-col>
-    <ion-col size="6">
+    <!-- <ion-col size="6">
       <div class="thumbnail" style="background-image:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('../../../../assets/imgs/v2-imgs/feed2.jpg');">
         <div class="icon-wrapper">
           <ion-icon src="assets/icon/v2-icons/play.svg"></ion-icon>
         </div>
         <p>How to deposit into your wallet</p>
       </div>
-    </ion-col>
-    <ion-col size="6">
-      <div class="thumbnail" style="background-image:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('../../../../assets/imgs/v2-imgs/feed1.jpg');">
-        <div class="icon-wrapper">
-          <ion-icon src="assets/icon/v2-icons/play.svg"></ion-icon>
-        </div>
-        <p>How to transfer funds to your investment</p>
-      </div>
-    </ion-col>
-    <ion-col size="6">
-      <div class="thumbnail" style="background-image:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .9)), url('../../../../assets/imgs/v2-imgs/feed2.jpg');">
-        <div class="icon-wrapper">
-          <ion-icon src="assets/icon/v2-icons/play.svg"></ion-icon>
-        </div>
-        <p>How to deposit into your wallet</p>
-      </div>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
 
   <div class="faq-loading-wrapper" *ngIf="!explore">
     <ion-spinner color="primary" name="crescent"></ion-spinner>
     Loading FAQs...
   </div>
-
-  <!-- <ion-row class="faqs-wrapper tt-skeletons" *ngIf="!false">
-    <ion-col size="6" *ngFor="let f of [1,2,3,4]">
-      <ion-item>
-      <ion-thumbnail slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-thumbnail>
-</ion-item>
-    </ion-col>
-  </ion-row> -->
-
-  <!-- <div class="tt-skeletons" *ngIf="!false">
-    <ion-item *ngFor="let f of [1,2,3,4]">
-      <ion-thumbnail slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-thumbnail>
-    </ion-item>
-  </div> -->
-  
 
   <div class="recent-view">
     <p class="section-title">Recent News</p>
@@ -110,7 +75,7 @@
     <ion-col size="6" *ngFor="let feed of explore?.feeds">
       <div class="news" (click)="viewNewsFeedsDetails(feed)">
         <div class="img-wrapper">
-          <img src="assets/imgs/v2-imgs/news1.png" alt="">
+          <img [src]="'assets/imgs/v2-imgs/news1.png'" alt="">
         </div>
         <h4>{{feed.title.slice(0, 65)}}</h4>
         <p>{{feed.published | date}}</p>

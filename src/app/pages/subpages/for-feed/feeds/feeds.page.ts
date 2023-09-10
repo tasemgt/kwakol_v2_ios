@@ -9,16 +9,18 @@ import { Router } from '@angular/router';
 export class FeedsPage implements OnInit {
 
   public fromPage: string;
+  public feeds = [];
 
   constructor(private router: Router) {
     if (this.router.getCurrentNavigation().extras.state) {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
+      this.feeds = state.feeds;
     }
   }
 
-  public viewFeedDetails(){
-    this.router.navigateByUrl('/feed-details', {state: {url: this.router.url}});
+  public viewFeedDetails(feed){
+    this.router.navigateByUrl('/feed-details', {state: {url: this.router.url, feed}});
   }
 
   ngOnInit() {

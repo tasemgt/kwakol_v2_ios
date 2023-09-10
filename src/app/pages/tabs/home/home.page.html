@@ -215,7 +215,8 @@
     </div>
 
     <div class="loading-spinner-wrapper" *ngIf="listSpinner">
-      <ion-spinner color="secondary" name="crescent"></ion-spinner>
+      <ion-spinner color="primary" name="crescent"></ion-spinner>
+      Loading transactions...
     </div>
 
     <div
@@ -403,7 +404,8 @@
       </div>
 
       <div class="loading-spinner-wrapper" *ngIf="listSpinner">
-        <ion-spinner color="secondary" name="crescent"></ion-spinner>
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+        Loading transactions...
       </div>
 
     </div>
@@ -550,7 +552,7 @@
             class="loading-spinner-wrapper"
             *ngIf="listSpinner && myInvestments?.length <= 0"
           >
-            <ion-spinner color="secondary" name="crescent"></ion-spinner>
+            <ion-spinner color="primary" name="crescent"></ion-spinner>
           </div>
 
           <div

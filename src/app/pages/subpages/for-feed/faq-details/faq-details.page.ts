@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,15 +10,20 @@ import { Router } from '@angular/router';
 export class FaqDetailsPage implements OnInit {
 
   public fromPage: string;
+  public faq: any;
+  public faqBody: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private sanitizer: DomSanitizer) {
     if (this.router.getCurrentNavigation().extras.state) {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
+      this.faq = state.faq;
+      this.faqBody = state.faq.body;
     }
   }
-  
+
   ngOnInit() {
+    this.faqBody = this.sanitizer.bypassSecurityTrustHtml(this.faqBody);
   }
 
 }

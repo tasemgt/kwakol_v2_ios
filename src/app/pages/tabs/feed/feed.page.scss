@@ -185,27 +185,6 @@ ion-row.news-wrapper {
   color: rgba(var(--ion-color-secondary-rgb), 0.7);
 }
 
-
-.tt-skeletons {
-  ion-label {
-    ion-skeleton-text.left {
-      // float: left;
-    }
-  }
-  ion-thumbnail {
-    border-radius: 5px;
-    width: 100%;//7.5rem;
-    height: 8rem;//4.5rem;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  ion-item {
-    margin-bottom: 0.6rem;
-    border-radius: 5px;
-    --inner-border-width: 0px;
-  }
-}
-
 .no-notifications {
   // position: absolute;
   color: rgba(var(--ion-color-secondary-rgb), 0.7);

@@ -10,6 +10,9 @@ import { FeedsService } from 'src/app/services/feeds.service';
 export class FeedPage implements OnInit {
 
   public explore;
+  public notifications = [];
+  public faqs = [];
+  public feeds = [];
 
   constructor(
     private router: Router,
@@ -24,19 +27,19 @@ export class FeedPage implements OnInit {
   }
 
   public viewNotifications(){
-    this.router.navigateByUrl('/notifications', {state: {url: this.router.url}});
+    this.router.navigateByUrl('/notifications', {state: {url: this.router.url, notifications:this.notifications}});
   }
 
   public viewFAQs(){
-    this.router.navigateByUrl('/faqs', {state: {url: this.router.url}});
+    this.router.navigateByUrl('/faqs', {state: {url: this.router.url, faqs: this.faqs}});
   }
 
-  public viewFAQDetails(){
-    this.router.navigateByUrl('/faq-details', {state: {url: this.router.url}});
+  public viewFAQDetails(faq){
+    this.router.navigateByUrl('/faq-details', {state: {url: this.router.url, faq}});
   }
 
   public viewNewsFeeds(){
-    this.router.navigateByUrl('/feeds', {state: {url: this.router.url}});
+    this.router.navigateByUrl('/feeds', {state: {url: this.router.url, feeds: this.feeds}});
   }
 
   public viewNewsFeedsDetails(feed){
@@ -48,6 +51,9 @@ export class FeedPage implements OnInit {
       const resp = await this.feedService.getExploreData();
       if(resp.code == '100'){
         this.explore = resp.data;
+        this.notifications = this.explore.notifications;
+        this.faqs = this.explore.faq;
+        this.feeds = this.explore.feeds;
         console.log(this.explore);
       }
     } catch (error) {

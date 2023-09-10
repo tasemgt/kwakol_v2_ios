@@ -296,7 +296,7 @@ p.section-title {
   }
 
   &.investments {
-    margin: 0.2rem 0;
+    margin: 0.3rem 0;
   }
 
   p {
@@ -493,8 +493,15 @@ ion-row.investments-wrapper {
 }
 
 .loading-spinner-wrapper {
-  margin: 8rem 0;
-  text-align: center;
+  margin: 11rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  justify-content: center;
+  font-size: .7rem;
+  letter-spacing: .01;
+  color: rgba(var(--ion-color-secondary-rgb), 0.6);
 }
 
 .content-wrapper.banks-wrapper{
