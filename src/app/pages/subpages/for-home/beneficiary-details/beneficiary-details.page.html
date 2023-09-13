@@ -145,7 +145,7 @@
           >
             {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
           </div>
-          <div class="trans-date">{{trans.date}}</div>
+          <div class="trans-date">{{trans.status === 'pending' ?  'pending' : (trans.created_at | date) }}</div>
         </div>
       </div>
     </div>
@@ -267,7 +267,7 @@
               <h3>{{beneficiary.fullname}}</h3>
             </div>
           </div>
-          <h3>${{beneficiary.balance}}</h3>
+          <h3>${{util.numberWithCommas(beneficiary.balance)}}</h3>
         </div>
 
         <div
@@ -294,10 +294,10 @@
               </div>
             </ion-col>
             <ion-col size="12">
-              <p class="wallet-balance">
+              <!-- <p class="wallet-balance">
                 Free withdrawals left:
                 <span>3</span>
-              </p>
+              </p> -->
             </ion-col>
           </ion-row>
         </div>

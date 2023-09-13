@@ -25,12 +25,13 @@
     <div class="notification-loading-wrapper" *ngIf="!explore">
       <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
-
   </div>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="page-content">
-  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="recent-view">
     <p class="section-title">Frequently Asked Questions</p>
     <p class="section-title" (click)="viewFAQs()">
@@ -75,7 +76,7 @@
     <ion-col size="6" *ngFor="let feed of explore?.feeds">
       <div class="news" (click)="viewNewsFeedsDetails(feed)">
         <div class="img-wrapper">
-          <img [src]="'assets/imgs/v2-imgs/news1.png'" alt="">
+          <img src="{{feed.thumbnail_image ? ('https://v2.kwml.work/storage/'+feed.thumbnail_image) : 'assets/imgs/v2-imgs/news1.png'}}" alt="">
         </div>
         <h4>{{feed.title.slice(0, 65)}}</h4>
         <p>{{feed.published | date}}</p>

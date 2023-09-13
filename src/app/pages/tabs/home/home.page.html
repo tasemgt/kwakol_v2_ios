@@ -107,50 +107,6 @@
             </p> -->
           </div>
         </ion-col>
-        <!-- <ion-col size="4">
-          <div class="quick-transfer-item">
-            <div class="default-img">JM</div>
-            <p>Janada</p>
-          </div>
-        </ion-col>
-        <ion-col size="4">
-          <div class="quick-transfer-item">
-            <div class="default-img">IU</div>
-            <p>Ibrahim</p>
-          </div>
-        </ion-col>
-        <ion-col size="4">
-          <div class="quick-transfer-item">
-            <div class="default-img">AA</div>
-            <p>Aisha</p>
-          </div>
-        </ion-col> -->
-
-        <!-- <ion-col
-          size="6"
-          *ngFor="let inv of home?.user_details.subscriber.subscription"
-          [ngClass]="{'alter-margin': home?.user_details.subscriber.subscription.length === 1}"
-        >
-          <div class="investment-item" (click)="goToInvestmentDeets(inv)">
-            <p>Balance</p>
-            <h4>
-              <span *ngIf="showBalance"
-                >${{ util.numberWithCommas(addInvBalances(inv)) }}</span
-              ><span *ngIf="!showBalance" class="hidden">******</span>
-            </h4>
-            <div
-              class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"
-            >
-              <ion-icon
-                [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"
-              ></ion-icon>
-              <h4>
-                {{ inv.subscription.name.substring(0,8)
-                }}{{inv.subscription.name.length > 8 ? '...': ''}}
-              </h4>
-            </div>
-          </div>
-        </ion-col> -->
       </ion-row>
     </div>
 
@@ -171,7 +127,7 @@
     >
       <div
         class="transaction"
-        (click)="openInfoModal(trans.type.toLowerCase(), trans)"
+        (click)="openInfoModal(trans.type.toLowerCase(), trans, true)"
         *ngFor="let trans of wallet?.latest_wallet_transactions | slice:0:5"
       >
         <div class="trans-type-wrapper">
@@ -369,7 +325,7 @@
         <div
           class="transaction"
           *ngFor="let hist of homeHistories | slice:0:5"
-          (click)="openInfoModal(hist.type.toLowerCase(), hist)"
+          (click)="openInfoModal(hist.type.toLowerCase(), hist, false)"
         >
           <div class="trans-type-wrapper">
             <ion-icon
@@ -385,7 +341,7 @@
               class="amount"
               [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
             >
-              ${{ util.numberWithCommas(hist.amount) }}
+            {{util.getAmountSign(hist.type.toLowerCase())}}${{ util.numberWithCommas(hist.amount) }}
             </div>
             <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
@@ -516,7 +472,8 @@
     #investmentTransferModal
     trigger="open-investment-transfer-drawer"
     [initialBreakpoint]="0.45"
-    [breakpoints]="[0, 0.30, 0.45, 0.70, 0.90]"
+    
+    [breakpoints]="[0, 0.30, 0.45, 0.70, 0.90, 1.0]"
     class="kwakol-modal-bottom-drawer2 transfer-investment"
     handle="true"
   >

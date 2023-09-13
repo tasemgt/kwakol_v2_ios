@@ -91,6 +91,14 @@ export class InvestmentDetailsPage implements OnInit {
     console.log('HistStats ', this.histStats);
   }
 
+  // public doRefresh(event): void {
+  //   this.getHistoriesQuiet();
+
+  //   setTimeout(() => {
+  //     event.target.complete();
+  //   }, 1000);
+  // }
+
   public getIconForInvName(inv: string) {
     if (inv) {
       return investmentIcons[inv.toLowerCase()];
@@ -311,4 +319,12 @@ export class InvestmentDetailsPage implements OnInit {
   }
 
   public closeInvestment() {}
+
+  // private async getInvestmentDetailsQuiet() {
+  //   const resp = await this.homeService.getInvestmentHistory(inv.id);
+  //   console.log('e>> ', resp);
+  //   if (resp.code === '100') {
+  //     const histStats =  resp.data;
+  //   }
+  // }
 }

@@ -236,7 +236,8 @@ export class HistoryPage implements OnInit {
     return arr;
   }
 
-  public openInfoModal(type, data) {
+  public openInfoModal(type, data, fromWallet) {
+    data.fromWallet = fromWallet;
     if(type === 'bonus'){
       return;
     }

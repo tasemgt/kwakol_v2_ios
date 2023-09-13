@@ -22,6 +22,14 @@ export class FeedPage implements OnInit {
     this.getFeeds();
   }
 
+  public doRefresh(event): void {
+    this.getFeedsQuiet();
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
   public goToFeedDetails(feed){
     this.router.navigateByUrl('/feed-details', {state: {url:this.router.url, feed}});
   }
@@ -58,6 +66,17 @@ export class FeedPage implements OnInit {
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  private async getFeedsQuiet(){
+    const resp = await this.feedService.getExploreData();
+    console.log('Quiet Feeds>> ', resp);
+    if (resp.code == '100') {
+      this.explore = resp.data;
+      this.notifications = this.explore.notifications;
+      this.faqs = this.explore.faq;
+      this.feeds = this.explore.feeds;
     }
   }
 

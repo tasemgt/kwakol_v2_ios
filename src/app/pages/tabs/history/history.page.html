@@ -44,7 +44,7 @@
     <div class="month-wrapper" *ngFor="let wH of walletHistories">
       <p class="month">{{wH.year+'/'+wH.month | date : 'MMMM, y'}}</p>
       <div class="transactions-list no-border">
-        <div class="transaction" *ngFor="let hist of wH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist)">
+        <div class="transaction" *ngFor="let hist of wH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist, true)">
           <div class="trans-type-wrapper">
             <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">
@@ -66,7 +66,7 @@
     <div class="month-wrapper" *ngFor="let iH of investmentHistories">
       <p class="month">{{iH.year?  (iH.year+'/'+iH.month | date : 'MMMM, y') : ''}}</p>
       <div class="transactions-list no-border">
-        <div class="transaction" *ngFor="let hist of iH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist)">
+        <div class="transaction" *ngFor="let hist of iH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist, false)">
           <div class="trans-type-wrapper">
             <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
             <div class="trans-type">

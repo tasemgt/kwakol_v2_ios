@@ -311,12 +311,6 @@ export class HomePage implements OnInit {
     }
   }
 
-  public goToInvestmentDeets(sub) {
-    this.router.navigateByUrl('/investment-details', {
-      state: { url: this.router.url, sub },
-    });
-  }
-
   public doRefresh(event): void {
     this.getHomeQuietly();
 
@@ -337,7 +331,8 @@ export class HomePage implements OnInit {
     this.router.navigateByUrl('/tabs/history');
   }
 
-  public openInfoModal(type, data) {
+  public openInfoModal(type, data, fromWallet) {
+    data.fromWallet = fromWallet;
     if(type === 'bonus'){
       return;
     }
@@ -511,12 +506,29 @@ export class HomePage implements OnInit {
 
   public makeInvestmentOrBeneficiaryTransfer(type: string) {
     if (type === 'investment') {
-      this.doInvestmentTransferModal.dismiss();
       if(this.isInvestmentWithdrawal){
+        //Investment withdrawal section
+        if(!this.withdrawalInvestmentAmount){
+          this.util.showToast('Kindly input a withdrawal amount.', 2500, 'danger');
+          return;
+        }
         this.withdrawalInvestmentModal.dismiss();
       }
-    } else {
+      else{
+        //Investment transfer section
+        if(!this.investmentTransferAmount){
+          this.util.showToast('Kindly input a transfer amount.', 2500, 'danger');
+          return;
+        }
+        this.doInvestmentTransferModal.dismiss();
+      }
+    } 
+    else{
       //For beneficiary
+      if(!this.beneficiaryTransferAmount){
+        this.util.showToast('Kindly input a transfer amount.', 2500, 'danger');
+        return;
+      }
       this.doBeneficiaryTransferModal.dismiss();
     }
     this.typeOfTransfer = type;

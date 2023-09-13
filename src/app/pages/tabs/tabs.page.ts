@@ -87,30 +87,39 @@ export class TabsPage {
     this.infoModalDataType = type;
     switch (type) {
       case 'deposit':
-        this.infoModalData.icon = 'trans-deposit.svg';
-        this.infoModalData.title = 'Deposit';
-        this.infoModalData.content = [
+        const walletCont = [
           { item: 'Account Name', value: data.fullname },
           { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Deposit Type', value: data.type },
-          // { item: 'Rate', value: '----' },
-          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ data.fee },
+          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00')},
         ];
+        const invCont = [
+          { item: 'Comment', value: data.comment},
+          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00') }
+        ];
+        this.infoModalData.icon = 'trans-deposit.svg';
+        this.infoModalData.title = 'Deposit';
+        this.infoModalData.content = data.fromWallet ? walletCont : invCont ;
         this.infoModalData.amount = data.amount;
         this.infoModalData.date = `${data.date} - ${data.time}`;
         break;
       case 'withdrawal':
-        this.infoModalData.icon = 'trans-withdraw.svg';
-        this.infoModalData.title = 'Withdrawal';
-        this.infoModalData.content = [
+        const walletContent = [
           { item: 'Account Name', value: data.fullname },
           { item: 'Account Number', value: data.bank_account || 'Cash' },
           { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Withdrawal Type', value: data.type },
-          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ data.fee },
+          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00')},
         ];
+        const invContent = [
+          { item: 'Comment', value: data.comment},
+          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00') }
+        ];
+        this.infoModalData.icon = 'trans-withdraw.svg';
+        this.infoModalData.title = 'Withdrawal';
+        this.infoModalData.content = data.fromWallet ? walletContent : invContent ;
         this.infoModalData.amount = data.amount;
         this.infoModalData.date = `${data.date} - ${data.time}`;
         break;
