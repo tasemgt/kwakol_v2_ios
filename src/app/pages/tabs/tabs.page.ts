@@ -141,7 +141,8 @@ export class TabsPage {
           { item: 'Closed Trade', value: `$${data.close_trade}` },
           { item: 'Commission', value: `$${data.commission}` },
           { item: 'Percentage (P/L)', value: `${data.percentage}%` },
-          { item: 'Opening Balance', value: `$${data.opening_balance}` },
+          { item: 'Opening Balance', value: `$${this.util.numberWithCommas(data.opening_balance)}` },
+          { item: 'Reference', value: data.ref },
           // { item: 'Month', value: 'Akim John' },
           { item: 'Profit', value: `$${data.net_profit}` },
         ];
