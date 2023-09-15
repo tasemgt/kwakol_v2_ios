@@ -7,7 +7,6 @@ import { DataService } from 'src/app/services/data.service';
 import { HistoryService } from 'src/app/services/history.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
-import { BottomDrawerPage } from '../../modals/bottom-drawer/bottom-drawer.page';
 import { UiService } from 'src/app/services/ui.service';
 
 @Component({
@@ -194,17 +193,12 @@ export class HistoryPage implements OnInit {
 
       this.listSpinner = false;
 
-      console.log(resp1);
-      console.log(resp2);
-
       this.walletHistories = this.objectsToArray(resp1.data.wallet_history.data);
       this.investmentHistories = this.objectsToArray(resp2.data.investment_history.data);
-
-      // if (resp1.code == '100' && resp2.code == '100') {
-      //   // this.histories = resp.data.history.data;
-      //   console.log(resp1);
-      //   console.log(resp2);
-      // }
+      
+      console.log(this.walletHistories);
+      console.log(this.investmentHistories);
+      
     } catch (error) {
       console.log(error);
     }

@@ -42,13 +42,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'bottom-drawer',
-    loadChildren: () =>
-      import('./pages/modals/bottom-drawer/bottom-drawer.module').then(
-        (m) => m.BottomDrawerPageModule
-      ),
-  },
-  {
     path: 'new-account',
     canActivate: [AuthenGuard],
     loadChildren: () =>

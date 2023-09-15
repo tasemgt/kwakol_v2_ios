@@ -2,8 +2,47 @@
   class="backdrop animate__animated animate__fadeIn"
   #backdrop
   *ngIf="backdropActive"
-  (click)="closeLoadingModal()"
+  (click)="closeModal()"
 ></div>
+
+<!-- Info Modal Begin -->
+<div
+#InfoModalDiv
+class="info-modal reset animate__animated animate__slideInUp"
+*ngIf="showInfoModal"
+>
+<div class="header">
+  <ion-icon [src]="'assets/icon/v2-icons/'+ infoModalData.icon"></ion-icon>
+  <h4>{{infoModalData.title}}</h4>
+</div>
+
+<div class="content">
+  <p class="item" *ngFor="let item of infoModalData.content">
+    <span>{{item.item}}</span>
+    <span
+      >{{item.value}}
+      <ion-icon
+        *ngIf="item.item === 'Reference' || item.item === 'Opening Balance'"
+        (click)="util.clipboardCopy(item.item)"
+        src="assets/icon/copy.svg"
+      ></ion-icon
+    ></span>
+  </p>
+</div>
+
+<div class="footer">
+  <div class="amount-date">
+    <div class="amount">
+      {{util.getAmountSign(infoModalDataType.toLowerCase())}}${{util.numberWithCommas(infoModalData.amount)}}
+    </div>
+    <div class="date">{{infoModalData.date}}</div>
+  </div>
+  <div class="round-button" (click)="closeModal()">
+    <ion-icon src="assets/icon/close.svg"></ion-icon>
+  </div>
+</div>
+</div>
+<!-- Info Modal End -->
 
 <!-- Loading Modal Begin -->
 <div
@@ -53,7 +92,7 @@
     >
       Yes, I'm Sure
     </div>
-    <div class="round-button" (click)="closeLoadingModal()">
+    <div class="round-button" (click)="closeModal()">
       <ion-icon src="assets/icon/close.svg"></ion-icon>
     </div>
   </div>
@@ -128,6 +167,7 @@
       <div
         class="transaction"
         *ngFor="let trans of history"
+        (click)="openInfoModal(trans.type.toLowerCase(), trans)"
       >
         <div class="trans-type-wrapper">
           <ion-icon

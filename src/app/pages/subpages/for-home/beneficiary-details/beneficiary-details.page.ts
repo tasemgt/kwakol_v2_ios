@@ -14,6 +14,7 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./beneficiary-details.page.scss'],
 })
 export class BeneficiaryDetailsPage implements OnInit {
+  @ViewChild('InfoModalDiv') infoModalDiv: ElementRef;
   @ViewChild('LoadingModalDiv') loadingModalDiv: ElementRef;
   @ViewChild('backdrop') backdrop: ElementRef;
 
@@ -42,6 +43,9 @@ export class BeneficiaryDetailsPage implements OnInit {
   public dateState = 'from';
 
   public showLoadingModal: boolean;
+  public showInfoModal: boolean;
+  public infoModalData: any;
+  public infoModalDataType: string;
   public backdropActive = false;
   public loadingModalType: string;
 
@@ -56,6 +60,8 @@ export class BeneficiaryDetailsPage implements OnInit {
 
   public inputPinTypePassword = true;
   public pin: string;
+
+  public openedFrom = '';
 
   //Segments
   public withdrawAmount: string;
@@ -82,6 +88,7 @@ export class BeneficiaryDetailsPage implements OnInit {
       this.stat = state.benHistStat.beneficiary_details;
       this.history = state.benHistStat.transaction_details.data;
     }
+    this.infoModalData = {};
   }
 
   ngOnInit() {
@@ -97,6 +104,19 @@ export class BeneficiaryDetailsPage implements OnInit {
     this.activeSegment = event.target.value;
   }
 
+  public openInfoModal(type, data) {
+    this.openedFrom = 'info';
+    this.infoModalDataType = type;
+    console.log(data);
+    const res = this.util.infoModalFunc(type, data, this.infoModalData);
+    setTimeout(() => {
+      if (res) {
+        this.backdropActive = true;
+        this.showInfoModal = true;
+      }
+    }, 10);
+  }
+
   //Responsible for alerts and confirmation.
   public openLoadingModal(type: string) {
     this.loadingModalType = type;
@@ -106,27 +126,50 @@ export class BeneficiaryDetailsPage implements OnInit {
     }, 10);
   }
 
-  public closeLoadingModal() {
-    const loadingModalDiv = this.loadingModalDiv.nativeElement;
+  public closeModal() {
+    const modalDiv =
+      this.openedFrom === 'info'
+        ? this.infoModalDiv.nativeElement
+        : this.loadingModalDiv.nativeElement;
     const backdrop = this.backdrop.nativeElement;
 
-    this.renderer.removeClass(loadingModalDiv, 'animate__slideInUp');
-    this.renderer.addClass(loadingModalDiv, 'animate__slideOutDown');
+    this.renderer.removeClass(modalDiv, 'animate__slideInUp');
+    this.renderer.addClass(modalDiv, 'animate__slideOutDown');
     this.renderer.removeClass(backdrop, 'animate__fadeIn');
     this.renderer.addClass(backdrop, 'animate__fadeOut');
+    // this.renderer.setStyle(registerDiv, 'display', 'none');
     setTimeout(() => {
       this.backdropActive = false;
+      this.showInfoModal = false;
       this.showLoadingModal = false;
-
+      this.openedFrom = '';
       if (this.loadingModalType === 'alert') {
         this.subscriptionService.getBalanceSubject().next(true);
-        // this.router.navigateByUrl('/tabs/home');
       }
     }, 100);
   }
 
+  // public closeLoadingModal() {
+  //   const loadingModalDiv = this.loadingModalDiv.nativeElement;
+  //   const backdrop = this.backdrop.nativeElement;
+
+  //   this.renderer.removeClass(loadingModalDiv, 'animate__slideInUp');
+  //   this.renderer.addClass(loadingModalDiv, 'animate__slideOutDown');
+  //   this.renderer.removeClass(backdrop, 'animate__fadeIn');
+  //   this.renderer.addClass(backdrop, 'animate__fadeOut');
+  //   setTimeout(() => {
+  //     this.backdropActive = false;
+  //     this.showLoadingModal = false;
+
+  //     if (this.loadingModalType === 'alert') {
+  //       this.subscriptionService.getBalanceSubject().next(true);
+  //       // this.router.navigateByUrl('/tabs/home');
+  //     }
+  //   }, 100);
+  // }
+
   public async openEnterWithdrawalAmount() {
-    this.closeLoadingModal(); //
+    this.closeModal(); //
     await this.withdrawToWalletModal.present();
     if (this.withdrawAmountRef?.nativeElement) {
       this.withdrawAmountRef.nativeElement.focus();

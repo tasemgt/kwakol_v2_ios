@@ -36,7 +36,8 @@
       <div class="amount-date">
         <div class="amount">{{transferUser.main_user == infoModalData.sender? '-':'+'}}${{util.numberWithCommas(infoModalData.amount)}}</div>
         <!-- <div class="date">{{infoModalData.created_at | date}}</div> -->
-        <div class="date">{{infoModalData.date+ '-' + infoModalData.time}}</div>
+        <!-- <div class="date">{{infoModalData.date+ '-' + infoModalData.time}}</div> -->
+        <div class="date">{{infoModalData.created_at | date : 'd MMMM, y - h:mm a'}}</div>
       </div>
       <div class="round-button" (click)="closeInfoModal()">
         <ion-icon src="assets/icon/close.svg"></ion-icon>
@@ -128,7 +129,7 @@
   </div>
 
   <div class="chat-input-container" [ngStyle]="footerStyles()">
-    <div class="wallet-balance">Wallet Balance: <span>${{walletBalance}}</span></div>
+    <div class="wallet-balance">Wallet Balance: <span>${{util.numberWithCommas(walletBalance)}}</span></div>
 
     <div class="input-wrapper">
       <input

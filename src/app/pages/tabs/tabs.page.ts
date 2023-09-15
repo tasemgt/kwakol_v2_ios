@@ -83,86 +83,12 @@ export class TabsPage {
   }
 
   public openInfoModal(type, data) {
-    console.log('DATA', data);
     this.infoModalDataType = type;
-    switch (type) {
-      case 'deposit':
-        const walletCont = [
-          { item: 'Account Name', value: data.fullname },
-          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
-          { item: 'Reference', value: data.ref },
-          { item: 'Deposit Type', value: data.type },
-          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00')},
-        ];
-        const invCont = [
-          { item: 'Comment', value: data.comment},
-          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00') }
-        ];
-        this.infoModalData.icon = 'trans-deposit.svg';
-        this.infoModalData.title = 'Deposit';
-        this.infoModalData.content = data.fromWallet ? walletCont : invCont ;
-        this.infoModalData.amount = data.amount;
-        this.infoModalData.date = `${data.date} - ${data.time}`;
-        break;
-      case 'withdrawal':
-        const walletContent = [
-          { item: 'Account Name', value: data.fullname },
-          { item: 'Account Number', value: data.bank_account || 'Cash' },
-          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
-          { item: 'Reference', value: data.ref },
-          { item: 'Withdrawal Type', value: data.type },
-          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00')},
-        ];
-        const invContent = [
-          { item: 'Comment', value: data.comment},
-          { item: 'Fee', value: (data.transfer_type === 'CASH' ? '$' : 'N' )+ (data.fee || '0.00') }
-        ];
-        this.infoModalData.icon = 'trans-withdraw.svg';
-        this.infoModalData.title = 'Withdrawal';
-        this.infoModalData.content = data.fromWallet ? walletContent : invContent ;
-        this.infoModalData.amount = data.amount;
-        this.infoModalData.date = `${data.date} - ${data.time}`;
-        break;
-      case 'transfer':
-        this.infoModalData.icon = 'trans-transfer-plan.svg';
-        this.infoModalData.title = 'Wallet Transfer';
-        this.infoModalData.content = [
-          { item: 'Username', value: data.email },
-          { item: 'Profile Name', value: data.fullname },
-          { item: 'Reference', value: data.ref },
-        ];
-        this.infoModalData.amount = data.amount;
-        this.infoModalData.date = `${data.date} - ${data.time}`;
-        break;
-      case 'profit':
-        this.infoModalData.icon = 'trans-profit.svg';
-        this.infoModalData.title = 'Profit';
-        this.infoModalData.content = [
-          { item: 'Closed Trade', value: `$${data.close_trade}` },
-          { item: 'Commission', value: `$${data.commission}` },
-          { item: 'Percentage (P/L)', value: `${data.percentage}%` },
-          { item: 'Opening Balance', value: `$${this.util.numberWithCommas(data.opening_balance)}` },
-          { item: 'Reference', value: data.ref },
-          // { item: 'Month', value: 'Akim John' },
-          { item: 'Profit', value: `$${data.net_profit}` },
-        ];
-        this.infoModalData.amount = data.amount;
-        this.infoModalData.date = `${data.date} - ${data.time}`;
-        break;
-      case 'bonus':
-        this.infoModalData.icon = 'trans-bonus.svg';
-        this.infoModalData.title = 'Bonus';
-        this.infoModalData.content = [
-          { item: 'Bonus Type', value: 'Referral' },
-          { item: 'Reference', value: 'Akim John' },
-        ];
-        this.infoModalData.amount = '1200';
-        this.infoModalData.date = `${data.date} - ${data.time}`;
-    }
-
+    const res = this.util.infoModalFunc(type, data, this.infoModalData);
     setTimeout(() => {
-      this.showInfoModal = true;
-      console.log(this.infoModalData);
+      if(res){
+        this.showInfoModal = true;
+      }
     }, 10);
   }
 

@@ -105,20 +105,6 @@ export const countries = [
     {name: 'France', img: 'france'}
   ];
 
-export const bottomDrawer = {
-    banks: [
-        { name: 'Wema Bank', selected: false },
-        { name: 'United Bank for Africa', selected: false },
-        { name: 'Keystone Bank', selected: false },
-        { name: 'Taj Bank', selected: false }
-    ],
-    investments: [
-        { name: 'Levadura', balance: '1,255.49', selected: false },
-        { name: 'Marigold', balance: '7,534.51', selected: false },
-        { name: 'Jūnzi', balance: '15,655.01', selected: false }
-    ]
-};
-
 //Data Service::
 //Email 'id': 1
 //User 'id': 2

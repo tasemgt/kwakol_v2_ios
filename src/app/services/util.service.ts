@@ -295,4 +295,108 @@ export class UtilService {
 
     return formattedDate;
   }
+
+  public infoModalFunc = (type, data, infoModalData): boolean => {
+    console.log('DATA', data);
+    switch (type) {
+      case 'deposit':
+        const walletCont = [
+          { item: 'Account Name', value: data.fullname },
+          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
+          { item: 'Reference', value: data.ref },
+          { item: 'Deposit Type', value: data.type },
+          {
+            item: 'Fee',
+            value:
+              (data.transfer_type === 'CASH' ? '$' : 'N') +
+              (data.fee || '0.00'),
+          },
+        ];
+        const invCont = [
+          { item: 'Comment', value: data.comment },
+          {
+            item: 'Fee',
+            value:
+              (data.transfer_type === 'CASH' ? '$' : 'N') +
+              (data.fee || '0.00'),
+          },
+        ];
+        infoModalData.icon = 'trans-deposit.svg';
+        infoModalData.title = 'Deposit';
+        infoModalData.content = data.fromWallet ? walletCont : invCont;
+        infoModalData.amount = data.amount;
+        infoModalData.date = `${data.date} - ${data.time}`;
+        break;
+      case 'withdrawal':
+        const walletContent = [
+          { item: 'Account Name', value: data.fullname },
+          { item: 'Account Number', value: data.bank_account || 'Cash' },
+          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
+          { item: 'Reference', value: data.ref },
+          { item: 'Withdrawal Type', value: data.type },
+          {
+            item: 'Fee',
+            value:
+              (data.transfer_type === 'CASH' ? '$' : 'N') +
+              (data.fee || '0.00'),
+          },
+        ];
+        const invContent = [
+          { item: 'Comment', value: data.comment },
+          {
+            item: 'Fee',
+            value:
+              (data.transfer_type === 'CASH' ? '$' : 'N') +
+              (data.fee || '0.00'),
+          },
+        ];
+        infoModalData.icon = 'trans-withdraw.svg';
+        infoModalData.title = 'Withdrawal';
+        infoModalData.content = data.fromWallet
+          ? walletContent
+          : invContent;
+        infoModalData.amount = data.amount;
+        infoModalData.date = `${data.date} - ${data.time}`;
+        break;
+      case 'transfer':
+        infoModalData.icon = 'trans-transfer-plan.svg';
+        infoModalData.title = 'Wallet Transfer';
+        infoModalData.content = [
+          { item: 'Username', value: data.email },
+          { item: 'Profile Name', value: data.fullname },
+          { item: 'Reference', value: data.ref },
+        ];
+        infoModalData.amount = data.amount;
+        infoModalData.date = `${data.date} - ${data.time}`;
+        break;
+      case 'profit':
+        infoModalData.icon = 'trans-profit.svg';
+        infoModalData.title = 'Profit';
+        infoModalData.content = [
+          { item: 'Closed Trade', value: `$${data.close_trade}` },
+          { item: 'Commission', value: `$${data.commission}` },
+          { item: 'Percentage (P/L)', value: `${data.percentage}%` },
+          {
+            item: 'Opening Balance',
+            value: `$${this.numberWithCommas(data.opening_balance)}`,
+          },
+          { item: 'Reference', value: data.ref },
+          // { item: 'Month', value: 'Akim John' },
+          { item: 'Profit', value: `$${data.net_profit}` },
+        ];
+        infoModalData.amount = data.amount;
+        infoModalData.date = `${data.date} - ${data.time}`;
+        break;
+      case 'bonus':
+        infoModalData.icon = 'trans-bonus.svg';
+        infoModalData.title = 'Bonus';
+        infoModalData.content = [
+          { item: 'Bonus Type', value: 'Referral' },
+          { item: 'Reference', value: 'Akim John' },
+        ];
+        infoModalData.amount = '1200';
+        infoModalData.date = `${data.date} - ${data.time}`;
+    }
+    return true;
+  };
 }
