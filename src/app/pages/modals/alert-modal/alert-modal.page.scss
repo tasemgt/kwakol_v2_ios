@@ -1,38 +1,36 @@
 ion-content{
-    --background: var(--ion-color-primary);
+    --background: var(--ion-color-tertiary);
 
     .img-wrapper{
         margin-top: 12rem;
         margin-bottom: 2rem;
         text-align: center;
-
-        .deposit-confirm{
-            width: 18rem;
-        }
     }
-
+    
     .message{
         text-align: center;
-        color: #FFF;
-
+        color: var(--ion-color-secondary);
+        
         h2{
-            font-family: BwModelicaMedium;
-            font-size: 1.4rem;
+            font-family: BwModelicaBold;
+            font-weight: bold;
+            margin-top: 8rem;
+            font-size: 1.6rem;
         }
-
+        
         p{
-            font-family: BwModelicaHairline;
+            color: rgba(var(--ion-color-secondary-rgb), .9);
+            font-family: BwModelicaLight;
             letter-spacing: -0.01em;
-            font-weight: 600;
-            /* line-height: 100%; */
-            font-size: 0.85rem;
+            font-weight: bold;
+            line-height: 1.4;
+            font-size: 0.87rem;
             margin: 0 auto;
             width: 80%;
         }
     }
 
-
     .btn-row{
-        margin-top: 17rem;
+        margin-top: 3rem;
     }
 }

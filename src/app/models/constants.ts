@@ -1,7 +1,7 @@
 export const constants = {
     baseUrl:  'https://kwml.work/api/v1',
     baseUrlV2:  'https://v2.kwml.work/api',
-    currentUser: 'CURRENT_KWAKOL_USER',
+    currentUser: 'CURRENT_KWAKOL_USER_v2',
     currentProfile: 'CURRENT_KWAKOL_PROFILE',
     userProfile: 'KWAKOL_USER_PROFILE',
     oneSignalAppID: 'cddc3c9c-6675-4256-b028-e8bf65c4702c',
@@ -13,38 +13,10 @@ export const constants = {
 export const alertPageParams = {
     emailSent: {
         image: 'alert-email-sent',
-        title: 'Email Sent',
+        title: 'Email sent',
         desc: 'We have sent the password recovery instructions to your email address.',
         btn: {
-            text: 'Back to Login',
-            url: '/login'
-        }
-    },
-    passwordChanged: {
-        image: 'padlock',
-        title: 'Password Changed',
-        desc: 'Great going. Your password has been changed and you are now good to go.',
-        btn: {
-            text: 'Finish',
-            url: '/login'
-        }
-    },
-    depositConfirm: {
-        image: 'deposit-confirm',
-        title: ' ',
-        desc: 'Sit tight, your funds are on their way.',
-        btn: {
-            text: 'Back Home',
-            url: '/tabs/home'
-        }
-    },
-    withdrawConfirm: {
-        image: 'withdraw-confirm',
-        title: 'Request Sent',
-        desc: 'Sit tight, your funds are on their way.',
-        btn: {
-            text: 'Back Home',
-            url: '/tabs/home'
+            text: 'Login'
         }
     },
     lockedScreen: {

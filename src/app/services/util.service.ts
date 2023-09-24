@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { LoadingPage } from '../pages/modals/loading/loading.page';
 import { LoadModalAnimation } from '../animation/loadModalAnimation';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
+import { UiService } from './ui.service';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,7 @@ export class UtilService {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private router: Router,
+    private uiService: UiService,
     private platform: Platform,
     private clipboard: Clipboard
   ) {
@@ -174,7 +176,8 @@ export class UtilService {
       });
       await modal.present();
       const { data } = await modal.onWillDismiss();
-      this.router.navigateByUrl(params.btn.url);
+      this.router.navigateByUrl('/onboarding');
+      this.uiService.getinstructOnboardingStateStateSubject().next(true);
       // await modal.onDidDismiss();
     } catch (error) {
       console.log('Error: ', error);
@@ -209,6 +212,11 @@ export class UtilService {
   public numberWithCommas(x): string {
     if (x) {
       x = x.toString().replace(/,/g, '');
+      const stringArr = x.split('.');
+      // console.log(stringArr);
+      if(stringArr.length > 1){
+        return (stringArr[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + stringArr[1]);
+      }
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
   }

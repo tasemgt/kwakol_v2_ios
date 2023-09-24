@@ -195,10 +195,10 @@ export class HistoryPage implements OnInit {
 
       this.walletHistories = this.objectsToArray(resp1.data.wallet_history.data);
       this.investmentHistories = this.objectsToArray(resp2.data.investment_history.data);
-      
+
       console.log(this.walletHistories);
       console.log(this.investmentHistories);
-      
+
     } catch (error) {
       console.log(error);
     }

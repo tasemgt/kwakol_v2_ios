@@ -107,6 +107,7 @@
             </p> -->
           </div>
         </ion-col>
+
       </ion-row>
     </div>
 
@@ -127,7 +128,7 @@
     >
       <div
         class="transaction"
-        (click)="openInfoModal(trans.type.toLowerCase(), trans, true)"
+        (click)="openInfoModal(trans.type.toLowerCase(), trans)"
         *ngFor="let trans of wallet?.latest_wallet_transactions | slice:0:5"
       >
         <div class="trans-type-wrapper">
@@ -325,7 +326,7 @@
         <div
           class="transaction"
           *ngFor="let hist of homeHistories | slice:0:5"
-          (click)="openInfoModal(hist.type.toLowerCase(), hist, false)"
+          (click)="openInfoModal(hist.type.toLowerCase(), hist)"
         >
           <div class="trans-type-wrapper">
             <ion-icon

@@ -708,7 +708,7 @@ export class HomePage implements OnInit {
       this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
       return;
     }
-    const nairaEquiv = +this.dailyRate * +this.dollarOrNairaWithdrawAmount;
+    const nairaEquiv = (+this.dailyRate * +this.dollarOrNairaWithdrawAmount).toFixed(2);
     this.nairaWithdrawEquivalentAmount = nairaEquiv + '';
     this.dollarAndNairaWithdrawalModal.dismiss();
     this.pinEnterModalWithdrawal.present();
