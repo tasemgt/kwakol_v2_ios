@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController } from '_node_modules/@ionic/angular';
 import { HomeService } from 'src/app/services/home.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UiService } from 'src/app/services/ui.service';

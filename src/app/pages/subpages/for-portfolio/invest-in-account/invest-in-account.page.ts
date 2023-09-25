@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonModal, LoadingController, Platform } from '@ionic/angular';
+import { IonModal, LoadingController, Platform } from '_node_modules/@ionic/angular';
 import { investmentIcons } from 'src/app/models/constants';
 import { Beneficiary } from 'src/app/models/user';
 import { HomeService } from 'src/app/services/home.service';

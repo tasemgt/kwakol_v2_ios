@@ -4,7 +4,7 @@ import {
   LoadingController,
   ModalController,
   NavController,
-} from '@ionic/angular';
+} from '_node_modules/@ionic/angular';
 import { Beneficiary } from 'src/app/models/user';
 import { DataService } from 'src/app/services/data.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';

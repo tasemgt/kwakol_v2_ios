@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonModal, LoadingController } from '@ionic/angular';
+import { IonModal, LoadingController } from '_node_modules/@ionic/angular';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UtilService } from 'src/app/services/util.service';
 import { historyIcons, investmentIcons } from 'src/app/models/constants';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Keyboard } from '_node_modules/@ionic-native/keyboard/ngx';
 import { HomeService } from 'src/app/services/home.service';
 import { UiService } from 'src/app/services/ui.service';
 

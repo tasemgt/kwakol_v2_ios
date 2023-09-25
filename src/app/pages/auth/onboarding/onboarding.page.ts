@@ -10,7 +10,7 @@ import {
   IonModal,
   LoadingController,
   ModalController,
-} from '@ionic/angular';
+} from '_node_modules/@ionic/angular';
 import { LoginPinPage } from '../login-pin/login-pin.page';
 import { UtilService } from 'src/app/services/util.service';
 import { Router } from '@angular/router';

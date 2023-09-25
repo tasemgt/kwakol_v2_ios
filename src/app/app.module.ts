@@ -2,23 +2,23 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { StatusBar } from '_node_modules/@ionic-native/status-bar/ngx';
 
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { IonicStorageModule } from '@ionic/storage-angular';
+import { IonicModule, IonicRouteStrategy } from '_node_modules/@ionic/angular';
+import { IonicStorageModule } from '_node_modules/@ionic/storage-angular';
 import { pageAnimation } from 'src/animations/nav-animations';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
-import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
-import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
+import { Keyboard } from '_node_modules/@ionic-native/keyboard/ngx';
+import { Clipboard } from '_node_modules/@awesome-cordova-plugins/clipboard/ngx';
+import { MobileAccessibility } from '_node_modules/@ionic-native/mobile-accessibility/ngx';
 // import { OneSignal } from '@awesome-cordova-plugins/onesignal/ngx';
-import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
-import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+import { ScreenOrientation } from '_node_modules/@awesome-cordova-plugins/screen-orientation/ngx';
+import { AppMinimize } from '_node_modules/@ionic-native/app-minimize/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
-import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
-import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
+import { FingerprintAIO  } from '_node_modules/@ionic-native/fingerprint-aio/ngx';
+import { Vibration } from '_node_modules/@awesome-cordova-plugins/vibration/ngx';
 import { BnNgIdleService } from 'bn-ng-idle';
 
 

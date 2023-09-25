@@ -40,7 +40,7 @@ h2.subpage-heading.left {
         color: rgba(255, 255, 255, 0.35);
         font-size: 0.65rem;
         font-family: BwModelicaHairline;
-        letter-spacing: 0.05rem;
+        letter-spacing: -0.04rem; //ios change
         font-weight: 600;
       }
 
@@ -156,7 +156,7 @@ h2.subpage-heading.left {
       --ripple-color: transparent;
       font-family: "BwModelicaLight";
       font-weight: 600;
-      letter-spacing: 0rem;
+      letter-spacing: -.05rem;
       font-size: 0.83rem;
       --color-checked: var(--ion-color-secondary);
       --indicator-color: var(--ion-color-primary);
@@ -170,7 +170,7 @@ h2.subpage-heading.left {
 }
 
 ion-content {
-  --padding-top: 0.8rem;
+  --padding-top: 1.5rem; //ios change
   --padding-bottom: 1.5rem;
   --padding-start: 1.3rem;
   --padding-end: 1.3rem;
@@ -205,7 +205,7 @@ ion-content {
       font-size: 0.65rem;
       font-family: BwModelicaLight;
       font-weight: 600;
-      letter-spacing: 0.025rem;
+      letter-spacing: -0.025rem; //ios change
       color: rgba(var(--ion-color-secondary-rgb), 0.5);
     }
   }

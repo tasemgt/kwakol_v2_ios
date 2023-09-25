@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform, LoadingController } from '@ionic/angular';
+import { Platform, LoadingController } from '_node_modules/@ionic/angular';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from '_node_modules/rxjs';
 import { constants } from '../models/constants';
 import { User, LoginCred, RegisterCred } from '../models/user';
 import { DataService } from './data.service';

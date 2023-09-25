@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '_node_modules/@ionic/angular';
 import { constants } from 'src/app/models/constants';
 import { User } from 'src/app/models/user';
 import { ProfileService } from 'src/app/services/profile.service';

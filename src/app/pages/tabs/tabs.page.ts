@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { IonTabs, LoadingController } from '@ionic/angular';
+import { IonTabs, LoadingController } from '_node_modules/@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UiService } from 'src/app/services/ui.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonModal, LoadingController, NavController } from '@ionic/angular';
+import { IonModal, LoadingController, NavController } from '_node_modules/@ionic/angular';
 import { NextOfKin } from 'src/app/models/user';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UiService } from 'src/app/services/ui.service';

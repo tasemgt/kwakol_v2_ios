@@ -1,17 +1,17 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { ModalController, NavController, Platform } from '@ionic/angular';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
-import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
-import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+import { ModalController, NavController, Platform } from '_node_modules/@ionic/angular';
+import { StatusBar } from '_node_modules/@ionic-native/status-bar/ngx';
+import { MobileAccessibility } from '_node_modules/@ionic-native/mobile-accessibility/ngx';
+import { ScreenOrientation } from '_node_modules/@awesome-cordova-plugins/screen-orientation/ngx';
+import { AppMinimize } from '_node_modules/@ionic-native/app-minimize/ngx';
 import { BnNgIdleService } from 'bn-ng-idle';
 // import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
-import { Subscription } from 'rxjs';
+import { Subscription } from '_node_modules/rxjs';
 import { AuthService } from './services/auth.service';
 import { OneSignalService } from './services/one-signal.service';
 
-import { filter } from 'rxjs/operators';
+import { filter } from '_node_modules/rxjs/operators';
 import { StorageService } from './services/storage.service';
 import { UtilService } from './services/util.service';
 
@@ -58,22 +58,22 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd)
-        ).subscribe((event: NavigationEnd) => {
-          this.previousUrl = this.currentUrl;
-          this.currentUrl = event.url;
+    // this.router.events.pipe(
+    //   filter((event) => event instanceof NavigationEnd)
+    //     ).subscribe((event: NavigationEnd) => {
+    //       this.previousUrl = this.currentUrl;
+    //       this.currentUrl = event.url;
 
-          console.log('Current ', this.currentUrl);
-          console.log('Previous ', this.previousUrl);
+    //       console.log('Current ', this.currentUrl);
+    //       console.log('Previous ', this.previousUrl);
 
-          // Handles status bar display
-          if (this.platform.is('cordova')) {
-            console.log('Is cordova');
-            this.statusBar.overlaysWebView(true);
-            this.handleStatusBarForPages();
-          }
-        });
+    //       // Handles status bar display
+    //       if (this.platform.is('cordova')) {
+    //         console.log('Is cordova');
+    //         this.statusBar.overlaysWebView(true);
+    //         this.handleStatusBarForPages();
+    //       }
+    //     });
 
         // this.util.getLockSubject().subscribe((res) =>{
         //   if(res){

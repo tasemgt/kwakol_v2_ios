@@ -6,8 +6,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
-import { IonModal, LoadingController } from '@ionic/angular';
+import { Keyboard } from '_node_modules/@ionic-native/keyboard/ngx';
+import { IonModal, LoadingController } from '_node_modules/@ionic/angular';
 import { historyIcons, investmentIcons } from 'src/app/models/constants';
 import { HomeService } from 'src/app/services/home.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';

@@ -60,7 +60,7 @@ class="info-modal reset animate__animated animate__slideInUp"
       ></ion-icon>
       <ion-icon
         *ngIf="loadingModalType === 'confirm'"
-        src="assets/imgs/v2-imgs/red-flag.svg"
+        [src]="'assets/imgs/v2-imgs/red-flag.svg'"
         alt=""
       ></ion-icon>
       <!-- <p class="loading-text" *ngIf="loadingModalType">
