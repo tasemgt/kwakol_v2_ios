@@ -17,9 +17,10 @@ import { AppMinimize } from 'node_modules/@ionic-native/app-minimize/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
-import { FingerprintAIO  } from 'node_modules/@ionic-native/fingerprint-aio/ngx';
-import { Vibration } from 'node_modules/@awesome-cordova-plugins/vibration/ngx';
+import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
     FingerprintAIO,
     BnNgIdleService,
     Keyboard,
-    Vibration
+    Vibration,
+    SocialSharing
     // OneSignal
   ],
   bootstrap: [AppComponent],

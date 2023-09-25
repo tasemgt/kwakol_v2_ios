@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { OneSignalService } from 'src/app/services/one-signal.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -68,6 +69,7 @@ export class OnboardingPage implements OnInit {
     private router: Router,
     private auth: AuthService,
     private util: UtilService,
+    private uiService: UiService,
     private loading: LoadingController,
     private oneSS: OneSignalService,
     private elementRef: ElementRef,
@@ -78,6 +80,15 @@ export class OnboardingPage implements OnInit {
     this.pin = '';
     this.credentials = { email: '', password: '' };
     this.regCreds = { email: '', password: '', confirmPassword: '' };
+
+
+    //This opens a modal as directed from another page via the ui service (tabs page in this case)
+    this.uiService.getinstructOnboardingStateStateSubject().subscribe((state) => {
+      if (state) {
+        // True to denote that this opens investment list modals for withdrawal and not deposit or transfer
+        this.openLoginPasswordModal();
+      }
+    });
   }
 
   public onInputsFocus(type: string): void {
@@ -162,6 +173,7 @@ export class OnboardingPage implements OnInit {
   }
 
   public closeLoginPasswordForm() {
+    this.credentials.email = ''; this.credentials.password = '';
     const loginPasswordDiv = this.loginPasswordDiv.nativeElement;
     this.renderer.removeClass(loginPasswordDiv, 'animate__slideInUp');
     this.renderer.addClass(loginPasswordDiv, 'animate__zoomOut');
@@ -235,6 +247,7 @@ export class OnboardingPage implements OnInit {
   }
 
   public closeResetPasswordForm() {
+    this.emailReset = '';
     const resetPasswordDiv = this.resetPasswordDiv.nativeElement;
     this.renderer.removeClass(resetPasswordDiv, 'animate__slideInUp');
     this.renderer.addClass(resetPasswordDiv, 'animate__zoomOut');
@@ -242,8 +255,28 @@ export class OnboardingPage implements OnInit {
     setTimeout(() => (this.showResetPasswordForm = false), 300);
   }
 
-  public doResetPassword(){
-
+  public async doResetPassword(){
+    if(!this.emailReset){
+      this.util.showToast('Please enter your email address', 2000, 'danger');
+      return;
+    }
+    this.util.presentLoading();
+    try {
+      const resp = await this.auth.resetPassword(this.emailReset);
+      this.loading.dismiss();
+      if(resp.code == '100'){
+        this.emailReset = '';
+        this.util.presentAlertModal('emailSent', {action: 'login'});
+        this.closeResetPasswordForm();
+      }
+      else{
+        this.util.showToast(resp.data, 2000, 'danger');
+      }
+    } catch (e) {
+      this.loading.dismiss();
+      console.log('ERR >>', e);
+      this.util.showToast('Could not reset password..', 2000, 'danger');
+    }
   }
 
   //Register

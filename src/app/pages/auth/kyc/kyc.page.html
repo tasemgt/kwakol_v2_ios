@@ -27,7 +27,7 @@
     <ion-col size="12" class="ion-text-center btn-col">
       <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="callMetaMap()" [disabled]="isVerified">Continue</ion-button>
     </ion-col>
-    <ion-col size="12" class="ion-text-center btn-col">
+    <ion-col size="12" class="ion-text-center btn-col" *ngIf="!tempUser.has_pin">
       <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit" (click)="openSetPinModal()">Skip to Set Pin</ion-button>
     </ion-col>
   </ion-row>

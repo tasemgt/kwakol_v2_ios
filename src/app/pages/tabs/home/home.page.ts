@@ -12,8 +12,9 @@ import {
   investmentBGColors,
   investmentIcons,
 } from 'src/app/models/constants';
-import { Keyboard } from 'node_modules/@ionic-native/keyboard/ngx';
-import { Vibration } from 'node_modules/@awesome-cordova-plugins/vibration/ngx';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
@@ -132,6 +133,7 @@ export class HomePage implements OnInit {
   constructor(
     private keyboard: Keyboard,
     private vibration: Vibration,
+    private social: SocialSharing,
     private router: Router,
     private dataService: DataService,
     private auth: AuthService,
@@ -267,6 +269,28 @@ export class HomePage implements OnInit {
     }
   }
 
+  public async openShareToSocials(){
+    const message = `Account Name: ${this.nairaDepositeModalData.accounts.account_name}
+Account Number: ${this.nairaDepositeModalData.accounts.account_number}
+Bank Name: ${this.nairaDepositeModalData.accounts.bank_Name}
+Rate: ${this.home.daily_rate}`;
+
+    const options = {
+      message,
+      chooserTitle: 'Pick an app',
+      // iPadCoordinates: '0,0,0,0' //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
+    };
+
+    try {
+      const result = await this.social.shareWithOptions(options);
+      console.log("Share completed? " + result.completed);
+      console.log("Share to app: " + result.app);
+    }
+    catch (error) {
+      console.log("Sharing failed with message: " + error);
+    }
+  }
+
   public onTapPinInput(): void {
     this.inputPinTypePassword = !this.inputPinTypePassword;
   }
@@ -343,6 +367,15 @@ export class HomePage implements OnInit {
 
   public getTimeOfDay() {
     return this.util.greetMessage();
+  }
+
+  public openDepositModalFromInvestmentsTab(){
+    this.activeSegment = 'wallet';
+    this.openDepositModal();
+  }
+
+  public goToKYC(){
+    this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: this.user}});
   }
 
   //MODAL FUNCTIONS
@@ -559,7 +592,7 @@ export class HomePage implements OnInit {
   //DEPOST AREA
   public openDepositModal() {
     this.depositModal.present();
-    this.vibration.vibrate(500);
+    // this.vibration.vibrate(500);
   }
 
   public async openCurrencyDepositModal(type) {
@@ -708,7 +741,7 @@ export class HomePage implements OnInit {
       this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
       return;
     }
-    const nairaEquiv = +this.dailyRate * +this.dollarOrNairaWithdrawAmount;
+    const nairaEquiv = (+this.dailyRate * +this.dollarOrNairaWithdrawAmount).toFixed(2);
     this.nairaWithdrawEquivalentAmount = nairaEquiv + '';
     this.dollarAndNairaWithdrawalModal.dismiss();
     this.pinEnterModalWithdrawal.present();

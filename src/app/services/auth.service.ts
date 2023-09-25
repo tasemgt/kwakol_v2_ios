@@ -169,6 +169,10 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/v2/password-reset`, payload, this.headers);
   }
 
+  public resetPassword(email: string): Promise<any>{
+    return this.http.get(`${this.baseUrl}/v1/reset-password/${email}`, {}, this.headers);
+  }
+
   //Clear token form storage
   private clearUserDetails(){
     this.dataService.setAccessToken('');

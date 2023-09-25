@@ -163,15 +163,19 @@
     [ngClass]="{'slide-up': loginInputFocused , 'slide-down': !loginInputFocused}"
   >
     <div class="header">
-      <div class="switch-login">
+      <!-- <div class="switch-login">
         Login with Biometrics
+      </div> -->
+      <div>
+        <h3 class="type">Login</h3>
+        <p class="p3">Right on time. There's money to be made.</p>
       </div>
       <div class="round-button" (click)="closeLoginPasswordForm()">
         <ion-icon src="assets/icon/close.svg"></ion-icon>
       </div>
     </div>
-    <h3 class="type">Login</h3>
-    <p class="p3">Right on time. There's money to be made.</p>
+    <!-- <h3 class="type">Login</h3>
+    <p class="p3">Right on time. There's money to be made.</p> -->
 
     <form
       class="auth-form"
@@ -384,15 +388,19 @@
     [ngClass]="{'slide-up': resetPasswordInputFocused , 'slide-down': !resetPasswordInputFocused}"
   >
     <div class="header">
-      <div class="switch-login" (click)="openLoginPinModal()">
+      <!-- <div class="switch-login" (click)="openLoginPinModal()">
         Login with Pin
+      </div> -->
+      <div>
+        <h3 class="type">Reset Password</h3>
+        <p class="p3">It's alright, everyone forgets</p>
       </div>
       <div class="round-button" (click)="closeResetPasswordForm()">
         <ion-icon src="assets/icon/close.svg"></ion-icon>
       </div>
     </div>
-    <h3 class="type">Reset Password</h3>
-    <p class="p3">It's alright, everyone forgets</p>
+    <!-- <h3 class="type">Reset Password</h3>
+    <p class="p3">It's alright, everyone forgets</p> -->
 
     <form
       class="auth-form"
