@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Platform } from '_node_modules/@ionic/angular';
+import { Platform } from 'node_modules/@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 // import { HTTP } from '@ionic-native/http/ngx';
 

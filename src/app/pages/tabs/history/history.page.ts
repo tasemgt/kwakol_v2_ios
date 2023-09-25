@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '_node_modules/@ionic/angular';
+import { ModalController } from 'node_modules/@ionic/angular';
 import { historyIcons } from 'src/app/models/constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';

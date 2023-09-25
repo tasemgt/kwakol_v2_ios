@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FingerprintAIO } from '_node_modules/@ionic-native/fingerprint-aio/ngx';
-import { ModalController, Platform } from '_node_modules/@ionic/angular';
-import { BehaviorSubject } from '_node_modules/rxjs';
+import { FingerprintAIO } from 'node_modules/@ionic-native/fingerprint-aio/ngx';
+import { ModalController, Platform } from 'node_modules/@ionic/angular';
+import { BehaviorSubject } from 'node_modules/rxjs';
 import { alertPageParams } from 'src/app/models/constants';
 import { UtilService } from 'src/app/services/util.service';
 

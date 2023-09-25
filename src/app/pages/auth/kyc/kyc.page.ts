@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonModal, LoadingController, Platform } from '_node_modules/@ionic/angular';
+import { IonModal, LoadingController, Platform } from 'node_modules/@ionic/angular';
 import { KeypadComponent } from 'src/app/components/keypad/keypad.component';
 import { constants } from 'src/app/models/constants';
 import { AuthService } from 'src/app/services/auth.service';

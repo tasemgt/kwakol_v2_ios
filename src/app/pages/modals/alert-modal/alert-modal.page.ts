@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController, Platform } from '_node_modules/@ionic/angular';
-import { StatusBar } from '_node_modules/@ionic-native/status-bar/ngx';
+import { ModalController, Platform } from 'node_modules/@ionic/angular';
+import { StatusBar } from 'node_modules/@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-alert-modal',

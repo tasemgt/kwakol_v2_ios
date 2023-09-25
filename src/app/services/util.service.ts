@@ -6,15 +6,15 @@ import {
   ModalController,
   Platform,
   ToastController,
-} from '_node_modules/@ionic/angular';
-import { BehaviorSubject, Subject } from '_node_modules/rxjs';
+} from 'node_modules/@ionic/angular';
+import { BehaviorSubject, Subject } from 'node_modules/rxjs';
 
 import { AlertModalPage } from '../pages/modals/alert-modal/alert-modal.page';
 import { alertPageParams } from '../models/constants';
 import { Router } from '@angular/router';
 import { LoadingPage } from '../pages/modals/loading/loading.page';
 import { LoadModalAnimation } from '../animation/loadModalAnimation';
-import { Clipboard } from '_node_modules/@awesome-cordova-plugins/clipboard/ngx';
+import { Clipboard } from 'node_modules/@awesome-cordova-plugins/clipboard/ngx';
 
 @Injectable({
   providedIn: 'root',

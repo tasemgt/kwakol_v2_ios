@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController } from '_node_modules/@ionic/angular';
+import { LoadingController } from 'node_modules/@ionic/angular';
 import { investmentIcons } from 'src/app/models/constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { PortfolioService } from 'src/app/services/portfolio.service';

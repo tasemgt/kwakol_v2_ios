@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { IonicModule } from '_node_modules/@ionic/angular';
+import { IonicModule } from 'node_modules/@ionic/angular';
 
 import { InvestmentDetailsPageRoutingModule } from './investment-details-routing.module';
 
 import { InvestmentDetailsPage } from './investment-details.page';
 import { KeypadModule } from 'src/app/components/keypad/keypad.module';
-import { MatCardModule } from '_node_modules/@angular/material/card';
-import { MatNativeDateModule } from '_node_modules/@angular/material/core';
-import { MatDatepickerModule } from '_node_modules/@angular/material/datepicker';
+import { MatCardModule } from 'node_modules/@angular/material/card';
+import { MatNativeDateModule } from 'node_modules/@angular/material/core';
+import { MatDatepickerModule } from 'node_modules/@angular/material/datepicker';
 import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
 
 @NgModule({

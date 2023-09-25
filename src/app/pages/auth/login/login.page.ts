@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoadingController } from '_node_modules/@ionic/angular';
+import { LoadingController } from 'node_modules/@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { OneSignalService } from 'src/app/services/one-signal.service';
 import { UtilService } from 'src/app/services/util.service';

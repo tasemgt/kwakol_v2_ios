@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Clipboard } from '_node_modules/@awesome-cordova-plugins/clipboard/ngx';
+import { Clipboard } from 'node_modules/@awesome-cordova-plugins/clipboard/ngx';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({

@@ -1,17 +1,17 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { ModalController, NavController, Platform } from '_node_modules/@ionic/angular';
-import { StatusBar } from '_node_modules/@ionic-native/status-bar/ngx';
-import { MobileAccessibility } from '_node_modules/@ionic-native/mobile-accessibility/ngx';
-import { ScreenOrientation } from '_node_modules/@awesome-cordova-plugins/screen-orientation/ngx';
-import { AppMinimize } from '_node_modules/@ionic-native/app-minimize/ngx';
+import { ModalController, NavController, Platform } from 'node_modules/@ionic/angular';
+import { StatusBar } from 'node_modules/@ionic-native/status-bar/ngx';
+import { MobileAccessibility } from 'node_modules/@ionic-native/mobile-accessibility/ngx';
+import { ScreenOrientation } from 'node_modules/@awesome-cordova-plugins/screen-orientation/ngx';
+import { AppMinimize } from 'node_modules/@ionic-native/app-minimize/ngx';
 import { BnNgIdleService } from 'bn-ng-idle';
 // import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
-import { Subscription } from '_node_modules/rxjs';
+import { Subscription } from 'node_modules/rxjs';
 import { AuthService } from './services/auth.service';
 import { OneSignalService } from './services/one-signal.service';
 
-import { filter } from '_node_modules/rxjs/operators';
+import { filter } from 'node_modules/rxjs/operators';
 import { StorageService } from './services/storage.service';
 import { UtilService } from './services/util.service';
 

@@ -6,14 +6,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonModal, LoadingController } from '_node_modules/@ionic/angular';
+import { IonModal, LoadingController } from 'node_modules/@ionic/angular';
 import {
   historyIcons,
   investmentBGColors,
   investmentIcons,
 } from 'src/app/models/constants';
-import { Keyboard } from '_node_modules/@ionic-native/keyboard/ngx';
-import { Vibration } from '_node_modules/@awesome-cordova-plugins/vibration/ngx';
+import { Keyboard } from 'node_modules/@ionic-native/keyboard/ngx';
+import { Vibration } from 'node_modules/@awesome-cordova-plugins/vibration/ngx';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';

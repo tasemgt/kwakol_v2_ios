@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoadingController, ModalController } from '_node_modules/@ionic/angular';
+import { LoadingController, ModalController } from 'node_modules/@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UtilService } from 'src/app/services/util.service';
 

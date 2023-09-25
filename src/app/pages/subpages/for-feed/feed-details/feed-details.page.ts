@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '_node_modules/@ionic/angular';
-import { StatusBar } from '_node_modules/@ionic-native/status-bar/ngx';
+import { Platform } from 'node_modules/@ionic/angular';
+import { StatusBar } from 'node_modules/@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-feed-details',

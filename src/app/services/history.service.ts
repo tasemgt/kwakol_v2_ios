@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { constants } from '../models/constants';
 import { HttpService } from './_http.service';
-import { BehaviorSubject } from '_node_modules/rxjs';
+import { BehaviorSubject } from 'node_modules/rxjs';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonModal, LoadingController } from '_node_modules/@ionic/angular';
+import { IonModal, LoadingController } from 'node_modules/@ionic/angular';
 import { countries } from 'src/app/models/constants';
 import { RegisterCred } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
