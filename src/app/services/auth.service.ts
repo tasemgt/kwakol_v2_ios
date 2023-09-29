@@ -77,15 +77,16 @@ export class AuthService {
     try{
       const resp: User = await this.http.post(`${this.baseUrl}/v1/login`, payload, this.headers);
 
-      // if(resp.new_user === 'YES'){
-      //   this.dataService.setAccessToken(resp.token);
-      //   this.util.showToast('Successful! Kindly reset your password to continue...', 3000, 'success');
-      //   this.router.navigateByUrl('/change-password', {state: {url: this.router.url, user: resp}});
-      //   return;
-      // }
+      if(resp.new_user === 'YES'){
+        this.dataService.setAccessToken(resp.token);
+        this.util.showToast('Successful! Kindly reset your password to continue...', 3000, 'success');
+        this.router.navigateByUrl('/change-password', {state: {url: this.router.url, user: resp, fromLogin: true}});
+        return;
+      }
 
       if(!resp.has_pin){
         this.dataService.setAccessToken(resp.token);
+        // this.util.showToast('You\'ll need to set your pin to continue to application', 3000, 'warning');
         this.util.showToast('You\'ll need to set your pin to continue to application', 3000, 'warning');
         this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: resp}});
         return;
@@ -162,7 +163,7 @@ export class AuthService {
 
   //Reset user password
   public async newResetPassword(data){
-    return await this.http.post(`${this.baseUrl}/new-user-password-reset`, data, this.headers);
+    return await this.http.post(`${this.baseUrl}/v1/new-user-password-reset`, data, this.headers);
   }
 
   public changePassword(payload): Promise<any>{
@@ -171,6 +172,10 @@ export class AuthService {
 
   public resetPassword(email: string): Promise<any>{
     return this.http.get(`${this.baseUrl}/v1/reset-password/${email}`, {}, this.headers);
+  }
+
+  public getAccountManager(): Promise<any>{
+    return this.http.get(`${this.baseUrl}/v2/account-manager`, {}, this.headers);
   }
 
   //Clear token form storage

@@ -151,7 +151,7 @@ export class KycPage implements OnInit {
 
   public callMetaMap() {
     this.platform.ready().then(() => {
-      if (this.platform.is('cordova') || this.platform.is('capacitor')) {
+      if (this.platform.is('cordova') || this.platform.is('ios')) {
         this.startMetaMapVerification();
         return;
       }

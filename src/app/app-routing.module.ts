@@ -99,7 +99,7 @@ const routes: Routes = [
   },
   {
     path: 'change-password',
-    canActivate: [AuthenGuard],
+    // canActivate: [AuthenGuard],
     loadChildren: () =>
       import('./pages/auth/change-password/change-password.module').then(
         (m) => m.ChangePasswordPageModule

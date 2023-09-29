@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -29,6 +29,7 @@ export class ChangePasswordPage implements OnInit {
   public payload: any;
 
   public fromPage: string;
+  public fromLogin: boolean;
   public user: User;
 
   constructor(
@@ -36,10 +37,12 @@ export class ChangePasswordPage implements OnInit {
     private auth: AuthService,
     private util: UtilService,
     private loading: LoadingController,
+    private navController: NavController,
     private renderer: Renderer2) {
     if(this.router.getCurrentNavigation().extras.state){
       this.fromPage = this.router.getCurrentNavigation().extras.state.url;
       this.user = this.router.getCurrentNavigation().extras.state.user;
+      this.fromLogin = this.router.getCurrentNavigation().extras.state.fromLogin;
     }
   }
 
@@ -76,6 +79,10 @@ export class ChangePasswordPage implements OnInit {
     }
     this.payload = payload;
     console.log(payload);
+    if(this.fromLogin){
+      this.changePassword(payload);
+      return;
+    }
     this.openLoadingModal();
     /////
   }
@@ -108,12 +115,19 @@ export class ChangePasswordPage implements OnInit {
     console.log(payload);
     this.util.presentLoading();
     try{
-      const resp  = await this.auth.changePassword(payload);
+      const resp  = this.fromLogin ? await this.auth.newResetPassword(payload) : await this.auth.changePassword(payload);
       this.loading.dismiss();
       if(resp.code === '100'){
         console.log(resp);
         this.util.showToast('Password changed', 2500, 'success');
         this.currentPassword = ''; this.newPassword = ''; this.currentPassword = '';
+
+        if(this.fromLogin){
+          this.navController.setDirection('back');
+          this.router.navigateByUrl('/onboarding');
+          return;
+        }
+
         //Log user out
         this.auth.logout();
       }

@@ -21,6 +21,7 @@ export class ProfilePage implements OnInit {
 
   public user: User;
   public accountDeets;
+  public accountManager: any;
 
   public myBeneficiaries = [];
 
@@ -157,8 +158,20 @@ export class ProfilePage implements OnInit {
     window.open(link, '_system', 'location=yes');
   }
 
-  public openAccountManagerModal() {
-    this.accountManagerModal.present();
+  public async openAccountManagerModal() {
+    this.util.presentLoading();
+    try {
+      const resp = await this.auth.getAccountManager();
+      this.loading.dismiss();
+      if (resp.code == 100) {
+        this.accountManager = resp.data;
+        this.accountManagerModal.present();
+      }
+    } catch (e) {
+      this.loading.dismiss();
+      this.util.showToast('Please try again', 2000, 'danger');
+      console.log(e);
+    }
   }
 
   public async goToBeneficiariesPage() {
