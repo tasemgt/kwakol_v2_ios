@@ -97,6 +97,7 @@ export class AuthService {
       this.dataService.setAccessToken(resp.token);
       setTimeout(() =>{
         this.isAuthenticated(true); //User now authenticated and can proceed to home;
+        this.storage.remove('INITIAL_REG'); //Remove any initial regs so as to begin process from scratch
       }, 500);
       return resp;
     }
@@ -141,6 +142,17 @@ export class AuthService {
     }
   }
 
+  public async resendOTP(): Promise<any>{
+    try {
+      const initialReg = await this.storage.get('INITIAL_REG');
+      const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`};
+      console.log(headers);
+      return this.http.get(`${this.baseUrl}/v2/resend-registration-otp`, {}, headers);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   //Forgot Password
   public forgotPassword(email: string): Promise<any>{
     return this.http.put(`${this.baseUrl}/request-password-reset/${email}`, {email}, this.headers);
@@ -176,6 +188,12 @@ export class AuthService {
 
   public getAccountManager(): Promise<any>{
     return this.http.get(`${this.baseUrl}/v2/account-manager`, {}, this.headers);
+  }
+
+  public async sendKYCData(payload): Promise<any>{
+    const initialReg = await this.storage.get('INITIAL_REG');
+    const headers = initialReg.token ? {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`}: this.headers;
+    return this.http.post(`${this.baseUrl}/v2/kyc-data`, payload, headers);
   }
 
   //Clear token form storage

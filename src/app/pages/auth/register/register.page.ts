@@ -211,21 +211,43 @@ export class RegisterPage implements OnInit {
       if (this.pinResendSecs === 1) {
         clearInterval(timer);
         console.log('Time is up!');
-        setTimeout(() => {
-          this.isResendingOTP = true;
-          this.resendOTPText = 'Resending OTP...';
-
-          setTimeout(() => {
-            this.util.showToast('Your OTP has been resent...', 2000, 'success');
-            this.resendOTPText = 'Resend OTP in';
-            this.isResendingOTP = false;
-            this.pinResendSecs = 59;
-            this.countTimerValue = this.countdownTimer();
-          }, 1500);
-        }, 100);
+        this.resendOTP();
       }
       this.pinResendSecs--;
     }, 1000);
     return timer;
+  }
+
+  public resendOTP(){
+    setTimeout(async () => {
+      this.isResendingOTP = true;
+      this.resendOTPText = 'Resending OTP...';
+      try {
+        const resp = await this.auth.resendOTP();
+        console.log(resp);
+        if(resp.code == '100'){
+          this.util.showToast(`OTP ${resp.message}`, 2000, 'success');
+          this.resendOTPText = 'Resend OTP in';
+          this.isResendingOTP = false;
+          this.pinResendSecs = 59;
+          this.countTimerValue = this.countdownTimer();
+        }
+        else{
+          this.util.showToast(`OTP could not be resent...`, 2000, 'danger');
+          this.resendOTPText = 'Tap to resend OTP';
+        }
+      } catch (error) {
+        console.log(error);
+        this.util.showToast(`OTP could not be sent...`, 2000, 'danger');
+        this.resendOTPText = 'Tap to resend OTP';
+      }
+    }, 100);
+  }
+
+  public tapToResendOTP(){
+    if(this.resendOTPText === 'Tap to resend OTP'){
+      this.resendOTP();
+      return;
+    }
   }
 }

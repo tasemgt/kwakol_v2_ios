@@ -170,12 +170,25 @@ export class KycPage implements OnInit {
 
     // register to callback
     cordova.plugins.MetaMapGlobalIDSDK.setMetaMapCallback(
-      (params) => {
+      async (params) => {
         console.log('setMetaMapCallback success Params: ', params);
         console.log('setMetaMapCallback success ID: ' + params.identityId);
         console.log(
           'setMetaMapCallback success Verification: ' + params.verificationID
         );
+
+        const payload = {
+          identityId: params.identityId,
+          verificationId: params.verificationID
+        };
+        this.auth.sendKYCData(payload); //Send kyc info to back
+        // try {
+        //   const resp = await this.auth.sendKYCData(payload);
+
+        // } catch (error) {
+          
+        // }
+        
         this.util.showToast('KYC verification successful..', 2500, 'success');
 
         this.openSetPinModal();

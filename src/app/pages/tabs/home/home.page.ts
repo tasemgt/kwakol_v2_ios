@@ -345,6 +345,7 @@ Rate: ${this.home.daily_rate}`;
 
   public hideShowBalance() {
     console.log('Clicked........');
+    this.util.showToast('fdlnjbkjnkjnjkngmjdgjdnkjngkjdng', 3000000, 'danger');
     this.balanceIcon =
       this.balanceIcon === 'eye-open' ? 'eye-close' : 'eye-open';
     this.showBalance = !this.showBalance;
