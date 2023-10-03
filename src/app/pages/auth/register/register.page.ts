@@ -67,6 +67,7 @@ export class RegisterPage implements OnInit {
     console.log('Im here na');
     this.otp = '';
     this.currentDate = new Date();
+    this.storage.remove('INITIAL_REG'); //Remove any initial regs so as to begin process from scratch
   }
 
   public onInputsFocus(): void {
@@ -179,6 +180,7 @@ export class RegisterPage implements OnInit {
       const resp = await this.auth.registerConfirm(this.otp, this.initialToken);
       this.loading.dismiss();
       if (resp.code == '100') {
+        clearInterval(this.countTimerValue);
         setTimeout(() => {
           this.util.presentLoadingModal({
             loadingText: 'Setting up your account...',
@@ -187,6 +189,9 @@ export class RegisterPage implements OnInit {
             data: tempUser,
           });
         }, 100);
+      }
+      else if(resp.code == '418'){
+        this.util.showToast('OTP entered is likely to be incorrect', 2500, 'danger');
       }
     } catch (error) {
       this.loading.dismiss();

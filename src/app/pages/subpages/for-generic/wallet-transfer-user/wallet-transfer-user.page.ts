@@ -70,6 +70,7 @@ export class WalletTransferUserPage implements OnInit {
 
     this.platform.keyboardDidShow.subscribe((ev) => {
       const { keyboardHeight } = ev;
+      console.log('Heightttttt>>',ev);
       this.keyboardHeight = keyboardHeight;
       this.floatUp = true;
     });
@@ -79,11 +80,27 @@ export class WalletTransferUserPage implements OnInit {
     });
   }
 
+  // public footerStyles() {
+  //   if (this.floatUp) {
+  //     return {
+  //       position: 'relative',
+  //       'margin-bottom': this.keyboardHeight + 5 + 'px'
+  //     };
+  //   } else {
+  //     return {
+  //       bottom: 0 + 'px'
+  //     };
+  //   }
+  // }
   public footerStyles() {
     if (this.floatUp) {
-      return { bottom: this.keyboardHeight + 30 + 'px' };
+      return {
+        bottom: this.keyboardHeight + 30 + 'px'
+      };
     } else {
-      return { bottom: 0 + 'px' };
+      return { 
+        bottom: 0 + 'px'
+      };
     }
   }
 

@@ -10,6 +10,7 @@ import {
   IonModal,
   LoadingController,
   ModalController,
+  Platform,
 } from '@ionic/angular';
 import { LoginPinPage } from '../login-pin/login-pin.page';
 import { UtilService } from 'src/app/services/util.service';
@@ -59,11 +60,14 @@ export class OnboardingPage implements OnInit {
 
   public emailReset = '';
 
+  public keyboardHeight: number;
+
   private modal: HTMLIonModalElement;
 
   private notification_id: string;
 
   constructor(
+    private platform: Platform,
     private modalCtrl: ModalController,
     private animationCtrl: AnimationController,
     private router: Router,
@@ -81,7 +85,6 @@ export class OnboardingPage implements OnInit {
     this.credentials = { email: '', password: '' };
     this.regCreds = { email: '', password: '', confirmPassword: '' };
 
-
     //This opens a modal as directed from another page via the ui service (tabs page in this case)
     this.uiService.getinstructOnboardingStateStateSubject().subscribe((state) => {
       if (state) {
@@ -89,27 +92,52 @@ export class OnboardingPage implements OnInit {
         this.openLoginPasswordModal();
       }
     });
+
+    this.platform.keyboardDidShow.subscribe((ev) => {
+      const { keyboardHeight } = ev;
+      console.log('Heightttttt>>',ev);
+      this.keyboardHeight = keyboardHeight;
+      // this.floatUp = true;
+      if (this.showLoginPasswordForm) {
+        this.loginInputFocused = true;
+      } else if (this.showRegisterForm) {
+        this.registrationInputFocused = true;
+      } else {
+        this.resetPasswordInputFocused = true;
+      }
+    });
+
+    this.platform.keyboardDidHide.subscribe(() => {
+      // this.floatUp = false;
+      if (this.showLoginPasswordForm) {
+        this.loginInputFocused = false;
+      } else if (this.showRegisterForm) {
+        this.registrationInputFocused = false;
+      } else {
+        this.resetPasswordInputFocused = false;
+      }
+    });
   }
 
   public onInputsFocus(type: string): void {
-    console.log('hi man');
-    if (type === 'login') {
-      this.loginInputFocused = true;
-    } else if (type === 'register') {
-      this.registrationInputFocused = true;
-    } else {
-      this.resetPasswordInputFocused = true;
-    }
+    // console.log('hi man');
+    // if (type === 'login') {
+    //   this.loginInputFocused = true;
+    // } else if (type === 'register') {
+    //   this.registrationInputFocused = true;
+    // } else {
+    //   this.resetPasswordInputFocused = true;
+    // }
   }
 
   public onInputsBlur(type: string): void {
-    if (type === 'login') {
-      this.loginInputFocused = false;
-    } else if (type === 'register') {
-      this.registrationInputFocused = false;
-    } else {
-      this.resetPasswordInputFocused = false;
-    }
+    // if (type === 'login') {
+    //   this.loginInputFocused = false;
+    // } else if (type === 'register') {
+    //   this.registrationInputFocused = false;
+    // } else {
+    //   this.resetPasswordInputFocused = false;
+    // }
   }
 
   public hideShowPassword() {
@@ -178,7 +206,7 @@ export class OnboardingPage implements OnInit {
     this.renderer.removeClass(loginPasswordDiv, 'animate__slideInUp');
     this.renderer.addClass(loginPasswordDiv, 'animate__zoomOut');
     // this.renderer.setStyle(registerDiv, 'display', 'none');
-    setTimeout(() => (this.showLoginPasswordForm = false), 400);
+    setTimeout(() => (this.showLoginPasswordForm = false), 50);
   }
 
   public async openLoginPasswordModal() {
@@ -193,10 +221,10 @@ export class OnboardingPage implements OnInit {
   }
 
   public async doLoginWithPassword(form: NgForm) {
-    // if (!form.valid) {
-    //   this.util.showToast('Email or password cannot be empty', 2000, 'danger');
-    //   return;
-    // }
+    if (!this.credentials.email || !this.credentials.password) {
+      this.util.showToast('Email or password cannot be empty', 2000, 'danger');
+      return;
+    }
     try {
       this.notification_id = '12345';
       console.log('Notification ID before send ', this.notification_id);
@@ -205,8 +233,8 @@ export class OnboardingPage implements OnInit {
       }
       await this.util.presentLoading();
       const resp = await this.auth.login({
-        email: this.credentials.email,
-        password: this.credentials.password,
+        email: this.credentials.email.trim(),
+        password: this.credentials.password.trim(),
         notification_id: this.notification_id,
       });
       this.loading.dismiss();
@@ -252,7 +280,7 @@ export class OnboardingPage implements OnInit {
     this.renderer.removeClass(resetPasswordDiv, 'animate__slideInUp');
     this.renderer.addClass(resetPasswordDiv, 'animate__zoomOut');
     // this.renderer.setStyle(registerDiv, 'display', 'none');
-    setTimeout(() => (this.showResetPasswordForm = false), 300);
+    setTimeout(() => (this.showResetPasswordForm = false), 50);
   }
 
   public async doResetPassword(){
@@ -285,11 +313,12 @@ export class OnboardingPage implements OnInit {
   }
 
   public closeRegisterForm() {
+    this.regCreds.email = ''; this.regCreds.password = ''; this.regCreds.confirmPassword = '';
     const registerDiv = this.registerDiv.nativeElement;
     this.renderer.removeClass(registerDiv, 'animate__slideInUp');
     this.renderer.addClass(registerDiv, 'animate__zoomOut');
     // this.renderer.setStyle(registerDiv, 'display', 'none');
-    setTimeout(() => (this.showRegisterForm = false), 400);
+    setTimeout(() => (this.showRegisterForm = false), 50);
   }
 
   public async proceedRegistration() {
@@ -320,18 +349,18 @@ export class OnboardingPage implements OnInit {
     const userInfo = {email, password, confirmPassword};
 
     await this.util.presentLoading();
-    this.loading.dismiss();
 
     setTimeout(() => {
       this.loading.dismiss();
       this.showRegisterForm = false;
+      this.regCreds.email = ''; this.regCreds.password = ''; this.regCreds.confirmPassword = '';
       setTimeout(() =>{
         console.log('USER>>', userInfo);
         this.router.navigateByUrl('/register', {
           state: { userInfo,  url: this.router.url }
         });
-      }, 500);
-    }, 3000);
+      }, 300);
+    }, 2000);
   }
 
   enterAnimation = (baseEl: HTMLElement) => {

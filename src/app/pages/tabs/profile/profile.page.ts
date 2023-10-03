@@ -404,5 +404,11 @@ export class ProfilePage implements OnInit {
     return timer;
   }
 
-  // this.countdownTimer();
+  public openCall(){
+    this.util.openCall(this.accountManager.phone);
+    // this.util.presentAlertConfirm('', `Call ${}?`, () =>{
+      
+    // });
+  }
+
 }
