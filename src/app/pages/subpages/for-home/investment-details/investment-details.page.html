@@ -114,9 +114,9 @@ class="info-modal reset animate__animated animate__slideInUp"
         <p>Investment</p>
         <div class="investment {{investment.subscription.name.toLowerCase()}}">
           <div class="icon-wrapper">
-            <ion-icon
-              [src]="'assets/icon/inv-type/'+ (getIconForInvName(investment.subscription.name.toLowerCase()) || 'special-big') +'.svg'"
-            ></ion-icon>
+            <img
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(investment.subscription.name.toLowerCase()) || 'special-big') +'.png'"
+            >
           </div>
           {{investment.subscription.name}}
         </div>

@@ -47,6 +47,7 @@
     "animate.css": "^4.1.1",
     "bn-ng-idle": "^2.0.5",
     "cordova-android": "10.1.2",
+    "metamap-capacitor-plugin": "^4.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "uuidjs": "^4.2.11",

@@ -6,8 +6,9 @@ import { constants } from 'src/app/models/constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UtilService } from 'src/app/services/util.service';
+import { MetaMapCapacitor } from "metamap-capacitor-plugin";
 
-declare const cordova: any;
+// declare const cordova: any;
 
 @Component({
   selector: 'app-kyc',
@@ -145,13 +146,15 @@ export class KycPage implements OnInit {
     }
   }
 
+  
+
   public doCleanup(){
     //
   }
 
   public callMetaMap() {
     this.platform.ready().then(() => {
-      if (this.platform.is('cordova') || this.platform.is('capacitor')) {
+      if (this.platform.is('ios')) {
         this.startMetaMapVerification();
         return;
       }
@@ -160,32 +163,45 @@ export class KycPage implements OnInit {
   }
 
   private startMetaMapVerification() {
-    const yourMetadata = { buttonColor: '#51AF4E' };
+
+    const metadataParams = { buttonColor: '#51AF4E' };
+
     const metaMapButtinParams = {
       clientId: constants.metaMapClientId,
       flowId: constants.metaMapFlowId,
-      metadata: yourMetadata,
+      metadata: metadataParams
     };
-    cordova.plugins.MetaMapGlobalIDSDK.showMetaMapFlow(metaMapButtinParams);
 
-    // register to callback
-    cordova.plugins.MetaMapGlobalIDSDK.setMetaMapCallback(
-      (params) => {
-        console.log('setMetaMapCallback success Params: ', params);
-        console.log('setMetaMapCallback success ID: ' + params.identityId);
-        console.log(
-          'setMetaMapCallback success Verification: ' + params.verificationID
-        );
+    MetaMapCapacitor.showMetaMapFlow(metaMapButtinParams)
+      .then(res => {
+        console.log("verification success:" + res.verificationID)
         this.util.showToast('KYC verification successful..', 2500, 'success');
-
+        // if(this.tempUser.has)
         this.openSetPinModal();
-      },
+      })
+      .catch(() => console.log("verification cancelled"));
 
-      //Send IDs to backend for storage and confirmation in future..
 
-      (error) => {
-        console.log('setMetaMapCallback error: ' + error);
-      }
-    );
+    // cordova.plugins.MetaMapGlobalIDSDK.showMetaMapFlow(metaMapButtinParams);
+
+    // // register to callback
+    // cordova.plugins.MetaMapGlobalIDSDK.setMetaMapCallback(
+    //   (params) => {
+    //     console.log('setMetaMapCallback success Params: ', params);
+    //     console.log('setMetaMapCallback success ID: ' + params.identityId);
+    //     console.log(
+    //       'setMetaMapCallback success Verification: ' + params.verificationID
+    //     );
+    //     this.util.showToast('KYC verification successful..', 2500, 'success');
+
+    //     this.openSetPinModal();
+    //   },
+
+    //   //Send IDs to backend for storage and confirmation in future..
+
+    //   (error) => {
+    //     console.log('setMetaMapCallback error: ' + error);
+    //   }
+    // );
   }
 }
