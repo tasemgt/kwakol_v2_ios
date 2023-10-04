@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { LoadingPage } from '../pages/modals/loading/loading.page';
 import { LoadModalAnimation } from '../animation/loadModalAnimation';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { UiService } from './ui.service';
 
 @Injectable({
@@ -36,6 +37,7 @@ export class UtilService {
     private router: Router,
     private uiService: UiService,
     private platform: Platform,
+    private callNumber: CallNumber,
     private clipboard: Clipboard
   ) {
     this.loadModalAnimator = new LoadModalAnimation(this.animationCtrl);
@@ -284,6 +286,17 @@ export class UtilService {
       }
     }
     return obj;
+  }
+
+  public openCall(phoneNum: string){
+    if(this.platform.is('cordova') || this.platform.is('capacitor')){
+      this.callNumber.callNumber(phoneNum, false)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => console.log('Error launching dialer', err));
+    }
+    else{
+      console.log('Cordova or Capacitor not found');
+    }
   }
 
   public getSimpleDate(date) {

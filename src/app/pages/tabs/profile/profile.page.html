@@ -139,20 +139,23 @@
         <div class="item">
           <div>
             <div class="default-img">
-              {{user.fullname.split(' ')[0][0]}}{{user.fullname.split(' ')[1][0]}}
+              {{accountManager?.fullname.split(' ')[0][0]}}{{accountManager?.fullname.split(' ')[1][0]}}
             </div>
-            Eyitope Oladapo
+            {{accountManager?.fullname}}
           </div>
           <div>
-            <div class="round-button">
+            <div class="round-button" (click)="openCall()">
               <ion-icon
                 [src]="'assets/icon/v2-icons/round-btns/call.svg'"
               ></ion-icon>
             </div>
             <div class="round-button">
-              <ion-icon
-                [src]="'assets/icon/v2-icons/round-btns/mail.svg'"
-              ></ion-icon>
+              <a href="mailto:{{accountManager?.email}}?subject=Account Enquiry 
+              &body=Hello {{accountManager?.fullname.split(' ')[0]}},">
+                <ion-icon
+                  [src]="'assets/icon/v2-icons/round-btns/mail.svg'"
+                ></ion-icon>
+              </a>
             </div>
           </div>
         </div>

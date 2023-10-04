@@ -2,13 +2,14 @@ import { HttpHandler, HttpInterceptor, HttpRequest, HttpEvent } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'node_modules/rxjs';
 import { DataService } from './data.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private storage: StorageService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler){
 
@@ -18,9 +19,25 @@ export class AuthInterceptorService implements HttpInterceptor {
     if(url === 'https://v2.kwml.work/api/v2/register-confirm'){
       return next.handle(req);
     }
+
     if(url === 'https://v2.kwml.work/api/v2/create-pin'){
       return next.handle(req);
     }
+
+    if(url === 'https://v2.kwml.work/api/v2/resend-registration-otp'){
+      return next.handle(req);
+    }
+
+    if(url === 'https://v2.kwml.work/api/v2/kyc-data'){
+      this.storage.get('INITIAL_REG').then((resp) =>{
+        if(resp.token){
+          return next.handle(req);
+        }
+      }).catch((e) =>{
+      });
+    }
+
+
     // if(
       //   !(url.includes('/login') ||
       //     url.includes('/onboarding') ||

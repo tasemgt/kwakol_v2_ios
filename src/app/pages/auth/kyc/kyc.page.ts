@@ -162,6 +162,7 @@ export class KycPage implements OnInit {
     });
   }
 
+  //Start meta map verification
   private startMetaMapVerification() {
 
     const metadataParams = { buttonColor: '#51AF4E' };
@@ -177,10 +178,24 @@ export class KycPage implements OnInit {
         console.log("verification success:" + res.verificationID)
         this.util.showToast('KYC verification successful..', 2500, 'success');
         // if(this.tempUser.has)
-        this.openSetPinModal();
+
+        const payload = {
+          identityId: res.identityId,
+          verificationId: res.verificationID
+        };
+        
+        this.auth.sendKYCData(payload); //Send kyc info to back
+
+        this.util.presentLoading();
+        this.isVerified = true;
+
+        setTimeout(() =>{
+          this.loading.dismiss();
+          this.openSetPinModal();
+        },1000);
       })
       .catch(() => console.log("verification cancelled"));
-
+    
 
     // cordova.plugins.MetaMapGlobalIDSDK.showMetaMapFlow(metaMapButtinParams);
 

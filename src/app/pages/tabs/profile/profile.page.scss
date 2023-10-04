@@ -103,6 +103,11 @@ div.actions {
   width: 2.6rem;
   height: 2.6rem;
   border-width: 0;
+
+  a{
+    display: flex;
+    align-items: center;
+  }
 }
 
 .about-head {

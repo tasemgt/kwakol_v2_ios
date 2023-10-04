@@ -19,8 +19,9 @@ import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { FingerprintAIO  } from '@ionic-native/fingerprint-aio/ngx';
 import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
-import { BnNgIdleService } from 'bn-ng-idle';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     BnNgIdleService,
     Keyboard,
     Vibration,
-    SocialSharing
+    SocialSharing,
+    CallNumber
     // OneSignal
   ],
   bootstrap: [AppComponent],
