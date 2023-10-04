@@ -186,12 +186,17 @@ export class KycPage implements OnInit {
         //   const resp = await this.auth.sendKYCData(payload);
 
         // } catch (error) {
-          
-        // }
-        
-        this.util.showToast('KYC verification successful..', 2500, 'success');
 
-        this.openSetPinModal();
+        // }
+        this.util.showToast('KYC verification successful..', 2500, 'success');
+        this.util.presentLoading();
+        this.isVerified = true;
+
+        setTimeout(() =>{
+          this.loading.dismiss();
+          this.openSetPinModal();
+        },1000);
+
       },
 
       //Send IDs to backend for storage and confirmation in future..
