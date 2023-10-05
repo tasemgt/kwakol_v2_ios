@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" class="page-content" slot="fixed">
+<ion-content [fullscreen]="true" class="page-content" slot="fixed" scrollY="false">
   <div class="logo-wrapper">
     <img src="assets/imgs/logo-alt.svg" />
   </div>
@@ -193,8 +193,6 @@
               [(ngModel)]="credentials.email"
               required
               autocomplete="off"
-              (focus)="onInputsFocus('login')"
-              (blur)="onInputsBlur('login')"
             />
             <label class="did-floating-label">Enter your email</label>
           </div>
@@ -209,8 +207,6 @@
               [(ngModel)]="credentials.password"
               required
               autocomplete="off"
-              (focus)="onInputsFocus('login')"
-              (blur)="onInputsBlur('login')"
             />
             <ion-icon
               slot="end"

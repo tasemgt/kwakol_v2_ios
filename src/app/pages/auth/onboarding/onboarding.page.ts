@@ -19,6 +19,7 @@ import { NgForm } from '@angular/forms';
 import { OneSignalService } from 'src/app/services/one-signal.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UiService } from 'src/app/services/ui.service';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
   selector: 'app-onboarding',
@@ -80,7 +81,7 @@ export class OnboardingPage implements OnInit {
     private renderer: Renderer2
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.pin = '';
     this.credentials = { email: '', password: '' };
     this.regCreds = { email: '', password: '', confirmPassword: '' };
@@ -93,30 +94,71 @@ export class OnboardingPage implements OnInit {
       }
     });
 
-    this.platform.keyboardDidShow.subscribe((ev) => {
-      const { keyboardHeight } = ev;
-      console.log('Heightttttt>>',ev);
-      this.keyboardHeight = keyboardHeight;
-      // this.floatUp = true;
-      if (this.showLoginPasswordForm) {
-        this.loginInputFocused = true;
-      } else if (this.showRegisterForm) {
-        this.registrationInputFocused = true;
-      } else {
-        this.resetPasswordInputFocused = true;
-      }
-    });
+    Keyboard.addListener('keyboardWillShow', async info => {
+      console.log('keyboard will show with height:', info.keyboardHeight);
+      // if(info.keyboardHeight > 0){
+      //   this.keyboardHeight = info.keyboardHeight;
+      // }
+      // console.log(this.keyboardHeight);
 
-    this.platform.keyboardDidHide.subscribe(() => {
-      // this.floatUp = false;
-      if (this.showLoginPasswordForm) {
-        this.loginInputFocused = false;
-      } else if (this.showRegisterForm) {
-        this.registrationInputFocused = false;
-      } else {
-        this.resetPasswordInputFocused = false;
-      }
+      // if(info.keyboardHeight == 0){
+      //   if (this.showLoginPasswordForm) {
+      //     console.log('Login up');
+      //     await Keyboard.setScroll({ isDisabled: true });
+      //     setTimeout(() => this.loginInputFocused = true, 100);
+      //   } else if (this.showRegisterForm) {
+      //     this.registrationInputFocused = true;
+      //   } else {
+      //     this.resetPasswordInputFocused = true;
+      //   }
+      // }
+      // else{
+      //   setTimeout(() => this.loginInputFocused = false, 100);
+      // }
+
     });
+    
+    // Keyboard.addListener('keyboardDidShow', info => {
+    //   console.log('keyboard did show with height:', info.keyboardHeight);
+    // });
+    
+    Keyboard.addListener('keyboardWillHide', async () => {
+      console.log('keyboard will hide');
+      // await Keyboard.setScroll({ isDisabled: false });
+      // setTimeout(() => this.loginInputFocused = false, 100);
+    });
+    
+    // Keyboard.addListener('keyboardDidHide', () => {
+    //   console.log('keyboard did hide');
+    // });
+
+    // this.platform.keyboardDidShow.subscribe((ev) => {
+    //   // const { keyboardHeight } = ev;
+    //   console.log('Heightttttt>>',ev);
+    //   // this.keyboardHeight = keyboardHeight;
+    //   // this.floatUp = true;
+    //   if (this.showLoginPasswordForm) {
+    //     console.log('Login up');
+    //     this.loginInputFocused = true;
+    //   } else if (this.showRegisterForm) {
+    //     this.registrationInputFocused = true;
+    //   } else {
+    //     this.resetPasswordInputFocused = true;
+    //   }
+    // });
+
+    // this.platform.keyboardDidHide.subscribe((ev) => {
+    //   console.log('Heightttttt>>',ev);
+    //   // this.floatUp = false;
+    //   if (this.showLoginPasswordForm) {
+    //     console.log('Login Down');
+    //     this.loginInputFocused = false;
+    //   } else if (this.showRegisterForm) {
+    //     this.registrationInputFocused = false;
+    //   } else {
+    //     this.resetPasswordInputFocused = false;
+    //   }
+    // });
   }
 
   public onInputsFocus(type: string): void {
@@ -138,6 +180,10 @@ export class OnboardingPage implements OnInit {
     // } else {
     //   this.resetPasswordInputFocused = false;
     // }
+  }
+
+  public async disableOnKeyboardOpenScroll(){
+    await Keyboard.setScroll({ isDisabled: true });
   }
 
   public hideShowPassword() {

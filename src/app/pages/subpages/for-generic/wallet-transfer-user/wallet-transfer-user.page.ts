@@ -5,6 +5,7 @@ import { HomeService } from 'src/app/services/home.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
   selector: 'app-wallet-transfer-user',
@@ -68,40 +69,11 @@ export class WalletTransferUserPage implements OnInit {
 
     setTimeout(() => this.scrollToBottom(), 500);
 
-    this.platform.keyboardDidShow.subscribe((ev) => {
-      const { keyboardHeight } = ev;
-      console.log('Heightttttt>>',ev);
-      this.keyboardHeight = keyboardHeight;
-      this.floatUp = true;
+    //Ios fix to ensure keyboard doesnt float up when focus is removed
+    Keyboard.addListener('keyboardWillShow', async info => {
+      console.log('keyboard will show with height:', info.keyboardHeight);
+      setTimeout(() => this.scrollToBottom(), 200);
     });
-
-    this.platform.keyboardDidHide.subscribe(() => {
-      this.floatUp = false;
-    });
-  }
-
-  // public footerStyles() {
-  //   if (this.floatUp) {
-  //     return {
-  //       position: 'relative',
-  //       'margin-bottom': this.keyboardHeight + 5 + 'px'
-  //     };
-  //   } else {
-  //     return {
-  //       bottom: 0 + 'px'
-  //     };
-  //   }
-  // }
-  public footerStyles() {
-    if (this.floatUp) {
-      return {
-        bottom: this.keyboardHeight + 30 + 'px'
-      };
-    } else {
-      return { 
-        bottom: 0 + 'px'
-      };
-    }
   }
 
   public sendUserFunds() {

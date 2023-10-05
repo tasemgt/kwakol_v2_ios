@@ -4,6 +4,7 @@ body::-webkit-scrollbar {
 
 ion-content.page-content {
   --background: var(--ion-color-secondary);
+  overflow: hidden;
 
   .logo-wrapper {
     text-align: center;
@@ -169,6 +170,7 @@ ion-modal.login-pin {
 div.login-password {
   position: absolute;
   bottom: 2rem;
+  transform: translateY(100%); /* Initially, move the div down by its own height */
   // margin: 0 auto;
   left: 5%;
   --animate-duration: 0.3s;
@@ -262,11 +264,14 @@ div.login-password {
 
   //Input focus animation
   &.slide-up {
-    bottom: 6rem;
+    bottom: 21rem;
     transition: bottom ease-out 0.3s;
+    // transform: translateY(100%);
   }
-
+  
   &.slide-down {
+    // transform: translateY(0%);
+    // transition: transform ease-out 0.3s;
     bottom: 2rem;
     transition: bottom ease-out 0.3s;
   }

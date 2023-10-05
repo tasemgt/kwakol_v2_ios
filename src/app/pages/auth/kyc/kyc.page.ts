@@ -6,7 +6,7 @@ import { constants } from 'src/app/models/constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UtilService } from 'src/app/services/util.service';
-import { MetaMapCapacitor } from "metamap-capacitor-plugin";
+import { MetaMapCapacitor } from 'metamap-capacitor-plugin';
 
 // declare const cordova: any;
 
@@ -158,11 +158,11 @@ export class KycPage implements OnInit {
         this.startMetaMapVerification();
         return;
       }
-      console.log("You'll need cordova or capacitor here!");
+      console.log('You\'ll need cordova or capacitor here!');
     });
   }
 
-  //Start meta map verification
+  //Start Meta map verification
   private startMetaMapVerification() {
 
     const metadataParams = { buttonColor: '#51AF4E' };
@@ -174,28 +174,36 @@ export class KycPage implements OnInit {
     };
 
     MetaMapCapacitor.showMetaMapFlow(metaMapButtinParams)
-      .then(res => {
-        console.log("verification success:" + res.verificationID)
-        this.util.showToast('KYC verification successful..', 2500, 'success');
-        // if(this.tempUser.has)
+      .then(async res => {
+        console.log('verification success:' + res.verificationID);
 
         const payload = {
           identityId: res.identityId,
           verificationId: res.verificationID
         };
-        
-        this.auth.sendKYCData(payload); //Send kyc info to back
 
-        this.util.presentLoading();
-        this.isVerified = true;
-
-        setTimeout(() =>{
-          this.loading.dismiss();
-          this.openSetPinModal();
-        },1000);
+        try {
+          const resp = await this.auth.sendKYCData(payload) //Send kyc info to back
+          if(resp.code == '100'){
+            this.util.showToast(resp.message, 2500, 'success');
+            //if(this.tempUser.has)
+            this.util.presentLoading();
+            this.isVerified = true;
+            setTimeout(() =>{
+              this.loading.dismiss();
+              this.openSetPinModal();
+            },1000);
+          }
+          else{
+            this.util.showToast(resp.message, 2500, 'danger');
+          }
+        } catch (error) {
+          console.log('Verification data send error> ', 'danger');
+          this.util.showToast('Verification could not be completed', 2500, 'danger');
+        }
       })
-      .catch(() => console.log("verification cancelled"));
-    
+      .catch(() => console.log('verification cancelled'));
+
 
     // cordova.plugins.MetaMapGlobalIDSDK.showMetaMapFlow(metaMapButtinParams);
 
