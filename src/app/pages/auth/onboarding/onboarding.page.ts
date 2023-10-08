@@ -42,6 +42,8 @@ export class OnboardingPage implements OnInit {
   public passwordType = 'password';
   public passwordIcon = 'eye-open';
 
+  public slideLogo = false;
+
   public loginInputFocused: boolean;
   public registrationInputFocused: boolean;
   public resetPasswordInputFocused: boolean;
@@ -65,6 +67,7 @@ export class OnboardingPage implements OnInit {
   private modal: HTMLIonModalElement;
 
   private notification_id: string;
+
 
   constructor(
     private platform: Platform,
@@ -117,6 +120,8 @@ export class OnboardingPage implements OnInit {
         this.resetPasswordInputFocused = false;
       }
     });
+
+    setTimeout(() => this.slideLogo = true, 2500);
   }
 
   public onInputsFocus(type: string): void {

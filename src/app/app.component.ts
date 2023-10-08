@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility/ngx';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
@@ -23,7 +24,7 @@ import { UtilService } from './services/util.service';
 export class AppComponent implements OnInit, AfterViewInit {
   previousUrl = '';
   currentUrl = '';
-  
+
   private disconnectSubscription: Subscription;
   private connectSubscription: Subscription;
 
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     '/tabs/feed',
     '/tabs/history',
     '/tabs/portfolio'
-  ]
+  ];
 
   constructor(
     private platform: Platform,
@@ -43,6 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private statusBar: StatusBar,
     private router: Router,
     private storageService: StorageService,
+    private splashScreen: SplashScreen,
     // private network: Network,
     private appMinimize: AppMinimize,
     private mobileAccessibility: MobileAccessibility,
@@ -84,6 +86,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+      setTimeout(() => this.splashScreen.hide(), 3000);
 
       //Lock Screen Orientation to Portriat
       this.handleScreenOrientationAndPushNotification();

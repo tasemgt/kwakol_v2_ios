@@ -159,6 +159,7 @@ export class KycPage implements OnInit {
     });
   }
 
+  //Metamap Verification
   private startMetaMapVerification() {
     const yourMetadata = { buttonColor: '#51AF4E' };
     const metaMapButtinParams = {
@@ -177,30 +178,30 @@ export class KycPage implements OnInit {
           'setMetaMapCallback success Verification: ' + params.verificationID
         );
 
+        //Send IDs to backend for storage and confirmation in future..
         const payload = {
           identityId: params.identityId,
           verificationId: params.verificationID
         };
-        this.auth.sendKYCData(payload); //Send kyc info to back
-        // try {
-        //   const resp = await this.auth.sendKYCData(payload);
-
-        // } catch (error) {
-
-        // }
-        this.util.showToast('KYC verification successful..', 2500, 'success');
-        this.util.presentLoading();
-        this.isVerified = true;
-
-        setTimeout(() =>{
-          this.loading.dismiss();
-          this.openSetPinModal();
-        },1000);
-
+        try {
+          const resp = await this.auth.sendKYCData(payload); //Send kyc info to back
+          if(resp.code == '100'){
+            this.util.showToast(resp.message, 3500, 'success');
+            this.util.presentLoading();
+            this.isVerified = true;
+            setTimeout(() =>{
+              this.loading.dismiss();
+              this.openSetPinModal();
+            },3000);
+          }
+          else{
+            this.util.showToast(resp.message, 2500, 'danger');
+          }
+        } catch (error) {
+          console.log('Verification data send error> ', error);
+          this.util.showToast('Verification could not be completed', 2500, 'danger');
+        }
       },
-
-      //Send IDs to backend for storage and confirmation in future..
-
       (error) => {
         console.log('setMetaMapCallback error: ' + error);
       }

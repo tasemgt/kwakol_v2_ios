@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
-
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { pageAnimation } from 'src/animations/nav-animations';
@@ -41,6 +40,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
     StatusBar,
+    SplashScreen,
     Clipboard,
     MobileAccessibility,
     AppMinimize,

@@ -2,17 +2,41 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* Define the animation keyframes */
+@keyframes logo-in-up {
+  0% {
+    left: 50%;
+    top: 48%;
+    width: 12rem;
+    transform: translateX(-50%);
+  }
+  50% {
+    width: 11rem;
+  }
+  100% {
+    
+  }
+}
+
 ion-content.page-content {
   --background: var(--ion-color-secondary);
 
-  .logo-wrapper {
-    text-align: center;
-    margin-top: 6rem;
+  img.logo-img {
+    position: absolute;
+    top: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10.125rem;
+    
+    &.animated-logo{
+      animation: logo-in-up .7s ease-in-out;
+    }
   }
+  
 
   .main-img-wrapper {
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 10rem;
     margin-left: -3rem;
     margin-right: -3rem;
 

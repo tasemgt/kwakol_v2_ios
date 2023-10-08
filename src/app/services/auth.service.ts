@@ -192,7 +192,7 @@ export class AuthService {
 
   public async sendKYCData(payload): Promise<any>{
     const initialReg = await this.storage.get('INITIAL_REG');
-    const headers = initialReg.token ? {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`}: this.headers;
+    const headers = (initialReg && initialReg.token) ? {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`}: this.headers;
     return this.http.post(`${this.baseUrl}/v2/kyc-data`, payload, headers);
   }
 
