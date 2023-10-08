@@ -177,6 +177,7 @@ export class KycPage implements OnInit {
       .then(async res => {
         console.log('verification success:' + res.verificationID);
 
+        //Send IDs to backend for storage and confirmation in future..
         const payload = {
           identityId: res.identityId,
           verificationId: res.verificationID

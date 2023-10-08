@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from 'node_modules/@ionic/angular';
 import { StatusBar } from 'node_modules/@ionic-native/status-bar/ngx';
-import { SplashScreen } from '@capacitor/splash-screen';
 import { MobileAccessibility } from 'node_modules/@ionic-native/mobile-accessibility/ngx';
 import { ScreenOrientation } from 'node_modules/@awesome-cordova-plugins/screen-orientation/ngx';
 import { AppMinimize } from 'node_modules/@ionic-native/app-minimize/ngx';
@@ -24,7 +23,7 @@ import { UtilService } from './services/util.service';
 export class AppComponent implements OnInit, AfterViewInit {
   previousUrl = '';
   currentUrl = '';
-  
+
   private disconnectSubscription: Subscription;
   private connectSubscription: Subscription;
 
@@ -36,7 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     '/tabs/feed',
     '/tabs/history',
     '/tabs/portfolio'
-  ]
+  ];
 
   constructor(
     private platform: Platform,
