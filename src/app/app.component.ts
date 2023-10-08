@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from 'node_modules/@ionic/angular';
 import { StatusBar } from 'node_modules/@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { MobileAccessibility } from 'node_modules/@ionic-native/mobile-accessibility/ngx';
 import { ScreenOrientation } from 'node_modules/@awesome-cordova-plugins/screen-orientation/ngx';
 import { AppMinimize } from 'node_modules/@ionic-native/app-minimize/ngx';
@@ -83,7 +84,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
+
+      // await SplashScreen.hide();
 
       //Lock Screen Orientation to Portriat
       this.handleScreenOrientationAndPushNotification();

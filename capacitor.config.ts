@@ -5,17 +5,19 @@ const config: CapacitorConfig = {
   appName: 'Kwakol Funds',
   webDir: 'www',
   bundledWebRuntime: false,
-  cordova: {
-    preferences: {
-      ScrollEnabled: 'false',
-      BackupWebStorage: 'none',
-      SplashMaintainAspectRatio: 'true',
-      FadeSplashScreenDuration: '300',
-      SplashShowOnlyFirstTime: 'true',
-      ShowSplashScreenSpinner: 'false',
-      SplashScreen: 'screen',
-      SplashScreenDelay: '2000'
-    }
+  cordova: {},
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 2000,
+      launchAutoHide: true,
+      launchFadeOutDuration: 3000,
+      backgroundColor: '#211F42',
+      showSpinner: false,
+      splashFullScreen: true,
+      splashImmersive: true,
+      layoutName: 'launch_screen',
+      useDialog: true,
+    },
   }
 };
 
