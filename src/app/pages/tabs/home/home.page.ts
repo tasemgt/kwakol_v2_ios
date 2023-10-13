@@ -90,7 +90,8 @@ export class HomePage implements OnInit {
   //Segment states
   public childPage;
   public activeSegment: string;
-  public percent = 75;
+  public percent: number;
+  public canWithdrawUSD: boolean;
 
   public showInfoModal: boolean;
   // public infoModalData: any;
@@ -251,6 +252,8 @@ export class HomePage implements OnInit {
         this.dailyRate = this.home.daily_rate.split('₦')[1];
         console.log(this.home);
         console.log(this.investment);
+        this.percent = this.home.verified_kyc ? (this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75):75;
+        this.canWithdrawUSD = this.home.can_withdraw_usd_cash;
       }
     } catch (error) {
       // this.listSpinner = false;
@@ -376,7 +379,16 @@ Rate: ${this.home.daily_rate}`;
   }
 
   public goToKYC(){
-    this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: this.user}});
+    if(!this.home.verified_kyc || this.home.verified_kyc.toLowerCase() === 'redo'){
+      this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: this.user}});
+      return;
+    }
+    else if(this.home.verified_kyc.toLowerCase() === 'pending'){
+      this.uiService.getLoadingStateSubject().next({active: true, data: {type: 'pending', data: null}});
+    }
+    else if(this.home.verified_kyc.toLowerCase() === 'no'){
+      this.uiService.getLoadingStateSubject().next({active: true, data: {type: 'no', data: null}});
+    }
   }
 
   //MODAL FUNCTIONS
@@ -604,21 +616,36 @@ Rate: ${this.home.daily_rate}`;
         type: 'CASH',
         amount: 100, //test amount...
       };
+
+      const banks = [
+        {id: 3, bank_name: 'Jaiz Bank', account_number: '0012117943'},
+        {id: 4, bank_name: 'United Bank of Africa', account_number: '1485609290'},
+        {id: 5, bank_name: 'Guarantee Trust Bank', account_number: '0725652204'},
+        {id: 6, bank_name: 'Wema Bank', account_number: '7810599277'},
+        {id: 7, bank_name: 'Access Bank', account_number: '1485609290'}
+      ];
+
       this.util.presentLoading();
-      try {
-        const resp = await this.homeService.initiateWalletDeposit(payload);
+      setTimeout(() => {
         this.loading.dismiss();
         this.depositModal.dismiss();
-        this.depositNairaModal.present();
-        if (resp.code == 100) {
-          console.log(resp.data);
-          this.nairaDepositeModalData = resp.data;
-        }
-      } catch (error) {
-        this.loading.dismiss();
-        console.log(error);
-        this.util.showToast('An error occurred.', 2000, 'danger');
-      }
+        this.router.navigateByUrl('/deposit', {
+          state: { url: this.router.url, banks, currency: 'naira' },
+        });
+      }, 200);
+      // try {
+      //   const resp = await this.homeService.initiateWalletDeposit(payload);
+      //   this.loading.dismiss();
+      //   // this.depositNairaModal.present();
+      //   // if (resp.code == 100) {
+      //   //   console.log(resp.data);
+      //   //   this.nairaDepositeModalData = resp.data;
+      //   // }
+      // } catch (error) {
+      //   this.loading.dismiss();
+      //   console.log(error);
+      //   this.util.showToast('An error occurred.', 2000, 'danger');
+      // }
     } else {
       //Dollar
       this.depositModal.dismiss();
@@ -677,6 +704,10 @@ Rate: ${this.home.daily_rate}`;
   }
 
   public async openDollarAndNairaWithdrawalModal(type: string, bank?) {
+    if(!this.canWithdrawUSD){
+      this.util.showToast('This feature requires an active investment.', 2500, 'danger');
+      return;
+    }
     this.typeOfWithdrawal = type;
     if(type === 'cash'){
       //Check if dollar selection is cash to ensure withdraw currency is set to USD
@@ -742,7 +773,8 @@ Rate: ${this.home.daily_rate}`;
       this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
       return;
     }
-    const nairaEquiv = (+this.dailyRate * +this.dollarOrNairaWithdrawAmount).toFixed(2);
+    console.log(this.home.daily_rate_withdrawal_raw )
+    const nairaEquiv = (+this.home.daily_rate_withdrawal_raw * +this.dollarOrNairaWithdrawAmount).toFixed(2);
     this.nairaWithdrawEquivalentAmount = nairaEquiv + '';
     this.dollarAndNairaWithdrawalModal.dismiss();
     this.pinEnterModalWithdrawal.present();
@@ -879,6 +911,8 @@ Rate: ${this.home.daily_rate}`;
       this.homeHistories = this.investment.user_details.transactions;
       this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
       this.homeService.setWalletBallance(this.wallet.balance);
+      this.percent = this.home.verified_kyc ? (this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75): 75;
+      this.canWithdrawUSD = this.home.can_withdraw_usd_cash;
     }
   }
 
@@ -1003,7 +1037,7 @@ Rate: ${this.home.daily_rate}`;
         //Go to dollar transfer and upload receipt page for type = 'TRANSFER'
         this.depositDollarModal.dismiss(); //Dismiss first dollar modal if present
         this.router.navigateByUrl('/deposit', {
-          state: { url: this.router.url, data: resp.data },
+          state: { url: this.router.url, data: resp.data, currency: 'dollar' },
         });
       }
     } catch (error) {

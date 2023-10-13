@@ -326,21 +326,21 @@ export class UtilService {
           { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Deposit Type', value: data.type },
-          {
-            item: 'Fee',
-            value:
-              (data.transfer_type === 'CASH' ? '$' : 'N') +
-              (data.fee || '0.00'),
-          },
+          // {
+          //   item: 'Fee',
+          //   value:
+          //     (data.transfer_type === 'CASH' ? '$' : 'N') +
+          //     (data.fee || '0.00'),
+          // },
         ];
         const invCont = [
           { item: 'Comment', value: data.comment },
-          {
-            item: 'Fee',
-            value:
-              (data.transfer_type === 'CASH' ? '$' : 'N') +
-              (data.fee || '0.00'),
-          },
+          // {
+          //   item: 'Fee',
+          //   value:
+          //     (data.transfer_type === 'CASH' ? '$' : 'N') +
+          //     (data.fee || '0.00'),
+          // },
         ];
         infoModalData.icon = 'trans-deposit.svg';
         infoModalData.title = 'Deposit';
@@ -355,21 +355,21 @@ export class UtilService {
           { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Withdrawal Type', value: data.type },
-          {
-            item: 'Fee',
-            value:
-              (data.transfer_type === 'CASH' ? '$' : 'N') +
-              (data.fee || '0.00'),
-          },
+          // {
+          //   item: 'Fee',
+          //   value:
+          //     (data.transfer_type === 'CASH' ? '$' : 'N') +
+          //     (data.fee || '0.00'),
+          // },
         ];
         const invContent = [
           { item: 'Comment', value: data.comment },
-          {
-            item: 'Fee',
-            value:
-              (data.transfer_type === 'CASH' ? '$' : 'N') +
-              (data.fee || '0.00'),
-          },
+          // {
+          //   item: 'Fee',
+          //   value:
+          //     (data.transfer_type === 'CASH' ? '$' : 'N') +
+          //     (data.fee || '0.00'),
+          // },
         ];
         infoModalData.icon = 'trans-withdraw.svg';
         infoModalData.title = 'Withdrawal';

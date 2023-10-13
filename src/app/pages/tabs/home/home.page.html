@@ -188,7 +188,7 @@
       </div>
     </div>
 
-    <div class="finish-kyc" *ngIf="!user.verified_kyc" (click)="goToKYC()">
+    <div class="finish-kyc" *ngIf="(home?.verified_kyc?.toLowerCase() !== 'yes')" (click)="goToKYC()">
       <div
         class="progress"
         [style]="'background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(var(--ion-color-primary) '+ percent +'%, rgba(var(--ion-color-secondary-rgb), 0.2) 0)'"
@@ -197,7 +197,10 @@
       </div>
       <div class="text">
         <p>Finish setting up your account</p>
-        <p>Complete your KYC to get full access to Kwakol Funds</p>
+        <p></p>
+        <p *ngIf="!(home?.verified_kyc?.toLowerCase()) || home?.verified_kyc?.toLowerCase() === 'redo'">Complete your KYC to get full access to Kwakol Funds</p>
+        <p *ngIf="home?.verified_kyc?.toLowerCase() === 'pending'">Your KYC is being reviewed</p>
+        <p *ngIf="home?.verified_kyc?.toLowerCase() === 'no'">Your KYC wasn't approved</p>
       </div>
     </div>
   </div>
@@ -1075,11 +1078,20 @@
             class="option"
             (click)="openDollarAndNairaWithdrawalModal('cash')"
           >
+          <div>
             <img
               src="assets/imgs/v2-imgs/cash-deposit.svg"
               class="animate__animated animate__pulse"
               alt=""
+              *ngIf="canWithdrawUSD"
+              />
+              <img
+              src="assets/imgs/v2-imgs/cash-deposit-grey.svg"
+              class="animate__animated animate__pulse"
+              alt=""
+              *ngIf="!canWithdrawUSD"
             />
+          </div>
             <p>Cash</p>
           </div>
           <div class="option" (click)="openChooseBankAccountModal('USD')">
@@ -1202,7 +1214,7 @@
           <div class="round-button">
             <ion-icon [src]="'assets/imgs/flags/nigeria.svg'"></ion-icon>
           </div>
-          <h5><del>N</del>{{util.numberWithCommas(+dollarOrNairaWithdrawAmount * +dailyRate) || '0.00'}}</h5>
+          <h5><del>N</del>{{util.numberWithCommas(+dollarOrNairaWithdrawAmount * +home?.daily_rate_withdrawal_raw) || '0.00'}}</h5>
         </div>
 
         <ion-col size="12" class="ion-text-center btn-col">
@@ -1246,12 +1258,12 @@
           <span *ngIf="typeOfWithdrawal === 'transfer'">Bank Transfer</span>
         </h4>
 
-        <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">${{dollarOrNairaWithdrawAmount}} at {{home.daily_rate}}</p>
+        <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">${{dollarOrNairaWithdrawAmount}} at {{home.daily_rate_withdrawal}}</p>
         
         <h3 *ngIf="withdrawCurrentcy === 'USD'">${{util.numberWithCommas(dollarOrNairaWithdrawAmount)}}</h3>
         <h3 *ngIf="withdrawCurrentcy === 'NGN'" style="margin-bottom: .5rem;"><del>N</del>{{util.numberWithCommas(nairaWithdrawEquivalentAmount)}}</h3>
         
-        <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">+ <del>N</del>{{home.fees[0].amount}} processing fee</p>
+        <!-- <p *ngIf="withdrawCurrentcy === 'NGN'" class="px y">+ <del>N</del>{{home.fees[0].amount}} processing fee</p> -->
 
         <div class="bank-transfer-details" *ngIf="typeOfWithdrawal === 'transfer'">
           <h6>{{selectedBank.bank_name}}</h6>

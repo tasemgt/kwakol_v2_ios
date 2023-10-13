@@ -73,6 +73,11 @@ export class HomeService {
     return this.http.post(`${this.baseUrl}/v2/make-wallet-deposit-dollar`, payload, headers);
   }
 
+  public makeWalletDepositNaira(payload: any): Promise<any>{
+    const headers = {'Content-Type' : false, processData : false}; //Needed to upload file as file and not converted to string
+    return this.http.post(`${this.baseUrl}/v2/make-wallet-deposit-naira`, payload, headers);
+  }
+
 
   // WITHDRAW FROM WALLET
 
