@@ -87,7 +87,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      setTimeout(() => this.splashScreen.hide(), 3000);
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 3000);
 
       //Lock Screen Orientation to Portriat
       this.handleScreenOrientationAndPushNotification();

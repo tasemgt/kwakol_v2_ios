@@ -252,7 +252,7 @@ export class HomePage implements OnInit {
         this.dailyRate = this.home.daily_rate.split('₦')[1];
         console.log(this.home);
         console.log(this.investment);
-        this.percent = this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75;
+        this.percent = this.home.verified_kyc ? (this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75):75;
         this.canWithdrawUSD = this.home.can_withdraw_usd_cash;
       }
     } catch (error) {
@@ -632,7 +632,7 @@ Rate: ${this.home.daily_rate}`;
         this.router.navigateByUrl('/deposit', {
           state: { url: this.router.url, banks, currency: 'naira' },
         });
-      }, 1500);
+      }, 200);
       // try {
       //   const resp = await this.homeService.initiateWalletDeposit(payload);
       //   this.loading.dismiss();
@@ -773,7 +773,8 @@ Rate: ${this.home.daily_rate}`;
       this.util.showToast('Please enter a withdrawal amount', 2500, 'danger');
       return;
     }
-    const nairaEquiv = (+this.dailyRate * +this.dollarOrNairaWithdrawAmount).toFixed(2);
+    console.log(this.home.daily_rate_withdrawal_raw )
+    const nairaEquiv = (+this.home.daily_rate_withdrawal_raw * +this.dollarOrNairaWithdrawAmount).toFixed(2);
     this.nairaWithdrawEquivalentAmount = nairaEquiv + '';
     this.dollarAndNairaWithdrawalModal.dismiss();
     this.pinEnterModalWithdrawal.present();
@@ -910,7 +911,7 @@ Rate: ${this.home.daily_rate}`;
       this.homeHistories = this.investment.user_details.transactions;
       this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
       this.homeService.setWalletBallance(this.wallet.balance);
-      this.percent = this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75;
+      this.percent = this.home.verified_kyc ? (this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75): 75;
       this.canWithdrawUSD = this.home.can_withdraw_usd_cash;
     }
   }

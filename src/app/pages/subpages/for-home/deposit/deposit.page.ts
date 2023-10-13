@@ -96,10 +96,17 @@ export class DepositPage implements OnInit{
         this.subService.getBalanceSubject().next(true);
         this.openLoadingModal();
       }
+      else{
+        this.util.showToast(resp.data, 3000, 'danger');
+        return;
+      }
     } catch (error) {
       this.loading.dismiss();
       console.log(error);
-      error.status === 0 ? this.util.showToast('Please check your network connection...', 3000, 'danger') : '';
+      error.status === 0 ? 
+        this.util.showToast('Please check your network connection...', 3000, 'danger'): '';
+        // error.status === 422 ?
+        // this.util.showToast('Please', 3000, 'danger'):'';
     }
   }
 

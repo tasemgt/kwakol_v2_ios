@@ -72,7 +72,7 @@
     </p>
   </div>
 
-  <ion-col size="12" class="kwakol-input" id="open-select-bank">
+  <ion-col size="12" class="kwakol-input" id="open-select-bank" *ngIf="currency === 'naira'">
     <p style="margin-bottom: 1rem;" class="p-input">{{selectedBank.bank_name || 'Bank Name'}}</p>
   </ion-col>
 
