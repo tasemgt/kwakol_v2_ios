@@ -93,9 +93,17 @@
   >
     <div class="content">
       <div class="loader-wrapper no-animation">
-        <ion-icon *ngIf="loadingModalType !== 'confirm' && loadingModalType !== 'pin' && loadingModalType !== 'logout'" src="assets/imgs/v2-imgs/hour-glass.svg" alt=""></ion-icon>
+        
+        <ion-icon 
+          *ngIf="loadingModalType !== 'confirm' 
+          && loadingModalType !== 'pin' 
+          && loadingModalType !== 'logout'
+          && loadingModalType !== 'no'" 
+          src="assets/imgs/v2-imgs/hour-glass.svg" alt="">
+        </ion-icon>
+        
         <ion-icon
-          *ngIf="loadingModalType === 'confirm' || loadingModalType === 'logout'"
+          *ngIf="loadingModalType === 'confirm' || loadingModalType === 'logout' || loadingModalType === 'no'"
           src="assets/imgs/v2-imgs/red-flag.svg"
           alt=""
         ></ion-icon>
@@ -130,6 +138,13 @@
         </p>
         <p class="loading-text" *ngIf="loadingModalType === 'pin'">
           You've successfully changed your PIN.
+        </p>
+        <p class="loading-text" *ngIf="loadingModalType === 'pending'">
+          Your KYC process is being reviewed. You will get a notification
+          once it is approved.
+        </p>
+        <p class="loading-text" *ngIf="loadingModalType === 'no'">
+          Your KYC was not approved. Kindly contact Kwakol Funds support.
         </p>
       </div>
       <!-- <div class="load-complete" *ngIf="!isSending">

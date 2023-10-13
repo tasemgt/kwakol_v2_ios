@@ -34,7 +34,9 @@
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading left">USD Bank Transfer</h2>
+
+  <h2 *ngIf="currency === 'dollar'" class="subpage-heading left">USD Bank Transfer</h2>
+  <h2 *ngIf="currency === 'naira'" class="subpage-heading left">Naira Bank Transfer</h2>
 
   <h1 class="subheader">Deposit into the account details below.</h1>
 
@@ -52,23 +54,27 @@
       <span>Bank Name</span>
       <span>{{accInfo.bank_account_name}}</span>
     </p>
-    <p>
+    <p *ngIf="currency === 'dollar'">
       <span>Swift Code</span>
       <span>{{accInfo.swift_code}} <ion-icon (click)="util.clipboardCopy(accInfo.swift_code)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
-    <p>
+    <p *ngIf="currency === 'dollar'">
       <span>Sort Code</span>
       <span>{{accInfo.sort_code}} <ion-icon (click)="util.clipboardCopy(accInfo.sort_code)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
-    <p>
+    <p *ngIf="currency === 'dollar'">
       <span>Branch</span>
       <span>{{accInfo.branch}} <ion-icon (click)="util.clipboardCopy(accInfo.branch)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
-    <p>
+    <p *ngIf="currency === 'dollar'">
       <span>Address</span>
       <span>{{accInfo.branch_address}} <ion-icon (click)="util.clipboardCopy(accInfo.branch_address)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
   </div>
+
+  <ion-col size="12" class="kwakol-input" id="open-select-bank">
+    <p style="margin-bottom: 1rem;" class="p-input">{{selectedBank.bank_name || 'Bank Name'}}</p>
+  </ion-col>
 
   <ion-col size="12" class="kwakol-input">
     <div class="did-floating-label-content">
@@ -98,4 +104,31 @@
       <ion-button class="kwakol-btn ion-text-uppercase" type="button" (click)="doTransfer()">Complete</ion-button>
     </ion-col>
   </ion-row>
+
+
+  <!-- Select Bank Modal -->
+  <ion-modal
+    #selectBankModal
+    trigger="open-select-bank"
+    [initialBreakpoint]="0.45"
+    [breakpoints]="[0.34, 0.45]"
+    class="kwakol-modal-bottom-drawer2 deposit-modal"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <h3>Select Bank</h3>
+
+        <p class="p0">
+          Make a Transfer to any of the Kwakol accounts below
+        </p>
+
+        <div class="content-wrapper banks">
+          <p class="bank-name" *ngFor="let bank of banks" (click)="selectBank(bank)">{{bank.bank_name}}</p>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- ESelect Bank Modal -->
+
 </ion-content>

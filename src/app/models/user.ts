@@ -15,7 +15,7 @@ export interface User {
   roles: string;
   new_user: string;
   verified_otp: boolean;
-  verified_kyc: boolean;
+  verified_kyc: string;
   has_pin: boolean;
   message?: string;
 }
