@@ -209,7 +209,7 @@ export class BeneficiaryDetailsPage implements OnInit {
   }
 
   public onTapPinInput(): void {
-    this.inputPinTypePassword = !this.inputPinTypePassword;
+    // this.inputPinTypePassword = !this.inputPinTypePassword;
   }
 
   public onPinInputChange(e: { keypadText: string }) {

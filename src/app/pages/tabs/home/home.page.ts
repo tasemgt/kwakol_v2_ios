@@ -292,7 +292,7 @@ Rate: ${this.home.daily_rate}`;
   }
 
   public onTapPinInput(): void {
-    this.inputPinTypePassword = !this.inputPinTypePassword;
+    // this.inputPinTypePassword = !this.inputPinTypePassword;
   }
 
   public goToPage(page: string) {

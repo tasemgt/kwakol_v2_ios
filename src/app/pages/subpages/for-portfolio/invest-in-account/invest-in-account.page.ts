@@ -72,16 +72,16 @@ export class InvestInAccountPage implements OnInit {
     });
   }
 
-  public footerStyles() {
-    if (this.floatUp) {
-      return { bottom: this.keyboardHeight + 50 + 'px' };
-    } else {
-      return { bottom: 1.5 + 'rem' };
-    }
-  }
+  // public footerStyles() {
+  //   if (this.floatUp) {
+  //     return { bottom: this.keyboardHeight + 50 + 'px' };
+  //   } else {
+  //     return { bottom: 1.5 + 'rem' };
+  //   }
+  // }
 
   public onTapPinInput(): void {
-    this.inputPinTypePassword = !this.inputPinTypePassword;
+    // this.inputPinTypePassword = !this.inputPinTypePassword;
   }
 
   public getIconForInvName(inv: string) {

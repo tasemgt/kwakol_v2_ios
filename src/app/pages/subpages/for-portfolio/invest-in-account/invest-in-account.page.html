@@ -19,9 +19,9 @@
         being reviewed. You will get a notification once it is approved.
       </p>
       <p class="loading-text" *ngIf="beneficiary">
-        Your request to create an investment for {{beneficiary.firstname+' '+beneficiary.lastname}}<span
-          style="font-family: BwModelicaBold"
-          > ({{account.name}})</span
+        Your request to create an investment for {{beneficiary.firstname+'
+        '+beneficiary.lastname}}<span style="font-family: BwModelicaBold">
+          ({{account.name}})</span
         >
         is being reviewed. You will get a notification once it is approved.
       </p>
@@ -36,7 +36,7 @@
 </div>
 <!-- Loading Modal End -->
 
-<ion-content class="page-content">
+<ion-content class="page-content" scrollY="false">
   <div
     *ngIf="!isCustomizeName"
     class="back-button"
@@ -107,7 +107,8 @@
     </ion-col>
   </div>
 
-  <ion-row class="btn-row" [ngStyle]="footerStyles()">
+  <!-- <ion-row class="btn-row" [ngStyle]="footerStyles()"> -->
+  <ion-row class="btn-row">
     <ion-col size="12" class="ion-text-center btn-col">
       <ion-button
         class="kwakol-btn ion-text-uppercase"
@@ -122,13 +123,13 @@
   <ion-modal
     #pinEnterModal
     trigger="open-enter-pin"
-    [initialBreakpoint]="0.75"
-    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    [initialBreakpoint]="0.8"
+    [breakpoints]="[0, 0.25, 0.55, 0.8]"
     class="enter-pin"
     handle="true"
   >
     <ng-template>
-      <ion-content>
+      <ion-content scrollY="false">
         <div class="img-wrapper">
           <div class="round-button">
             <ion-icon
@@ -141,7 +142,7 @@
 
         <p class="p0">
           to {{customName || beneficiary.firstname+' '+beneficiary.lastname ||
-          ''}} (<span style="font-weight: 600;">{{account.name}}</span>)
+          ''}} (<span style="font-weight: 600">{{account.name}}</span>)
         </p>
 
         <p class="p1">Enter your pin to complete transaction</p>
@@ -153,7 +154,7 @@
             [(ngModel)]="pin"
             disabled
             (click)="onTapPinInput()"
-            [ngStyle]="{fontSize: inputPinTypePassword ? '5rem' : '1.5rem', color: inputPinTypePassword ? 'rgba(81, 175, 78, 0.2)' : '#211F42'}"
+            [ngClass]="{'bullets' : inputPinTypePassword, 'text' : !inputPinTypePassword}"
           ></ion-input>
         </div>
         <app-keypad (keypadEmitter)="onPinInputChange($event)"></app-keypad>

@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { IonTabs, LoadingController } from 'node_modules/@ionic/angular';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UiService } from 'src/app/services/ui.service';
@@ -30,6 +31,9 @@ export class TabsPage {
   public showLoadingModal: boolean;
   public loadingModalType: string;
   public loadingModalData: any;
+  public loadingModalPayload: any;
+
+  public uiServiceSub: Subscription;
 
   public tabList = {
     home: false,
@@ -57,13 +61,13 @@ export class TabsPage {
       }
     });
 
-    this.uiService.getLoadingStateSubject().subscribe((payload) => {
-      if (payload) {
-        this.openLoadingModal(payload.data.type, payload.data.data);
-        this.backdropActive = payload.active;
-        this.openedFrom = 'loading';
-      }
-    });
+    // this.uiService.getLoadingStateSubject().subscribe((payload) => {
+    //   if (payload) {
+    //     this.openLoadingModal(payload.data.type, payload.data.data);
+    //     this.backdropActive = payload.active;
+    //     this.openedFrom = 'loading';
+    //   }
+    // });
 
     // this.uiService.getLoadingStateSubject().subscribe((payload) => {
     //   if (payload) {
@@ -71,6 +75,25 @@ export class TabsPage {
     //     this.backdropActive = payload;
     //   }
     // });
+  }
+
+  ionViewDidEnter(){
+    console.log('Did load');
+    this.uiServiceSub = this.uiService.getLoadingStateSubject().subscribe((payload) => {
+      // this.loadingModalPayload = payload;
+      console.log('PAYLOAD>> ', payload);
+      if (payload) {
+        this.openLoadingModal(payload.data.type, payload.data.data);
+        this.backdropActive = payload.active;
+        this.openedFrom = 'loading';
+        setTimeout(() =>{payload = null;}, 100);
+      }
+    });
+  }
+
+  ionViewWillLeave(){
+    console.log('Did leave');
+    this.uiServiceSub.unsubscribe();
   }
 
   public onTabChange(): void {
@@ -101,7 +124,7 @@ export class TabsPage {
     }, 10);
   }
 
-  public closeModal() {
+  public closeModal(skipBalanceLoad?: boolean) {
     const modalDiv =
       this.openedFrom === 'info'
         ? this.infoModalDiv.nativeElement
@@ -118,7 +141,10 @@ export class TabsPage {
       this.showInfoModal = false;
       this.showLoadingModal = false;
       this.openedFrom = '';
-      this.subService.getBalanceSubject().next(true);
+      if(!skipBalanceLoad){
+        console.log('BABABAB');
+        this.subService.getBalanceSubject().next(true);
+      }
     }, 100);
   }
 
@@ -131,10 +157,12 @@ export class TabsPage {
   }
 
   public logoutUser() {
-    this.closeModal();
+    console.log('Logging user out....');
+    this.closeModal(true); //Skip loading of balance
     this.util.presentLoading();
     setTimeout(() => {
       this.loading.dismiss();
+      // this.uiService.getLoadingStateSubject().unsubscribe();
       this.auth.logout();
     }, 1500);
   }

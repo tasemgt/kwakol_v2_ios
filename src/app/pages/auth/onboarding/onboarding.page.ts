@@ -120,17 +120,17 @@ export class OnboardingPage implements OnInit {
       // }
 
     });
-    
+
     // Keyboard.addListener('keyboardDidShow', info => {
     //   console.log('keyboard did show with height:', info.keyboardHeight);
     // });
-    
+
     Keyboard.addListener('keyboardWillHide', async () => {
       console.log('keyboard will hide');
       // await Keyboard.setScroll({ isDisabled: false });
       // setTimeout(() => this.loginInputFocused = false, 100);
     });
-    
+
     // Keyboard.addListener('keyboardDidHide', () => {
     //   console.log('keyboard did hide');
     // });
@@ -163,7 +163,7 @@ export class OnboardingPage implements OnInit {
     //   }
     // });
 
-    setTimeout(() => this.slideLogo = true, 2500);
+    setTimeout(() => this.slideLogo = true, 1000);
   }
 
   public onInputsFocus(type: string): void {
@@ -242,7 +242,7 @@ export class OnboardingPage implements OnInit {
   }
 
   public onTapPinInput(): void {
-    this.inputPinTypePassword = !this.inputPinTypePassword;
+    // this.inputPinTypePassword = !this.inputPinTypePassword;
   }
 
   //Login With Password

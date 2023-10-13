@@ -37,22 +37,24 @@ h2.subpage-heading.left {
   margin-left: 0.5rem;
   font-size: 1.7rem;
   padding-left: 0;
-
+  letter-spacing: -0.035rem;
+  
   &.down {
   }
 }
 
 p {
-  letter-spacing: 0.01rem;
+  letter-spacing: -0.065rem;
   margin: 0;
   font-family: BwModelicaLight;
-  color: rgba(var(--ion-color-secondary-rgb), 0.5);
-  font-size: 0.82rem;
+  color: rgba(var(--ion-color-secondary-rgb), 0.3);
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
 h3 {
   font-size: 1.23rem;
+  letter-spacing: -0.03rem;
   margin-top: 1.7rem;
   font-family: BwModelicaBold;
 }
@@ -77,8 +79,8 @@ h3 {
   }
 
   .footer {
-    font-size: 0.6rem;
-    color: rgba(var(--ion-color-primary-rgb), 0.7);
+    font-size: 0.63rem;
+    color: rgba(var(--ion-color-primary-rgb), 0.9);
     font-weight: 100;
     letter-spacing: 0.01rem;
   }

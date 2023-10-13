@@ -145,7 +145,7 @@ export class WalletTransferUserPage implements OnInit {
   }
 
   public onTapPinInput(): void {
-    this.inputPinTypePassword = !this.inputPinTypePassword;
+    // this.inputPinTypePassword = !this.inputPinTypePassword;
   }
 
   public getPressedKey(key: string): void {

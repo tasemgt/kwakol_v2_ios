@@ -5,13 +5,17 @@ body::-webkit-scrollbar {
 /* Define the animation keyframes */
 @keyframes logo-in-up {
   0% {
-    left: 50%;
+    // position: absolute;
+    // left: 50%;
     top: 48%;
     width: 12rem;
-    transform: translateX(-50%);
+    // transform: translateX(-50%);
+  }
+  25%{
+
   }
   50% {
-    width: 11rem;
+    // width: 11rem;
   }
   100% {
     
@@ -30,7 +34,7 @@ ion-content.page-content {
     width: 10.125rem;
     
     &.animated-logo{
-      animation: logo-in-up .7s ease-in-out;
+      animation: logo-in-up .9s ease-in-out;
     }
   }
   
