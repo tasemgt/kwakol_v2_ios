@@ -124,6 +124,7 @@ export class ProfilePage implements OnInit {
     this.uiService
       .getLoadingStateSubject()
       .next({ active: true, data: { type: 'logout', data: null } });
+      setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
   }
 
   public async getAccountDetails(page) {
@@ -307,8 +308,10 @@ export class ProfilePage implements OnInit {
           this.uiService
             .getLoadingStateSubject()
             .next({ active: true, data: { type: 'pin', data: null } });
+          setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
         } else {
-          this.util.showToast(resp.data, 2000, 'danger');
+          this.setPinModal.dismiss();
+          this.util.showToast(resp.data, 3000, 'danger');
         }
       } catch (error) {
         console.log('FAILED>', error);

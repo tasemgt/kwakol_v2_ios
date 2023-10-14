@@ -385,9 +385,11 @@ Rate: ${this.home.daily_rate}`;
     }
     else if(this.home.verified_kyc.toLowerCase() === 'pending'){
       this.uiService.getLoadingStateSubject().next({active: true, data: {type: 'pending', data: null}});
+      setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
     }
     else if(this.home.verified_kyc.toLowerCase() === 'no'){
       this.uiService.getLoadingStateSubject().next({active: true, data: {type: 'no', data: null}});
+      setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
     }
   }
 
@@ -832,6 +834,7 @@ Rate: ${this.home.daily_rate}`;
       this.uiService
           .getLoadingStateSubject()
           .next({ active: true, data: { type: 'inactive', data: { plan: inv.subscription.name }} });
+      setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
       return;
     }
 
@@ -855,6 +858,7 @@ Rate: ${this.home.daily_rate}`;
 
   public startInvestmentWithdrawal(){
     this.uiService.getLoadingStateSubject().next({active: true, data: {type: 'confirm', data: {}}});
+    setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
   }
 
   //This makes a withdrawal from subscription into wallet
@@ -875,6 +879,7 @@ Rate: ${this.home.daily_rate}`;
         this.uiService
           .getLoadingStateSubject()
           .next({ active: true, data: { type: 'withdraw', data: {} } });
+        setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
         this.subService.getBalanceSubject().next(true);
         this.pin = '';
         this.withdrawalInvestmentAmount = '';
@@ -959,6 +964,7 @@ Rate: ${this.home.daily_rate}`;
         this.uiService
           .getLoadingStateSubject()
           .next({ active: true, data: { type: 'deposit', data: {} } });
+        setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
         this.subService.getBalanceSubject().next(true);
         this.pin = '';
         this.investmentTransferAmount = '';
@@ -1003,6 +1009,7 @@ Rate: ${this.home.daily_rate}`;
         this.uiService
           .getLoadingStateSubject()
           .next({ active: true, data: { type: 'deposit', data: {} } });
+          setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
         this.subService.getBalanceSubject().next(true);
         this.pin = '';
         this.beneficiaryTransferAmount = '';
@@ -1065,6 +1072,7 @@ Rate: ${this.home.daily_rate}`;
         this.uiService
           .getLoadingStateSubject()
           .next({ active: true, data: { type: 'withdraw', data: {} } });
+        setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
         this.pin = '';
       } else if (resp.code == '418') {
         console.log(resp);

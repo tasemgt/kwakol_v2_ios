@@ -79,21 +79,24 @@ export class TabsPage {
 
   ionViewDidEnter(){
     console.log('Did load');
-    this.uiServiceSub = this.uiService.getLoadingStateSubject().subscribe((payload) => {
-      // this.loadingModalPayload = payload;
-      console.log('PAYLOAD>> ', payload);
-      if (payload) {
-        this.openLoadingModal(payload.data.type, payload.data.data);
-        this.backdropActive = payload.active;
-        this.openedFrom = 'loading';
-        setTimeout(() =>{payload = null;}, 100);
-      }
-    });
+    setTimeout(() =>{
+      this.uiServiceSub = this.uiService.getLoadingStateSubject().subscribe((payload) => {
+        // this.loadingModalPayload = payload;
+        console.log('PAYLOAD>> ', payload);
+        if (payload) {
+          this.openLoadingModal(payload.data.type, payload.data.data);
+          this.backdropActive = payload.active;
+          this.openedFrom = 'loading';
+          setTimeout(() =>{payload = null;}, 100);
+        }
+      });
+    }, 100);
   }
 
   ionViewWillLeave(){
     console.log('Did leave');
     this.uiServiceSub.unsubscribe();
+    this.uiServiceSub = null;
   }
 
   public onTabChange(): void {
