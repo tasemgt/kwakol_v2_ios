@@ -526,7 +526,7 @@ class="info-modal reset animate__animated animate__slideInUp"
             [(ngModel)]="pin"
             disabled
             (click)="onTapPinInput()"
-            [ngStyle]="{fontSize: inputPinTypePassword ? '5rem' : '1.5rem', color: inputPinTypePassword ? 'rgba(81, 175, 78, 0.2)' : '#211F42'}"
+            [ngClass]="{'bullets' : inputPinTypePassword, 'text' : !inputPinTypePassword}"
           ></ion-input>
         </div>
         <app-keypad (keypadEmitter)="onPinInputChange($event)"></app-keypad>
