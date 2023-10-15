@@ -42,7 +42,7 @@
     class="segment segment-investments"
   >
     <div class="month-wrapper" *ngFor="let wH of walletHistories">
-      <p class="month">{{wH.year+'/'+wH.month | date : 'MMMM, y'}}</p>
+      <p class="month">{{wH.year+'/'+wH.month+'/01' | date : 'MMMM, y'}}</p>
       <div class="transactions-list no-border">
         <div class="transaction" *ngFor="let hist of wH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist, true)">
           <div class="trans-type-wrapper">
@@ -64,7 +64,7 @@
 
   <div *ngIf="activeSegment === 'investments'" class="segment segment-investments">
     <div class="month-wrapper" *ngFor="let iH of investmentHistories">
-      <p class="month">{{iH.year?  (iH.year+'/'+iH.month | date : 'MMMM, y') : ''}}</p>
+      <p class="month">{{iH.year?  (iH.year+'/'+iH.month+'/01' | date : 'MMMM, y') : ''}}</p>
       <div class="transactions-list no-border">
         <div class="transaction" *ngFor="let hist of iH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist, false)">
           <div class="trans-type-wrapper">

@@ -123,9 +123,9 @@ export class HistoryPage implements OnInit {
   }
 
   public segmentChanged(event) {
-    this.filters = [...this._filters];
     console.log(event.target.value);
     this.activeSegment = event.target.value;
+    this.filters = [...this._filters];
     if(this.activeSegment === 'wallet'){
       this.filters = this.filters.filter((f) => f.name.toLowerCase() !== 'profit');
     }
