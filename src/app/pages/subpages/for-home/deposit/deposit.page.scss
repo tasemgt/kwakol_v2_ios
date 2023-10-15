@@ -26,6 +26,11 @@ p.proof {
     font-family: BwModelicaBold;
     letter-spacing: -0.02rem;
     font-size: .83rem;
+
+    &.selected{
+      color: var(--ion-color-primary);
+      font-size: .9rem;
+    }
   }
 
   p {

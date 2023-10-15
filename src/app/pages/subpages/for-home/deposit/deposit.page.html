@@ -124,7 +124,7 @@
         </p>
 
         <div class="content-wrapper banks">
-          <p class="bank-name" *ngFor="let bank of banks" (click)="selectBank(bank)">{{bank.bank_name}}</p>
+          <p class="bank-name" [ngClass]="{'selected':bank.selected}" *ngFor="let bank of banks" (click)="selectBank(bank)">{{bank.bank_name}}</p>
         </div>
       </ion-content>
     </ng-template>

@@ -618,11 +618,11 @@ Rate: ${this.home.daily_rate}`;
       };
 
       const banks = [
-        {id: 3, bank_name: 'Jaiz Bank', account_number: '0012117943'},
-        {id: 4, bank_name: 'United Bank of Africa', account_number: '1485609290'},
-        {id: 5, bank_name: 'Guarantee Trust Bank', account_number: '0725652204'},
-        {id: 6, bank_name: 'Wema Bank', account_number: '7810599277'},
-        {id: 7, bank_name: 'Access Bank', account_number: '1485609290'}
+        {id: 3, bank_name: 'Jaiz Bank', account_number: '0012117943', selected: true},
+        {id: 4, bank_name: 'United Bank of Africa', account_number: '1485609290', selected: false},
+        {id: 5, bank_name: 'Guarantee Trust Bank', account_number: '0725652204', selected: false},
+        {id: 6, bank_name: 'Wema Bank', account_number: '7810599277', selected: false},
+        {id: 7, bank_name: 'Access Bank', account_number: '1485609290', selected: false}
       ];
 
       this.util.presentLoading();
