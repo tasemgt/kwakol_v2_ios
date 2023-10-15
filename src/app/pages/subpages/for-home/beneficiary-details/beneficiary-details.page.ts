@@ -246,10 +246,7 @@ export class BeneficiaryDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        this.beneficiary.balance =
-          +this.beneficiary.balance +
-          +this.depositFromWalletToBeneficiaryAmount +
-          ''; //update the beneficiary balance on the page
+        this.beneficiary.balance = +this.beneficiary.balance + +this.depositFromWalletToBeneficiaryAmount +'';//update the beneficiary balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
         this.pin = '';
         this.depositFromWalletToBeneficiaryAmount = '';
@@ -280,8 +277,7 @@ export class BeneficiaryDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        this.beneficiary.balance =
-          +this.beneficiary.balance - +this.withdrawAmount + ''; //update the investment balance on the page
+        // this.beneficiary.balance = +this.beneficiary.balance - +this.withdrawAmount + ''; //update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
         this.pin = '';
         this.withdrawAmount = '';

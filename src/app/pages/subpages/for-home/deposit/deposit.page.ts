@@ -111,6 +111,10 @@ export class DepositPage implements OnInit{
   }
 
   public selectBank(bank){
+    this.banks.forEach((b) => {
+      b.selected ? b.selected = false:'';
+      bank.id === b.id ? b.selected = true: '';
+    });
     this.selectBankModal.dismiss();
     console.log(this.selectedBank);
     this.selectedBank = bank;

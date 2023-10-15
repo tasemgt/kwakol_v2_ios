@@ -261,8 +261,7 @@ export class InvestmentDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        this.investment.balance =
-          +this.investment.balance + +this.depositFromWalletAmount + ''; //update the investment balance on the page
+        //this.investment.balance = +this.investment.balance + +this.depositFromWalletAmount +'';//update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
         this.pin = '';
         this.depositFromWalletAmount = '';
@@ -293,8 +292,7 @@ export class InvestmentDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        this.investment.balance =
-          +this.investment.balance - +this.withdrawAmount + ''; //update the investment balance on the page
+        //this.investment.balance = +this.investment.balance - +this.withdrawAmount +'';//update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
         this.pin = '';
         this.withdrawAmount = '';
