@@ -185,7 +185,7 @@ ion-modal.enter-pin {
     .p0,
     .p1 {
       font-size: 0.87rem;
-      letter-spacing: 0.01rem;
+      letter-spacing: -0.05rem;
       text-align: center;
       margin: 0.5rem 0rem;
       font-family: BwModelicaRegular;
@@ -205,6 +205,10 @@ ion-modal.enter-pin {
         --color: rgba(81, 175, 78, 0.2); //#b3b3b3;
         font-size: 3rem;
         height: 3.4rem;
+        --padding-top: 0;
+        // input{
+        //   padding-top: 0;
+        // }
       }
     }
 

@@ -498,9 +498,7 @@
           >
             <div class="investment-name">
               <div class="round-button">
-                <ion-icon
-                  [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.name) || 'special-big') +'.svg'"
-                ></ion-icon>
+                <img [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.name) || 'special-big') +'.png'">
               </div>
               <div class="name">
                 <p>{{inv.custom_name}}</p>
@@ -742,7 +740,7 @@
     #pinEnterModal
     trigger="open-enter-pin"
     [initialBreakpoint]="0.8"
-    [breakpoints]="[0, 0.8]"
+    [breakpoints]="[0, 0.55, 0.8]"
     class="enter-pin"
     handle="true"
   >
@@ -750,9 +748,10 @@
       <ion-content>
         <div class="img-wrapper">
           <div class="round-button" *ngIf="typeOfTransfer === 'investment'">
-            <ion-icon
+            <img [src]="'assets/icon/inv-type/'+ (getIconForInvName(selectedInvestment?.name) || 'special-big') +'.png'">
+            <!-- <ion-icon
               [src]="'assets/icon/inv-type/'+ (getIconForInvName(selectedInvestment?.name) || 'special-big') +'.svg'"
-            ></ion-icon>
+            ></ion-icon> -->
           </div>
           <div class="default-img" *ngIf="typeOfTransfer === 'beneficiary'">
             {{selectedBeneficiary?.fullname.split('

@@ -487,6 +487,10 @@ ion-row.investments-wrapper {
   width: 3rem;
   height: 3rem;
 
+  img{
+    width: 1.6rem;
+  }
+
   ion-icon {
     font-size: 1.6rem;
   }
@@ -510,12 +514,15 @@ ion-row.investments-wrapper {
   .bank{
     padding: .3rem;
     margin-top: .5rem;
+    letter-spacing: -.03rem;
     h4{
+      letter-spacing: -.03rem;
       font-size: .85rem;
       font-family: BwModelicaBold;
       margin-bottom: .15rem;
     }
     p{
+      letter-spacing: -.045rem;
       font-size: .8rem;
       font-family: BwModelicaLight;
       margin-bottom: .15rem;
