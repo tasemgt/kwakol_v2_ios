@@ -35,15 +35,13 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
+        ],
+        "max-len": ["error", { "code": 200 }],
       }
     },
     {
       "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {
-        "max-len": ["error", { "code": 200 }]
-      }
+      "extends": ["plugin:@angular-eslint/template/recommended"]
     }
   ]
 }
