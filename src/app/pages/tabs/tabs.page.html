@@ -94,25 +94,40 @@
     <div class="content">
       <div class="loader-wrapper no-animation">
         
-        <ion-icon 
+        <img 
+          *ngIf="loadingModalType !== 'confirm' 
+          && loadingModalType !== 'pin' 
+          && loadingModalType !== 'logout'
+          && loadingModalType !== 'no'" 
+          src="assets/imgs/v2-imgs/hour-glass.svg">
+
+        <!-- <ion-icon 
           *ngIf="loadingModalType !== 'confirm' 
           && loadingModalType !== 'pin' 
           && loadingModalType !== 'logout'
           && loadingModalType !== 'no'" 
           src="assets/imgs/v2-imgs/hour-glass.svg" alt="">
-        </ion-icon>
+        </ion-icon> -->
+
+        <img 
+          *ngIf="loadingModalType === 'confirm' || loadingModalType === 'logout' || loadingModalType === 'no'"
+          src="assets/imgs/v2-imgs/red-flag.svg">
         
-        <ion-icon
+        <!-- <ion-icon
           *ngIf="loadingModalType === 'confirm' || loadingModalType === 'logout' || loadingModalType === 'no'"
           src="assets/imgs/v2-imgs/red-flag.svg"
           alt=""
-        ></ion-icon>
+        ></ion-icon> -->
         
-        <ion-icon
+        <img 
+          *ngIf="loadingModalType === 'pin'"
+          src="assets/imgs/v2-imgs/padlock.svg">
+
+        <!-- <ion-icon
           *ngIf="loadingModalType === 'pin'"
           src="assets/imgs/v2-imgs/padlock.svg"
           alt=""
-        ></ion-icon>
+        ></ion-icon> -->
 
         <p class="loading-text" *ngIf="loadingModalType === 'inactive'">
           Your investment request for <span class="bolder">{{loadingModalData.plan}}</span> is being reviewed. You will get a notification

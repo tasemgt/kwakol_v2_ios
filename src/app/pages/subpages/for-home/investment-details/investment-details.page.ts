@@ -266,6 +266,9 @@ export class InvestmentDetailsPage implements OnInit {
         this.pin = '';
         this.depositFromWalletAmount = '';
       } else if (resp.code == '418') {
+        this.pin = '';
+        this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
+        this.util.showToast(resp.data, 2000, 'danger');
         console.log(resp);
       }
     } catch (error) {
@@ -297,6 +300,9 @@ export class InvestmentDetailsPage implements OnInit {
         this.pin = '';
         this.withdrawAmount = '';
       } else if (resp.code == '418') {
+        this.pin = '';
+        this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
+        this.util.showToast(resp.data, 2000, 'danger');
         console.log(resp);
       }
     } catch (error) {

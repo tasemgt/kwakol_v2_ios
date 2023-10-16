@@ -1266,6 +1266,10 @@ ion-modal.enter-pin {
       &.no-animation {
         text-align: center;
 
+        img{
+          width: 5.5rem;
+        }
+
         ion-icon {
           font-size: 5.5rem;
         }
@@ -1315,6 +1319,10 @@ ion-modal.enter-pin {
         height: 6.3rem;
         width: 6.3rem;
         border: 0.2px solid rgba(var(--ion-color-primary-rgb), 0.2);
+      }
+
+      img{
+        width: 2.85rem;
       }
 
       ion-icon {
