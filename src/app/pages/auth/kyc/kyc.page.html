@@ -8,8 +8,8 @@
     <div class="track-circle active"></div>
     <div class="track-line active"></div>
     <div class="track-circle active"></div>
-    <div class="track-line" [ngClass]="{'active' : isVerified}"></div>
-    <div class="track-circle" [ngClass]="{'active' : isVerified}"></div>
+    <div class="track-line" [ngClass]="{'active' : kycVerified === 'yes'}"></div>
+    <div class="track-circle" [ngClass]="{'active' : kycVerified === 'yes'}"></div>
     <div class="track-line"></div>
     <div class="track-circle"></div>
   </div>
@@ -25,7 +25,7 @@
 
   <ion-row class="action-row">
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="callMetaMap()" [disabled]="isVerified">Continue</ion-button>
+      <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="callMetaMap()" [disabled]="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">Continue</ion-button>
     </ion-col>
     <ion-col size="12" class="ion-text-center btn-col" *ngIf="!tempUser.has_pin">
       <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit" (click)="openSetPinModal()">Skip to Set Pin</ion-button>

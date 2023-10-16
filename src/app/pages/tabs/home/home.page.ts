@@ -380,7 +380,7 @@ Rate: ${this.home.daily_rate}`;
 
   public goToKYC(){
     if(!this.home.verified_kyc || this.home.verified_kyc.toLowerCase() === 'redo'){
-      this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: this.user}});
+      this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: this.user, kycVerified: this.home.verified_kyc.toLowerCase()}});
       return;
     }
     else if(this.home.verified_kyc.toLowerCase() === 'pending'){
