@@ -98,13 +98,12 @@ export class InvestmentDetailsPage implements OnInit {
     console.log('HistStats ', this.histStats);
   }
 
-  // public doRefresh(event): void {
-  //   this.getHistoriesQuiet();
-
-  //   setTimeout(() => {
-  //     event.target.complete();
-  //   }, 1000);
-  // }
+  public doRefresh(event): void {
+    this.doGetInvestmentDetails();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
 
   public getIconForInvName(inv: string) {
     if (inv) {
@@ -263,6 +262,7 @@ export class InvestmentDetailsPage implements OnInit {
         this.openLoadingModal('alert');
         //this.investment.balance = +this.investment.balance + +this.depositFromWalletAmount +'';//update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
+        this.doGetInvestmentDetails();
         this.pin = '';
         this.depositFromWalletAmount = '';
       } else if (resp.code == '418') {
@@ -295,8 +295,9 @@ export class InvestmentDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        //this.investment.balance = +this.investment.balance - +this.withdrawAmount +'';//update the investment balance on the page
+        this.investment.balance = +this.investment.balance - +this.withdrawAmount +'';//update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
+        this.doGetInvestmentDetails();
         this.pin = '';
         this.withdrawAmount = '';
       } else if (resp.code == '418') {
@@ -365,6 +366,20 @@ export class InvestmentDetailsPage implements OnInit {
   }
 
   public closeInvestment() {}
+
+  private async doGetInvestmentDetails(){
+    try {
+      const resp = await this.homeService.getInvestmentHistory(this.investment.id);
+      if (resp.code == '100') {
+        this.histStats = resp.data;
+      }
+      else{
+        console.log(resp);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // private async getInvestmentDetailsQuiet() {
   //   const resp = await this.homeService.getInvestmentHistory(inv.id);

@@ -839,7 +839,6 @@ Rate: ${this.home.daily_rate}`;
       return;
     }
 
-
     //Fetch investment histry from api
     this.util.presentLoading();
     try {
