@@ -15,6 +15,8 @@ export class HomeService {
   private headers = {'Content-Type': 'application/json'};
 
   private reopenSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private reloadBeneficiaries: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  // private reopenSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private http: HttpService) {}
 
@@ -29,7 +31,10 @@ export class HomeService {
   public getReopenStateSubject(){
     return this.reopenSubject;
   }
-
+  
+  public getReloadBeneficiariesStateSubject(){
+    return this.reloadBeneficiaries;
+  }
   public getHome(): Promise<any>{
     return this.http.get(`${this.baseUrl}/v1/home`, {}, this.headers);
   }

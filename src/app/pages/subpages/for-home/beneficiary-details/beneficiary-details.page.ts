@@ -99,6 +99,14 @@ export class BeneficiaryDetailsPage implements OnInit {
     console.log(this.history);
   }
 
+  public doRefresh(event): void {
+    this.doGetHistories(this.beneficiary);
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
   public segmentChanged(event) {
     console.log(event.target.value);
     this.activeSegment = event.target.value;
@@ -246,11 +254,16 @@ export class BeneficiaryDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        this.beneficiary.balance = +this.beneficiary.balance + +this.depositFromWalletToBeneficiaryAmount +'';//update the beneficiary balance on the page
+        // this.beneficiary.balance = +this.beneficiary.balance + +this.depositFromWalletToBeneficiaryAmount +'';//update the beneficiary balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
+        this.homeService.getReloadBeneficiariesStateSubject().next(true);
+        this.doGetHistories(this.beneficiary);
         this.pin = '';
         this.depositFromWalletToBeneficiaryAmount = '';
       } else if (resp.code == '418') {
+        this.pin = '';
+        this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
+        this.util.showToast(resp.data, 2000, 'danger');
         console.log(resp);
       }
     } catch (error) {
@@ -277,11 +290,16 @@ export class BeneficiaryDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        // this.beneficiary.balance = +this.beneficiary.balance - +this.withdrawAmount + ''; //update the investment balance on the page
+        this.beneficiary.balance = +this.beneficiary.balance - +this.withdrawAmount + ''; //update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
+        this.homeService.getReloadBeneficiariesStateSubject().next(true);
+        this.doGetHistories(this.beneficiary);
         this.pin = '';
         this.withdrawAmount = '';
       } else if (resp.code == '418') {
+        this.pin = '';
+        this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
+        this.util.showToast(resp.data, 2000, 'danger');
         console.log(resp);
       }
     } catch (error) {
@@ -349,5 +367,16 @@ export class BeneficiaryDetailsPage implements OnInit {
 
   public getIconForType(type: string) {
     return historyIcons[type];
+  }
+
+  public async doGetHistories(beneficiary) {
+    try {
+      const resp = await this.homeService.getBeneficiaryHistory(beneficiary.beneficiary_id);
+      if(resp.code == '100'){
+        this.history = resp.data.transaction_details.data;
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

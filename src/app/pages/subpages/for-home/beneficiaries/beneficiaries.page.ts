@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { HomeService } from 'src/app/services/home.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -10,9 +11,11 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./beneficiaries.page.scss'],
   // styleUrls: ['./beneficiaries.page.scss', '../../../tabs/home/home.page.scss']
 })
-export class BeneficiariesPage implements OnInit {
+export class BeneficiariesPage implements OnInit, OnDestroy{
   public fromPage: string;
   public beneficiaries = [];
+
+  public reloadBeneficiariesSub: Subscription;
 
   constructor(
     private router: Router,
@@ -27,7 +30,22 @@ export class BeneficiariesPage implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.reloadBeneficiariesSub = this.homeService.getReloadBeneficiariesStateSubject().subscribe((pay) =>{
+      if(pay){
+        this.getBeneficiaries();
+      }
+    })
+  }
+  
+  ngOnDestroy(): void {
+    console.log('killed');
+    this.reloadBeneficiariesSub.unsubscribe();
+  }
+
+  ionViewWillEnter(){
+    
+  }
 
   public async goToBeneficiaryDetailsPage(beneficiary) {
     this.util.presentLoading();
@@ -50,5 +68,23 @@ export class BeneficiariesPage implements OnInit {
     this.router.navigateByUrl('/create-beneficiary', {
       state: { url: this.router.url },
     });
+  }
+
+  private async getBeneficiaries() {
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getBeneficiaries();
+      this.loading.dismiss();
+      if (resp.code == 100) {
+        this.beneficiaries = resp.data;
+        console.log(this.beneficiaries);
+      }
+      else{
+        console.log(resp);
+      }
+    } catch (e) {
+      this.loading.dismiss();
+      console.log(e);
+    }
   }
 }
