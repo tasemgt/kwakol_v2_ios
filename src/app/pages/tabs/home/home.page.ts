@@ -367,6 +367,7 @@ Rate: ${this.home.daily_rate}`;
     this.uiService
       .getInfoStateSubject()
       .next({ active: true, data: { type, data } });
+    setTimeout(() => this.uiService.getInfoStateSubject().next(null));
   }
 
   public getTimeOfDay() {
@@ -380,7 +381,7 @@ Rate: ${this.home.daily_rate}`;
 
   public goToKYC(){
     if(!this.home.verified_kyc || this.home.verified_kyc.toLowerCase() === 'redo'){
-      this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: this.user}});
+      this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: this.user, kycVerified: this.home.verified_kyc.toLowerCase()}});
       return;
     }
     else if(this.home.verified_kyc.toLowerCase() === 'pending'){
@@ -906,18 +907,22 @@ Rate: ${this.home.daily_rate}`;
 
   // PRIVATES!!
   private async getHomeQuietly() {
-    const resp = await this.homeService.getHome();
-    console.log('Stubborn home response>> ', resp);
-    if (resp.code === '100') {
-      this.home = resp.data.home;
-      console.log('Stubborn home>> ', this.home);
-      this.wallet = this.home.wallet;
-      this.investment = this.home.investment;
-      this.homeHistories = this.investment.user_details.transactions;
-      this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
-      this.homeService.setWalletBallance(this.wallet.balance);
-      this.percent = this.home.verified_kyc ? (this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75): 75;
-      this.canWithdrawUSD = this.home.can_withdraw_usd_cash;
+    try {
+      const resp = await this.homeService.getHome();
+      console.log('Stubborn home response>> ', resp);
+      if (resp.code === '100') {
+        this.home = resp.data.home;
+        console.log('Stubborn home>> ', this.home);
+        this.wallet = this.home.wallet;
+        this.investment = this.home.investment;
+        this.homeHistories = this.investment.user_details.transactions;
+        this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
+        this.homeService.setWalletBallance(this.wallet.balance);
+        this.percent = this.home.verified_kyc ? (this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75): 75;
+        this.canWithdrawUSD = this.home.can_withdraw_usd_cash;
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

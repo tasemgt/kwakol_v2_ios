@@ -32,7 +32,7 @@ export class KycPage implements OnInit {
   public confirmPin = '';
 
   public showConfirm = false;
-  public isVerified = false;
+  public kycVerified;;
 
   constructor(
     private router: Router,
@@ -47,7 +47,7 @@ export class KycPage implements OnInit {
       const state = this.router.getCurrentNavigation().extras.state;
       this.fromPage = state.url;
       this.tempUser = state.data;
-      this.isVerified = this.tempUser.verified_kyc;
+      this.kycVerified = state.kycVerified || this.tempUser.verified_kyc;
 
       console.log('SSSS', state);
     }
@@ -189,7 +189,7 @@ export class KycPage implements OnInit {
             this.util.showToast(resp.message, 2500, 'success');
             //if(this.tempUser.has)
             this.util.presentLoading();
-            this.isVerified = true;
+            this.kycVerified = 'pending';
             setTimeout(() =>{
               this.loading.dismiss();
               this.openSetPinModal();

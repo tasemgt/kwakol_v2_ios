@@ -53,16 +53,28 @@ class="info-modal reset animate__animated animate__slideInUp"
 >
   <div class="content">
     <div class="loader-wrapper no-animation">
-      <ion-icon
+
+      <img 
+        *ngIf="loadingModalType === 'alert' || loadingModalType === 'alert-statement'"
+        src="assets/imgs/v2-imgs/hour-glass.svg">
+
+      <!-- <ion-icon
         *ngIf="loadingModalType === 'alert' || loadingModalType === 'alert-statement'"
         src="assets/imgs/v2-imgs/hour-glass.svg"
         alt=""
-      ></ion-icon>
-      <ion-icon
+      ></ion-icon> -->
+
+      <img 
+        *ngIf="loadingModalType === 'confirm'"
+        src="assets/imgs/v2-imgs/red-flag.svg">
+
+      <!-- <ion-icon
         *ngIf="loadingModalType === 'confirm'"
         [src]="'assets/imgs/v2-imgs/red-flag.svg'"
         alt=""
-      ></ion-icon>
+      ></ion-icon> -->
+
+
       <!-- <p class="loading-text" *ngIf="loadingModalType">
         Your liquidation request is being processed. <br/> You will receive an email when it is approved.
       </p> -->

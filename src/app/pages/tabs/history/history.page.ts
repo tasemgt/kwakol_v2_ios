@@ -238,6 +238,7 @@ export class HistoryPage implements OnInit {
     this.uiService
       .getInfoStateSubject()
       .next({ active: true, data: { type, data } });
+      setTimeout(() => this.uiService.getInfoStateSubject().next(null));
   }
 
   public openDepositModal(){
