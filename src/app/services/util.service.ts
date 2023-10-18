@@ -17,6 +17,7 @@ import { LoadModalAnimation } from '../animation/loadModalAnimation';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { UiService } from './ui.service';
+import { LockModalPage } from '../pages/modals/lock-modal/lock-modal.page';
 
 @Injectable({
   providedIn: 'root',
@@ -170,16 +171,21 @@ export class UtilService {
   public async presentAlertModal(alertTriggerPage: string, datas?: any) {
     //datas = any extra info needed to be pased to modal
     const params = alertPageParams[alertTriggerPage];
+    const comp = alertTriggerPage === 'emailSent' ? AlertModalPage : LockModalPage;
     try {
       const modal = await this.modalCtrl.create({
-        component: AlertModalPage,
+        component: comp,
+        backdropDismiss: false,
         animated: true,
         componentProps: { params, datas },
       });
       await modal.present();
       const { data } = await modal.onWillDismiss();
-      this.router.navigateByUrl('/onboarding');
-      this.uiService.getinstructOnboardingStateStateSubject().next(true);
+      //used for resetting passwod
+      if(alertTriggerPage === 'emailSent'){
+        this.router.navigateByUrl('/onboarding');
+        this.uiService.getinstructOnboardingStateStateSubject().next(true);
+      }
       // await modal.onDidDismiss();
     } catch (error) {
       console.log('Error: ', error);

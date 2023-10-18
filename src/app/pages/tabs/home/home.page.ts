@@ -210,6 +210,10 @@ export class HomePage implements OnInit {
     this.showBalance = true;
   }
 
+  public lockMe(){
+    
+  }
+
   public async getUser() {
     this.user = this.dataService.getData(2);
   }

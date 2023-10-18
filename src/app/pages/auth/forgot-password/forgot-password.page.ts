@@ -15,7 +15,7 @@ export class ForgotPasswordPage implements OnInit {
     private modalCtrl: ModalController,
     private profileService: ProfileService,
     private util: UtilService,
-    private loading: LoadingController) { }
+    private loading: LoadingController) {}
 
   ngOnInit() {
   }
