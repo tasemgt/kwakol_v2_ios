@@ -187,6 +187,7 @@ export class UtilService {
         this.uiService.getinstructOnboardingStateStateSubject().next(true);
       }
       // await modal.onDidDismiss();
+      return modal;
     } catch (error) {
       console.log('Error: ', error);
     }

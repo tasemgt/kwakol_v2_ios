@@ -5,6 +5,7 @@ export const constants = {
     currentProfile: 'CURRENT_KWAKOL_PROFILE',
     userProfile: 'KWAKOL_USER_PROFILE',
     lockedState: 'KWAKOL_LOCKED_STATE',
+    kwakolAuto: 'KWAKOL_AUTOLOCK',
     oneSignalAppID: 'cddc3c9c-6675-4256-b028-e8bf65c4702c',
     googleProjectNumberSenderID: '1033837099492',
     metaMapClientId: '648b2ca69b0070001ae7e91c',

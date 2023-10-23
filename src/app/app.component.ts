@@ -38,8 +38,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   private resumeSubscription: Subscription;
   private lockModalOpenSubscription: Subscription;
 
-  private lockTimer = 60; //1min
+  private lockTimer = 6; //1min
   private timer;
+  private lockModal = null;
   private lockModalOpen = false;
 
   private lightContentList = [
@@ -119,6 +120,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       // }
 
       this.handleAppAuthState();
+      // this.listenForSettingsChange();
       console.log('dfdfgfg, ', this.currentUrl );
       // this.setupInactivityWatch();
     });
@@ -139,8 +141,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (state === true) {
         console.log('Logged In 😇 ');
         this.router.navigateByUrl('/tabs/home');
-        this.activateLockSubscriptions();
-        this.checkAutoLockState(); //Check whether app is locked or not to proceed to home
+        this.checkLockSettings();
+        this.checkAutoLockState(); //Check whether app is locked already so as to show locked screen or not to proceed to home
       } else if(state === false){
         console.log('Logged Out 😢');
         this.router.navigateByUrl('/onboarding');
@@ -166,7 +168,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   // Handles Android HW Back button
    private handleHardwareBackButton(): void{
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
-      const closeAppRoutes = [ '/lock-modal', '/onboarding', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
+      const closeAppRoutes = [ '/onboarding', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
       const backToRegisterRoutes = ['/kyc'];
       // const backToOnboardingRoutes = ['/register'];
       const backToProfileRoutes = ['/account-details', '/affiliate-link', '/settings'];
@@ -174,7 +176,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       const url = this.router.url.toString();
 
 
-      if (this.modalCtrl.getTop()) {
+      if (this.lockModalOpen) {
         this.appMinimize.minimize();
       }
 
@@ -227,6 +229,27 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private listenForSettingsChange(){
+    this.uiService.getAutolockOnSettingsSubject().subscribe((autoOn) =>{
+      if(autoOn){
+        console.log('Auto lock settings on');
+        if(this.pauseSubscription){
+          return;
+        }
+        //Can start listening to lock
+        this.activateLockSubscriptions();
+      }
+      else{
+        console.log('Auto lock settings off');
+        if(!this.pauseSubscription){
+          return;
+        }
+        //Can stop listening to lock
+        this.deactivateLockSubscriptions();
+      }
+    });
+  }
+
   private activateLockSubscriptions(){
     this.pauseSubscription = this.platform.pause.subscribe(() => {
       console.log('App paused');
@@ -256,6 +279,21 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.pauseSubscription ? this.pauseSubscription.unsubscribe() : '';
     this.resumeSubscription ? this.resumeSubscription.unsubscribe() : '';
     this.lockModalOpenSubscription ? this.lockModalOpenSubscription.unsubscribe() : '';
+  }
+
+  private checkLockSettings(){
+    this.storageService.get(this.constants.kwakolAuto).then((autoOn) =>{
+      if(autoOn){
+        console.log('Auto lock settings on');
+        //Can start listening to lock
+        this.activateLockSubscriptions();
+      }
+      else{
+        console.log('Auto lock settings off');
+        //Can stop listening to lock
+        this.deactivateLockSubscriptions();
+      }
+    });
   }
 
   private checkAutoLockState(){
@@ -290,7 +328,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private resetTimer(){
-    this.lockTimer = 60;
+    this.lockTimer = 6;
   }
 
 }

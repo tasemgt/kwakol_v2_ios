@@ -379,6 +379,12 @@ export class ProfilePage implements OnInit {
     // }
   }
 
+  public goToSettings(){
+    this.router.navigateByUrl('/settings', {
+      state: { url: this.router.url },
+    });
+  }
+
   public countdownTimer() {
     const timer = setInterval(() => {
       console.log(this.pinResendSecs + 's');
