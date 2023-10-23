@@ -14,6 +14,8 @@ import { OneSignalService } from './services/one-signal.service';
 import { filter } from 'node_modules/rxjs/operators';
 import { StorageService } from './services/storage.service';
 import { UtilService } from './services/util.service';
+import { UiService } from './services/ui.service';
+import { constants } from './models/constants';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,9 @@ import { UtilService } from './services/util.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
+
+  public constants = constants;
+
   previousUrl = '';
   currentUrl = '';
 
@@ -28,6 +33,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   private connectSubscription: Subscription;
 
   private backButtonSubscription: Subscription;
+  private pauseSubscription: Subscription;
+  private resumeSubscription: Subscription;
+  private lockModalOpenSubscription: Subscription;
+
+  private lockTimer = 6; //1min
+  private timer;
+  private lockModal = null;
+  private lockModalOpen = false;
 
   private lightContentList = [
     '/login',
@@ -49,7 +62,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private oneSignalService: OneSignalService,
     // private faio: FingerprintAIO,
     private util: UtilService,
+    private uiService: UiService,
     private navController: NavController,
+    private modalCtrl: ModalController,
     private auth: AuthService,
     private bnIdle: BnNgIdleService
   ) {
@@ -101,23 +116,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       // }
 
       this.handleAppAuthState();
+      // this.listenForSettingsChange();
       console.log('dfdfgfg, ', this.currentUrl );
       // this.setupInactivityWatch();
-
-      this.platform.pause.subscribe(() => {
-        console.log('App paused');
-        // if(this.currentUrl === '/lock-modal'){
-        //   return;
-        // }
-        // else{
-          // this.checkAutoLockState();
-        // }
-      });
-
-      // this.platform.resume.subscribe(() => {
-      //   // App resumed, do something here
-      //   console.log('App resumed');
-      // });
     });
   }
 
@@ -127,8 +128,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private handleAppAuthState(): void{
-    this.checkAutoLockState();
-    // this.checkAppAuthState();
+    this.checkAppAuthState();
   }
 
   private checkAppAuthState(){
@@ -137,9 +137,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (state === true) {
         console.log('Logged In 😇 ');
         this.router.navigateByUrl('/tabs/home');
+        this.checkLockSettings();
+        this.checkAutoLockState(); //Check whether app is locked already so as to show locked screen or not to proceed to home
       } else if(state === false){
         console.log('Logged Out 😢');
         this.router.navigateByUrl('/onboarding');
+        this.deactivateLockSubscriptions();
       }
     });
   }
@@ -161,12 +164,18 @@ export class AppComponent implements OnInit, AfterViewInit {
   // Handles Android HW Back button
    private handleHardwareBackButton(): void{
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, async () => {
-      const closeAppRoutes = [ '/lock-modal', '/onboarding', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
+      const closeAppRoutes = [ '/onboarding', '/tabs/home', '/tabs/profile', '/tabs/history', '/tabs/portfolio', '/tabs/feed'];
       const backToRegisterRoutes = ['/kyc'];
       // const backToOnboardingRoutes = ['/register'];
       const backToProfileRoutes = ['/account-details', '/affiliate-link', '/settings'];
       const backToFeedRoutes = ['/feed-details'];
       const url = this.router.url.toString();
+
+
+      if (this.lockModalOpen) {
+        this.appMinimize.minimize();
+      }
+
       if(closeAppRoutes.includes(url)){
         this.appMinimize.minimize();
       }
@@ -216,22 +225,106 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private checkAutoLockState(){
-    this.storageService.get('AutoLock').then((lockedOn) =>{
-      if(lockedOn){
-        this.autoLockApp();
+  private listenForSettingsChange(){
+    this.uiService.getAutolockOnSettingsSubject().subscribe((autoOn) =>{
+      if(autoOn){
+        console.log('Auto lock settings on');
+        if(this.pauseSubscription){
+          return;
+        }
+        //Can start listening to lock
+        this.activateLockSubscriptions();
       }
       else{
-        this.checkAppAuthState();
+        console.log('Auto lock settings off');
+        if(!this.pauseSubscription){
+          return;
+        }
+        //Can stop listening to lock
+        this.deactivateLockSubscriptions();
+      }
+    });
+  }
+
+  private activateLockSubscriptions(){
+    this.pauseSubscription = this.platform.pause.subscribe(() => {
+      console.log('App paused');
+      if (this.lockModalOpen) {
+        console.log('Thers lock modal already');
+        return; //App already locked, skip timer countdown..
+      }
+      this.timer = this.startLockTimer();
+    });
+
+    this.resumeSubscription = this.platform.resume.subscribe(() => {
+      // App resumed, do something here
+      console.log('App resumed');
+      clearInterval(this.timer);
+      this.resetTimer();
+    });
+
+    this.lockModalOpenSubscription = this.uiService.getAppLockModalOpenStateSubject().subscribe((state) =>{
+      if(state){
+        //State is true, means lock modal has been closed.
+        this.lockModalOpen = false;
+      }
+    });
+  }
+
+  private deactivateLockSubscriptions(){
+    this.pauseSubscription ? this.pauseSubscription.unsubscribe() : '';
+    this.resumeSubscription ? this.resumeSubscription.unsubscribe() : '';
+    this.lockModalOpenSubscription ? this.lockModalOpenSubscription.unsubscribe() : '';
+  }
+
+  private checkLockSettings(){
+    this.storageService.get(this.constants.kwakolAuto).then((autoOn) =>{
+      if(autoOn){
+        console.log('Auto lock settings on');
+        //Can start listening to lock
+        this.activateLockSubscriptions();
+      }
+      else{
+        console.log('Auto lock settings off');
+        //Can stop listening to lock
+        this.deactivateLockSubscriptions();
+      }
+    });
+  }
+
+  private checkAutoLockState(){
+    this.storageService.get(this.constants.lockedState).then((locked) =>{
+      if(locked){
+        this.autoLockApp(); //Lock app if its already locked
       }
     });
   }
 
   private async autoLockApp(){
-    //Nav root lock page
-    console.log('App component>>>>');
-    this.router.navigateByUrl('/lock-modal', {replaceUrl: true});
+    this.util.presentAlertModal('lockedScreen', {action: 'login'});
+    this.lockModalOpen = true;
+    this.storageService.set(this.constants.lockedState, {isAppLocked:true});
+    // this.router.navigateByUrl('/lock-modal', {replaceUrl: true});
     // this.checkAppAuthState();
+  }
+
+  private startLockTimer(){
+    const timer = setInterval(() => {
+      console.log(this.lockTimer + 's');
+
+      if (this.lockTimer === 1) {
+        clearInterval(timer);
+        console.log('Time is up!');
+        this.autoLockApp();
+        this.resetTimer();
+      }
+      this.lockTimer--;
+    }, 1000);
+    return timer;
+  }
+
+  private resetTimer(){
+    this.lockTimer = 6;
   }
 
 }

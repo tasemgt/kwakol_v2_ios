@@ -2,13 +2,14 @@
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading">Settings</h2>
+  
+  <h2 class="subpage-heading left">Settings</h2>
 
 
   <div class="actions">
     <div class="action">
-      Autolock App Screen
-      <ion-toggle slot="end" [checked]="autoLockApp" (ionChange)="onToggle($event)"></ion-toggle>
+      App Autolock
+      <ion-toggle slot="end" [checked]="autoLockApp" mode="ios" (ionChange)="onToggle($event)"></ion-toggle>
     </div>
   </div>
 

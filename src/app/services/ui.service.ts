@@ -14,6 +14,8 @@ export class UiService {
   private backdropState: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   private clearPinState: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private appLockModalOpenState: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private autolockOnSettingsState: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 
 
@@ -41,5 +43,13 @@ export class UiService {
 
   public getClearPinStateSubject(){
     return this.clearPinState;
+  }
+  
+  public getAppLockModalOpenStateSubject(){
+    return this.appLockModalOpenState;
+  }
+  
+  public getAutolockOnSettingsSubject(){
+    return this.autolockOnSettingsState;
   }
 }

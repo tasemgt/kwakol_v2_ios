@@ -4,6 +4,8 @@ export const constants = {
     currentUser: 'CURRENT_KWAKOL_USER_v2',
     currentProfile: 'CURRENT_KWAKOL_PROFILE',
     userProfile: 'KWAKOL_USER_PROFILE',
+    lockedState: 'KWAKOL_LOCKED_STATE',
+    kwakolAuto: 'KWAKOL_AUTOLOCK',
     oneSignalAppID: 'cddc3c9c-6675-4256-b028-e8bf65c4702c',
     googleProjectNumberSenderID: '1033837099492',
     metaMapClientId: '648b2ca69b0070001ae7e91c',
@@ -20,9 +22,9 @@ export const alertPageParams = {
         }
     },
     lockedScreen: {
-        image: 'padlock-lock',
-        title: 'App Locked!',
-        desc: 'Your app has been locked to keep your information private. Kindly unlock app to use.',
+        image: 'app-locked',
+        title: 'Session Expired',
+        desc: 'Your app has been locked due to inactivity. Please unlock to continue.',
         btn: {
             text: 'Unlock',
             url: '/tabs/home'

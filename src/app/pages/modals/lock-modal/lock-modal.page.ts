@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FingerprintAIO } from 'node_modules/@ionic-native/fingerprint-aio/ngx';
-import { ModalController, Platform } from 'node_modules/@ionic/angular';
-import { BehaviorSubject } from 'node_modules/rxjs';
-import { alertPageParams } from 'src/app/models/constants';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import { ModalController, Platform } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
+import { alertPageParams, constants } from 'src/app/models/constants';
+import { StorageService } from 'src/app/services/storage.service';
+import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -12,6 +14,8 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./lock-modal.page.scss'],
 })
 export class LockModalPage implements OnInit {
+
+  public constants = constants;
 
   image: string;
   title: string;
@@ -24,6 +28,9 @@ export class LockModalPage implements OnInit {
     private platform: Platform,
     private router: Router,
     private util: UtilService,
+    private ui: UiService,
+    private storageService: StorageService,
+    private modalCtrl: ModalController,
     private faio: FingerprintAIO) { }
 
   ngOnInit() {
@@ -40,6 +47,7 @@ export class LockModalPage implements OnInit {
 
 
   private async handleBiometricsAuth() {
+    console.log('Im here');
     try {
       if (this.platform.is('cordova') || this.platform.is('capacitor')) {
         const result = await this.faio.isAvailable(); //result -> biometric, face, finger
@@ -52,9 +60,11 @@ export class LockModalPage implements OnInit {
           });
           console.log('BIO>> ', bio);
           if(bio === 'biometric_success'){
-            // Got to dashboard
-            this.util.getLockSubject().next(true); //To re-initialize locking.
-            this.router.navigateByUrl('/tabs/home');
+            // Unlock app
+            // this.util.getLockSubject().next(true); //To re-initialize locking.
+            this.modalCtrl.dismiss();
+            this.ui.getAppLockModalOpenStateSubject().next(true);
+            this.storageService.remove(this.constants.lockedState);
           }
         }
       }

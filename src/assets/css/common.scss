@@ -1717,6 +1717,46 @@ ion-modal.enter-pin {
   margin-right: 1rem !important;
 }
 
+
+// Alert Full screen Modal
+ion-content.alert-content{
+  --background: var(--ion-color-tertiary);
+
+  .img-wrapper{
+      margin-top: 12rem;
+      margin-bottom: 2rem;
+      text-align: center;
+  }
+  
+  .message{
+      text-align: center;
+      color: var(--ion-color-secondary);
+      
+      h2{
+          font-family: BwModelicaBold;
+          font-weight: bold;
+          margin-top: 8rem;
+          font-size: 1.6rem;
+      }
+      
+      p{
+          color: rgba(var(--ion-color-secondary-rgb), .9);
+          font-family: BwModelicaLight;
+          letter-spacing: -0.01em;
+          font-weight: bold;
+          line-height: 1.4;
+          font-size: 0.87rem;
+          margin: 0 auto;
+          width: 80%;
+      }
+  }
+
+  .btn-row{
+      margin-top: 3rem;
+  }
+}
+
+
 //Toast Styles
 ion-toast {
   --color: #fbfbfb;
