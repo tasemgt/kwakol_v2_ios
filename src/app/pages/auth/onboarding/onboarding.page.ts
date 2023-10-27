@@ -231,11 +231,12 @@ export class OnboardingPage implements OnInit {
       return;
     }
     try {
-      this.notification_id = '12345';
+      // this.notification_id = '12345'; //Comment this out for production.
       console.log('Notification ID before send ', this.notification_id);
       if (!this.notification_id) {
         await this.getOneSignalPlayerID();
       }
+      console.log('Notification ID before send 2 ', this.notification_id);
       await this.util.presentLoading();
       const resp = await this.auth.login({
         email: this.credentials.email.trim(),

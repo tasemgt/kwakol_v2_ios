@@ -26,6 +26,7 @@ import { constants } from './models/constants';
 export class AppComponent implements OnInit, AfterViewInit {
 
   public constants = constants;
+  public lockTimeSecs = 10;
 
   previousUrl = '';
   currentUrl = '';
@@ -38,7 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private resumeSubscription: Subscription;
   private lockModalOpenSubscription: Subscription;
 
-  private lockTimer = 6; //1min
+  private lockTimer = this.lockTimeSecs ; //1min
   private timer;
   private lockModal = null;
   private lockModalOpen = false;
@@ -120,7 +121,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       // }
 
       this.handleAppAuthState();
-      // this.listenForSettingsChange();
+      this.listenForSettingsChange();
       console.log('dfdfgfg, ', this.currentUrl );
       // this.setupInactivityWatch();
     });
@@ -187,7 +188,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.navController.setDirection('back');
         // if(backToOnboardingRoutes.includes(url)){
         //   this.router.navigateByUrl('/onboarding');
-        // }
+        // }git
         if(backToProfileRoutes.includes(url)){
           this.router.navigateByUrl('/tabs/profile');
         }
@@ -233,17 +234,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.uiService.getAutolockOnSettingsSubject().subscribe((autoOn) =>{
       if(autoOn){
         console.log('Auto lock settings on');
-        if(this.pauseSubscription){
-          return;
-        }
+        // if(this.pauseSubscription){
+        //   return;
+        // }
         //Can start listening to lock
         this.activateLockSubscriptions();
       }
       else{
         console.log('Auto lock settings off');
-        if(!this.pauseSubscription){
-          return;
-        }
+        // if(!this.pauseSubscription){
+        //   return;
+        // }
         //Can stop listening to lock
         this.deactivateLockSubscriptions();
       }
@@ -328,7 +329,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private resetTimer(){
-    this.lockTimer = 6;
+    this.lockTimer = this.lockTimeSecs;
   }
 
 }
