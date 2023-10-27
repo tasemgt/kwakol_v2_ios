@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { constants } from 'src/app/models/constants';
@@ -11,7 +11,7 @@ import { UtilService } from 'src/app/services/util.service';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, OnDestroy {
   public fromPage: string;
   public autoLockApp: boolean;
   public firstLoad: boolean;
@@ -25,24 +25,46 @@ export class SettingsPage implements OnInit {
     private ui: UiService,
     private loading: LoadingController
   ) {
-    this.fromPage = this.router.getCurrentNavigation().extras.state.url;
+    const state = this.router.getCurrentNavigation().extras.state;
+    this.fromPage = state.url;
+    this.autoLockApp = state.isChecked;
   }
 
   ngOnInit() {
-    this.firstLoad = true;
-    this.storageService.getInstant(this.kwakolAuto).then((isChecked) => this.autoLockApp = isChecked );
+    console.log('nginit');
+    // this.storageService.getInstant(this.kwakolAuto).then((isChecked) => this.autoLockApp = isChecked );
     // this.autoLockApp = false;
   }
 
+  // ionViewWillEnter() {
+  //   this.firstLoad = true;
+  // }
+
+
+  // ionViewWillLeave() {
+  //   this.firstLoad = false;
+  // }
+  
+  // //Takes care of initial bug of fistload remaining true since onToggle wasnt called.
+  ngOnDestroy(): void {
+    console.log('ngdesttroy');
+  }
+  
   public onToggle(e) {
+    console.log(this.firstLoad);
     // if(this.firstLoad){
+    //   console.log('first load');
     //   this.firstLoad = false;
     //   return;
     // }
+
+    //Do the following when physically toggled and not on first load of the page.
     const isChecked = e.detail.checked;
+    let mes = '';
     console.log(e.detail.checked);
     this.storageService.set(this.kwakolAuto, isChecked);
     this.ui.getAutolockOnSettingsSubject().next(isChecked);
-    
+    isChecked ? mes = 'Autolock is on' : mes = 'Autolock is off';
+    this.util.showToast(mes, 2000, 'success');
   }
 }

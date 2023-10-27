@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonModal, LoadingController } from 'node_modules/@ionic/angular';
+import { IonModal, LoadingController } from '@ionic/angular';
+import { constants } from 'src/app/models/constants';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
 import { HomeService } from 'src/app/services/home.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UiService } from 'src/app/services/ui.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -15,6 +17,9 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+
+  public kwakolAuto = constants.kwakolAuto;
+
   @ViewChild('accountManagerModal') accountManagerModal: IonModal;
   @ViewChild('setPinModal') setPinModal: IonModal;
   @ViewChild('otpModal') otpModal: IonModal;
@@ -59,6 +64,7 @@ export class ProfilePage implements OnInit {
     private util: UtilService,
     private uiService: UiService,
     private homeService: HomeService,
+    private storageService: StorageService,
     private dataService: DataService,
     private loading: LoadingController
   ) {}
@@ -383,8 +389,14 @@ export class ProfilePage implements OnInit {
   }
 
   public goToSettings(){
-    this.router.navigateByUrl('/settings', {
-      state: { url: this.router.url },
+    this.util.presentLoading();
+    this.storageService.getInstant(this.kwakolAuto).then((isChecked) => {
+      setTimeout(()=>{
+        this.loading.dismiss();
+        this.router.navigateByUrl('/settings', {
+          state: { url: this.router.url, isChecked },
+        });
+      }, 200);
     });
   }
 
