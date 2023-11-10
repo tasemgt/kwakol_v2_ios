@@ -1338,7 +1338,7 @@ ion-modal.enter-pin {
         font-size: 0.85rem; //ios change
         line-height: 1.5;
         text-align: center;
-        letter-spacing: -0.06rem; //ios change
+        letter-spacing: -0.07rem; //ios change
       }
     }
 
@@ -1737,12 +1737,13 @@ ion-content.alert-content{
           font-weight: bold;
           margin-top: 8rem;
           font-size: 1.6rem;
+          letter-spacing: -0.03rem;
       }
       
       p{
           color: rgba(var(--ion-color-secondary-rgb), .9);
           font-family: BwModelicaLight;
-          letter-spacing: -0.01em;
+          letter-spacing: -0.065rem;
           font-weight: bold;
           line-height: 1.4;
           font-size: 0.87rem;
@@ -1764,18 +1765,19 @@ ion-toast {
   font-size: 0.8rem;
   --width: 100%;
   --border-radius: 0px;
+  margin-top: -3.8rem;
   // top: -45%;
 
   &::part(container) {
     padding-top: 1.5rem;
     .toast-content {
-      padding: 1rem 0.3rem 0.3rem 0.3rem !important;
+      padding: 2.5rem 0.3rem 0.3rem 0.3rem !important;
     }
   }
 
   &::part(message) {
     text-align: center;
-    padding: 0 0.7rem;
+    padding: 1rem 0.7rem 0 0.7rem;
     font-size: 0.85rem;
     letter-spacing: 0.02rem;
     font-family: BwModelicaLight;

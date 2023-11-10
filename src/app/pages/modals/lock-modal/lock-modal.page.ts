@@ -59,7 +59,7 @@ export class LockModalPage implements OnInit {
             disableBackup: true,
           });
           console.log('BIO>> ', bio);
-          if(bio === 'biometric_success'){
+          if(bio === 'Success'){ //ios specific fix
             // Unlock app
             // this.util.getLockSubject().next(true); //To re-initialize locking.
             this.modalCtrl.dismiss();

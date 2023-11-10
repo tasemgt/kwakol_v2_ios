@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ModalController, NavController, Platform } from 'node_modules/@ionic/angular';
-import { StatusBar } from 'node_modules/@ionic-native/status-bar/ngx';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { MobileAccessibility } from 'node_modules/@ionic-native/mobile-accessibility/ngx';
 import { ScreenOrientation } from 'node_modules/@awesome-cordova-plugins/screen-orientation/ngx';
 import { AppMinimize } from 'node_modules/@ionic-native/app-minimize/ngx';
@@ -25,7 +25,7 @@ import { constants } from './models/constants';
 export class AppComponent implements OnInit, AfterViewInit {
 
   public constants = constants;
-  public lockTimeSecs = 10;
+  public lockTimeSecs = 2;
 
   previousUrl = '';
   currentUrl = '';
@@ -44,17 +44,17 @@ export class AppComponent implements OnInit, AfterViewInit {
   private lockModalOpen = false;
 
   private lightContentList = [
-    '/login',
+    '/onboarding',
     '/tabs/profile',
     '/tabs/feed',
     '/tabs/history',
-    '/tabs/portfolio'
+    '/faq-details',
+    '/investment-details'
   ];
 
   constructor(
     private platform: Platform,
     private screenOrientation: ScreenOrientation,
-    private statusBar: StatusBar,
     private router: Router,
     private storageService: StorageService,
     // private network: Network,
@@ -74,29 +74,29 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    // this.router.events.pipe(
-    //   filter((event) => event instanceof NavigationEnd)
-    //     ).subscribe((event: NavigationEnd) => {
-    //       this.previousUrl = this.currentUrl;
-    //       this.currentUrl = event.url;
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd)
+        ).subscribe(async (event: NavigationEnd) => {
+          this.previousUrl = this.currentUrl;
+          this.currentUrl = event.url;
 
-    //       console.log('Current ', this.currentUrl);
-    //       console.log('Previous ', this.previousUrl);
+          console.log('Current ', this.currentUrl);
+          console.log('Previous ', this.previousUrl);
 
-    //       // Handles status bar display
-    //       if (this.platform.is('cordova')) {
-    //         console.log('Is cordova');
-    //         this.statusBar.overlaysWebView(true);
-    //         this.handleStatusBarForPages();
-    //       }
-    //     });
 
-        // this.util.getLockSubject().subscribe((res) =>{
-        //   if(res){
-        //     this.setupInactivityWatch();
-        //   }
-        // });
-  }
+          if(this.lightContentList.includes(this.currentUrl)){
+            // Handles status bar display
+            if (this.platform.is('capacitor')) {
+              await StatusBar.setStyle({ style: Style.Dark });
+            }
+          }
+          else{
+            if (this.platform.is('capacitor')) {
+              await StatusBar.setStyle({ style: Style.Light });
+            }
+          }
+  });
+}
 
   initializeApp() {
     this.platform.ready().then(async () => {
@@ -108,13 +108,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       // Handles zoom fonts on android devices
       this.mobileAccessibility.usePreferredTextZoom(false);
-
-      // Handles status bar display
-      // if (this.platform.is('cordova')) {
-      //   console.log('Is cordova');
-      //   this.statusBar.overlaysWebView(true);
-      //   this.handleStatusBarForPages();
-      // }
 
       this.handleAppAuthState();
       this.listenForSettingsChange();
@@ -212,17 +205,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     if(this.platform.is('cordova') || this.platform.is('capacitor')){
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       this.oneSignalService.setupPushNotifications();
-    }
-  }
-
-  private handleStatusBarForPages(){
-    if(this.lightContentList.includes(this.currentUrl)){
-      console.log('here on light');
-      this.statusBar.styleLightContent();
-    }
-    else{
-      console.log('here on dark');
-      this.statusBar.styleDefault();
     }
   }
 
