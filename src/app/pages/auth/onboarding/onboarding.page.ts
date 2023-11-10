@@ -33,12 +33,14 @@ export class OnboardingPage implements OnInit {
   @ViewChild('loginPasswordDiv') loginPasswordDiv: ElementRef;
   @ViewChild('registerDiv') registerDiv: ElementRef;
   @ViewChild('resetPasswordDiv') resetPasswordDiv: ElementRef;
+  @ViewChild('enterUsernameDiv') enterUsernameDiv: ElementRef;
 
   public pin: string;
   public inputPinTypePassword = true;
   public showLoginPasswordForm = false;
   public showRegisterForm = false;
   public showResetPasswordForm = false;
+  public showEnterUsernameForm = false;
 
   public passwordType = 'password';
   public passwordIcon = 'eye-open';
@@ -48,6 +50,7 @@ export class OnboardingPage implements OnInit {
   public loginInputFocused: boolean;
   public registrationInputFocused: boolean;
   public resetPasswordInputFocused: boolean;
+  public enterUsernameInputFocused: boolean;
 
   //Models
   public credentials: {
@@ -62,6 +65,7 @@ export class OnboardingPage implements OnInit {
   };
 
   public emailReset = '';
+  public enterUsername = '';
 
   public keyboardHeight: number;
 
@@ -316,7 +320,6 @@ export class OnboardingPage implements OnInit {
   }
 
   //Forgot / Reset Password
-
   public showResetPassword() {
     this.showResetPasswordForm = true;
   }
@@ -356,6 +359,50 @@ export class OnboardingPage implements OnInit {
       this.loading.dismiss();
       console.log('ERR >>', e);
       this.util.showToast('Could not reset password..', 2000, 'danger');
+    }
+  }
+
+  //Enter username area
+  public showEnterUsername() {
+    this.showEnterUsernameForm = true;
+  }
+
+  public async openEnterUsernameModal() {
+    this.closeLoginPasswordForm();
+    setTimeout(() => this.showEnterUsername(), 400);
+  }
+
+  public closeEnterUsernameForm() {
+    this.enterUsername = '';
+    const enterUsernameDiv = this.enterUsernameDiv.nativeElement;
+    this.renderer.removeClass(enterUsernameDiv, 'animate__slideInUp');
+    this.renderer.addClass(enterUsernameDiv, 'animate__zoomOut');
+    // this.renderer.setStyle(registerDiv, 'display', 'none');
+    setTimeout(() => (this.showEnterUsernameForm = false), 50);
+  }
+
+  public async doEnterUsername(){
+    if(!this.enterUsername){
+      this.util.showToast('Please enter your username', 2000, 'danger');
+      return;
+    }
+    this.util.presentLoading();
+    try {
+      const resp = await this.auth.doSetUsername({username: this.enterUsername});
+      this.loading.dismiss();
+      if(resp.code == '100'){
+        this.enterUsername = '';
+        this.util.showToast('Username set successfully', 2500, 'success');
+        this.closeEnterUsernameForm();
+        this.openLoginPasswordModal();
+      }
+      else{
+        this.util.showToast(resp.data, 2000, 'danger');
+      }
+    } catch (e) {
+      this.loading.dismiss();
+      console.log('ERR >>', e);
+      this.util.showToast('Could not set username..', 2000, 'danger');
     }
   }
 

@@ -25,10 +25,19 @@
 
   <ion-row class="action-row">
     <ion-col size="12" class="ion-text-center btn-col">
-      <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="callMetaMap()" [disabled]="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">Continue</ion-button>
+      <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="callMetaMap()" [disabled]="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">
+        <span *ngIf="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">KYC In Progress</span>
+        <span *ngIf="!kycVerified || kycVerified === 'redo'">Continue</span>
+      </ion-button>
     </ion-col>
     <ion-col size="12" class="ion-text-center btn-col" *ngIf="!tempUser.has_pin">
-      <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit" (click)="openSetPinModal()">Skip to Set Pin</ion-button>
+      <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit" (click)="openSetPinModal()">
+        <span *ngIf="!kycVerified || kycVerified === 'redo'">Skip to Set Pin</span>
+        <span *ngIf="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">Set Pin</span>
+      </ion-button>
+    </ion-col>
+    <ion-col size="12" class="ion-text-center btn-col" *ngIf="tempUser.has_pin && !tempUser.username">
+      <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit" (click)="openEnterUsernameModal()">Set a username</ion-button>
     </ion-col>
   </ion-row>
 
@@ -74,5 +83,75 @@
   </ion-modal>
   <!-- End Modal Login with Pin -->
 
+  <!-- Do Enter Username Modal -->
+  <ion-modal
+    #enterUsernameModal
+    [initialBreakpoint]="0.80"
+    [breakpoints]="[0, 0.30, 0.50, 0.70, 0.90]"
+    class="kwakol-modal-bottom-drawer2 transfer-investment"
+    handle="true"
+  >
+    <ng-template>
+      <ion-content>
+        <!-- <div class="round-button">
+          <ion-icon src="assets/icon/padlock.svg"></ion-icon>
+        </div> -->
+        <h3>Set a Username</h3>
+        <p class="p0">
+          This application now requires a username for access to all features.
+        </p>
+
+        <!-- <div class="content-wrapper"> -->
+        <div class="investment-item" style="margin-top: 1rem">
+          <div class="investment-name">
+            <div class="img-wrapper">
+              <!-- <img src="" alt=""> -->
+              <div class="default-img">
+                {{tempUser?.fullname.split('
+                ')[0][0]}}{{(tempUser?.fullname.split(' ')[1]) ? tempUser?.fullname.split(' ')[1].trim()[0] : ''}}
+              </div>
+            </div>
+            <div class="name">
+              <h3>{{tempUser.fullname}}</h3>
+              <p>{{tempUser.email}}</p>
+            </div>
+          </div>
+          <!-- <h3>$545,7787</h3> -->
+        </div>
+
+        <div
+          class="investment-item animate__animated animate__slideInDown"
+          style="--animate-duration: 0.5s"
+        >
+          <ion-col size="12" class="kwakol-input">
+            <div class="did-floating-label-content">
+              <input
+                class="did-floating-input"
+                type="text"
+                placeholder="username"
+                [(ngModel)]="usernameEnterValue"
+                required
+                autocomplete="off"
+                #enterUsernameModalRef
+              />
+              <label class="did-floating-label">Enter Username</label>
+            </div>
+          </ion-col>
+        </div>
+
+        <ion-col size="12" class="ion-text-center btn-col">
+          <ion-button
+            class="kwakol-btn ion-text-uppercase"
+            (click)="handleEnterUsername()"
+            type="submit"
+          >
+            Confirm
+          </ion-button>
+        </ion-col>
+        <!-- </div> -->
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- End Enter Username Modal -->
 
 </ion-content>

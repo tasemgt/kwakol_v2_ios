@@ -21,7 +21,12 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
 
     if(url === 'https://v2.kwml.work/api/v2/create-pin'){
-      return next.handle(req);
+      this.storage.get('INITIAL_REG').then((resp) =>{
+        if(resp.token){
+          return next.handle(req);
+        }
+      }).catch((e) =>{
+      });
     }
 
     if(url === 'https://v2.kwml.work/api/v2/resend-registration-otp'){

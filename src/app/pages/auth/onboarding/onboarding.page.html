@@ -429,6 +429,62 @@
   </div>
   <!-- Reset Password Modal End -->
 
+  <!-- Enter Username Modal Begin -->
+  <div
+    #enterUsernameDiv
+    class="login-password reset animate__animated animate__slideInUp"
+    *ngIf="showEnterUsernameForm"
+    [ngClass]="{'slide-up': enterUsernameInputFocused , 'slide-down': !enterUsernameInputFocused}"
+  >
+    <div class="header">
+      <!-- <div class="switch-login" (click)="openLoginPinModal()">
+        Login with Pin
+      </div> -->
+      <div>
+        <h3 class="type">Enter Username</h3>
+        <p class="p3">Kindly Enter a Username</p>
+      </div>
+      <div class="round-button" (click)="closeEnterUsernameForm()">
+        <ion-icon src="assets/icon/close.svg"></ion-icon>
+      </div>
+    </div>
+    <!-- <h3 class="type">Reset Password</h3>
+    <p class="p3">It's alright, everyone forgets</p> -->
+
+    <form
+      class="auth-form"
+      (ngSubmit)="doEnterUsername()"
+    >
+      <ion-row class="row-auth">
+        <ion-col size="12" class="kwakol-input">
+          <div class="did-floating-label-content">
+            <input
+              class="did-floating-input"
+              type="email"
+              placeholder=" "
+              name="enterUsername"
+              [(ngModel)]="enterUsername"
+              required
+              autocomplete="off"
+              (focus)="onInputsFocus('reset')"
+              (blur)="onInputsBlur('reset')"
+            />
+            <label class="did-floating-label">Enter your username</label>
+          </div>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center btn-col">
+          <ion-button class="kwakol-btn ion-text-uppercase" type="submit"
+            >Continue</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+  <!-- Reset Password Modal End -->
+
+
+
+
   <!-- <ion-modal
     #passwordLoginModal
     trigger="open-login-password"

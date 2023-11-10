@@ -96,11 +96,18 @@ export class RegisterPage implements OnInit {
   }
 
   public async continueReg() {
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
     console.log(this.regCreds);
     if (this.util.checkUndefinedProperties(this.regCreds)) {
       this.util.showToast('Kindly ensure no empty fields', 2500, 'danger');
       return;
     }
+
+    if (!usernameRegex.test(this.regCreds.username)) {
+      this.util.showToast('Username can only contain alphanumeric characters', 2500, 'danger');
+      return;
+    }
+
     const initialReg = await this.storage.get('INITIAL_REG');
     if (initialReg) {
       // this.otpModal.present();
@@ -174,12 +181,13 @@ export class RegisterPage implements OnInit {
 
   public async verifyOTP() {
     const tempUser = await this.storage.get('INITIAL_REG');
-    this.otpModal.dismiss();
+    // this.otpModal.dismiss();
     this.util.presentLoading();
     try {
       const resp = await this.auth.registerConfirm(this.otp, this.initialToken);
       this.loading.dismiss();
       if (resp.code == '100') {
+        this.otpModal.dismiss();
         clearInterval(this.countTimerValue);
         setTimeout(() => {
           this.util.presentLoadingModal({
@@ -192,6 +200,7 @@ export class RegisterPage implements OnInit {
       }
       else if(resp.code == '418'){
         this.util.showToast('OTP entered is likely to be incorrect', 2500, 'danger');
+        this.otp = ''; this.otp1 = ''; this.otp2 = ''; this.otp3 = ''; this.otp4 = ''; this.otp5 = ''; this.otp6 = '';
       }
     } catch (error) {
       this.loading.dismiss();
@@ -200,6 +209,7 @@ export class RegisterPage implements OnInit {
         2500,
         'danger'
       );
+      this.otp = ''; this.otp1 = ''; this.otp2 = ''; this.otp3 = ''; this.otp4 = ''; this.otp5 = ''; this.otp6 = '';
       console.log(error);
     }
   }
