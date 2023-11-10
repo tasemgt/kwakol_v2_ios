@@ -47,6 +47,7 @@ export class KycPage implements OnInit {
       this.fromPage = state.url;
       this.tempUser = state.data;
       this.kycVerified = state.kycVerified || this.tempUser.verified_kyc;
+      this.kycVerified = typeof this.kycVerified === 'string' ? this.kycVerified.toLowerCase() : this.kycVerified;
 
       console.log('SSSS', state);
     }
