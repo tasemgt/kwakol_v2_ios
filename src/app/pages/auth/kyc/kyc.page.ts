@@ -171,10 +171,17 @@ export class KycPage implements OnInit {
   }
 
   public async handleEnterUsername(){
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
     if(!this.usernameEnterValue){
       this.util.showToast('Please enter your username', 2000, 'danger');
       return;
     }
+
+    if (!usernameRegex.test(this.usernameEnterValue)) {
+      this.util.showToast('Username can only contain alphanumeric characters', 2500, 'danger');
+      return;
+    }
+
     this.util.presentLoading();
     try {
       const resp = await this.auth.doSetUsername({username: this.usernameEnterValue});

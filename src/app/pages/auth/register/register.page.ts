@@ -96,11 +96,18 @@ export class RegisterPage implements OnInit {
   }
 
   public async continueReg() {
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
     console.log(this.regCreds);
     if (this.util.checkUndefinedProperties(this.regCreds)) {
       this.util.showToast('Kindly ensure no empty fields', 2500, 'danger');
       return;
     }
+
+    if (!usernameRegex.test(this.regCreds.username)) {
+      this.util.showToast('Username can only contain alphanumeric characters', 2500, 'danger');
+      return;
+    }
+
     const initialReg = await this.storage.get('INITIAL_REG');
     if (initialReg) {
       // this.otpModal.present();
