@@ -5,12 +5,12 @@
   <div class="sub-header">
     <div class="recent-view">
       <p class="section-title">Recent Notification</p>
-      <p class="section-title" (click)="viewNotifications()">
+      <p class="section-title" (click)="viewNotifications()" *ngIf="notifications.length > 0">
         View all
         <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon>
       </p>
     </div>
-    <div class="notification-wrapper" *ngIf="explore">
+    <div class="notification-wrapper" *ngIf="explore && notifications.length > 0">
       <div class="round-button">
         <ion-icon
           [src]="'assets/icon/v2-icons/round-btns/bell.svg'"
@@ -25,6 +25,13 @@
     <div class="notification-loading-wrapper" *ngIf="!explore">
       <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
+    
+    <div class="notification-loading-wrapper" *ngIf="explore && notifications.length <= 0">
+      <p>No Notifications...</p>
+    </div>
+    
+
+
   </div>
 </ion-header>
 
@@ -34,7 +41,7 @@
   </ion-refresher>
   <div class="recent-view">
     <p class="section-title">Frequently Asked Questions</p>
-    <p class="section-title" (click)="viewFAQs()">
+    <p class="section-title" (click)="viewFAQs()" *ngIf="faqs.length > 0">
       View all
       <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon>
     </p>
@@ -64,9 +71,13 @@
     Loading FAQs...
   </div>
 
+  <div class="notification-loading-wrapper" *ngIf="explore && faqs.length <= 0">
+    <p>No FAQs...</p>
+  </div>
+
   <div class="recent-view">
     <p class="section-title">Recent News</p>
-    <p class="section-title" (click)="viewNewsFeeds()">
+    <p class="section-title" (click)="viewNewsFeeds()" *ngIf="explore?.feeds > 0">
       View all
       <ion-icon src="assets/icon/v2-icons/forward-green.svg"></ion-icon>
     </p>
@@ -87,6 +98,10 @@
   <div class="news-loading-wrapper" *ngIf="!explore">
     <ion-spinner color="primary" name="crescent"></ion-spinner>
     Loading Feeds...
+  </div>
+
+  <div class="notification-loading-wrapper" *ngIf="explore && explore?.feeds.length <= 0">
+    <p>No Feeds...</p>
   </div>
 
   <!-- <div class="tt-skeletons" *ngIf="!explore">

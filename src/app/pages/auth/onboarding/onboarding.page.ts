@@ -281,7 +281,7 @@ export class OnboardingPage implements OnInit {
       return;
     }
     try {
-      // this.notification_id = '12345'; //Comment this out for production.
+      this.notification_id = '12345'; //Comment this out for production.
       console.log('Notification ID before send ', this.notification_id);
       if (!this.notification_id) {
         await this.getOneSignalPlayerID();
