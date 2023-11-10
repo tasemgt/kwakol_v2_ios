@@ -45,11 +45,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   private lockModalOpen = false;
 
   private lightContentList = [
-    '/login',
+    '/onboarding',
     '/tabs/profile',
     '/tabs/feed',
     '/tabs/history',
-    '/tabs/portfolio'
+    '/faq-details',
+    '/investment-details'
   ];
 
   constructor(

@@ -16,6 +16,7 @@ export class UiService {
   private clearPinState: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private appLockModalOpenState: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private autolockOnSettingsState: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private openSetUsernameState: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 
 
@@ -51,5 +52,9 @@ export class UiService {
   
   public getAutolockOnSettingsSubject(){
     return this.autolockOnSettingsState;
+  }
+
+  public getOpenSetUsernameStateSubject(){
+    return this.openSetUsernameState;
   }
 }

@@ -11,7 +11,7 @@ import { UtilService } from 'src/app/services/util.service';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit, OnDestroy {
+export class SettingsPage implements OnInit {
   public fromPage: string;
   public autoLockApp: boolean;
   public firstLoad: boolean;
@@ -34,20 +34,6 @@ export class SettingsPage implements OnInit, OnDestroy {
     console.log('nginit');
     // this.storageService.getInstant(this.kwakolAuto).then((isChecked) => this.autoLockApp = isChecked );
     // this.autoLockApp = false;
-  }
-
-  // ionViewWillEnter() {
-  //   this.firstLoad = true;
-  // }
-
-
-  // ionViewWillLeave() {
-  //   this.firstLoad = false;
-  // }
-  
-  // //Takes care of initial bug of fistload remaining true since onToggle wasnt called.
-  ngOnDestroy(): void {
-    console.log('ngdesttroy');
   }
   
   public onToggle(e) {

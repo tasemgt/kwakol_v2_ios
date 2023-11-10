@@ -10,6 +10,7 @@ import { StorageService } from './storage.service';
 import { UtilService } from './util.service';
 import { HttpService } from './_http.service';
 import { HttpHeaders } from '@angular/common/http';
+import { UiService } from './ui.service';
 
 
 @Injectable({
@@ -31,6 +32,7 @@ export class AuthService {
     private util: UtilService,
     private dataService: DataService,
     private storage: StorageService,
+    private uiService: UiService,
     private http: HttpService) {
 
     this.platform.ready().then(() =>{
@@ -86,9 +88,16 @@ export class AuthService {
 
       if(!resp.has_pin){
         this.dataService.setAccessToken(resp.token);
-        // this.util.showToast('You\'ll need to set your pin to continue to application', 3000, 'warning');
         this.util.showToast('You\'ll need to set your pin to continue to application', 3000, 'warning');
         this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: resp}});
+        return;
+      }
+
+      if(!resp.username){
+        this.dataService.setAccessToken(resp.token);
+        this.util.showToast('You\'ll need to set username to continue to application', 3000, 'warning');
+        this.uiService.getOpenSetUsernameStateSubject().next(true);
+        this.uiService.getOpenSetUsernameStateSubject().next(false);
         return;
       }
 
@@ -134,12 +143,27 @@ export class AuthService {
   public async setPin(payload){
     try {
       const initialReg = await this.storage.get('INITIAL_REG');
-      const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`};
+      const headers = initialReg ? {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`} : this.headers;
       console.log(headers);
       return this.http.post(`${this.baseUrl}/v2/create-pin`, payload, headers);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  // public async doSetUsername(payload){
+  //   try {
+  //     const initialReg = await this.storage.get('INITIAL_REG');
+  //     const headers = initialReg ? {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`} : this.headers;
+  //     console.log(headers);
+  //     return this.http.post(`${this.baseUrl}/v2/create-pin`, payload, headers);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  public doSetUsername(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/profile`, payload, this.headers);
   }
 
   public async resendOTP(): Promise<any>{

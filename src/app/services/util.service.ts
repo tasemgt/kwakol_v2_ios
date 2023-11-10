@@ -51,10 +51,10 @@ export class UtilService {
   public async showToast(message: string, duration: number, color: string) {
     const toast = await this.toastCtrl.create({
       message,
-      position: 'middle',
+      position: 'top',
       color,
       duration,
-      mode: 'ios',
+      mode: 'md',
       // icon: 'assets/icon/logo.svg'
     });
     toast.present();
