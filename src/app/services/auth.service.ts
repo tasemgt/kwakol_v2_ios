@@ -86,20 +86,21 @@ export class AuthService {
         return;
       }
 
-      if(!resp.has_pin){
+      if(!resp.has_pin || !resp.username){
         this.dataService.setAccessToken(resp.token);
-        this.util.showToast('You\'ll need to set your pin to continue to application', 3000, 'warning');
+        const message = !resp.has_pin ? 'You\'ll need to set your pin to continue to application' : 'You\'ll need to set a username to continue to application';
+        this.util.showToast(message, 3000, 'warning');
         this.router.navigateByUrl('/kyc', {state: {url: this.router.url, data: resp}});
         return;
       }
 
-      if(!resp.username){
-        this.dataService.setAccessToken(resp.token);
-        this.util.showToast('You\'ll need to set username to continue to application', 3000, 'warning');
-        this.uiService.getOpenSetUsernameStateSubject().next(true);
-        this.uiService.getOpenSetUsernameStateSubject().next(false);
-        return;
-      }
+      // if(!resp.username){
+      //   this.dataService.setAccessToken(resp.token);
+      //   this.util.showToast('You\'ll need to set username to continue to application', 3000, 'warning');
+      //   this.uiService.getOpenSetUsernameStateSubject().next(true);
+      //   this.uiService.getOpenSetUsernameStateSubject().next(false);
+      //   return;
+      // }
 
       await this.storage.set(this.currentUser, resp);
       this.dataService.setData(2, resp); //Set user object into data service

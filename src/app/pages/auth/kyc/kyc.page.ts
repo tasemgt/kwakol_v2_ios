@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { IonModal, LoadingController, Platform } from '@ionic/angular';
 import { KeypadComponent } from 'src/app/components/keypad/keypad.component';
 import { constants } from 'src/app/models/constants';
@@ -17,6 +18,8 @@ declare const cordova: any;
 export class KycPage implements OnInit {
   @ViewChild('setPinModal') setPinModal: IonModal;
   @ViewChild('appKeypad') appKeypad: KeypadComponent;
+  @ViewChild('enterUsernameModal') enterUsernameModal: IonModal;
+  @ViewChild('enterUsernameModalRef') enterUsernameModalRef: ElementRef;
 
   public pinText: string;
 
@@ -26,6 +29,8 @@ export class KycPage implements OnInit {
 
   public inputs = ['', '', '', ''];
 
+  public usernameEnterValue: string;
+
 
   public pin = '';
   public confirmPin = '';
@@ -34,6 +39,7 @@ export class KycPage implements OnInit {
   public kycVerified;;
 
   constructor(
+    private keyboard: Keyboard,
     private router: Router,
     private util: UtilService,
     private loading: LoadingController,
@@ -64,6 +70,18 @@ export class KycPage implements OnInit {
     this.inputs = ['', '', '', ''];
     await this.setPinModal.onDidDismiss();
     this.showConfirm = false;
+  }
+
+  public async openEnterUsernameModal() {
+    setTimeout(async() => {
+      await this.enterUsernameModal.present();
+      if(this.enterUsernameModalRef?.nativeElement){
+        this.enterUsernameModalRef.nativeElement.focus();
+        this.keyboard.show();
+      }
+    }, 100);
+    await this.enterUsernameModal.onWillDismiss();
+    this.usernameEnterValue = '';
   }
 
   public onKeypadChanged(eventData: { keypadText: string }) {
@@ -129,8 +147,14 @@ export class KycPage implements OnInit {
         if(resp.code == 100){
           this.util.showToast('Pin set successfully', 3000, 'success');
           this.storage.remove('INITIAL_REG');
-          this.router.navigateByUrl('/onboarding');
           await this.setPinModal.dismiss();
+          this.tempUser.has_pin = true;
+          if(!this.tempUser.username){
+            this.openEnterUsernameModal();
+          }
+          else{
+            this.router.navigateByUrl('/onboarding');
+          }
         }
         else{
           this.util.showToast(resp.message, 2000, 'danger');
@@ -143,6 +167,32 @@ export class KycPage implements OnInit {
       //   // this.util.presentAlertModal('depositConfirm');
       // }, 1000);
       // this.storage.remove('INITIAL_REG');
+    }
+  }
+
+  public async handleEnterUsername(){
+    if(!this.usernameEnterValue){
+      this.util.showToast('Please enter your username', 2000, 'danger');
+      return;
+    }
+    this.util.presentLoading();
+    try {
+      const resp = await this.auth.doSetUsername({username: this.usernameEnterValue});
+      this.loading.dismiss();
+      if(resp.code == '100'){
+        this.usernameEnterValue = '';
+        this.util.showToast('Username set successfully', 2500, 'success');
+        this.enterUsernameModal.dismiss();
+        this.router.navigateByUrl('/onboarding');
+        // this.openLoginPasswordModal();
+      }
+      else{
+        this.util.showToast(resp.data, 2000, 'danger');
+      }
+    } catch (e) {
+      this.loading.dismiss();
+      console.log('ERR >>', e);
+      this.util.showToast('Could not set username..', 2000, 'danger');
     }
   }
 
@@ -208,4 +258,6 @@ export class KycPage implements OnInit {
       }
     );
   }
+
+
 }

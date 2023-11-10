@@ -130,6 +130,7 @@ export class ProfilePage implements OnInit {
     this.uiService
       .getLoadingStateSubject()
       .next({ active: true, data: { type: 'logout', data: null } });
+    setTimeout(() => this.uiService.getLoadingStateSubject().next(null), 100);
   }
 
   public async getAccountDetails(page) {
