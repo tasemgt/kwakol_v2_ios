@@ -114,7 +114,7 @@
 
   <div
     class="no-transactions animate__animated animate__pulse"
-    *ngIf="!listSpinner && (walletHistories.length <= 0 || investmentHistories.length <= 0)"
+    *ngIf="!listSpinner && ((activeSegment === 'wallet' && walletHistories.length <= 0) || (activeSegment === 'investments' && investmentHistories.length <= 0))"
   >
     <img src="assets/imgs/cacti.svg" />
     <p>It's a bit empty here because you haven't made any transaction yet.</p>
