@@ -44,31 +44,31 @@
   <div class="content-wrapper">
     <p>
       <span>Account Number</span>
-      <span>{{accInfo.account_number}} <ion-icon (click)="util.clipboardCopy(accInfo.account_number)" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{accInfo?.account_number}} <ion-icon (click)="util.clipboardCopy(accInfo?.account_number)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p>
       <span>Account Name</span>
-      <span>{{accInfo.bank_name}}</span>
+      <span>{{accInfo?.bank_name}}</span>
     </p>
     <p>
       <span>Bank Name</span>
-      <span>{{accInfo.bank_account_name}}</span>
+      <span>{{accInfo?.bank_account_name}}</span>
     </p>
     <p *ngIf="currency === 'dollar'">
       <span>Swift Code</span>
-      <span>{{accInfo.swift_code}} <ion-icon (click)="util.clipboardCopy(accInfo.swift_code)" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{accInfo?.swift_code}} <ion-icon (click)="util.clipboardCopy(accInfo?.swift_code)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p *ngIf="currency === 'dollar'">
       <span>Sort Code</span>
-      <span>{{accInfo.sort_code}} <ion-icon (click)="util.clipboardCopy(accInfo.sort_code)" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{accInfo?.sort_code}} <ion-icon (click)="util.clipboardCopy(accInfo?.sort_code)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p *ngIf="currency === 'dollar'">
       <span>Branch</span>
-      <span>{{accInfo.branch}} <ion-icon (click)="util.clipboardCopy(accInfo.branch)" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{accInfo?.branch}} <ion-icon (click)="util.clipboardCopy(accInfo?.branch)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
     <p *ngIf="currency === 'dollar'">
       <span>Address</span>
-      <span>{{accInfo.branch_address}} <ion-icon (click)="util.clipboardCopy(accInfo.branch_address)" src="assets/icon/copy.svg"></ion-icon></span>
+      <span>{{accInfo?.branch_address}} <ion-icon (click)="util.clipboardCopy(accInfo?.branch_address)" src="assets/icon/copy.svg"></ion-icon></span>
     </p>
   </div>
 
