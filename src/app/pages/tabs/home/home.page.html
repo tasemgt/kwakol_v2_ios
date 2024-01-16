@@ -280,7 +280,7 @@
                   [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"
                 ></ion-icon>
               </div>
-              <h4>
+              <h4 class="{{inv.subscription.name.toLowerCase()}}">
                 <span>{{inv.custom_name?.length > 11 ? inv.custom_name.slice(0,11)+'...' : inv.custom_name || 'My Plan'}}</span><br />
                 <span>
                   {{ inv.subscription.name.substring(0,8)
