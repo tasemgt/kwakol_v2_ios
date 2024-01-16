@@ -37,6 +37,8 @@ p {
       position: absolute;
       right: 0;
       top: 0;
+      height: 100%;
+      max-height: 100%;
     }
 
     div {
@@ -101,25 +103,40 @@ p {
         }
       }
     }
-
+    
     &.levadura {
       background: #d8c680;
     }
-
+    
     &.marigold {
       background: #af9685;
     }
-
+    
     &.junzi {
       background: #295513;
+      color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+      p.p1{
+          color: rgba(var(--ion-color-tertiary-rgb), 0.8) !important;
+          span{ color: rgba(var(--ion-color-tertiary-rgb), 0.8) !important;}
+      }
     }
-
+    
     &.antipasto {
       background: #41b651;
+      color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+      p.p1{
+          color: rgba(var(--ion-color-tertiary-rgb), 0.8) !important;
+          span{ color: rgba(var(--ion-color-tertiary-rgb), 0.8) !important;}
+      }
     }
-
+    
     &.veterano {
       background: #5e5d5c;
+      color: rgba(var(--ion-color-tertiary-rgb), 0.8);
+      p.p1{
+          color: rgba(var(--ion-color-tertiary-rgb), 0.8) !important;
+          span{ color: rgba(var(--ion-color-tertiary-rgb), 0.8) !important;}
+      }
     }
   }
 }

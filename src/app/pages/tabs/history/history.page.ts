@@ -210,7 +210,7 @@ export class HistoryPage implements OnInit {
       this.historyService.getInvestmentHistoriesV2(''),
     ]);
     this.walletHistories = this.objectsToArray(resp1.data.wallet_history.data);
-      this.investmentHistories = this.objectsToArray(resp2.data.investment_history.data);
+    this.investmentHistories = this.objectsToArray(resp2.data.investment_history.data);
     // if (resp.code === '100') {
     //   this.histories = resp.data.history.data;
     //   console.log(this.histories);

@@ -1046,11 +1046,19 @@ Rate: ${this.home.daily_rate}`;
           this.dollarCashDepositModal.dismiss(); //Dismiss cash modal if present
           this.depositDollarModal.dismiss(); //Dismiss first dollar modal if present
           this.doDepositDollarCashModal.present(); //Present QR Page for cash payments
+          this.dollarCashAmount = '';
           return;
         }
 
+        if(resp.data.accounts.length <= 0){
+          this.util.showToast('USD Bank Transfer not available at the moment', 2500, 'danger');
+          return;
+        }
+        
         //Go to dollar transfer and upload receipt page for type = 'TRANSFER'
         this.depositDollarModal.dismiss(); //Dismiss first dollar modal if present
+
+
         this.router.navigateByUrl('/deposit', {
           state: { url: this.router.url, data: resp.data, currency: 'dollar' },
         });

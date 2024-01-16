@@ -645,6 +645,11 @@ ion-button.kwakol-btn {
 
     h4 {
       color: var(--ion-color-secondary);
+
+      &.junzi, &.veterano, &.antipasto{
+        color: var(--ion-color-tertiary);
+      }
+
     }
   }
 

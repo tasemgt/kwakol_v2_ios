@@ -206,7 +206,9 @@ export class InvestInAccountPage implements OnInit {
     } catch (err) {
       console.log(err);
       this.loading.dismiss();
-      this.util.showToast(err.error.message, 2000, 'danger');
+      const keys = Object.keys(err.error.errors);
+      // console.log(keys.length);
+      this.util.showToast(err.error.errors[keys[0]], 3000, 'danger');
     }
   }
 }
