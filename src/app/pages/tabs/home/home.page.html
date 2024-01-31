@@ -128,8 +128,8 @@
     >
       <div
         class="transaction"
+        *ngFor="let trans of latestWalletTrans | slice:0:5"
         (click)="openInfoModal(trans.type.toLowerCase(), trans, true)"
-        *ngFor="let trans of wallet?.latest_wallet_transactions | slice:0:5"
       >
         <div class="trans-type-wrapper">
           <ion-icon

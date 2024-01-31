@@ -81,6 +81,7 @@ export class HomePage implements OnInit {
   public home: any;
   public dailyRate: string;
   public wallet: any;
+  public latestWalletTrans: any[];
   public investment: any;
   public homeHistories: any[];
   public homeBalance: string;
@@ -247,6 +248,7 @@ export class HomePage implements OnInit {
       if (resp.code === '100') {
         this.home = resp.data.home;
         this.wallet = this.home.wallet;
+        this.latestWalletTrans = this.wallet.latest_wallet_transactions;
         this.investment = this.home.investment;
         this.homeHistories = this.investment.user_details.transactions;
         this.homeBalance = this.util.numberWithCommas(
@@ -911,6 +913,7 @@ Rate: ${this.home.daily_rate}`;
       console.log('Stubborn home>> ', this.home);
       this.wallet = this.home.wallet;
       this.investment = this.home.investment;
+      this.latestWalletTrans = this.wallet.latest_wallet_transactions;
       this.homeHistories = this.investment.user_details.transactions;
       this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
       this.homeService.setWalletBallance(this.wallet.balance);

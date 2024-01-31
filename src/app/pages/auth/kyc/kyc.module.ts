@@ -9,6 +9,7 @@ import { KycPageRoutingModule } from './kyc-routing.module';
 import { KycPage } from './kyc.page';
 import { KeypadModule } from 'src/app/components/keypad/keypad.module';
 import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
+import { SharedDirectivesModule } from 'src/app/directives/shared-directives.module';
 
 @NgModule({
   imports: [
@@ -16,11 +17,12 @@ import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
     FormsModule,
     IonicModule,
     KycPageRoutingModule,
-    KeypadModule
+    KeypadModule,
+    SharedDirectivesModule
   ],
   declarations: [
     KycPage,
-    AutoTabDirective
+    // AutoTabDirective
   ]
 })
 export class KycPageModule {}

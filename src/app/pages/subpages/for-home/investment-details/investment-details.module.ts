@@ -11,7 +11,7 @@ import { KeypadModule } from 'src/app/components/keypad/keypad.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
+import { SharedModuleModule } from 'src/app/shared-module.module';
 
 @NgModule({
   imports: [
@@ -20,13 +20,13 @@ import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
     IonicModule,
     InvestmentDetailsPageRoutingModule,
     KeypadModule,
+    SharedModuleModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule
   ],
   declarations: [
     InvestmentDetailsPage,
-    CapitalizePipe
   ]
 })
 export class InvestmentDetailsPageModule {}
