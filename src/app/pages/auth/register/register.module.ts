@@ -8,8 +8,9 @@ import { RegisterPageRoutingModule } from './register-routing.module';
 
 import { RegisterPage } from './register.page';
 import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
-import { MatNativeDateModule } from 'node_modules/@angular/material/core';
-import { MatDatepickerModule } from 'node_modules/@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SharedDirectivesModule } from 'src/app/directives/shared-directives.module';
 
 @NgModule({
   imports: [
@@ -19,11 +20,12 @@ import { MatDatepickerModule } from 'node_modules/@angular/material/datepicker';
     RegisterPageRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    SharedDirectivesModule
     // MatCardModule
   ],
   declarations: [
     RegisterPage,
-    AutoTabDirective
+    // AutoTabDirective
   ]
 })
 export class RegisterPageModule {}

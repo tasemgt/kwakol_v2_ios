@@ -8,9 +8,9 @@ import { BeneficiaryDetailsPageRoutingModule } from './beneficiary-details-routi
 
 import { BeneficiaryDetailsPage } from './beneficiary-details.page';
 import { KeypadModule } from 'src/app/components/keypad/keypad.module';
-import { MatCardModule } from 'node_modules/@angular/material/card';
-import { MatNativeDateModule } from 'node_modules/@angular/material/core';
-import { MatDatepickerModule } from 'node_modules/@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModuleModule } from 'src/app/shared-module.module';
 
 @NgModule({
@@ -19,6 +19,7 @@ import { SharedModuleModule } from 'src/app/shared-module.module';
     FormsModule,
     IonicModule,
     KeypadModule,
+    SharedModuleModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
@@ -26,7 +27,7 @@ import { SharedModuleModule } from 'src/app/shared-module.module';
     SharedModuleModule
   ],
   declarations: [
-    BeneficiaryDetailsPage
+    BeneficiaryDetailsPage,
   ]
 })
 export class BeneficiaryDetailsPageModule {}

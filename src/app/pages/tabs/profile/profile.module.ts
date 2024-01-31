@@ -9,6 +9,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { KeypadModule } from 'src/app/components/keypad/keypad.module';
 import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
+import { SharedDirectivesModule } from 'src/app/directives/shared-directives.module';
 
 @NgModule({
   imports: [
@@ -16,11 +17,9 @@ import { AutoTabDirective } from 'src/app/directives/autoTabDirective';
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    KeypadModule
+    KeypadModule,
+    SharedDirectivesModule,
   ],
-  declarations: [
-    ProfilePage,
-    AutoTabDirective
-  ]
+  declarations: [ProfilePage],
 })
 export class ProfilePageModule {}
