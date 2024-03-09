@@ -103,8 +103,8 @@ class="info-modal reset animate__animated animate__slideInUp"
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading left">{{investment.custom_name || 'My Plan'}}</h2>
-  <div class="summary-block">
+  <h2 class="subpage-heading left">{{investment.custom_name || 'My Plan'}} <span *ngIf="isArchived">(Archived)</span></h2>
+  <div class="summary-block" [ngClass]="isArchived ? 'add-margin' : '' ">
     <div class="top">
       <div class="balance">
         <p>Available Balance</p>
@@ -124,7 +124,7 @@ class="info-modal reset animate__animated animate__slideInUp"
     </div>
     <div class="bottom"></div>
   </div>
-  <div class="cta-wrapper">
+  <div class="cta-wrapper" *ngIf="!isArchived">
     <div class="cta" (click)="openEnterDepositFromWalletAmount()">
       <div class="btn">
         <ion-icon src="assets/icon/v2-icons/cta-deposit.svg"></ion-icon>

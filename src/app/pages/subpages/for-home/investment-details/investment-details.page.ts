@@ -43,6 +43,7 @@ export class InvestmentDetailsPage implements OnInit {
   public walletBal: string;
   public transType: string;
   public histStats: any;
+  public isArchived: boolean;
 
   public showLoadingModal: boolean;
   public showInfoModal: boolean;
@@ -86,6 +87,7 @@ export class InvestmentDetailsPage implements OnInit {
       this.investment = state.investment;
       this.walletBal = state.walletBal;
       this.histStats = state.histStats;
+      this.isArchived = state.isArchived;
     }
     this.infoModalData = {};
   }
@@ -96,6 +98,7 @@ export class InvestmentDetailsPage implements OnInit {
     console.log('invvv ', this.investment);
     console.log('ballll ', this.walletBal);
     console.log('HistStats ', this.histStats);
+    console.log('Is Archived ', this.isArchived);
   }
 
   public doRefresh(event): void {

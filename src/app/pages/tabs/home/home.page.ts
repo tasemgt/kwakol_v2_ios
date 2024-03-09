@@ -831,7 +831,6 @@ Rate: ${this.home.daily_rate}`;
   }
 
   public async openInvestementDetailsPage(inv) {
-
     //Check if investment is active first
 
     if(inv.status !== 'active'){
