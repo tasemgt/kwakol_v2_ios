@@ -242,6 +242,14 @@ const routes: Routes = [
         './pages/subpages/for-profile/edit-profile/edit-profile.module'
       ).then((m) => m.EditProfilePageModule),
   },
+  {
+    path: 'archive',
+    canActivate: [AuthenGuard],
+    loadChildren: () =>
+      import('./pages/subpages/for-profile/archive/archive.module').then(
+        (m) => m.ArchivePageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [

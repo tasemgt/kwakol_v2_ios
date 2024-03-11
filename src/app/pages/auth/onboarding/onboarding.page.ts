@@ -462,6 +462,10 @@ export class OnboardingPage implements OnInit {
     }, 2000);
   }
 
+  public goToLinks(link: string): void {
+    window.open(link, '_system', 'location=yes');
+  }
+
   enterAnimation = (baseEl: HTMLElement) => {
     const root = baseEl.shadowRoot;
 

@@ -55,7 +55,10 @@ export class ProfilePage implements OnInit {
   public isResendingOTP = false;
   public countTimerValue;
 
+  public investment: any;
+
   private execptions = ['/settings'];
+
 
   constructor(
     private router: Router,
@@ -81,6 +84,25 @@ export class ProfilePage implements OnInit {
         this.user.username = state.username;
       }
     });
+  }
+
+  //Temporal Home investments for archive page testing
+  public async getTempHome(){
+    //Temporal data for test...
+    this.util.presentLoading();
+    try {
+      const resp = await this.homeService.getHome();
+      this.loading.dismiss();
+      if (resp.code === '100') {
+        this.investment = resp.data.home.investment;
+        this.router.navigateByUrl('/archive', {
+          state: {url: this.router.url, investment: this.investment},
+        });
+      }
+    } catch (error) {
+      this.loading.dismiss();
+      console.log(error);
+      }
   }
 
   public async getUser() {
@@ -199,6 +221,31 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  public async goToChangeArchivePage() {
+    this.getTempHome();
+    // this.util.presentLoading();
+    // setTimeout(()=>{
+    //   this.loading.dismiss();
+    //   this.router.navigateByUrl('/archive', {
+    //     state: {url: this.router.url, investment: this.investment},
+    //   });
+    // }, 500);
+    // try {
+    //   const resp = await this.homeService.getBeneficiaries();
+    //   this.loading.dismiss();
+    //   if (resp.code == 100) {
+    //     this.myBeneficiaries = resp.data;
+    //     this.router.navigateByUrl('/archive', {
+    //       state: { url: this.router.url, beneficiaries: this.myBeneficiaries },
+    //     });
+    //   }
+    // } catch (e) {
+    //   this.loading.dismiss();
+    //   this.util.showToast('Please try again', 2000, 'danger');
+    //   console.log(e);
+    // }
+  }
+  
   public goToChangePasswordPage() {
     this.router.navigateByUrl('/change-password', {
       state: { url: this.router.url, user: this.user },

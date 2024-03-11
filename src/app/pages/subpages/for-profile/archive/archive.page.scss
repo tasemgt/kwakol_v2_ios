@@ -1,0 +1,52 @@
+ion-header {
+    position: relative;
+    padding-left: 1.8rem;
+    padding-right: 1.8rem;
+    background: var(--ion-color-tertiary);
+    padding: 5rem 1.35rem 0.7rem 1.35rem;
+  }
+  
+  .header-md::after {
+    background-image: none;
+  }
+  
+  h2.subpage-heading.left {
+    color: var(--ion-color-secondary);
+    margin-top: 0rem;
+    margin-left: 0.5rem;
+  }
+
+  .inv-row{
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+
+  .inv-wrapper{
+    // flex: auto;
+    flex-basis: calc(50% - .5rem);
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+    &:nth-child(2n) {
+        margin-right: 0;
+      }
+  }
+
+  .investment-item .type-area h4{
+    margin: 0;
+  }
+
+  .investment-item p{
+    margin: 0;
+    font-weight: bold;
+    color: var(--ion-color-secondary);
+    font-family: BwModelicaLight;
+    &.archive-date{
+        color: rgba(var(--ion-color-secondary-rgb), 0.5);
+    }
+  }
+
+  .investment-item{
+    width: 100%;
+    box-shadow: 0px 3px 4px 0px #211F421A;
+  }

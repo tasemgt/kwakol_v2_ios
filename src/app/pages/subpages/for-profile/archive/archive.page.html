@@ -1,0 +1,37 @@
+<ion-header>
+  <div class="back-button" [routerLink]="fromPage" routerDirection="back">
+    <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
+  </div>
+
+  <h2 class="subpage-heading left">Archive</h2>
+</ion-header>
+
+<ion-content class="page-content">
+  <div class="archive-list">
+    <div class="inv-row">
+        <div class="inv-wrapper" *ngFor="let inv of investment?.user_details.subscriber.subscription">
+          <div class="investment-item" (click)="openInvestementDetailsPage(inv, true)">
+            <!-- <div class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"> -->
+            <div class="type-area {{ '' || 'marigold-big' }}">
+              <div class="icon-wrapper">
+                <ion-icon [src]="'assets/icon/inv-type/'+ ('marigold-big' || 'special-big') +'.svg'"></ion-icon>
+                <!-- <ion-icon [src]="'assets/icon/inv-type/'+ (getIconForInvName(inv.subscription.name) || 'special-big') +'.svg'"></ion-icon> -->
+              </div>
+              <!-- <h4 class="{{inv.subscription.name.toLowerCase()}}"> -->
+              <h4 class="{{'marigold'}}">
+                <span>{{''|| 'My Plan'}}</span><br />
+                <!-- <span>{{inv.custom_name?.length > 11 ? inv.custom_name.slice(0,11)+'...' : inv.custom_name || 'My Plan'}}</span><br /> -->
+                <span>Marigold</span>
+                <!-- <span> {{ inv.subscription.name.substring(0,8)}}{{inv.subscription.name.length > 8 ? '...': ''}}</span> -->
+              </h4>
+            </div>
+            <div class="date-wrapper">
+              <p>Archive Date</p>
+              <p class="archive-date">16 Feb 2023</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</ion-content>
