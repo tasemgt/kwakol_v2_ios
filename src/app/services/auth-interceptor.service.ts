@@ -21,12 +21,14 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
 
     if(url === 'https://v2.kwml.work/api/v2/create-pin'){
-      this.storage.get('INITIAL_REG').then((resp) =>{
-        if(resp.token){
-          return next.handle(req);
-        }
-      }).catch((e) =>{
-      });
+      console.log('here create pin');
+      return next.handle(req);
+      // this.storage.get('INITIAL_REG').then((resp) =>{
+      //   console.log('resp>> ', resp);
+      //   if(resp.token){
+      //   }
+      // }).catch((e) =>{
+      // });
     }
 
     if(url === 'https://v2.kwml.work/api/v2/resend-registration-otp'){
@@ -34,12 +36,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
 
     if(url === 'https://v2.kwml.work/api/v2/kyc-data'){
-      this.storage.get('INITIAL_REG').then((resp) =>{
-        if(resp.token){
-          return next.handle(req);
-        }
-      }).catch((e) =>{
-      });
+      return next.handle(req);
     }
 
 
@@ -53,7 +50,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       //     url.includes('/verify'))
       //   )
       //   {
-        const token = this.dataService.getAccessToken();
+      const token = this.dataService.getAccessToken();
         // console.log('TOKEN>> ', token);
       req = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`)
