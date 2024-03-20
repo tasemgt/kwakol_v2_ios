@@ -13,6 +13,7 @@ export class ArchivePage implements OnInit {
   public fromPage: string;
   public archives = [];
   public investment: any;
+  public archivedInvs: any[];
 
   constructor(
     private router: Router,
@@ -29,6 +30,10 @@ export class ArchivePage implements OnInit {
   }
 
   ngOnInit() {
+    const allInvs: any[] = this.investment.user_details.subscriber.subscription;
+    console.log(allInvs);
+    this.archivedInvs = allInvs.filter(inv => inv.archive === 'YES' || inv.subscription.archive === 'YES');
+    console.log(this.archivedInvs);
   }
 
   public async openInvestementDetailsPage(inv, isArchived) {

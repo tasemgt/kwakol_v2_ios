@@ -83,6 +83,7 @@ export class HomePage implements OnInit {
   public wallet: any;
   public latestWalletTrans: any[];
   public investment: any;
+  public investmentFiltered: any;
   public homeHistories: any[];
   public homeBalance: string;
 
@@ -250,6 +251,9 @@ export class HomePage implements OnInit {
         this.wallet = this.home.wallet;
         this.latestWalletTrans = this.wallet.latest_wallet_transactions;
         this.investment = this.home.investment;
+        const allInvs: any[] = this.investment.user_details.subscriber.subscription;
+        this.investmentFiltered = allInvs.filter(inv => inv.archive === 'NO' && inv.subscription.archive === 'NO');
+        console.log(this.investmentFiltered);
         this.homeHistories = this.investment.user_details.transactions;
         this.homeBalance = this.util.numberWithCommas(
           this.investment.total_fund
@@ -912,6 +916,9 @@ Rate: ${this.home.daily_rate}`;
       console.log('Stubborn home>> ', this.home);
       this.wallet = this.home.wallet;
       this.investment = this.home.investment;
+      const allInvs: any[] = this.investment.user_details.subscriber.subscription;
+      this.investmentFiltered = allInvs.filter(inv => (inv.archive === 'NO' && inv.subscription.archive === 'NO'));
+      console.log(this.investmentFiltered);
       this.latestWalletTrans = this.wallet.latest_wallet_transactions;
       this.homeHistories = this.investment.user_details.transactions;
       this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);

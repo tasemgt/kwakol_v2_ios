@@ -9,7 +9,7 @@
 <ion-content class="page-content">
   <div class="archive-list">
     <div class="inv-row">
-        <div class="inv-wrapper" *ngFor="let inv of investment?.user_details.subscriber.subscription">
+        <div class="inv-wrapper" *ngFor="let inv of archivedInvs">
           <div class="investment-item" (click)="openInvestementDetailsPage(inv, true)">
             <!-- <div class="type-area {{ getIconForInvName(inv.subscription.name) || 'levadura-big' }}"> -->
             <div class="type-area {{ '' || 'marigold-big' }}">
@@ -27,7 +27,7 @@
             </div>
             <div class="date-wrapper">
               <p>Archive Date</p>
-              <p class="archive-date">16 Feb 2023</p>
+              <p class="archive-date">{{inv.archive_date}}</p>
             </div>
           </div>
         </div>
