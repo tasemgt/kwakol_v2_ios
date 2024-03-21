@@ -128,7 +128,7 @@
     >
       <div
         class="transaction"
-        *ngFor="let trans of latestWalletTrans | slice:0:5"
+        *ngFor="let trans of latestWalletTrans | slice:0:6"
         (click)="openInfoModal(trans.type.toLowerCase(), trans, true)"
       >
         <div class="trans-type-wrapper">
@@ -178,9 +178,10 @@
 
     <div
       class="no-transactions animate__animated animate__pulse"
-      [ngClass]="{'less-padding': wallet?.quick_transfers.length > 0, 'more-padding': wallet?.quick_transfers.length <= 0, 'mid-padding': !user?.verified_kyc}"
+      [ngClass]="{'less-padding': wallet?.quick_transfers.length > 0, 'more-padding': wallet?.quick_transfers.length <= 0}"
       *ngIf="!listSpinner && wallet?.latest_wallet_transactions?.length <= 0"
     >
+    <!-- [ngClass]="{'less-padding': wallet?.quick_transfers.length > 0, 'more-padding': wallet?.quick_transfers.length <= 0, 'mid-padding': !user?.verified_kyc}" use this line when kyc is prompted -->
       <img src="assets/imgs/cacti.svg" />
       <p>It's a bit empty here because you haven't made any transaction yet.</p>
       <div class="quick-btn-round" (click)="openDepositModal()">
@@ -188,7 +189,7 @@
       </div>
     </div>
 
-    <div class="finish-kyc" *ngIf="(home?.verified_kyc?.toLowerCase() !== 'yes')" (click)="goToKYC()">
+    <!-- <div class="finish-kyc" *ngIf="(home?.verified_kyc?.toLowerCase() !== 'yes')" (click)="goToKYC()">
       <div
         class="progress"
         [style]="'background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(var(--ion-color-primary) '+ percent +'%, rgba(var(--ion-color-secondary-rgb), 0.2) 0)'"
@@ -202,7 +203,7 @@
         <p *ngIf="home?.verified_kyc?.toLowerCase() === 'pending'">Your KYC is being reviewed</p>
         <p *ngIf="home?.verified_kyc?.toLowerCase() === 'no'">Your KYC wasn't approved</p>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- End Wallet Segment -->
 
@@ -250,7 +251,7 @@
 
       <ion-row
         class="investments-wrapper investments-green"
-        *ngIf="investment?.user_details.subscriber.subscription.length > 0"
+        *ngIf="investmentFiltered?.length > 0"
       >
         <ion-col size="2">
           <div class="add-investment-wrapper">
@@ -259,11 +260,10 @@
             </div>
           </div>
         </ion-col>
-
         <ion-col
           size="5"
-          *ngFor="let inv of investment?.user_details.subscriber.subscription"
-          [ngClass]="{'alter-margin': investment?.user_details.subscriber.subscription.length === 1}"
+          *ngFor="let inv of investmentFiltered"
+          [ngClass]="{'alter-margin': investmentFiltered?.length === 1}"
         >
           <!-- <div class="investment-item" (click)="goToInvestmentDeets(inv)"> -->
           <div

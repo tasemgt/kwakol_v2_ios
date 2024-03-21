@@ -410,7 +410,7 @@ export class UtilService {
           },
           { item: 'Reference', value: data.ref },
           // { item: 'Month', value: 'Akim John' },
-          { item: 'Profit', value: `$${data.net_profit}` },
+          data.net_profit && { item: 'Profit', value: `$${data.net_profit}` },
         ];
         infoModalData.amount = data.amount;
         infoModalData.date = `${data.date} - ${data.time}`;

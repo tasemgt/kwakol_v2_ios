@@ -2,7 +2,8 @@
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back.svg"></ion-icon>
   </div>
-  <h2 class="subpage-heading left">KYC Verification</h2>
+  <!-- <h2 class="subpage-heading left">KYC Verification</h2> -->
+  <h2 class="subpage-heading left">Set an Account Pin</h2>
 
   <div class="progress-step">
     <div class="track-circle active"></div>
@@ -16,7 +17,8 @@
 
   <div class="texts-wrapper">
     <div class="track-text">Personal Details</div>
-    <div class="track-text">KYC Verification</div>
+    <!-- <div class="track-text">KYC Verification</div> -->
+    <div class="track-text">Set Pin</div>
   </div>
 
   <div class="img-wrapper">
@@ -24,16 +26,17 @@
   </div>
 
   <ion-row class="action-row">
-    <ion-col size="12" class="ion-text-center btn-col">
+    <!-- <ion-col size="12" class="ion-text-center btn-col">
       <ion-button class="kwakol-btn ion-text-uppercase" type="submit" (click)="callMetaMap()" [disabled]="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">
         <span *ngIf="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">KYC In Progress</span>
         <span *ngIf="!kycVerified || kycVerified === 'redo'">Continue</span>
       </ion-button>
-    </ion-col>
+    </ion-col> -->
     <ion-col size="12" class="ion-text-center btn-col" *ngIf="!tempUser.has_pin">
       <ion-button class="kwakol-btn kwakol-btn-outline ion-text-uppercase" type="submit" (click)="openSetPinModal()">
-        <span *ngIf="!kycVerified || kycVerified === 'redo'">Skip to Set Pin</span>
-        <span *ngIf="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">Set Pin</span>
+        <!-- <span *ngIf="!kycVerified || kycVerified === 'redo'">Skip to Set Pin</span> -->
+        <!-- <span *ngIf="kycVerified === 'yes' || kycVerified === 'no' || kycVerified === 'pending'">Set Pin</span> -->
+        <span>Set Pin</span>
       </ion-button>
     </ion-col>
     <ion-col size="12" class="ion-text-center btn-col" *ngIf="tempUser.has_pin && !tempUser.username">
