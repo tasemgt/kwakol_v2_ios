@@ -41,6 +41,7 @@ ion-header {
     font-weight: bold;
     color: var(--ion-color-secondary);
     font-family: BwModelicaLight;
+    letter-spacing: -0.04rem; //changes for ios
     &.archive-date{
         color: rgba(var(--ion-color-secondary-rgb), 0.5);
     }
