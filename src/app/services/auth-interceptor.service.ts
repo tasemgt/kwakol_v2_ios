@@ -22,12 +22,37 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     if(url === 'https://v2.kwml.work/api/v2/create-pin'){
       console.log('here create pin');
-      return next.handle(req);
+
+      // this.checkCreatePinToken(req, next);
+
+      const token = this.dataService.getAccessToken();
+      if(!token){
+        //There is initial reg token, so skip adding a token at this stage
+        return next.handle(req);
+      }
+      else{
+        console.log('Dont skip ');
+        //Don't skip... just continue
+      }
+
       // this.storage.get('INITIAL_REG').then((resp) =>{
       //   console.log('resp>> ', resp);
-      //   if(resp.token){
+      //   if(resp){ //There is initial reg token, so skip adding a token at this stage
+      //     return next.handle(req);
       //   }
-      // }).catch((e) =>{
+      //   else{
+      //     console.log('Dont skip ', resp);
+      //     //Don't skip... just continue
+      //     const token = this.dataService.getAccessToken();
+      //     // console.log('TOKEN>> ', token);
+      //     req = req.clone({
+      //       headers: req.headers.set('Authorization', `Bearer ${token}`)
+      //     });
+      //     return next.handle(req);
+      //   }
+      // })
+      // .catch((e) =>{
+      //   console.log(e);
       // });
     }
 
@@ -58,6 +83,27 @@ export class AuthInterceptorService implements HttpInterceptor {
       return next.handle(req);
     // }
 
-
   }
+  
+  private async checkCreatePinToken(req: HttpRequest<any>, next: HttpHandler){
+    try {
+      const resp = await this.storage.get('INITIAL_REG');
+      if(resp){ //There is initial reg token, so skip adding a token at this stage
+        return next.handle(req);
+      }
+      else{
+        console.log('Dont skip ', resp);
+        //Don't skip... just continue
+        const token = this.dataService.getAccessToken();
+        // console.log('TOKEN>> ', token);
+        req = req.clone({
+          headers: req.headers.set('Authorization', `Bearer ${token}`)
+        });
+        return next.handle(req);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 }

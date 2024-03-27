@@ -87,6 +87,7 @@ export class AuthService {
       }
 
       if(!resp.has_pin || !resp.username){
+        console.log('NO PIN>>', resp);
         this.dataService.setAccessToken(resp.token);
         const message = !resp.has_pin ? 'You\'ll need to set your pin to continue to application' : 'You\'ll need to set a username to continue to application';
         this.util.showToast(message, 3000, 'warning');
@@ -144,6 +145,7 @@ export class AuthService {
   public async setPin(payload){
     try {
       const initialReg = await this.storage.get('INITIAL_REG');
+      console.log(initialReg);
       const headers = initialReg ? {'Content-Type': 'application/json', Authorization: `Bearer ${initialReg.token}`} : this.headers;
       console.log(headers);
       return this.http.post(`${this.baseUrl}/v2/create-pin`, payload, headers);

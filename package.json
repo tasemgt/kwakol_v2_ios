@@ -123,7 +123,6 @@
       "cordova-plugin-fingerprint-aio": {
         "FACEID_USAGE_DESCRIPTION": "Login now...."
       },
-      "metamap-cordova-plugin": {},
       "cordova-plugin-vibration": {},
       "cordova-plugin-x-socialsharing": {},
       "mx.ferreyra.callnumber": {}
