@@ -128,7 +128,7 @@
     >
       <div
         class="transaction"
-        *ngFor="let trans of latestWalletTrans | slice:0:6"
+        *ngFor="let trans of latestWalletTransHome"
         (click)="openInfoModal(trans.type.toLowerCase(), trans, true)"
       >
         <div class="trans-type-wrapper">

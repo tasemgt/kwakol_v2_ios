@@ -82,6 +82,7 @@ export class HomePage implements OnInit {
   public dailyRate: string;
   public wallet: any;
   public latestWalletTrans: any[];
+  public latestWalletTransHome: any[];
   public investment: any;
   public investmentFiltered: any;
   public homeHistories: any[];
@@ -250,6 +251,7 @@ export class HomePage implements OnInit {
         this.home = resp.data.home;
         this.wallet = this.home.wallet;
         this.latestWalletTrans = this.wallet.latest_wallet_transactions;
+        this.latestWalletTransHome = this.wallet?.quick_transfers.length > 0 ? this.latestWalletTrans.slice(0,5) : this.latestWalletTrans.slice(0,6);
         this.investment = this.home.investment;
         const allInvs: any[] = this.investment.user_details.subscriber.subscription;
         this.investmentFiltered = allInvs.filter(inv => inv.archive === 'NO' && inv.subscription.archive === 'NO');
@@ -926,6 +928,7 @@ Rate: ${this.home.daily_rate}`;
       this.investmentFiltered = allInvs.filter(inv => (inv.archive === 'NO' && inv.subscription.archive === 'NO'));
       console.log(this.investmentFiltered);
       this.latestWalletTrans = this.wallet.latest_wallet_transactions;
+      this.latestWalletTransHome = this.wallet?.quick_transfers.length > 0 ? this.latestWalletTrans.slice(0,5) : this.latestWalletTrans.slice(0,6);
       this.homeHistories = this.investment.user_details.transactions;
       this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
       this.homeService.setWalletBallance(this.wallet.balance);

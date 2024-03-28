@@ -401,17 +401,14 @@ export class UtilService {
         infoModalData.icon = 'trans-profit.svg';
         infoModalData.title = 'Profit';
         infoModalData.content = [
-          { item: 'Closed Trade', value: `$${data.close_trade}` },
-          { item: 'Commission', value: `$${data.commission}` },
+          data.close_trade ? { item: 'Closed Trade', value: `$${data.close_trade}` } : '',
+          data.commission ? { item: 'Commission', value: `$${data.commission}` } : '',
           { item: 'Percentage (P/L)', value: `${data.percentage}%` },
-          {
-            item: 'Opening Balance',
-            value: `$${this.numberWithCommas(data.opening_balance)}`,
-          },
+          { item: 'Opening Balance', value: `$${this.numberWithCommas(data.opening_balance)}`},
           { item: 'Reference', value: data.ref },
           // { item: 'Month', value: 'Akim John' },
-          data.net_profit && { item: 'Profit', value: `$${data.net_profit}` },
-        ];
+          data.net_profit ? { item: 'Profit', value: `$${data.net_profit}` } : '',
+        ].filter((i) => i !== '');
         infoModalData.amount = data.amount;
         infoModalData.date = `${data.date} - ${data.time}`;
         break;
