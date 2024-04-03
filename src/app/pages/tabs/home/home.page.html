@@ -145,7 +145,7 @@
             class="amount"
             [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
           >
-            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
+            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(util.roundUpDecimal(trans.amount))}}
           </div>
           <div class="trans-date">{{trans.status === 'pending' ?  'pending' : (trans.created_at | date) }}</div>
         </div>
@@ -345,7 +345,7 @@
               class="amount"
               [ngClass]="!showBalance ? 'hide-text' : 'reveal-text'"
             >
-            {{util.getAmountSign(hist.type.toLowerCase())}}${{ util.numberWithCommas(hist.amount) }}
+            {{util.getAmountSign(hist.type.toLowerCase())}}${{ util.numberWithCommas(util.roundUpDecimal(hist.amount)) }}
             </div>
             <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>

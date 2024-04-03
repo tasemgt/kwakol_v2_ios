@@ -716,7 +716,7 @@ Rate: ${this.home.daily_rate}`;
   }
 
   public async openDollarAndNairaWithdrawalModal(type: string, bank?) {
-    if(!this.canWithdrawUSD){
+    if(this.withdrawCurrentcy === 'USD' && !this.canWithdrawUSD){
       this.util.showToast('This feature requires an active investment.', 2500, 'danger');
       return;
     }

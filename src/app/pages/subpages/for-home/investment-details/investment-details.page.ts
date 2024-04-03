@@ -251,7 +251,7 @@ export class InvestmentDetailsPage implements OnInit {
     }
     const payload = {
       pin: this.pin,
-      subscription_id: this.investment.subscription_id,
+      subscription_id:  this.investment.id,//this.investment.subscription_id,
       amount: this.depositFromWalletAmount,
     };
     this.util.presentLoading();
@@ -285,7 +285,7 @@ export class InvestmentDetailsPage implements OnInit {
 
   public async makeWithdrawalToWallet() {
     const payload = {
-      subscription_id: this.investment.subscription_id,
+      subscription_id: this.investment.id,//this.investment.subscription_id,
       amount: this.withdrawAmount,
       pin: this.pin,
     };

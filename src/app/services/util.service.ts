@@ -230,6 +230,14 @@ export class UtilService {
     }
   }
 
+
+  public roundUpDecimal(num): string{
+    if(typeof num === 'string'){
+      num = num.toString().replace(/,/g, '');
+    }
+    return Number(num).toFixed(2);
+  }
+
   public hideShowPassword(passwordType: string, passwordIcon: string) {
     passwordType = passwordType === 'text' ? 'password' : 'text';
     passwordIcon = passwordIcon === 'eye-open' ? 'eye-close' : 'eye-open';
