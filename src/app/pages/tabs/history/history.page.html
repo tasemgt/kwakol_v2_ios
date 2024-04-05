@@ -97,7 +97,7 @@
       <h4>
         {{ hist.type | capitalize }}
         <span class="{{ hist.type }}">
-          ${{ util.numberWithCommas(hist.amount) }}
+          ${{ util.numberWithCommas(util.roundUpDecimal(hist.amount)) }}
         </span>
       </h4>
       <p>

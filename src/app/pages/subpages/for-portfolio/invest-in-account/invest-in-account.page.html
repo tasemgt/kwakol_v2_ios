@@ -81,7 +81,7 @@
     <ion-col size="12">
       <p class="wallet-balance">
         Wallet Balance:
-        <span>${{util.numberWithCommas(balance)}}</span>
+        <span>${{util.numberWithCommas(util.roundUpDecimal(balance))}}</span>
       </p>
     </ion-col>
   </div>

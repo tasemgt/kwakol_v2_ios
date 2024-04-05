@@ -258,7 +258,7 @@ export class HomePage implements OnInit {
         console.log(this.investmentFiltered);
         this.homeHistories = this.investment.user_details.transactions;
         this.homeBalance = this.util.numberWithCommas(
-          this.investment.total_fund
+          this.util.roundUpDecimal(this.investment.total_fund)
         );
         this.homeService.setWalletBallance(this.wallet.balance);
         this.dailyRate = this.home.daily_rate.split('₦')[1];
@@ -668,6 +668,11 @@ Rate: ${this.home.daily_rate}`;
   public async openDollarCashDepositModal() {
     this.depositDollarModal.dismiss();
     await this.dollarCashDepositModal.present();
+    const dismissed = await this.dollarCashDepositModal.onWillDismiss();
+    if(dismissed){
+      this.dollarCashAmount = '';
+    }
+
     if(this.dollarCashDepositRef?.nativeElement){
       this.dollarCashDepositRef.nativeElement.focus();
       this.keyboard.show();
@@ -924,7 +929,7 @@ Rate: ${this.home.daily_rate}`;
       this.latestWalletTrans = this.wallet.latest_wallet_transactions;
       this.latestWalletTransHome = this.wallet?.quick_transfers.length > 0 ? this.latestWalletTrans.slice(0,5) : this.latestWalletTrans.slice(0,6);
       this.homeHistories = this.investment.user_details.transactions;
-      this.homeBalance = this.util.numberWithCommas(this.investment.total_fund);
+      this.homeBalance = this.util.numberWithCommas(this.util.roundUpDecimal(this.investment.total_fund));
       this.homeService.setWalletBallance(this.wallet.balance);
       this.percent = this.home.verified_kyc ? (this.home.verified_kyc.toLowerCase() === 'pending' ? 95 : this.home.verified_kyc.toLowerCase() === 'no'? 25: 75): 75;
       this.canWithdrawUSD = this.home.can_withdraw_usd_cash;
@@ -1040,7 +1045,14 @@ Rate: ${this.home.daily_rate}`;
       const resp = await this.homeService.initiateWalletDeposit(payload);
       this.loading.dismiss();
       if (resp.code == 100) {
+
+        if(resp.data.code == 418){
+          this.util.showToast(resp.data.message, 2500, 'danger');
+          return;
+        }
+
         if (type === 'CASH') {
+          console.log(resp);
           console.log(resp.data.transaction);
           this.dollarQRPageData = resp.data.transaction;
           this.dollarCashDepositModal.dismiss(); //Dismiss cash modal if present
@@ -1062,6 +1074,10 @@ Rate: ${this.home.daily_rate}`;
         this.router.navigateByUrl('/deposit', {
           state: { url: this.router.url, data: resp.data, currency: 'dollar' },
         });
+      }
+      else{
+        this.util.showToast(resp.data, 2500, 'danger');
+        return;
       }
     } catch (error) {
       console.log(error);

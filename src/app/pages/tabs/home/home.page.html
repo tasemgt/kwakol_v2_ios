@@ -45,7 +45,7 @@
         <div class="balance">
           <p>Wallet Balance</p>
           <h2 [ngClass]="!showBalance ? 'blur-text' : 'show-text'">
-            ${{util.numberWithCommas(wallet?.balance)}}
+            ${{util.numberWithCommas(util.roundUpDecimal(wallet?.balance))}}
           </h2>
         </div>
         <div class="hidden-wrapper">
@@ -293,7 +293,7 @@
               <span
                 class="balance"
                 [ngClass]="!showBalance ? 'blur-text green' : 'show-text regular'"
-                >${{ util.numberWithCommas(addInvBalances(inv)) }}</span
+                >${{ util.numberWithCommas(util.roundUpDecimal(addInvBalances(inv))) }}</span
               >
               <!-- <span *ngIf="!showBalance" class="hidden">******</span> -->
             </h4>
@@ -507,7 +507,7 @@
                 <h3>{{inv.name}}</h3>
               </div>
             </div>
-            <h3>${{util.numberWithCommas(inv.balance)}}</h3>
+            <h3>${{util.numberWithCommas(util.roundUpDecimal(inv.balance))}}</h3>
           </div>
 
           <div
@@ -571,7 +571,7 @@
               <h3>{{selectedInvestment?.name}}</h3>
             </div>
           </div>
-          <h3>${{util.numberWithCommas(selectedInvestment?.balance)}}</h3>
+          <h3>${{util.numberWithCommas(util.roundUpDecimal(selectedInvestment?.balance))}}</h3>
         </div>
 
         <div
@@ -639,7 +639,7 @@
                 <h3>{{ben.fullname}}</h3>
               </div>
             </div>
-            <h3>${{util.numberWithCommas(ben.balance)}}</h3>
+            <h3>${{util.numberWithCommas(util.roundUpDecimal(ben.balance))}}</h3>
           </div>
           <div
             class="investment-item no-investments"
@@ -698,7 +698,7 @@
               <h3>{{selectedBeneficiary?.fullname}}</h3>
             </div>
           </div>
-          <h3>${{util.numberWithCommas(selectedBeneficiary.balance)}}</h3>
+          <h3>${{util.numberWithCommas(util.roundUpDecimal(selectedBeneficiary.balance))}}</h3>
         </div>
 
         <div
@@ -761,8 +761,8 @@
         </div>
         <p class="p0" *ngIf="typeOfTransfer === 'investment' && isInvestmentWithdrawal">Withdraw</p>
         <h3>
-          ${{util.numberWithCommas(investmentTransferAmount || withdrawalInvestmentAmount ||
-          beneficiaryTransferAmount)}}
+          ${{util.numberWithCommas(util.roundUpDecimal(investmentTransferAmount || withdrawalInvestmentAmount ||
+          beneficiaryTransferAmount))}}
         </h3>
         <p *ngIf="typeOfTransfer === 'investment'" class="p0">
           <span *ngIf="!isInvestmentWithdrawal">to</span> <span *ngIf="isInvestmentWithdrawal">from</span> the Plan <span class="plan-name">({{selectedInvestment?.name}})</span>
@@ -990,7 +990,7 @@
         </div>
         <h3>Deposit using USD Cash</h3>
 
-        <h1>${{util.numberWithCommas(dollarQRPageData?.amount)}}</h1>
+        <h1>${{util.numberWithCommas(util.roundUpDecimal(dollarQRPageData?.amount))}}</h1>
 
         <p class="p0">
           Show the cash recipient the QR code to confirm your deposit.
@@ -1204,7 +1204,7 @@
             <ion-col size="12">
               <p class="wallet-balance">
                 Wallet Balance:
-                <span>${{util.numberWithCommas(wallet?.balance)}}</span>
+                <span>${{util.numberWithCommas(util.roundUpDecimal(wallet?.balance))}}</span>
               </p>
             </ion-col>
           </ion-row>
@@ -1214,7 +1214,7 @@
           <div class="round-button">
             <ion-icon [src]="'assets/imgs/flags/nigeria.svg'"></ion-icon>
           </div>
-          <h5><del>N</del>{{util.numberWithCommas(+dollarOrNairaWithdrawAmount * +home?.daily_rate_withdrawal_raw) || '0.00'}}</h5>
+          <h5><del>N</del>{{util.numberWithCommas(util.roundUpDecimal(+dollarOrNairaWithdrawAmount * +home?.daily_rate_withdrawal_raw)) || '0.00'}}</h5>
         </div>
 
         <ion-col size="12" class="ion-text-center btn-col">
@@ -1352,7 +1352,7 @@
             <h3>{{selectedInvestment?.name}}</h3>
           </div>
         </div>
-        <h3>${{util.numberWithCommas(selectedInvestment?.balance)}}</h3>
+        <h3>${{util.numberWithCommas(util.roundUpDecimal(selectedInvestment?.balance))}}</h3>
       </div>
 
        <div
