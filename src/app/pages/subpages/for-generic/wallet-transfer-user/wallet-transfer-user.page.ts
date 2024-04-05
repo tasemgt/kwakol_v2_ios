@@ -111,6 +111,8 @@ export class WalletTransferUserPage implements OnInit {
       }
       else if(resp.code == '418'){
         console.log(resp);
+        this.closeLoadingModal(false);
+        this.util.showToast(resp.message, 2500, 'danger');
       }
     } catch (error) {
       console.log(error);
@@ -130,6 +132,7 @@ export class WalletTransferUserPage implements OnInit {
       }
       else if(resp.code === '418'){
         console.log(resp);
+
       }
     } catch (error) {
       console.log(error);

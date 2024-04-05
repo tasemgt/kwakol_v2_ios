@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="amount-date">
-            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{util.numberWithCommas(hist.amount)}}</div>
+            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{util.numberWithCommas(util.roundUpDecimal(hist.amount))}}</div>
             <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
         </div>
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div class="amount-date">
-            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{util.numberWithCommas(hist.amount)}}</div>
+            <div class="amount">{{util.getAmountSign(hist.type.toLowerCase())}}${{util.numberWithCommas(util.roundUpDecimal(hist.amount))}}</div>
             <div class="trans-date">{{hist.status === 'pending' ?  'pending' : (hist.created_at | date) }}</div>
           </div>
         </div>
@@ -97,7 +97,7 @@
       <h4>
         {{ hist.type | capitalize }}
         <span class="{{ hist.type }}">
-          ${{ util.numberWithCommas(hist.amount) }}
+          ${{ util.numberWithCommas(util.roundUpDecimal(hist.amount)) }}
         </span>
       </h4>
       <p>

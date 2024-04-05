@@ -103,6 +103,8 @@ export class DepositPage implements OnInit{
     } catch (error) {
       this.loading.dismiss();
       console.log(error);
+      error.error.code == 418 ?
+        this.util.showToast(error.error.message, 2500, 'danger') : '';
       error.status === 0 ? 
         this.util.showToast('Please check your network connection...', 3000, 'danger'): '';
         // error.status === 422 ?

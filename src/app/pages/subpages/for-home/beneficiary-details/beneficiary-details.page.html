@@ -33,7 +33,7 @@ class="info-modal reset animate__animated animate__slideInUp"
 <div class="footer">
   <div class="amount-date">
     <div class="amount">
-      {{util.getAmountSign(infoModalDataType.toLowerCase())}}${{util.numberWithCommas(infoModalData.amount)}}
+      {{util.getAmountSign(infoModalDataType.toLowerCase())}}${{util.numberWithCommas(util.roundUpDecimal(infoModalData.amount))}}
     </div>
     <div class="date">{{infoModalData.date}}</div>
   </div>
@@ -122,11 +122,11 @@ class="info-modal reset animate__animated animate__slideInUp"
     <div class="top">
       <div class="balance">
         <p>Available Balance</p>
-        <h3>${{util.numberWithCommas(beneficiary.balance)}}</h3>
+        <h3>${{util.numberWithCommas(util.roundUpDecimal((+beneficiary.balance + +stat.profit_balance)))}}</h3>
       </div>
       <div class="inv">
         <p>Beneficiary Investment</p>
-        <div class="investment levadura">
+        <div class="investment {{beneficiary.subscription_name.toLowerCase()}}">
           <!-- <div class="investment {{investment.subscription.name.toLowerCase()}}"> -->
           <div class="icon-wrapper">
             <ion-icon
@@ -200,7 +200,7 @@ class="info-modal reset animate__animated animate__slideInUp"
           <div
             class="amount"
           >
-            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(trans.amount)}}
+            {{util.getAmountSign(trans.type.toLowerCase())}}${{util.numberWithCommas(util.roundUpDecimal(trans.amount))}}
           </div>
           <div class="trans-date">{{trans.status === 'pending' ?  'pending' : (trans.created_at | date) }}</div>
         </div>
@@ -219,11 +219,11 @@ class="info-modal reset animate__animated animate__slideInUp"
         <p>Projected Performance</p>
       </div>
       <div class="stat-item">
-        <h3>{{stat.last_month_performance}}</h3>
+        <h3>{{util.numberWithCommas(util.roundUpDecimal(stat.last_month_performance.split('%')[0]))}}%</h3>
         <p>Last Month's Performance</p>
       </div>
       <div class="stat-item">
-        <h3>${{stat.profit_balance}}</h3>
+        <h3>${{util.numberWithCommas(util.roundUpDecimal(stat.profit_balance))}}</h3>
         <p>My Total Profit</p>
       </div>
       <!-- <div class="stat-item">
@@ -254,7 +254,7 @@ class="info-modal reset animate__animated animate__slideInUp"
 
         <ion-col>
           <p class="wallet-balance left">
-            Wallet Ballance: <span>${{util.numberWithCommas(walletBal)}}</span>
+            Wallet Ballance: <span>${{util.numberWithCommas(util.roundUpDecimal(walletBal))}}</span>
           </p>
         </ion-col>
 
@@ -324,7 +324,7 @@ class="info-modal reset animate__animated animate__slideInUp"
               <h3>{{beneficiary.fullname}}</h3>
             </div>
           </div>
-          <h3>${{util.numberWithCommas(beneficiary.balance)}}</h3>
+          <h3>${{util.numberWithCommas(util.roundUpDecimal(beneficiary.balance))}}</h3>
         </div>
 
         <div
