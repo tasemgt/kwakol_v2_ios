@@ -201,7 +201,7 @@ class="info-modal reset animate__animated animate__slideInUp"
   >
     <div class="stat-wrapper">
       <div class="stat-item">
-        <h3>{{histStats.stats.projected_performance}}%</h3>
+        <h3>{{histStats.stats.projected_performance || '--'}}%</h3>
         <p>Projected Performance</p>
       </div>
       <div class="stat-item">
@@ -211,6 +211,10 @@ class="info-modal reset animate__animated animate__slideInUp"
       <div class="stat-item">
         <h3>${{util.numberWithCommas(util.roundUpDecimal(histStats.stats.profit_balance))}}</h3>
         <p>My Total Profit</p>
+      </div>
+      <div class="stat-item">
+        <h3>${{util.numberWithCommas(util.roundUpDecimal(histStats.stats.balance))}}</h3>
+        <p>My Total Balance</p>
       </div>
     </div>
   </div>

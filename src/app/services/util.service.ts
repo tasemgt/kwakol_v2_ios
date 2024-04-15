@@ -332,6 +332,10 @@ export class UtilService {
     return formattedDate;
   }
 
+  public capitalize(word: String){
+    return word.slice(0,1).toUpperCase() + word.slice(1);
+  }
+
   public infoModalFunc = (type, data, infoModalData): boolean => {
     console.log('DATA', data);
     switch (type) {
@@ -341,24 +345,26 @@ export class UtilService {
           { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Deposit Type', value: data.type },
+          data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' ,
           // {
           //   item: 'Fee',
           //   value:
           //     (data.transfer_type === 'CASH' ? '$' : 'N') +
           //     (data.fee || '0.00'),
           // },
-        ];
+        ].filter((i) => i !== '');
         const invCont = [
           { item: 'Comment', value: data.comment },
+          data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' 
           // {
           //   item: 'Fee',
           //   value:
           //     (data.transfer_type === 'CASH' ? '$' : 'N') +
           //     (data.fee || '0.00'),
           // },
-        ];
-        infoModalData.icon = 'trans-deposit.svg';
-        infoModalData.title = 'Deposit';
+        ].filter((i) => i !== '');
+        infoModalData.icon = data.status === 'failed'? 'trans-failed.svg' : 'trans-deposit.svg'; 
+        infoModalData.title = 'Deposit'+(data.status === 'failed'? ' (Failed)' : '');
         infoModalData.content = data.fromWallet ? walletCont : invCont;
         infoModalData.amount = data.amount;
         infoModalData.date = `${data.date} - ${data.time}`;
@@ -370,24 +376,26 @@ export class UtilService {
           { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
           { item: 'Reference', value: data.ref },
           { item: 'Withdrawal Type', value: data.type },
+          data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' ,
           // {
           //   item: 'Fee',
           //   value:
           //     (data.transfer_type === 'CASH' ? '$' : 'N') +
           //     (data.fee || '0.00'),
           // },
-        ];
+        ].filter((i) => i !== '');
         const invContent = [
           { item: 'Comment', value: data.comment },
+          data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' ,
           // {
           //   item: 'Fee',
           //   value:
           //     (data.transfer_type === 'CASH' ? '$' : 'N') +
           //     (data.fee || '0.00'),
           // },
-        ];
-        infoModalData.icon = 'trans-withdraw.svg';
-        infoModalData.title = 'Withdrawal';
+        ].filter((i) => i !== '');
+        infoModalData.icon = data.status === 'failed'? 'trans-failed.svg' : 'trans-withdraw.svg';
+        infoModalData.title = 'Withdrawal'+(data.status === 'failed'? ' (Failed)' : '');;
         infoModalData.content = data.fromWallet
           ? walletContent
           : invContent;
@@ -415,7 +423,7 @@ export class UtilService {
           { item: 'Opening Balance', value: `$${this.numberWithCommas(this.roundUpDecimal(data.opening_balance))}`},
           { item: 'Reference', value: data.ref },
           // { item: 'Month', value: 'Akim John' },
-          data.net_profit ? { item: 'Profit', value: `$${this.numberWithCommas(this.roundUpDecimal(data.net_profit))}` } : '',
+          // data.net_profit ? { item: 'Profit', value: `$${this.numberWithCommas(this.roundUpDecimal(data.net_profit))}` } : '',
         ].filter((i) => i !== '');
         infoModalData.amount = data.amount;
         infoModalData.date = `${data.date} - ${data.time}`;
