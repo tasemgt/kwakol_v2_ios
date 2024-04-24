@@ -132,7 +132,7 @@
         <div class="img-wrapper">
           <div class="round-button">
             <ion-icon
-              [src]="'assets/icon/inv-type/'+ (getIconForInvName(account.name.toLowerCase()) || 'special-big') +'.svg'"
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(util.filterInvestmentName(account.name)) || 'special-big') +'.svg'"
             ></ion-icon>
           </div>
         </div>

@@ -191,6 +191,10 @@ export class InvestmentDetailsPage implements OnInit {
       this.withdrawAmountRef.nativeElement.focus();
       this.keyboard.show();
     }
+    const data = this.withdrawToWalletModal.willDismiss;
+    if(data){
+      this.withdrawAmount = '';
+    }
   }
 
   public async openEnterDepositFromWalletAmount() {
@@ -198,6 +202,10 @@ export class InvestmentDetailsPage implements OnInit {
     if (this.doDepositFromWalletRef?.nativeElement) {
       this.doDepositFromWalletRef.nativeElement.focus();
       this.keyboard.show();
+    }
+    const data = this.doDepositFromWalletModal.willDismiss;
+    if(data){
+      this.depositFromWalletAmount = '';
     }
   }
 
@@ -298,7 +306,7 @@ export class InvestmentDetailsPage implements OnInit {
         console.log(resp.message);
         this.pinEnterModal.dismiss();
         this.openLoadingModal('alert');
-        this.investment.balance = +this.investment.balance - +this.withdrawAmount +'';//update the investment balance on the page
+        // this.investment.balance = (+this.investment.balance + +this.histStats.stats.profit_balance) - +this.withdrawAmount +'';//update the investment balance on the page
         this.subscriptionService.getBalanceSubject().next(true);
         this.doGetInvestmentDetails();
         this.pin = '';
@@ -375,6 +383,7 @@ export class InvestmentDetailsPage implements OnInit {
       const resp = await this.homeService.getInvestmentHistory(this.investment.id);
       if (resp.code == '100') {
         this.histStats = resp.data;
+        console.log(this.histStats);
       }
       else{
         console.log(resp);

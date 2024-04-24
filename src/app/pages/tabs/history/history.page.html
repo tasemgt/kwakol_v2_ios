@@ -46,7 +46,8 @@
       <div class="transactions-list no-border">
         <div class="transaction" *ngFor="let hist of wH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist, true)">
           <div class="trans-type-wrapper">
-            <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
+            <ion-icon *ngIf="hist.status !== 'failed'" [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
+            <ion-icon *ngIf="hist.status === 'failed'" [src]="'assets/icon/v2-icons/trans-failed.svg'"></ion-icon>
             <div class="trans-type">
               <h3>{{hist.type | capitalize}}</h3>
               <p class="trans-type-p">{{hist.comment?.length > 45 ? hist.comment.slice(0,45)+'...' : hist.comment}}</p>
@@ -68,7 +69,8 @@
       <div class="transactions-list no-border">
         <div class="transaction" *ngFor="let hist of iH.transactions" (click)="openInfoModal(hist.type.toLowerCase(), hist, false)">
           <div class="trans-type-wrapper">
-            <ion-icon [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
+            <ion-icon *ngIf="hist.status !== 'failed'" [src]="'assets/icon/v2-icons/'+getIconForType(hist.type.toLowerCase())+'.svg'"></ion-icon>
+            <ion-icon *ngIf="hist.status === 'failed'" [src]="'assets/icon/v2-icons/trans-failed.svg'"></ion-icon>
             <div class="trans-type">
               <h3>{{hist.type | capitalize}}</h3>
               <p class="trans-type-p">{{hist.comment?.length > 45 ? hist.comment.slice(0,45)+'...' : hist.comment}}</p>
