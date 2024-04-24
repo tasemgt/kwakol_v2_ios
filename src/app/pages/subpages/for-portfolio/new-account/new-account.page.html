@@ -16,8 +16,8 @@
       <p>{{ account.description }}</p>
     </div> -->
 
-    <div class="account {{account.name.toLowerCase()}}" *ngFor="let account of accounts" (click)="addNewAccount(account)">
-      <img [src]="'assets/imgs/investment-types/'+ (getInvestmentBannerFromName(account.name) || 'special-big') +'.svg'" alt="">
+    <div class="account {{util.filterInvestmentName(account.name)}}" *ngFor="let account of accounts" (click)="addNewAccount(account)">
+      <img [src]="'assets/imgs/investment-types/'+ (getInvestmentBannerFromName(util.filterInvestmentName(account.name)) || 'special-big') +'.svg'" alt="">
       <div>
         <h3>{{ account.name }}</h3>
         <p class="p0">{{ account.description }}</p>

@@ -118,14 +118,14 @@ class="info-modal reset animate__animated animate__slideInUp"
     <div class="top">
       <div class="balance">
         <p>Available Balance</p>
-        <h3>${{util.numberWithCommas(util.roundUpDecimal((+investment.balance + +histStats.stats.profit_balance)))}}</h3>
+        <h3>${{util.numberWithCommas(util.roundUpDecimal((+histStats.stats.balance + +histStats.stats.profit_balance)))}}</h3>
       </div>
       <div class="inv">
         <p>Investment</p>
-        <div class="investment {{investment.subscription.name.toLowerCase()}}">
+        <div class="investment {{util.filterInvestmentName(investment.subscription.name)}}">
           <div class="icon-wrapper">
             <img
-              [src]="'assets/icon/inv-type/'+ (getIconForInvName(investment.subscription.name.toLowerCase()) || 'special-big') +'.png'"
+              [src]="'assets/icon/inv-type/'+ (getIconForInvName(util.filterInvestmentName(investment.subscription.name)) || 'special-big') +'.png'"
             >
           </div>
           {{investment.subscription.name}}
@@ -319,7 +319,7 @@ class="info-modal reset animate__animated animate__slideInUp"
               <h3>{{investment.subscription.name}}</h3>
             </div>
           </div>
-          <h3>${{util.numberWithCommas(util.roundUpDecimal(investment.balance))}}</h3>
+          <h3>${{util.numberWithCommas(util.roundUpDecimal(+histStats.stats.balance + +histStats.stats.profit_balance))}}</h3>
         </div>
 
         <div

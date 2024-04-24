@@ -336,13 +336,19 @@ export class UtilService {
     return word.slice(0,1).toUpperCase() + word.slice(1);
   }
 
+
+  public filterInvestmentName(inv: String){
+    return inv.split('(')[0].trim().toLowerCase();
+  }
+
+
   public infoModalFunc = (type, data, infoModalData): boolean => {
     console.log('DATA', data);
     switch (type) {
       case 'deposit':
         const walletCont = [
           { item: 'Account Name', value: data.fullname },
-          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
+          data.transfer_type !== 'investment'? { item: 'Bank Name', value: data.bank_account_name || 'Cash' }: '',
           { item: 'Reference', value: data.ref },
           { item: 'Deposit Type', value: data.type },
           data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' ,

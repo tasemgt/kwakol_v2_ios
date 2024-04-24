@@ -132,9 +132,8 @@
         (click)="openInfoModal(trans.type.toLowerCase(), trans, true)"
       >
         <div class="trans-type-wrapper">
-          <ion-icon
-            [src]="'assets/icon/v2-icons/'+getIconForType(trans.type.toLowerCase())+'.svg'"
-          ></ion-icon>
+          <ion-icon *ngIf="trans.status !== 'failed'" [src]="'assets/icon/v2-icons/'+getIconForType(trans.type.toLowerCase())+'.svg'"></ion-icon>
+          <ion-icon *ngIf="trans.status === 'failed'" [src]="'assets/icon/v2-icons/trans-failed.svg'"></ion-icon>
           <div class="trans-type">
             <h3>{{trans.type | capitalize}}</h3>
             <p class="trans-type-p">{{trans.comment}}</p>
@@ -332,9 +331,8 @@
           (click)="openInfoModal(hist.type.toLowerCase(), hist, false)"
         >
           <div class="trans-type-wrapper">
-            <ion-icon
-              [src]="'assets/icon/v2-icons/'+getIconForType(hist.type)+'.svg'"
-            ></ion-icon>
+            <ion-icon *ngIf="hist.status !== 'failed'" [src]="'assets/icon/v2-icons/'+getIconForType(hist.type)+'.svg'"></ion-icon>
+            <ion-icon *ngIf="hist.status === 'failed'" [src]="'assets/icon/v2-icons/trans-failed.svg'"></ion-icon>
             <div class="trans-type">
               <h3>{{ hist.type | capitalize }}</h3>
               <p class="trans-type-p">{{hist.comment.slice(0,50).length > 50 ? hist.comment.slice(0,45)+'...' :hist.comment.slice(0,45)}}</p>

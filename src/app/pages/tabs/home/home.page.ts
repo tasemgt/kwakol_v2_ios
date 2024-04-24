@@ -496,7 +496,7 @@ Rate: ${this.home.daily_rate}`;
       // this.listSpinner = true;
       if (resp.code == 100) {
         this.myInvestments = resp.data;
-        this.myInvestments = this.myInvestments.filter((inv) => inv.status === 'active'); //return and display only active investments
+        this.myInvestments = this.myInvestments.filter((inv) => inv.status === 'active' && inv.user_subscription_archive === 'NO'); //return and display only active and non archived investments
       }
       if (this.myInvestments.length <= 1) {
         this.investmentTransferModal.initialBreakpoint = 0.3; //If no investment

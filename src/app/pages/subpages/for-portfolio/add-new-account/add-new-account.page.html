@@ -1,9 +1,9 @@
-<ion-header class="{{account.name.toLowerCase()}}">
+<ion-header class="{{util.filterInvestmentName(account.name)}}">
   <div class="back-button" [routerLink]="fromPage" routerDirection="back">
     <ion-icon src="assets/icon/arrow-back-white.svg"></ion-icon>
   </div>
   <h2 class="subpage-heading left down">{{ account.name }}</h2>
-  <img [src]="'assets/imgs/investment-types/'+ account.name.toLowerCase() + '-lg.svg'" alt="">
+  <img [src]="'assets/imgs/investment-types/'+ util.filterInvestmentName(account.name) + '-lg.svg'" alt="">
 </ion-header>
 
 <ion-content class="page-content">
