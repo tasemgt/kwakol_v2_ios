@@ -1103,7 +1103,7 @@ Rate: ${this.home.daily_rate}`;
         this.chooseDollarBankAccountModal.dismiss();
         this.uiService
           .getLoadingStateSubject()
-          .next({ active: true, data: { type: 'withdraw', data: {} } });
+          .next({ active: true, data: { type: this.typeOfWithdrawal === 'cash'? 'withdraw': 'withdraw_bank', data: {} } });
         this.pin = '';
       } else if (resp.code == '418') {
         console.log(resp);
