@@ -74,14 +74,17 @@ h2.subpage-heading.left {
 
         &.junzi {
           background: #295513;
+          color: (var(--ion-color-tertiary-rgb), 0.8);
         }
 
         &.antipasto {
           background: #41b651;
+          color: (var(--ion-color-tertiary-rgb), 0.8);
         }
 
         &.veterano {
           background: #5e5d5c;
+          color: (var(--ion-color-tertiary-rgb), 0.8);
         }
 
         .icon-wrapper {

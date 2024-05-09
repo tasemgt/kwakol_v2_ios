@@ -175,9 +175,8 @@ class="info-modal reset animate__animated animate__slideInUp"
         (click)="openInfoModal(trans.type.toLowerCase(), trans)"
       >
         <div class="trans-type-wrapper">
-          <ion-icon
-            [src]="'assets/icon/v2-icons/'+getIconForType(trans.type.toLowerCase())+'.svg'"
-          ></ion-icon>
+          <ion-icon *ngIf="trans.status !== 'failed'" [src]="'assets/icon/v2-icons/'+getIconForType(trans.type.toLowerCase())+'.svg'"></ion-icon>
+          <ion-icon *ngIf="trans.status === 'failed'" [src]="'assets/icon/v2-icons/trans-failed.svg'"></ion-icon>
           <div class="trans-type">
             <h3>{{trans.type | capitalize}}</h3>
             <p class="trans-type-p">
