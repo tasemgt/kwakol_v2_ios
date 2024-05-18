@@ -242,7 +242,7 @@ export class OnboardingPage implements OnInit {
       return;
     }
     try {
-      this.notification_id = '12345'; //Comment this out for production.
+      // this.notification_id = '12345'; //Comment this out for production.
       console.log('Notification ID before send ', this.notification_id);
       if (!this.notification_id) {
         await this.getOneSignalPlayerID();
@@ -266,12 +266,15 @@ export class OnboardingPage implements OnInit {
       if (err.status === 401) {
         this.util.showToast('Email or password incorrect. Please enter the correct details.', 3000, 'danger');
       }
-      if (err.status === 0 || err.status === -3 || err.status === 500) {
+      else if (err.status === 0 || err.status === -3 || err.status === 500) {
         this.util.showToast(
           'Ooops! something went wrong, please check your connection and try again.',
           3000,
           'danger'
         );
+      }
+      else{
+        this.util.showToast('Try again please...', 3000, 'danger');
       }
       if (err.status === 500) {
         console.log('Error from server,: ', err.status);

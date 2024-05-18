@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.kwakolfund.mobile" version="2.1.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Kwakol Funds</name>
+<widget id="io.kwakolfund.mobile.test" version="2.1.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Kwakol Funds Test</name>
     <description>An Investment Application</description>
     <author email="tasemgt@gmail.com" href="">Horizon Africa</author>
     <content src="index.html" />
