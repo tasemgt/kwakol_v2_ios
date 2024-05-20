@@ -29,6 +29,14 @@ export class ProfileService {
     return this.http.get(`${this.baseUrl}/v1/reset-password/${email}`, {}, this.headers);
   }
 
+  public initiateResetPin(): Promise<any>{
+    return this.http.get(`${this.baseUrl}/v2/pin-reset`, {}, this.headers);
+  }
+  
+  public finishResetPin(payload): Promise<any>{
+    return this.http.post(`${this.baseUrl}/v2/pin-reset`, payload, this.headers);
+  }
+  
   public updatePin(payload): Promise<any>{
     return this.http.post(`${this.baseUrl}/v2/update-pin`, payload, this.headers);
   }

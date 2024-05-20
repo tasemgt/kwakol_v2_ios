@@ -1111,7 +1111,7 @@ Rate: ${this.home.daily_rate}`;
         this.chooseDollarBankAccountModal.dismiss();
         this.uiService
           .getLoadingStateSubject()
-          .next({ active: true, data: { type: 'withdraw', data: {} } });
+          .next({ active: true, data: { type: this.typeOfWithdrawal === 'cash'? 'withdraw': 'withdraw_bank', data: {} } });
         setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
         this.pin = '';
       } else if (resp.code == '418') {

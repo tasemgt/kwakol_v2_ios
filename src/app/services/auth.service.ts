@@ -82,7 +82,7 @@ export class AuthService {
       if(resp.new_user === 'YES'){
         this.dataService.setAccessToken(resp.token);
         this.util.showToast('Successful! Kindly reset your password to continue...', 3000, 'success');
-        this.router.navigateByUrl('/change-password', {state: {url: this.router.url, user: resp, fromLogin: true}});
+        this.router.navigateByUrl('/change-password', {state: {url: '/onboarding', user: resp, fromLogin: true}});
         return;
       }
 

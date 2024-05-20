@@ -105,7 +105,8 @@
           *ngIf="loadingModalType !== 'confirm' 
           && loadingModalType !== 'pin' 
           && loadingModalType !== 'logout'
-          && loadingModalType !== 'no'" 
+          && loadingModalType !== 'no' 
+          && loadingModalType !== 'withdraw_bank'" 
           src="assets/imgs/v2-imgs/hour-glass.svg" alt="">
         </ion-icon> -->
 
@@ -129,6 +130,13 @@
           alt=""
         ></ion-icon> -->
 
+        <ion-icon
+          *ngIf="loadingModalType === 'withdraw_bank'"
+          src="assets/imgs/v2-imgs/img-cash.svg"
+          class="animate__animated animate__slideInLeft animate__faster"
+          alt=""
+        ></ion-icon>
+
         <p class="loading-text" *ngIf="loadingModalType === 'inactive'">
           Your investment request for <span class="bolder">{{loadingModalData.plan}}</span> is being reviewed. You will get a notification
           once it is approved.
@@ -140,6 +148,9 @@
         <p class="loading-text" *ngIf="loadingModalType === 'withdraw'">
           Your cash withdrawal is being processed. You will get a notification
           once it is ready for pickup.
+        </p>
+        <p class="loading-text" *ngIf="loadingModalType === 'withdraw_bank'">
+          Your funds are on the way
         </p>
         <p class="loading-text" *ngIf="loadingModalType === 'confirm'">
           Withdrawing from an active investment <br />

@@ -48,7 +48,9 @@ export class ProfilePage implements OnInit {
   public otp5: string;
   public otp6: string;
 
+  public otpFinalVal = '';
   public otpComplete = false;
+  public otpWasUsed = false;
 
   public pinResendSecs = 59;
   public resendOTPText = 'Resend OTP in';
@@ -345,15 +347,36 @@ export class ProfilePage implements OnInit {
         );
         return;
       }
-      const payload = {
-        pin: this.currentPin,
-        new_pin: this.newPin,
-        new_pin_confirmation: this.confirmPin,
-      };
+
+      let payload;
+
+      if(this.otpWasUsed){
+        //This implies that user reset his pin first before changing the pin.
+        payload = {
+          otp: this.otpFinalVal,
+          pin: this.newPin,
+          pin_confirmation: this.confirmPin
+        };
+      }
+      else{
+        //Here user does not reset pin but goes straight to change...
+        payload = {
+          pin: this.currentPin,
+          new_pin: this.newPin,
+          new_pin_confirmation: this.confirmPin,
+        };
+      }
+
       console.log(payload);
       this.util.presentLoading();
       try {
-        const resp = await this.profileService.updatePin(payload);
+        let resp;
+        if(this.otpWasUsed){
+          resp = await this.profileService.finishResetPin(payload);
+        }
+        else{
+          resp = await this.profileService.updatePin(payload);
+        }
         this.loading.dismiss();
         if (resp.code == 100) {
           // this.util.showToast('Pin set successfully', 3000, 'success');
@@ -362,6 +385,8 @@ export class ProfilePage implements OnInit {
             .getLoadingStateSubject()
             .next({ active: true, data: { type: 'pin', data: null } });
           setTimeout(() => this.uiService.getLoadingStateSubject().next(null),100); //takes care of bug that still opens the alert modal on ios
+          this.otpWasUsed = false;
+          this.otpFinalVal = '';
         } else {
           this.setPinModal.dismiss();
           this.util.showToast(resp.data, 3000, 'danger');
@@ -369,6 +394,7 @@ export class ProfilePage implements OnInit {
       } catch (error) {
         console.log('FAILED>', error);
         this.loading.dismiss();
+        this.util.showToast('Your pin could not be changed. Kindly contact support.', 2000, 'danger');
       }
     }
   }
@@ -376,6 +402,7 @@ export class ProfilePage implements OnInit {
   public async openOTPModal() {
     this.setPinModal.dismiss();
     this.otpModal.present();
+    this.callingForOTP();
     this.countTimerValue = this.countdownTimer();
     await this.otpModal.onDidDismiss();
     this.otp = '';
@@ -411,10 +438,12 @@ export class ProfilePage implements OnInit {
   public async verifyOTP() {
     this.util.presentLoading();
     setTimeout(() => {
+      this.otpWasUsed = true;
+      this.otpFinalVal = this.otp;
       this.loading.dismiss();
       this.otpModal.dismiss();
       this.openSetPinModal('reset');
-    }, 1000);
+    }, 1500);
     // try {
     //   const resp = await this.auth.registerConfirm(this.otp, this.initialToken);
     //   this.loading.dismiss();
@@ -454,6 +483,7 @@ export class ProfilePage implements OnInit {
       if (this.pinResendSecs === 1) {
         clearInterval(timer);
         console.log('Time is up!');
+        this.callingForOTP();
         setTimeout(() => {
           this.isResendingOTP = true;
           this.resendOTPText = 'Resending OTP...';
@@ -479,4 +509,13 @@ export class ProfilePage implements OnInit {
     // });
   }
 
+  private async callingForOTP(){
+    try {
+      const resp = await this.profileService.initiateResetPin();
+      console.log(resp);
+    } catch (error) {
+      console.log(error);
+      this.util.showToast('OTP wasn\'t sent. Please try again.', 2000, 'danger');
+    }
+  }
 }

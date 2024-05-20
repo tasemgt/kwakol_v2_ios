@@ -347,10 +347,10 @@ export class UtilService {
     switch (type) {
       case 'deposit':
         const walletCont = [
-          { item: 'Account Name', value: data.fullname },
-          data.transfer_type !== 'investment'? { item: 'Bank Name', value: data.bank_account_name || 'Cash' }: '',
+          data.transfer_type !== 'CASH'? (data.bank_account ? { item: 'Account Name', value: data.bank_account } : '') : '',
+          data.transfer_type !== 'CASH'?  (data.bank_account_name ? (data.transfer_type !== 'investment'? { item: 'Bank Name', value: data.bank_account_name || 'Cash' }: '') : '') : '',
           { item: 'Reference', value: data.ref },
-          { item: 'Deposit Type', value: data.type },
+          { item: 'Deposit Type', value: data.comment },
           data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' ,
           // {
           //   item: 'Fee',
@@ -377,11 +377,11 @@ export class UtilService {
         break;
       case 'withdrawal':
         const walletContent = [
-          { item: 'Account Name', value: data.fullname },
-          { item: 'Account Number', value: data.bank_account || 'Cash' },
-          { item: 'Bank Name', value: data.bank_account_name || 'Cash' },
+          data.transfer_type !== 'CASH'? { item: 'Account Name', value: data.fullname }: '',
+          data.transfer_type !== 'CASH'? { item: 'Account Number', value: data.bank_account || 'Cash' }: '',
+          data.transfer_type !== 'CASH'? { item: 'Bank Name', value: data.bank_account_name || 'Cash' }: '',
           { item: 'Reference', value: data.ref },
-          { item: 'Withdrawal Type', value: data.type },
+          { item: 'Withdrawal Type', value: data.comment },
           data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' ,
           // {
           //   item: 'Fee',
