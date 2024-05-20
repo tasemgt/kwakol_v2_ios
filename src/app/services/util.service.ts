@@ -347,8 +347,8 @@ export class UtilService {
     switch (type) {
       case 'deposit':
         const walletCont = [
-          data.transfer_type !== 'CASH'? { item: 'Account Name', value: data.bank_account || '--' }: '',
-          data.transfer_type !== 'CASH'? (data.transfer_type !== 'investment'? { item: 'Bank Name', value: data.bank_account_name || 'Cash' }: ''): '',
+          data.transfer_type !== 'CASH'? (data.bank_account ? { item: 'Account Name', value: data.bank_account } : '') : '',
+          data.transfer_type !== 'CASH'?  (data.bank_account_name ? (data.transfer_type !== 'investment'? { item: 'Bank Name', value: data.bank_account_name || 'Cash' }: '') : '') : '',
           { item: 'Reference', value: data.ref },
           { item: 'Deposit Type', value: data.comment },
           data.status? { item: 'Status', value:  this.capitalize(data.status)} : '' ,
