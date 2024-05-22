@@ -260,7 +260,7 @@ export class InvestmentDetailsPage implements OnInit {
     const payload = {
       pin: this.pin,
       subscription_id:  this.investment.id,//this.investment.subscription_id,
-      amount: this.depositFromWalletAmount,
+      amount: Math.abs(+this.depositFromWalletAmount),
     };
     this.util.presentLoading();
     console.log(payload);
@@ -294,7 +294,7 @@ export class InvestmentDetailsPage implements OnInit {
   public async makeWithdrawalToWallet() {
     const payload = {
       subscription_id: this.investment.id,//this.investment.subscription_id,
-      amount: this.withdrawAmount,
+      amount: Math.abs(+this.withdrawAmount),
       pin: this.pin,
     };
     this.util.presentLoading();

@@ -122,7 +122,7 @@ export class WalletTransferUserPage implements OnInit {
     const payload = {
       pin: this.pin,
       user: this.transferUser.email,
-      amount: this.sendAmount
+      amount: Math.abs(+this.sendAmount)
     };
     this.openLoadingModal();
     console.log(payload);

@@ -79,7 +79,9 @@ export class DepositPage implements OnInit{
 
     const formData = new FormData();
 
-    const amount = this.depositAmount.replace(/,/g, "");
+    let amount = this.depositAmount.replace(/,/g, "");
+    amount = Math.abs(+amount)+ '';
+
 
     formData.append('amount', amount);
     formData.append('proof_of_payment', this.receipt);

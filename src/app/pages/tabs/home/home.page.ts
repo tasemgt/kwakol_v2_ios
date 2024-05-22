@@ -688,7 +688,7 @@ Rate: ${this.home.daily_rate}`;
     const payload = {
       currency: 'USD',
       type: 'CASH',
-      amount: this.dollarCashAmount,
+      amount: Math.abs(+this.dollarCashAmount),
     };
 
     this.doInitialDollarDeposit(payload, payload.type);
@@ -876,7 +876,7 @@ Rate: ${this.home.daily_rate}`;
   public async makeInvestmentWithdrawal(){
     const payload = {
       subscription_id: this.selectedInvestment.subscription_id,
-      amount: this.withdrawalInvestmentAmount,
+      amount: Math.abs(+this.withdrawalInvestmentAmount),
       pin: this.pin
     };
     this.util.presentLoading();
@@ -966,7 +966,7 @@ Rate: ${this.home.daily_rate}`;
     const payload = {
       pin: this.pin,
       subscription_id: this.selectedInvestment.subscription_id,
-      amount: this.investmentTransferAmount,
+      amount: Math.abs(+this.investmentTransferAmount),
     };
     this.util.presentLoading();
     console.log(payload);
@@ -1006,7 +1006,7 @@ Rate: ${this.home.daily_rate}`;
     const payload = {
       pin: this.pin,
       // subscription: '',
-      amount: this.beneficiaryTransferAmount,
+      amount: Math.abs(+this.beneficiaryTransferAmount),
       beneficiary_id: this.selectedBeneficiary.beneficiary_id,
     };
 
@@ -1088,7 +1088,7 @@ Rate: ${this.home.daily_rate}`;
   //Calls the wallet withdrawal api to finish withdrawal process
   private async doWalletWithdrawal() {
     const payload = {
-      amount: this.dollarOrNairaWithdrawAmount,
+      amount: Math.abs(+this.dollarOrNairaWithdrawAmount),
       exchange_rate: this.dailyRate,
       bank_account_id: this.selectedBank?.id || '1', // '1' for dollar cash so api doesn't break
       type: this.typeOfWithdrawal,
@@ -1103,7 +1103,7 @@ Rate: ${this.home.daily_rate}`;
         this.chooseDollarBankAccountModal.dismiss();
         this.uiService
           .getLoadingStateSubject()
-          .next({ active: true, data: { type: this.typeOfWithdrawal === 'cash'? 'withdraw': 'withdraw_bank', data: {} } });
+          .next({ active: true, data: { type: this.typeOfWithdrawal === 'cash'? 'withdraw': 'withdraw_bank', data: {} }});
         this.pin = '';
       } else if (resp.code == '418') {
         console.log(resp);

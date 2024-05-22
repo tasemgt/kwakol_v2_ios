@@ -242,7 +242,7 @@ export class BeneficiaryDetailsPage implements OnInit {
     const payload = {
       pin: this.pin,
       // subscription: '',
-      amount: this.depositFromWalletToBeneficiaryAmount,
+      amount: Math.abs(+this.depositFromWalletToBeneficiaryAmount),
       beneficiary_id: this.beneficiary.beneficiary_id,
     };
     this.util.presentLoading();
@@ -278,7 +278,7 @@ export class BeneficiaryDetailsPage implements OnInit {
   public async makeWithdrawalToWallet() {
     const payload = {
       beneficiary_id: this.beneficiary.beneficiary_id,
-      amount: this.withdrawAmount,
+      amount: Math.abs(+this.withdrawAmount),
       pin: this.pin,
     };
     this.util.presentLoading();
