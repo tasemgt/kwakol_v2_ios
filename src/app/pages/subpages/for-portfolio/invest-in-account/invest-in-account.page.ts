@@ -160,7 +160,7 @@ export class InvestInAccountPage implements OnInit {
     const payload = {
       name: `${this.beneficiary.firstname.trim()} ${this.beneficiary.lastname.trim()}`,
       subscription: this.account.id,
-      amount: this.ammount.trim(),
+      amount: Math.abs(+this.ammount.trim()),
       pin: this.pin,
     };
     console.log(payload);
@@ -188,7 +188,7 @@ export class InvestInAccountPage implements OnInit {
       custom_name: this.customName,
       subscription: `${this.account.id}`,
       pin: this.pin,
-      amount: this.ammount,
+      amount: Math.abs(+this.ammount),
     };
     console.log(payload);
     this.util.presentLoading();
