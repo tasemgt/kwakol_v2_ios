@@ -1107,11 +1107,16 @@ Rate: ${this.home.daily_rate}`;
         this.pin = '';
       } else if (resp.code == '418') {
         console.log(resp);
+        this.pin = '';
+        this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
+        this.pinEnterModalWithdrawal.dismiss();
+        this.util.showToast(resp.message, 3500, 'danger');
       }
     } catch (error) {
       this.loading.dismiss();
       this.pin = '';
       this.uiService.getClearPinStateSubject().next(true); //Clear keypad state
+      this.pinEnterModalWithdrawal.dismiss();
       this.util.showToast(error.error.message, 2000, 'danger');
     }
   }

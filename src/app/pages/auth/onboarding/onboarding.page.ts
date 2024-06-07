@@ -274,7 +274,7 @@ export class OnboardingPage implements OnInit {
         );
       }
       else{
-        this.util.showToast('Try again please...', 3000, 'danger');
+        this.util.showToast('An error occured. Try again please...', 3000, 'danger');
       }
       if (err.status === 500) {
         console.log('Error from server,: ', err.status);
